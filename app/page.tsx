@@ -21,7 +21,7 @@ export default function Page() {
       <Select
         options={options}
         defaultValue={region}
-        onChange={(value) => value ? setRegion(region) : null}
+        onChange={(value) => value ? setRegion(value) : null}
       />
       <div>{region.value}</div> 
       <Link href={{ pathname: "result", query: { region: region.value }}}>探索結果</Link>
