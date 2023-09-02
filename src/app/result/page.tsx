@@ -1,10 +1,7 @@
 
 import { getVillages } from '@/lib/repositories/villageRepository'
-import { useSearchParams } from 'next/navigation'
 
 const Page = async ({ searchParams }) => {
-
-  // const params = useSearchParams()
   const villages = await getVillages(searchParams.region);
   return (
     <>
@@ -14,7 +11,8 @@ const Page = async ({ searchParams }) => {
       {/* <div>{villages[0].name}</div> */}
       <ul>
         {villages.map((village, index) => (
-          <li key={index}>{village.pref} {village.city} {village.district}</li>
+          <li key={index}>{index + 1}位: {village.pref} {village.city} {village.district}</li>
+          // <li key={index}>{typeof(village)} {village.pref} hoge</li>
         ))}
       </ul>
     </>
