@@ -10,7 +10,7 @@ const options = [
   { value: '秋田県', label: '秋田県' },
 ]
 
-const VillageSearchForm = () => {
+export default function VillageSearchForm() {
   const [region, setRegion] = useState(options[0])
 
   return (
@@ -28,5 +28,3 @@ const VillageSearchForm = () => {
 
 
 }
-
-export default VillageSearchForm
