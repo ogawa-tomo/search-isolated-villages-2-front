@@ -14,7 +14,7 @@ const Page = async ({ searchParams }) => {
       {/* <div>{villages[0].name}</div> */}
       <ul>
         {villages.map((village, index) => (
-          <li key={index}>{village.name}</li>
+          <li key={index}>{village.pref} {village.city} {village.district}</li>
         ))}
       </ul>
     </>
