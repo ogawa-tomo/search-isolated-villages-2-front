@@ -85,19 +85,19 @@ const groupedOptions = [
 ];
 
 export default function VillageSearchForm() {
-  const [region, setRegion] = useState(prefOptions[0])
+  const [region, setRegion] = useState(null)
 
   return (
     <>
       <h2>探索条件</h2>
       <Select
-        defaultValue={region}
-        
+        placeholder='地域を選択'
+        defaultValue={null}
+        isSearchable
         options={groupedOptions}
         onChange={(value) => value ? setRegion(value) : null}
       />
-      <div>{region.value}</div> 
-      <Link href={{ pathname: "result", query: { region: region.value }}}>探索結果</Link>
+      <Link href={{ pathname: "result", query: { region: region?.value }}}>探索結果</Link>
     </>
   )
 
