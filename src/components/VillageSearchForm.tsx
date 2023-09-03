@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import Select from 'react-select';
+import { useRouter } from 'next/navigation'
 
 
 
@@ -84,8 +85,15 @@ const groupedOptions = [
   },
 ];
 
+const searchPath = (region: string) => {
+  const params = new URLSearchParams()
+  params.append('region', region)
+  return `/result?${params.toString()}`
+}
+
 export default function VillageSearchForm() {
   const [region, setRegion] = useState(null)
+  const router = useRouter()
 
   return (
     <>
@@ -97,7 +105,13 @@ export default function VillageSearchForm() {
         options={groupedOptions}
         onChange={(value) => value ? setRegion(value) : null}
       />
-      <Link href={{ pathname: "result", query: { region: region?.value }}}>探索結果</Link>
+      <button
+        type="button"
+        onClick={() => router.push(searchPath(region?.value))}
+        disabled={!region}
+      >
+        探索
+      </button>
     </>
   )
 
