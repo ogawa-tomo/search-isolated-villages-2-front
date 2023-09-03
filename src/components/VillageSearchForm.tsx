@@ -91,7 +91,7 @@ const searchPath = (region: string) => {
   return `/result?${params.toString()}`
 }
 
-export default function VillageSearchForm() {
+const VillageSearchForm = () => {
   const [region, setRegion] = useState(null)
   const router = useRouter()
 
@@ -114,6 +114,6 @@ export default function VillageSearchForm() {
       </button>
     </>
   )
-
-
 }
+
+export default VillageSearchForm
