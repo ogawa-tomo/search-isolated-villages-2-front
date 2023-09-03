@@ -1,6 +1,10 @@
 
-const fetchVillages = async (region: string) => {
-  const query = new URLSearchParams({ region })
+type villageSearchParams = {
+  region: string
+}
+
+const fetchVillages = async (params: villageSearchParams) => {
+  const query = new URLSearchParams(params)
   const response = await fetch(
     `http://localhost:5000/api/result?${query}`,{
       method: 'GET',
@@ -11,7 +15,7 @@ const fetchVillages = async (region: string) => {
 }
 
 const Page = async ({ searchParams }) => {
-  const villages = await fetchVillages(searchParams.region);
+  const villages = await fetchVillages(searchParams);
   return (
     <>
       <h1>秘境集落探索ツール</h1>
