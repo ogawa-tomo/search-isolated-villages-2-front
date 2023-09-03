@@ -4,7 +4,20 @@ import Link from "next/link";
 import { useState } from "react";
 import Select from 'react-select';
 
-const options = [
+const regionOptions = [
+  { value: '北海道', label: '北海道'},
+  { value: '東北', label: '東北'},
+  { value: '関東', label: '関東'},
+  { value: '北陸', label: '北陸'},
+  { value: '中部', label: '中部'},
+  { value: '近畿', label: '近畿'},
+  { value: '中国', label: '中国'},
+  { value: '四国', label: '四国'},
+  { value: '九州', label: '九州'},
+  { value: '沖縄', label: '沖縄'},
+]
+
+const prefOptions = [
   { value: '北海道', label: '北海道' },
   { value: '青森県', label: '青森県' },
   { value: '岩手県', label: '岩手県' },
@@ -54,15 +67,26 @@ const options = [
   { value: '沖縄県', label: '沖縄県' }
 ]
 
+const groupedOptions = [
+  {
+    label: '地域',
+    options: regionOptions,
+  },
+  {
+    label: '都道府県',
+    options: prefOptions,
+  },
+];
+
 export default function VillageSearchForm() {
-  const [region, setRegion] = useState(options[0])
+  const [region, setRegion] = useState(prefOptions[0])
 
   return (
     <>
       <h2>探索条件</h2>
       <Select
-        options={options}
         defaultValue={region}
+        options={groupedOptions}
         onChange={(value) => value ? setRegion(value) : null}
       />
       <div>{region.value}</div> 
