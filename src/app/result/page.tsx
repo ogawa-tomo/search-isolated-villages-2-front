@@ -1,8 +1,17 @@
 
-import { getVillages } from '@/lib/repositories/villageRepository'
+const fetchVillages = async (region: string) => {
+  const query = new URLSearchParams({ region })
+  const response = await fetch(
+    `http://localhost:5000/api/result?${query}`,{
+      method: 'GET',
+      cache: 'no-store'
+    }
+  )
+  return response.json()
+}
 
 const Page = async ({ searchParams }) => {
-  const villages = await getVillages(searchParams.region);
+  const villages = await fetchVillages(searchParams.region);
   return (
     <>
       <h1>秘境集落探索ツール</h1>
