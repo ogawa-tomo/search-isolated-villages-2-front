@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useState } from "react";
 import Select from 'react-select';
 
+
+
 const regionOptions = [
   { value: '北海道', label: '北海道'},
   { value: '東北', label: '東北'},
@@ -69,6 +71,10 @@ const prefOptions = [
 
 const groupedOptions = [
   {
+    label: '全国',
+    value: '全国'
+  },
+  {
     label: '地域',
     options: regionOptions,
   },
@@ -86,6 +92,7 @@ export default function VillageSearchForm() {
       <h2>探索条件</h2>
       <Select
         defaultValue={region}
+        
         options={groupedOptions}
         onChange={(value) => value ? setRegion(value) : null}
       />
