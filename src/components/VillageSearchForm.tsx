@@ -85,19 +85,28 @@ const groupedOptions = [
   },
 ];
 
-const searchPath = (region: string) => {
+const searchPath = (
+  region: string,
+  popLowerLimit: string,
+  popUpperLimit: string
+) => {
   const params = new URLSearchParams()
   params.append('region', region)
+  params.append('pop_lower_limit', popLowerLimit)
+  params.append('pop_upper_limit', popUpperLimit)
   return `/result?${params.toString()}`
 }
 
 const VillageSearchForm = () => {
   const [region, setRegion] = useState(null)
+  const [popLowerLimit, setPopLowerLimit] = useState('1')
+  const [popUpperLimit, setPopUpperLimit] = useState('10000')
   const router = useRouter()
 
   return (
     <>
       <h2>探索条件</h2>
+      地域
       <Select
         placeholder='地域を選択'
         defaultValue={null}
@@ -105,9 +114,28 @@ const VillageSearchForm = () => {
         options={groupedOptions}
         onChange={(value) => value ? setRegion(value) : null}
       />
+      人口：
+      <input
+        type="number"
+        value={popLowerLimit}
+        onChange={(e) => setPopLowerLimit(e.target.value)}
+      />
+      人～
+      <input
+        type="number"
+        value={popUpperLimit}
+        onChange={(e) => setPopUpperLimit(e.target.value)}
+      />
+      人
+      <br />
+
       <button
         type="button"
-        onClick={() => router.push(searchPath(region?.value))}
+        onClick={() => router.push(searchPath(
+          region.value,
+          popLowerLimit,
+          popUpperLimit
+        ))}
         disabled={!region}
       >
         探索

@@ -1,3 +1,5 @@
 export type villageSearchParams = {
-  region: string
+  region: string,
+  popLowerLimit: string,
+  popUpperLimit: string
 }
