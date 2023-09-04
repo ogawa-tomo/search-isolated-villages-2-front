@@ -87,20 +87,20 @@ const groupedOptions = [
 
 const searchPath = (
   region: string,
-  popLowerLimit: string,
-  popUpperLimit: string
+  populationLowerLimit: string,
+  populationUpperLimit: string
 ) => {
   const params = new URLSearchParams()
   params.append('region', region)
-  params.append('pop_lower_limit', popLowerLimit)
-  params.append('pop_upper_limit', popUpperLimit)
+  params.append('population_lower_limit', populationLowerLimit)
+  params.append('population_upper_limit', populationUpperLimit)
   return `/result?${params.toString()}`
 }
 
 const VillageSearchForm = () => {
   const [region, setRegion] = useState(null)
-  const [popLowerLimit, setPopLowerLimit] = useState('1')
-  const [popUpperLimit, setPopUpperLimit] = useState('10000')
+  const [populationLowerLimit, setPopulationLowerLimit] = useState('1')
+  const [populationUpperLimit, setPopulationUpperLimit] = useState('10000')
   const router = useRouter()
 
   return (
@@ -117,14 +117,14 @@ const VillageSearchForm = () => {
       人口：
       <input
         type="number"
-        value={popLowerLimit}
-        onChange={(e) => setPopLowerLimit(e.target.value)}
+        value={populationLowerLimit}
+        onChange={(e) => setPopulationLowerLimit(e.target.value)}
       />
       人～
       <input
         type="number"
-        value={popUpperLimit}
-        onChange={(e) => setPopUpperLimit(e.target.value)}
+        value={populationUpperLimit}
+        onChange={(e) => setPopulationUpperLimit(e.target.value)}
       />
       人
       <br />
@@ -133,8 +133,8 @@ const VillageSearchForm = () => {
         type="button"
         onClick={() => router.push(searchPath(
           region.value,
-          popLowerLimit,
-          popUpperLimit
+          populationLowerLimit,
+          populationUpperLimit
         ))}
         disabled={!region}
       >
