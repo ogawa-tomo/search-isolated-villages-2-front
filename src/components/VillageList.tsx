@@ -1,6 +1,6 @@
-import type { villageSearchParams } from "@/types/villageSearchParams"
+import type { VillageSearchParams } from "@/types/villageSearchParams"
 
-const fetchVillages = async (params: villageSearchParams) => {
+const fetchVillages = async (params: VillageSearchParams) => {
   const query = new URLSearchParams(params)
   const response = await fetch(
     `http://localhost:5000/api/result?${query}`,{
@@ -11,7 +11,7 @@ const fetchVillages = async (params: villageSearchParams) => {
   return response.json()
 }
 
-const VillageList = async (searchParams: villageSearchParams) => {
+const VillageList = async (searchParams: VillageSearchParams) => {
   const villages = await fetchVillages(searchParams);
 
   return (
