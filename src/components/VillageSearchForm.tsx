@@ -119,7 +119,7 @@ const VillageSearchForm = () => {
         defaultValue={null}
         isSearchable
         options={groupedOptions}
-        onChange={(value) => value ? setRegion(value) : null}
+        onChange={({ label, value }) => setRegion(value)}
       />
       人口：
       <input
@@ -164,7 +164,7 @@ const VillageSearchForm = () => {
       <button
         type="button"
         onClick={() => router.push(searchPath(
-          region.value,
+          region,
           populationLowerLimit,
           populationUpperLimit,
           islandSetting,
