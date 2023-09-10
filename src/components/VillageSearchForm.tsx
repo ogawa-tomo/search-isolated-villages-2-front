@@ -89,13 +89,15 @@ const searchPath = (
   region: string,
   populationLowerLimit: string,
   populationUpperLimit: string,
-  islandSetting: string
+  islandSetting: string,
+  keyWords: string
 ) => {
   const params = new URLSearchParams()
   params.append('region', region)
   params.append('population_lower_limit', populationLowerLimit)
   params.append('population_upper_limit', populationUpperLimit)
   params.append('island_setting', islandSetting)
+  params.append('key_words', keyWords)
   return `/result?${params.toString()}`
 }
 
@@ -105,6 +107,7 @@ const VillageSearchForm = () => {
   const [populationUpperLimit, setPopulationUpperLimit] = useState('10000')
   const islandSettings = ['離島を含まない', '離島を含む', '離島のみ']
   const [islandSetting, setIslandSetting] = useState('離島を含まない')
+  const [keyWords, setKeyWords] = useState('')
   const router = useRouter()
 
   return (
@@ -149,13 +152,23 @@ const VillageSearchForm = () => {
       })}
       <br />
 
+      キーワード絞り込み：
+      <input
+        type="text"
+        value={keyWords}
+        onChange={(e) => setKeyWords(e.target.value)}
+      />
+
+      <br />
+
       <button
         type="button"
         onClick={() => router.push(searchPath(
           region.value,
           populationLowerLimit,
           populationUpperLimit,
-          islandSetting
+          islandSetting,
+          keyWords
         ))}
         disabled={!region}
       >
