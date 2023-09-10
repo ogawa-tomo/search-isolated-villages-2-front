@@ -88,12 +88,14 @@ const groupedOptions = [
 const searchPath = (
   region: string,
   populationLowerLimit: string,
-  populationUpperLimit: string
+  populationUpperLimit: string,
+  islandSetting: string
 ) => {
   const params = new URLSearchParams()
   params.append('region', region)
   params.append('population_lower_limit', populationLowerLimit)
   params.append('population_upper_limit', populationUpperLimit)
+  params.append('island_setting', islandSetting)
   return `/result?${params.toString()}`
 }
 
@@ -101,6 +103,8 @@ const VillageSearchForm = () => {
   const [region, setRegion] = useState(null)
   const [populationLowerLimit, setPopulationLowerLimit] = useState('1')
   const [populationUpperLimit, setPopulationUpperLimit] = useState('10000')
+  const islandSettings = ['離島を含まない', '離島を含む', '離島のみ']
+  const [islandSetting, setIslandSetting] = useState('離島を含まない')
   const router = useRouter()
 
   return (
@@ -128,13 +132,30 @@ const VillageSearchForm = () => {
       />
       人
       <br />
+      離島設定：
+      {islandSettings.map((setting) => {
+        return (
+          <span key={setting}>
+            <input
+              id={setting}
+              type="radio"
+              value={setting}
+              onChange={(e) => setIslandSetting(e.target.value)}
+              checked={setting === islandSetting}
+            />
+            <label htmlFor={setting}>{setting}</label>
+          </span>
+        )
+      })}
+      <br />
 
       <button
         type="button"
         onClick={() => router.push(searchPath(
           region.value,
           populationLowerLimit,
-          populationUpperLimit
+          populationUpperLimit,
+          islandSetting
         ))}
         disabled={!region}
       >
