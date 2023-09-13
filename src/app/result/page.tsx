@@ -9,6 +9,7 @@ const Page = async ({ searchParams }) => {
       <div>地域：{searchParams.region}</div>
       <div>人口：{searchParams.population_lower_limit}人～{searchParams.population_upper_limit}人</div>
       <div>離島設定：{searchParams.island_setting}</div>
+      <div>キーワード：{searchParams.key_words}</div>
       <Suspense fallback='loading...'>
         <VillageList {...searchParams} />
       </Suspense>
