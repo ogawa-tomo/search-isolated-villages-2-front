@@ -112,8 +112,6 @@ const VillageSearchForm = () => {
 
   return (
     <>
-      <h2>探索条件</h2>
-      地域
       <Select
         placeholder='地域を選択'
         defaultValue={null}
@@ -162,6 +160,7 @@ const VillageSearchForm = () => {
       <br />
 
       <button
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full"
         type="button"
         onClick={() => router.push(searchPath(
           region,
