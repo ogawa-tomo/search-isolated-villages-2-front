@@ -119,48 +119,62 @@ const VillageSearchForm = () => {
         options={groupedOptions}
         onChange={({ label, value }) => setRegion(value)}
       />
-      人口：
-      <input
-        type="number"
-        value={populationLowerLimit}
-        onChange={(e) => setPopulationLowerLimit(e.target.value)}
-      />
-      人～
-      <input
-        type="number"
-        value={populationUpperLimit}
-        onChange={(e) => setPopulationUpperLimit(e.target.value)}
-      />
-      人
-      <br />
-      離島設定：
-      {islandSettings.map((setting) => {
-        return (
-          <span key={setting}>
-            <input
-              id={setting}
-              type="radio"
-              value={setting}
-              onChange={(e) => setIslandSetting(e.target.value)}
-              checked={setting === islandSetting}
-            />
-            <label htmlFor={setting}>{setting}</label>
-          </span>
-        )
-      })}
-      <br />
+      <button className="btn w-full" onClick={()=>(document.getElementById('detailed-conditions-modal') as HTMLDialogElement).showModal()}>詳細条件</button>
+      <dialog id="detailed-conditions-modal" className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">詳細条件</h3>
+          <p className="py-4">Press ESC key or click the button below to close</p>
+          人口：
+          <input
+            type="number"
+            value={populationLowerLimit}
+            onChange={(e) => setPopulationLowerLimit(e.target.value)}
+          />
+          人～
+          <input
+            type="number"
+            value={populationUpperLimit}
+            onChange={(e) => setPopulationUpperLimit(e.target.value)}
+          />
+          人
+          <br />
+          離島設定：
+          {islandSettings.map((setting) => {
+            return (
+              <span key={setting}>
+                <input
+                  id={setting}
+                  type="radio"
+                  value={setting}
+                  onChange={(e) => setIslandSetting(e.target.value)}
+                  checked={setting === islandSetting}
+                />
+                <label htmlFor={setting}>{setting}</label>
+              </span>
+            )
+          })}
+          <br />
 
-      キーワード絞り込み：
-      <input
-        type="text"
-        value={keyWords}
-        onChange={(e) => setKeyWords(e.target.value)}
-      />
+          キーワード絞り込み：
+          <input
+            type="text"
+            value={keyWords}
+            onChange={(e) => setKeyWords(e.target.value)}
+          />
 
+          <div className="modal-action">
+            <form method="dialog">
+              {/* if there is a button in form, it will close the modal */}
+              <button className="btn">Close</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
+      
       <br />
 
       <button
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full"
+        className="btn btn-primary w-full text-white rounded-md"
         type="button"
         onClick={() => router.push(searchPath(
           region,
