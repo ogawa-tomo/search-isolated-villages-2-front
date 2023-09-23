@@ -149,7 +149,7 @@ const VillageSearchForm = () => {
                 <input
                   id={setting}
                   type="radio"
-                  className="radio radio-sm"
+                  className="radio radio-sm mr-2"
                   value={setting}
                   onChange={(e) => setIslandSetting(e.target.value)}
                   checked={setting === islandSetting}
