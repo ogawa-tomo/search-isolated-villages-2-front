@@ -112,39 +112,44 @@ const VillageSearchForm = () => {
 
   return (
     <>
+      <div className="flex flex-col items-center">
       <Select
+        className="w-64 text-xl text-center my-0.5"
         placeholder='地域を選択'
         defaultValue={null}
         isSearchable
         options={groupedOptions}
         onChange={({ label, value }) => setRegion(value)}
       />
-      <button className="btn w-full" onClick={()=>(document.getElementById('detailed-conditions-modal') as HTMLDialogElement).showModal()}>詳細条件</button>
+      <button className="btn btn-sm h-10 w-64 rounded-md text-lg my-0.5" onClick={()=>(document.getElementById('detailed-conditions-modal') as HTMLDialogElement).showModal()}>詳細条件</button>
       <dialog id="detailed-conditions-modal" className="modal">
         <div className="modal-box">
-          <h3 className="font-bold text-lg">詳細条件</h3>
-          <p className="py-4">Press ESC key or click the button below to close</p>
-          人口：
+          <h2>詳細条件</h2>
+          <br />
+          <h3>人口</h3>
           <input
             type="number"
+            className="input input-bordered input-sm w-24 rounded-md"
             value={populationLowerLimit}
             onChange={(e) => setPopulationLowerLimit(e.target.value)}
           />
           人～
           <input
             type="number"
+            className="input input-bordered input-sm w-24 rounded-md"
             value={populationUpperLimit}
             onChange={(e) => setPopulationUpperLimit(e.target.value)}
           />
           人
-          <br />
-          離島設定：
+          <br /><br />
+          <h3>離島設定</h3>
           {islandSettings.map((setting) => {
             return (
-              <span key={setting}>
+              <span key={setting} className="mr-4 flex flex-row items-center">
                 <input
                   id={setting}
                   type="radio"
+                  className="radio radio-sm"
                   value={setting}
                   onChange={(e) => setIslandSetting(e.target.value)}
                   checked={setting === islandSetting}
@@ -155,9 +160,10 @@ const VillageSearchForm = () => {
           })}
           <br />
 
-          キーワード絞り込み：
+          <h3>キーワード絞り込み</h3>
           <input
             type="text"
+            className="input input-bordered input-sm w-64 rounded-md"
             value={keyWords}
             onChange={(e) => setKeyWords(e.target.value)}
           />
@@ -165,16 +171,14 @@ const VillageSearchForm = () => {
           <div className="modal-action">
             <form method="dialog">
               {/* if there is a button in form, it will close the modal */}
-              <button className="btn">Close</button>
+              <button className="btn">適用</button>
             </form>
           </div>
         </div>
-      </dialog>
-      
-      <br />
+      </dialog>      
 
       <button
-        className="btn btn-primary w-full text-white rounded-md"
+        className="btn btn-primary w-64 btn-sm h-10 text-white rounded-md text-xl my-0.5"
         type="button"
         onClick={() => router.push(searchPath(
           region,
@@ -187,6 +191,7 @@ const VillageSearchForm = () => {
       >
         探索
       </button>
+      </div>
     </>
   )
 }
