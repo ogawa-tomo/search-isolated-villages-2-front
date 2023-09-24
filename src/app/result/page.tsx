@@ -1,15 +1,18 @@
 import VillageList from "@/components/VillageList";
+import VillageSearchForm from "@/components/VillageSearchForm";
 import { Suspense } from "react";
 
 const Page = async ({ searchParams }) => {
   return (
     <>
-      <h1>秘境集落探索ツール</h1>
-      <h2>探索結果</h2>
-      <div>地域：{searchParams.region}</div>
-      <div>人口：{searchParams.population_lower_limit}人～{searchParams.population_upper_limit}人</div>
-      <div>離島設定：{searchParams.island_setting}</div>
-      <div>キーワード：{searchParams.key_words}</div>
+      <VillageSearchForm
+        defaultRegion={searchParams.region}
+        defaultPopulationLowerLimit={searchParams.population_lower_limit}
+        defaultPopulationUpperLimit={searchParams.population_upper_limit}
+        defaultIslandSetting={searchParams.island_setting}
+        defaultKeywords={searchParams.key_words}
+      />
+      <h2 className="text-center">探索結果</h2>
       <Suspense fallback='loading...'>
         <VillageList {...searchParams} />
       </Suspense>

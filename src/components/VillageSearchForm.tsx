@@ -101,13 +101,28 @@ const searchPath = (
   return `/result?${params.toString()}`
 }
 
-const VillageSearchForm = () => {
-  const [region, setRegion] = useState(null)
-  const [populationLowerLimit, setPopulationLowerLimit] = useState('1')
-  const [populationUpperLimit, setPopulationUpperLimit] = useState('10000')
+type VillageSearchFormParams = {
+  defaultRegion?: string,
+  defaultPopulationLowerLimit?: string,
+  defaultPopulationUpperLimit?: string,
+  defaultIslandSetting?: string,
+  defaultKeywords?: string
+}
+
+const VillageSearchForm = (props: VillageSearchFormParams) => {
+  const {
+    defaultRegion = null,
+    defaultPopulationLowerLimit = '1',
+    defaultPopulationUpperLimit = '10000',
+    defaultIslandSetting = '離島を含まない',
+    defaultKeywords = ''
+  } = props;
+  const [region, setRegion] = useState(defaultRegion)
+  const [populationLowerLimit, setPopulationLowerLimit] = useState(defaultPopulationLowerLimit)
+  const [populationUpperLimit, setPopulationUpperLimit] = useState(defaultPopulationUpperLimit)
   const islandSettings = ['離島を含まない', '離島を含む', '離島のみ']
-  const [islandSetting, setIslandSetting] = useState('離島を含まない')
-  const [keyWords, setKeyWords] = useState('')
+  const [islandSetting, setIslandSetting] = useState(defaultIslandSetting)
+  const [keyWords, setKeyWords] = useState(defaultKeywords)
   const router = useRouter()
 
   return (
@@ -116,7 +131,7 @@ const VillageSearchForm = () => {
         <Select
           className="w-64 text-xl text-center my-0.5"
           placeholder='地域を選択'
-          defaultValue={null}
+          defaultValue={region ? { label: region, value: region } : null}
           isSearchable
           options={groupedOptions}
           onChange={({ label, value }) => setRegion(value)}
@@ -170,7 +185,6 @@ const VillageSearchForm = () => {
 
             <div className="modal-action">
               <form method="dialog">
-                {/* if there is a button in form, it will close the modal */}
                 <button className="btn">適用</button>
               </form>
             </div>
