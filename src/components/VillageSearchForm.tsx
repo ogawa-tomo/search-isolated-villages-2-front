@@ -186,7 +186,7 @@ const VillageSearchForm = (props: VillageSearchFormParams) => {
 
             <div className="modal-action">
               <form method="dialog">
-                <button className="btn">適用</button>
+                <button className="btn">閉じる</button>
               </form>
             </div>
           </div>
