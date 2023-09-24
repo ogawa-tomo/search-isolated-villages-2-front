@@ -179,6 +179,7 @@ const VillageSearchForm = (props: VillageSearchFormParams) => {
             <input
               type="text"
               className="input input-bordered input-sm w-64 rounded-md"
+              placeholder="例：〇〇村"
               value={keyWords}
               onChange={(e) => setKeyWords(e.target.value)}
             />
