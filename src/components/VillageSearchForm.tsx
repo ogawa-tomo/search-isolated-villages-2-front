@@ -144,14 +144,18 @@ const VillageSearchForm = (props: VillageSearchFormParams) => {
             <h3>人口</h3>
             <input
               type="number"
-              className="input input-bordered input-sm w-24 rounded-md"
+              min="1"
+              max="10000"
+              className="input input-bordered input-sm w-24 rounded-md invalid:input-error"
               value={populationLowerLimit}
               onChange={(e) => setPopulationLowerLimit(e.target.value)}
             />
             人～
             <input
               type="number"
-              className="input input-bordered input-sm w-24 rounded-md"
+              min="1"
+              max="10000"
+              className="input input-bordered input-sm w-24 rounded-md invalid:input-error"
               value={populationUpperLimit}
               onChange={(e) => setPopulationUpperLimit(e.target.value)}
             />
