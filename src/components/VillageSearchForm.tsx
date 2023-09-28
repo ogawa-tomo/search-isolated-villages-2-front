@@ -102,28 +102,40 @@ const searchPath = (
 }
 
 type VillageSearchFormParams = {
-  defaultRegion?: string,
-  defaultPopulationLowerLimit?: string,
-  defaultPopulationUpperLimit?: string,
-  defaultIslandSetting?: string,
-  defaultKeywords?: string
+  inputRegion?: string,
+  inputPopulationLowerLimit?: string,
+  inputPopulationUpperLimit?: string,
+  inputIslandSetting?: string,
+  inputKeywords?: string
 }
+
+const defaultPopulationLowerLimit = '1'
+const defaultPopulationUpperLimit = '10000'
+const defaultIslandSetting = '離島を含まない'
+const defaultKeywords = ''
 
 const VillageSearchForm = (props: VillageSearchFormParams) => {
   const {
-    defaultRegion = null,
-    defaultPopulationLowerLimit = '1',
-    defaultPopulationUpperLimit = '10000',
-    defaultIslandSetting = '離島を含まない',
-    defaultKeywords = ''
+    inputRegion = null,
+    inputPopulationLowerLimit = defaultPopulationLowerLimit,
+    inputPopulationUpperLimit = defaultPopulationUpperLimit,
+    inputIslandSetting = defaultIslandSetting,
+    inputKeywords = defaultKeywords
   } = props;
-  const [region, setRegion] = useState(defaultRegion)
-  const [populationLowerLimit, setPopulationLowerLimit] = useState(defaultPopulationLowerLimit)
-  const [populationUpperLimit, setPopulationUpperLimit] = useState(defaultPopulationUpperLimit)
+  const [region, setRegion] = useState(inputRegion)
+  const [populationLowerLimit, setPopulationLowerLimit] = useState(inputPopulationLowerLimit)
+  const [populationUpperLimit, setPopulationUpperLimit] = useState(inputPopulationUpperLimit)
   const islandSettings = ['離島を含まない', '離島を含む', '離島のみ']
-  const [islandSetting, setIslandSetting] = useState(defaultIslandSetting)
-  const [keyWords, setKeyWords] = useState(defaultKeywords)
+  const [islandSetting, setIslandSetting] = useState(inputIslandSetting)
+  const [keyWords, setKeyWords] = useState(inputKeywords)
   const router = useRouter()
+
+  const setDefaultValue = () => {
+    setPopulationLowerLimit(defaultPopulationLowerLimit)
+    setPopulationUpperLimit(defaultPopulationUpperLimit)
+    setIslandSetting(defaultIslandSetting)
+    setKeyWords(defaultKeywords)
+  }
 
   return (
     <>
@@ -189,6 +201,7 @@ const VillageSearchForm = (props: VillageSearchFormParams) => {
             />
 
             <div className="modal-action">
+              <button className="btn" onClick={setDefaultValue}>デフォルト値に戻す</button>
               <form method="dialog">
                 <button className="btn">閉じる</button>
               </form>
