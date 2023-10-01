@@ -137,10 +137,21 @@ const VillageSearchForm = (props: VillageSearchFormParams) => {
     setKeyWords(defaultKeywords)
   }
 
+  const onButtonClick = () => {
+    router.push(searchPath(
+      region,
+      populationLowerLimit,
+      populationUpperLimit,
+      islandSetting,
+      keyWords
+    ))
+  }
+
   return (
     <>
       <div className="flex flex-col items-center">
         <Select
+          instanceId="selectbox"
           className="w-64 text-xl text-center my-0.5"
           placeholder='地域を選択'
           defaultValue={region ? { label: region, value: region } : null}
@@ -212,13 +223,7 @@ const VillageSearchForm = (props: VillageSearchFormParams) => {
         <button
           className="btn btn-primary w-64 btn-sm h-10 text-white rounded-md text-xl my-0.5"
           type="button"
-          onClick={() => router.push(searchPath(
-            region,
-            populationLowerLimit,
-            populationUpperLimit,
-            islandSetting,
-            keyWords
-          ))}
+          onClick={onButtonClick}
           disabled={!region}
         >
           探索
