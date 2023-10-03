@@ -12,7 +12,7 @@ const fetchVillages = async (params: VillageSearchParams) => {
 }
 
 const VillageList = async (searchParams: VillageSearchParams) => {
-  const villages = await fetchVillages(searchParams);
+  const { total, villages } = await fetchVillages(searchParams);
 
   return (
     <>
