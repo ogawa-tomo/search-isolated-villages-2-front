@@ -21,7 +21,7 @@ const VillageList = async (searchParams: VillageSearchParams) => {
           <table className="table border-collapse border border-slate-400">
             <tbody>
               {villages.map((village, index) => (
-                <tr>
+                <tr key={index}>
                   <td>
                     {index + 1}位
                   </td>
