@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import Select from 'react-select';
 import { useRouter } from 'next/navigation'
+import villageSearchPath from '@/lib/villageSearchPath'
 
 
 
@@ -98,6 +99,8 @@ const searchPath = (
   params.append('population_upper_limit', populationUpperLimit)
   params.append('island_setting', islandSetting)
   params.append('key_words', keyWords)
+  params.append('offset', '0')
+  params.append('limit', '20')
   return `/result?${params.toString()}`
 }
 
