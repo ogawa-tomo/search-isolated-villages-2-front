@@ -99,8 +99,7 @@ const searchPath = (
   params.append('population_upper_limit', populationUpperLimit)
   params.append('island_setting', islandSetting)
   params.append('key_words', keyWords)
-  params.append('offset', '0')
-  params.append('limit', '20')
+  params.append('page', '1')
   return `/result?${params.toString()}`
 }
 
