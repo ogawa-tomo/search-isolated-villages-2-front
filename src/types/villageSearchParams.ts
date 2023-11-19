@@ -3,5 +3,6 @@ export type VillageSearchParams = {
   population_lower_limit: string,
   population_upper_limit: string,
   island_setting: string,
-  key_words: string
+  key_words: string,
+  page: string
 }

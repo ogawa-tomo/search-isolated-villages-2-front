@@ -1,4 +1,5 @@
 import type { VillageSearchParams } from "@/types/villageSearchParams"
+import Pagination from "./Pagination"
 
 const fetchVillages = async (params: VillageSearchParams) => {
   const query = new URLSearchParams(params)
@@ -12,7 +13,9 @@ const fetchVillages = async (params: VillageSearchParams) => {
 }
 
 const VillageList = async (searchParams: VillageSearchParams) => {
-  const { total, villages } = await fetchVillages(searchParams);
+  const { pages, per_page, villages } = await fetchVillages(searchParams);
+  const current_page = Number(searchParams.page)
+  const rank_start = per_page * (current_page - 1)
 
   return (
     <>
@@ -23,7 +26,7 @@ const VillageList = async (searchParams: VillageSearchParams) => {
               {villages.map((village, index) => (
                 <tr key={index}>
                   <td>
-                    {index + 1}位
+                    {index + rank_start + 1}位
                   </td>
                   <td className="columns-xs ">
                     <span className="font-bold text-lg">{village.pref} {village.city} {village.district}</span><br />
@@ -38,6 +41,11 @@ const VillageList = async (searchParams: VillageSearchParams) => {
           </table>
         </div>
       </div>
+      <Pagination
+        current_page={current_page}
+        pages={Number(pages)}
+        params={searchParams}
+      />
     </>
   )
 
