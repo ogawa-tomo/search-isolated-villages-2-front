@@ -1,25 +1,23 @@
 'use client';
 
-import Link from "next/link";
-import { useState } from "react";
+import Link from 'next/link';
+import { useState } from 'react';
 import Select from 'react-select';
-import { useRouter } from 'next/navigation'
-import villageSearchPath from '@/lib/villageSearchPath'
-
-
+import { useRouter } from 'next/navigation';
+import villageSearchPath from '@/lib/villageSearchPath';
 
 const regionOptions = [
-  { value: '北海道', label: '北海道'},
-  { value: '東北', label: '東北'},
-  { value: '関東', label: '関東'},
-  { value: '北陸', label: '北陸'},
-  { value: '中部', label: '中部'},
-  { value: '近畿', label: '近畿'},
-  { value: '中国', label: '中国'},
-  { value: '四国', label: '四国'},
-  { value: '九州', label: '九州'},
-  { value: '沖縄', label: '沖縄'},
-]
+  { value: '北海道', label: '北海道' },
+  { value: '東北', label: '東北' },
+  { value: '関東', label: '関東' },
+  { value: '北陸', label: '北陸' },
+  { value: '中部', label: '中部' },
+  { value: '近畿', label: '近畿' },
+  { value: '中国', label: '中国' },
+  { value: '四国', label: '四国' },
+  { value: '九州', label: '九州' },
+  { value: '沖縄', label: '沖縄' },
+];
 
 const prefOptions = [
   { value: '北海道', label: '北海道' },
@@ -68,13 +66,13 @@ const prefOptions = [
   { value: '大分県', label: '大分県' },
   { value: '宮崎県', label: '宮崎県' },
   { value: '鹿児島県', label: '鹿児島県' },
-  { value: '沖縄県', label: '沖縄県' }
-]
+  { value: '沖縄県', label: '沖縄県' },
+];
 
 const groupedOptions = [
   {
     label: '全国',
-    value: '全国'
+    value: '全国',
   },
   {
     label: '地域',
@@ -93,28 +91,28 @@ const searchPath = (
   islandSetting: string,
   keyWords: string
 ) => {
-  const params = new URLSearchParams()
-  params.append('region', region)
-  params.append('population_lower_limit', populationLowerLimit)
-  params.append('population_upper_limit', populationUpperLimit)
-  params.append('island_setting', islandSetting)
-  params.append('key_words', keyWords)
-  params.append('page', '1')
-  return `/result?${params.toString()}`
-}
+  const params = new URLSearchParams();
+  params.append('region', region);
+  params.append('population_lower_limit', populationLowerLimit);
+  params.append('population_upper_limit', populationUpperLimit);
+  params.append('island_setting', islandSetting);
+  params.append('key_words', keyWords);
+  params.append('page', '1');
+  return `/result?${params.toString()}`;
+};
 
 type VillageSearchFormParams = {
-  inputRegion?: string,
-  inputPopulationLowerLimit?: string,
-  inputPopulationUpperLimit?: string,
-  inputIslandSetting?: string,
-  inputKeywords?: string
-}
+  inputRegion?: string;
+  inputPopulationLowerLimit?: string;
+  inputPopulationUpperLimit?: string;
+  inputIslandSetting?: string;
+  inputKeywords?: string;
+};
 
-const defaultPopulationLowerLimit = '1'
-const defaultPopulationUpperLimit = '10000'
-const defaultIslandSetting = '離島を含まない'
-const defaultKeywords = ''
+const defaultPopulationLowerLimit = '1';
+const defaultPopulationUpperLimit = '10000';
+const defaultIslandSetting = '離島を含まない';
+const defaultKeywords = '';
 
 const VillageSearchForm = (props: VillageSearchFormParams) => {
   const {
@@ -122,32 +120,38 @@ const VillageSearchForm = (props: VillageSearchFormParams) => {
     inputPopulationLowerLimit = defaultPopulationLowerLimit,
     inputPopulationUpperLimit = defaultPopulationUpperLimit,
     inputIslandSetting = defaultIslandSetting,
-    inputKeywords = defaultKeywords
+    inputKeywords = defaultKeywords,
   } = props;
-  const [region, setRegion] = useState(inputRegion)
-  const [populationLowerLimit, setPopulationLowerLimit] = useState(inputPopulationLowerLimit)
-  const [populationUpperLimit, setPopulationUpperLimit] = useState(inputPopulationUpperLimit)
-  const islandSettings = ['離島を含まない', '離島を含む', '離島のみ']
-  const [islandSetting, setIslandSetting] = useState(inputIslandSetting)
-  const [keyWords, setKeyWords] = useState(inputKeywords)
-  const router = useRouter()
+  const [region, setRegion] = useState(inputRegion);
+  const [populationLowerLimit, setPopulationLowerLimit] = useState(
+    inputPopulationLowerLimit
+  );
+  const [populationUpperLimit, setPopulationUpperLimit] = useState(
+    inputPopulationUpperLimit
+  );
+  const islandSettings = ['離島を含まない', '離島を含む', '離島のみ'];
+  const [islandSetting, setIslandSetting] = useState(inputIslandSetting);
+  const [keyWords, setKeyWords] = useState(inputKeywords);
+  const router = useRouter();
 
   const setDefaultValue = () => {
-    setPopulationLowerLimit(defaultPopulationLowerLimit)
-    setPopulationUpperLimit(defaultPopulationUpperLimit)
-    setIslandSetting(defaultIslandSetting)
-    setKeyWords(defaultKeywords)
-  }
+    setPopulationLowerLimit(defaultPopulationLowerLimit);
+    setPopulationUpperLimit(defaultPopulationUpperLimit);
+    setIslandSetting(defaultIslandSetting);
+    setKeyWords(defaultKeywords);
+  };
 
   const onButtonClick = () => {
-    router.push(searchPath(
-      region,
-      populationLowerLimit,
-      populationUpperLimit,
-      islandSetting,
-      keyWords
-    ))
-  }
+    router.push(
+      searchPath(
+        region,
+        populationLowerLimit,
+        populationUpperLimit,
+        islandSetting,
+        keyWords
+      )
+    );
+  };
 
   return (
     <>
@@ -155,13 +159,24 @@ const VillageSearchForm = (props: VillageSearchFormParams) => {
         <Select
           instanceId="selectbox"
           className="w-64 text-xl text-center my-0.5"
-          placeholder='地域を選択'
+          placeholder="地域を選択"
           defaultValue={region ? { label: region, value: region } : null}
           isSearchable
           options={groupedOptions}
           onChange={({ label, value }) => setRegion(value)}
         />
-        <button className="btn btn-sm h-10 w-64 rounded-md text-lg my-0.5" onClick={()=>(document.getElementById('detailed-conditions-modal') as HTMLDialogElement).showModal()}>詳細条件</button>
+        <button
+          className="btn btn-sm h-10 w-64 rounded-md text-lg my-0.5"
+          onClick={() =>
+            (
+              document.getElementById(
+                'detailed-conditions-modal'
+              ) as HTMLDialogElement
+            ).showModal()
+          }
+        >
+          詳細条件
+        </button>
         <dialog id="detailed-conditions-modal" className="modal">
           <div className="modal-box">
             <h2>詳細条件</h2>
@@ -185,7 +200,8 @@ const VillageSearchForm = (props: VillageSearchFormParams) => {
               onChange={(e) => setPopulationUpperLimit(e.target.value)}
             />
             人
-            <br /><br />
+            <br />
+            <br />
             <h3>離島設定</h3>
             {islandSettings.map((setting) => {
               return (
@@ -200,10 +216,9 @@ const VillageSearchForm = (props: VillageSearchFormParams) => {
                   />
                   <label htmlFor={setting}>{setting}</label>
                 </span>
-              )
+              );
             })}
             <br />
-
             <h3>キーワード絞り込み</h3>
             <input
               type="text"
@@ -212,15 +227,16 @@ const VillageSearchForm = (props: VillageSearchFormParams) => {
               value={keyWords}
               onChange={(e) => setKeyWords(e.target.value)}
             />
-
             <div className="modal-action">
-              <button className="btn" onClick={setDefaultValue}>デフォルト値に戻す</button>
+              <button className="btn" onClick={setDefaultValue}>
+                デフォルト値に戻す
+              </button>
               <form method="dialog">
                 <button className="btn">閉じる</button>
               </form>
             </div>
           </div>
-        </dialog>      
+        </dialog>
 
         <button
           className="btn btn-primary w-64 btn-sm h-10 text-white rounded-md text-xl my-0.5"
@@ -232,7 +248,7 @@ const VillageSearchForm = (props: VillageSearchFormParams) => {
         </button>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default VillageSearchForm
+export default VillageSearchForm;

@@ -18,7 +18,7 @@ const Page = async ({ searchParams }) => {
         <VillageList {...searchParams} />
       </Suspense>
     </>
-  )
-}
+  );
+};
 
 export default Page;

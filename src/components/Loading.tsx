@@ -5,7 +5,7 @@ const Loading = () => {
         <span className="loading loading-spinner loading-lg text-primary"></span>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Loading
+export default Loading;
