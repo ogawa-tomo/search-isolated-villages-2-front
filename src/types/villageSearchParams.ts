@@ -1,4 +1,4 @@
-export type VillageSearchParams = {
+type VillageSearchParams = {
   region: string;
   population_lower_limit: string;
   population_upper_limit: string;
@@ -6,3 +6,5 @@ export type VillageSearchParams = {
   key_words: string;
   page: string;
 };
+
+export default VillageSearchParams;
