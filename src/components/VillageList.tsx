@@ -1,14 +1,6 @@
 import type VillageSearchParams from '@/types/villageSearchParams';
 import Pagination from './Pagination';
-
-const fetchVillages = async (params: VillageSearchParams) => {
-  const query = new URLSearchParams(params);
-  const response = await fetch(`http://localhost:5000/api/result?${query}`, {
-    method: 'GET',
-    cache: 'no-store',
-  });
-  return response.json();
-};
+import fetchVillages from '@/lib/fetchVillages';
 
 const VillageList = async (searchParams: VillageSearchParams) => {
   const { pages, per_page, villages } = await fetchVillages(searchParams);
