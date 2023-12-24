@@ -1,9 +1,27 @@
 import type VillageSearchParams from '@/types/villageSearchParams';
 import Pagination from './Pagination';
-import fetchVillages from '@/lib/fetchVillages';
+import { fetchVillages } from '@/lib/fetchVillages';
 
-const VillageList = async (searchParams: VillageSearchParams) => {
+export const VillageList = async (searchParams: VillageSearchParams) => {
   const { pages, per_page, villages } = await fetchVillages(searchParams);
+
+  return (
+    <VillageListPresentation
+      pages={Number(pages)}
+      per_page={per_page}
+      villages={villages}
+      searchParams={searchParams}
+    />
+  );
+};
+
+export const VillageListPresentation = ({
+  pages,
+  per_page,
+  villages,
+  searchParams,
+}) => {
+  console.log(searchParams);
   const current_page = Number(searchParams.page);
   const rank_start = per_page * (current_page - 1);
 
@@ -46,7 +64,7 @@ const VillageList = async (searchParams: VillageSearchParams) => {
       </div>
       <Pagination
         current_page={current_page}
-        pages={Number(pages)}
+        pages={pages}
         params={searchParams}
       />
     </>
