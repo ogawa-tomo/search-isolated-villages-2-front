@@ -1,6 +1,7 @@
 import type VillageSearchParams from '@/types/villageSearchParams';
 import Pagination from './Pagination';
 import { fetchVillages } from '@/lib/fetchVillages';
+import Village from '@/types/village';
 
 export const VillageList = async (searchParams: VillageSearchParams) => {
   const { pages, per_page, villages } = await fetchVillages(searchParams);
@@ -15,13 +16,19 @@ export const VillageList = async (searchParams: VillageSearchParams) => {
   );
 };
 
+type VillageListPresentationProps = {
+  pages: number;
+  per_page: number;
+  villages: Village[];
+  searchParams: VillageSearchParams;
+}
+
 export const VillageListPresentation = ({
   pages,
   per_page,
   villages,
   searchParams,
-}) => {
-  console.log(searchParams);
+}: VillageListPresentationProps) => {
   const current_page = Number(searchParams.page);
   const rank_start = per_page * (current_page - 1);
 
