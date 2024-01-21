@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { VillageListPresentation } from '@/components/VillageList';
 import type VillageSearchParams from '@/types/villageSearchParams';
+import { getVillages } from '../fixtures/villages';
 
 describe('VillageListPresentation', () => {
   it('shows villages', () => {
@@ -14,30 +15,11 @@ describe('VillageListPresentation', () => {
       page: '1',
     };
 
-    const villages = [
-      {
-        pref: '北海道',
-        city: '稚内市',
-        district: '稚内',
-        population: 20,
-        urban_point: 100,
-        google_map_url: 'https://hogehoge.com',
-        mesh_map_path: '/hogehoge',
-      },
-      {
-        pref: '北海道',
-        city: '稚内市',
-        district: '稚内',
-        population: 20,
-        urban_point: 110,
-        google_map_url: 'https://hogehoge.com',
-        mesh_map_path: '/hogehoge',
-      },
-    ];
+    const villages = getVillages(20);
 
     render(
       <VillageListPresentation
-        pages={1}
+        pages={5}
         per_page={20}
         villages={villages}
         searchParams={villageSearchParams}
@@ -45,6 +27,6 @@ describe('VillageListPresentation', () => {
     );
 
     const villageNameElements = screen.getAllByText(/北海道.*/);
-    expect(villageNameElements).toHaveLength(2);
+    expect(villageNameElements).toHaveLength(20);
   });
 });
