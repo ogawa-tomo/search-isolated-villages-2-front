@@ -1,10 +1,8 @@
 'use client';
 
-import Link from 'next/link';
 import { useState } from 'react';
 import Select from 'react-select';
 import { useRouter } from 'next/navigation';
-import villageSearchPath from '@/lib/villageSearchPath';
 
 const regionOptions = [
   { value: '北海道', label: '北海道' },
