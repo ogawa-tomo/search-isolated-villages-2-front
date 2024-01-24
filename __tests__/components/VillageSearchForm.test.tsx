@@ -26,13 +26,14 @@ describe('VillageSearchForm', () => {
     await selectEvent.select(regionSelectBox, '青森県');
     expect(button).toBeEnabled();
 
-    const params = new URLSearchParams();
-    params.append('region', '青森県');
-    params.append('population_lower_limit', '1');
-    params.append('population_upper_limit', '10000');
-    params.append('island_setting', '離島を含まない');
-    params.append('key_words', '');
-    params.append('page', '1');
+    const params = new URLSearchParams({
+      region: '青森県',
+      populationLowerLimit: '1',
+      populationUpperLimit: '10000',
+      islandSetting: '離島を含まない',
+      keyWords: '',
+      page: '1'
+    });
 
     await user.click(button);
     expect(mockFn).toHaveBeenCalledWith(`/result?${params.toString()}`);

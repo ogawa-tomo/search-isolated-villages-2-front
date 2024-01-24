@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Select from 'react-select';
 import { useRouter } from 'next/navigation';
+import VillageSearchParams from '@/types/villageSearchParams';
 
 const regionOptions = [
   { value: '北海道', label: '北海道' },
@@ -82,20 +83,8 @@ const groupedOptions = [
   },
 ];
 
-const searchPath = (
-  region: string,
-  populationLowerLimit: string,
-  populationUpperLimit: string,
-  islandSetting: string,
-  keyWords: string
-) => {
-  const params = new URLSearchParams();
-  params.append('region', region);
-  params.append('population_lower_limit', populationLowerLimit);
-  params.append('population_upper_limit', populationUpperLimit);
-  params.append('island_setting', islandSetting);
-  params.append('key_words', keyWords);
-  params.append('page', '1');
+const searchPath = (villageSearchParams: VillageSearchParams): string => {
+  const params = new URLSearchParams(villageSearchParams);
   return `/result?${params.toString()}`;
 };
 
@@ -141,13 +130,14 @@ const VillageSearchForm = (props: VillageSearchFormParams) => {
 
   const onButtonClick = () => {
     router.push(
-      searchPath(
+      searchPath({
         region,
         populationLowerLimit,
         populationUpperLimit,
         islandSetting,
-        keyWords
-      )
+        keyWords,
+        page: '1'
+      })
     );
   };
 
