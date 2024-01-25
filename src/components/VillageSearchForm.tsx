@@ -88,44 +88,32 @@ const searchPath = (villageSearchParams: VillageSearchParams): string => {
   return `/result?${params.toString()}`;
 };
 
-type VillageSearchFormParams = {
-  inputRegion?: string;
-  inputPopulationLowerLimit?: string;
-  inputPopulationUpperLimit?: string;
-  inputIslandSetting?: string;
-  inputKeywords?: string;
-};
-
-const defaultPopulationLowerLimit = '1';
-const defaultPopulationUpperLimit = '10000';
-const defaultIslandSetting = '離島を含まない';
-const defaultKeywords = '';
-
-const VillageSearchForm = (props: VillageSearchFormParams) => {
-  const {
-    inputRegion = null,
-    inputPopulationLowerLimit = defaultPopulationLowerLimit,
-    inputPopulationUpperLimit = defaultPopulationUpperLimit,
-    inputIslandSetting = defaultIslandSetting,
-    inputKeywords = defaultKeywords,
-  } = props;
+const VillageSearchForm = ({
+  inputRegion = '',
+  inputPopulationLowerLimit = '1',
+  inputPopulationUpperLimit = '10000',
+  inputIslandSetting = '離島を含まない',
+  inputKeyWords = '',
+}: {
+  inputRegion?: string,
+  inputPopulationLowerLimit?: string,
+  inputPopulationUpperLimit?: string,
+  inputIslandSetting?: string,
+  inputKeyWords?: string
+}) => {
   const [region, setRegion] = useState(inputRegion);
-  const [populationLowerLimit, setPopulationLowerLimit] = useState(
-    inputPopulationLowerLimit
-  );
-  const [populationUpperLimit, setPopulationUpperLimit] = useState(
-    inputPopulationUpperLimit
-  );
+  const [populationLowerLimit, setPopulationLowerLimit] = useState(inputPopulationLowerLimit);
+  const [populationUpperLimit, setPopulationUpperLimit] = useState(inputPopulationUpperLimit);
   const islandSettings = ['離島を含まない', '離島を含む', '離島のみ'];
   const [islandSetting, setIslandSetting] = useState(inputIslandSetting);
-  const [keyWords, setKeyWords] = useState(inputKeywords);
+  const [keyWords, setKeyWords] = useState(inputKeyWords);
   const router = useRouter();
 
   const setDefaultValue = () => {
-    setPopulationLowerLimit(defaultPopulationLowerLimit);
-    setPopulationUpperLimit(defaultPopulationUpperLimit);
-    setIslandSetting(defaultIslandSetting);
-    setKeyWords(defaultKeywords);
+    setPopulationLowerLimit('1');
+    setPopulationUpperLimit('10000');
+    setIslandSetting('離島を含まない');
+    setKeyWords('');
   };
 
   const onButtonClick = () => {
