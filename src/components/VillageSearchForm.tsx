@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import VillageSearchParams from '@/types/villageSearchParams';
 import { RegionSelectBox } from './RegionSelectBox';
+import { IslandSettingFieldSet } from './IslandSettingFieldSet';
 
 const searchPath = (villageSearchParams: VillageSearchParams): string => {
   const params = new URLSearchParams(villageSearchParams);
@@ -28,7 +29,6 @@ const VillageSearchForm = ({
   const [region, setRegion] = useState(inputRegion);
   const [populationLowerLimit, setPopulationLowerLimit] = useState(inputPopulationLowerLimit);
   const [populationUpperLimit, setPopulationUpperLimit] = useState(inputPopulationUpperLimit);
-  const islandSettings = ['離島を含まない', '離島を含む', '離島のみ'];
   const [islandSetting, setIslandSetting] = useState(inputIslandSetting);
   const [keyWords, setKeyWords] = useState(inputKeyWords);
   const router = useRouter();
@@ -102,24 +102,10 @@ const VillageSearchForm = ({
               人
             </fieldset>
             <br />
-            <fieldset>
-              <legend>離島設定</legend>
-              {islandSettings.map((setting) => {
-                return (
-                  <span key={setting} className="mr-4 flex flex-row items-center">
-                    <input
-                      id={setting}
-                      type="radio"
-                      className="radio radio-sm mr-2"
-                      value={setting}
-                      onChange={(e) => setIslandSetting(e.target.value)}
-                      checked={setting === islandSetting}
-                    />
-                    <label htmlFor={setting}>{setting}</label>
-                  </span>
-                );
-              })}
-            </fieldset>
+            <IslandSettingFieldSet
+              defaultValue={islandSetting}
+              onChange={setIslandSetting}
+            />
             <br />
             <label>
               キーワード絞り込み

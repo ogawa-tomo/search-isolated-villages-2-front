@@ -8,10 +8,10 @@ const Page = async ({ searchParams }) => {
     <>
       <VillageSearchForm
         inputRegion={searchParams.region}
-        inputPopulationLowerLimit={searchParams.population_lower_limit}
-        inputPopulationUpperLimit={searchParams.population_upper_limit}
-        inputIslandSetting={searchParams.island_setting}
-        inputKeywords={searchParams.key_words}
+        inputPopulationLowerLimit={searchParams.populationLowerLimit}
+        inputPopulationUpperLimit={searchParams.populationUpperLimit}
+        inputIslandSetting={searchParams.islandSetting}
+        inputKeyWords={searchParams.keyWords}
       />
       <h2 className="text-center">探索結果</h2>
       <Suspense fallback={<Loading />}>
