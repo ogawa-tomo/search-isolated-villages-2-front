@@ -10,19 +10,21 @@ const searchPath = (villageSearchParams: VillageSearchParams): string => {
   return `/result?${params.toString()}`;
 };
 
+type Props = {
+  inputRegion?: string,
+  inputPopulationLowerLimit?: string,
+  inputPopulationUpperLimit?: string,
+  inputIslandSetting?: string,
+  inputKeyWords?: string
+}
+
 const VillageSearchForm = ({
   inputRegion = '',
   inputPopulationLowerLimit = '1',
   inputPopulationUpperLimit = '10000',
   inputIslandSetting = '離島を含まない',
   inputKeyWords = '',
-}: {
-  inputRegion?: string,
-  inputPopulationLowerLimit?: string,
-  inputPopulationUpperLimit?: string,
-  inputIslandSetting?: string,
-  inputKeyWords?: string
-}) => {
+}: Props) => {
   const [region, setRegion] = useState(inputRegion);
   const [populationLowerLimit, setPopulationLowerLimit] = useState(inputPopulationLowerLimit);
   const [populationUpperLimit, setPopulationUpperLimit] = useState(inputPopulationUpperLimit);
