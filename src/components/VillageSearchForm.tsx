@@ -74,52 +74,61 @@ const VillageSearchForm = ({
           <div className="modal-box">
             <h2>詳細条件</h2>
             <br />
-            <h3>人口</h3>
-            <input
-              type="number"
-              min="1"
-              max="10000"
-              className="input input-bordered input-sm w-24 rounded-md invalid:input-error"
-              value={populationLowerLimit}
-              onChange={(e) => setPopulationLowerLimit(e.target.value)}
-            />
-            人～
-            <input
-              type="number"
-              min="1"
-              max="10000"
-              className="input input-bordered input-sm w-24 rounded-md invalid:input-error"
-              value={populationUpperLimit}
-              onChange={(e) => setPopulationUpperLimit(e.target.value)}
-            />
-            人
+            <fieldset>
+              <legend>人口</legend>
+              <label>
+                <input
+                  type="number"
+                  min="1"
+                  max="10000"
+                  className="input input-bordered input-sm w-24 rounded-md invalid:input-error"
+                  value={populationLowerLimit}
+                  onChange={(e) => setPopulationLowerLimit(e.target.value)}
+                />
+              </label>
+              人～
+              <label>
+                <input
+                  type="number"
+                  min="1"
+                  max="10000"
+                  className="input input-bordered input-sm w-24 rounded-md invalid:input-error"
+                  value={populationUpperLimit}
+                  onChange={(e) => setPopulationUpperLimit(e.target.value)}
+                />
+              </label>
+              人
+            </fieldset>
             <br />
+            <fieldset>
+              <legend>離島設定</legend>
+              {islandSettings.map((setting) => {
+                return (
+                  <span key={setting} className="mr-4 flex flex-row items-center">
+                    <input
+                      id={setting}
+                      type="radio"
+                      className="radio radio-sm mr-2"
+                      value={setting}
+                      onChange={(e) => setIslandSetting(e.target.value)}
+                      checked={setting === islandSetting}
+                    />
+                    <label htmlFor={setting}>{setting}</label>
+                  </span>
+                );
+              })}
+            </fieldset>
             <br />
-            <h3>離島設定</h3>
-            {islandSettings.map((setting) => {
-              return (
-                <span key={setting} className="mr-4 flex flex-row items-center">
-                  <input
-                    id={setting}
-                    type="radio"
-                    className="radio radio-sm mr-2"
-                    value={setting}
-                    onChange={(e) => setIslandSetting(e.target.value)}
-                    checked={setting === islandSetting}
-                  />
-                  <label htmlFor={setting}>{setting}</label>
-                </span>
-              );
-            })}
-            <br />
-            <h3>キーワード絞り込み</h3>
-            <input
-              type="text"
-              className="input input-bordered input-sm w-64 rounded-md"
-              placeholder="例：〇〇村"
-              value={keyWords}
-              onChange={(e) => setKeyWords(e.target.value)}
-            />
+            <label>
+              キーワード絞り込み
+              <input
+                type="text"
+                className="input input-bordered input-sm w-64 rounded-md"
+                placeholder="例：〇〇村"
+                value={keyWords}
+                onChange={(e) => setKeyWords(e.target.value)}
+              />
+            </label>
             <div className="modal-action">
               <button className="btn" onClick={setDefaultValue}>
                 デフォルト値に戻す
