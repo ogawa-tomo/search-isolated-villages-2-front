@@ -1,5 +1,10 @@
 import "./globals.css";
 
+export const metadata = {
+  title: '秘境集落探索ツール',
+  description: '秘境集落を探索し、秘境度を人口分布データをもとに評価して地域別にランキングで出力します。'
+}
+
 export default function RootLayout({
   children,
 }: {
