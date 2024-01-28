@@ -57,7 +57,7 @@ const VillageSearchForm = ({
 
   return (
     <>
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center" id='modalRoot'>
         <RegionSelectBox
           region={region}
           onChange={setRegion}
@@ -71,7 +71,7 @@ const VillageSearchForm = ({
         <Modal
           isOpen={modalIsOpen}
           className="modal-box mx-auto"
-          appElement={document.getElementById('root')}
+          appElement={document.getElementById('modalRoot')}
         >
           <h2>詳細条件</h2>
           <br />

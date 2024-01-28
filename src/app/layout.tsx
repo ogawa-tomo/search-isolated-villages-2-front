@@ -12,7 +12,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ja" data-theme="corporate">
-      <body id='root'>
+      <body>
         <div className="mx-auto max-w-2xl">{children}</div>
       </body>
     </html>

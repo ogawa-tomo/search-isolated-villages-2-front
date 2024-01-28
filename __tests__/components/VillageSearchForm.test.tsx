@@ -3,7 +3,6 @@ import userEvent from '@testing-library/user-event'
 import '@testing-library/jest-dom';
 import VillageSearchForm from '@/components/VillageSearchForm';
 import selectEvent from 'react-select-event';
-import { ReactDOM } from 'react';
 
 const user = userEvent.setup();
 
@@ -44,19 +43,27 @@ describe('VillageSearchForm', () => {
   })
 
   it('地域とオプションを選択して検索する', async () => {
-    const { baseElement } = render(<VillageSearchForm />);
+    render(<VillageSearchForm />);
     const button = screen.getByRole('button', { name: '探索' });
     const regionSelectBox = screen.getByRole('combobox');
     await selectEvent.select(regionSelectBox, '青森県');
 
-
-
     const openOptionModalButton = screen.getByRole('button', { name: '詳細条件' });
     await user.click(openOptionModalButton);
-    // await waitFor(() => screen.getByRole('button', { name: '閉じる' }));
-    const dialog = screen.getByRole('dialog');
-    // expect(dialog).toBeVisible();
+
     expect(screen.getByRole('group', { name: '人口' })).toBeInTheDocument();
+    const populationLowerLimitTextbox = screen.getByRole('spinbutton', { name: '最小：' });
+    await user.type(populationLowerLimitTextbox, '200')
+    const populationUpperLimitTextbox = screen.getByRole('spinbutton', { name: '最大：' });
+    await user.type(populationUpperLimitTextbox, '500')
+
+    expect(screen.getByRole('group', { name: '離島設定' })).toBeInTheDocument();
+    await user.click(screen.getByLabelText('離島のみ'));
+
+
+
+
+
     expect(screen.getByRole('button', { name: 'デフォルト値に戻す' })).toBeInTheDocument();
 
     const params = new URLSearchParams({
