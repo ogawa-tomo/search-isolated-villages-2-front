@@ -34,40 +34,40 @@ export const VillageListPresentation = ({
 
   return (
     <>
-      <div className="flex flex-col items-center">
-        <div className="w-96">
-          <table className="table border-collapse border border-slate-400">
-            <tbody>
-              {villages.map((village, index) => (
-                <tr key={index}>
-                  <td>{index + rank_start + 1}位</td>
-                  <td className="columns-xs ">
-                    <span className="font-bold text-lg">
-                      {village.pref} {village.city} {village.district}
-                    </span>
-                    <br />
-                    <span className="mr-1">人口: {village.population}人</span>
-                    <span>都会度: {village.urban_point}</span>
-                    <br />
-                    <a
-                      className="mr-1"
-                      href={village.google_map_url}
-                      target="_blank"
-                    >
-                      Googleマップ
-                    </a>
-                    <a
-                      href={`http://localhost:5000${village.mesh_map_path}`}
-                      target="_blank"
-                    >
-                      人口分布図
-                    </a>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+      <div className="max-w-sm mx-auto flex flex-col items-center">
+        <table className='w-full border-collapse'>
+          {villages.map((village, index) => (
+            <tr key={index} className='border border-slate-400'>
+              <td className='w-1/6 text-center'>
+                {index + rank_start + 1}位
+              </td>
+              <td className="pl-2">
+                <p className="font-bold text-lg">
+                  {village.pref} {village.city} {village.district}
+                </p>
+                <p className='text-sm'>
+                  <span className="mr-1">人口: {village.population}人</span>
+                  <span>都会度: {village.urban_point}</span>
+                </p>
+                <p className='text-sm'>
+                  <a
+                    className="mr-1"
+                    href={village.google_map_url}
+                    target="_blank"
+                  >
+                    Googleマップ
+                  </a>
+                  <a
+                    href={`http://localhost:5000${village.mesh_map_path}`}
+                    target="_blank"
+                  >
+                    人口分布図
+                  </a>
+                </p>
+              </td>
+            </tr>
+          ))}
+        </table>
         <Pagination
           current_page={current_page}
           pages={pages}
