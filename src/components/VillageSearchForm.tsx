@@ -71,33 +71,40 @@ const VillageSearchForm = ({
         <Modal
           isOpen={modalIsOpen}
           className="modal-box mx-auto"
+          appElement={document.getElementById('root')}
         >
           <h2>詳細条件</h2>
           <br />
           <fieldset>
             <legend>人口</legend>
-            <label>
-              <input
-                type="number"
-                min="1"
-                max="10000"
-                className="input input-bordered input-sm w-24 rounded-md invalid:input-error"
-                value={populationLowerLimit}
-                onChange={(e) => setPopulationLowerLimit(e.target.value)}
-              />
-            </label>
-            人～
-            <label>
-              <input
-                type="number"
-                min="1"
-                max="10000"
-                className="input input-bordered input-sm w-24 rounded-md invalid:input-error"
-                value={populationUpperLimit}
-                onChange={(e) => setPopulationUpperLimit(e.target.value)}
-              />
-            </label>
-            人
+            <div>
+              <label>
+                最小：
+                <input
+                  type="number"
+                  min="1"
+                  max="10000"
+                  className="input input-bordered input-sm w-24 rounded-md invalid:input-error"
+                  value={populationLowerLimit}
+                  onChange={(e) => setPopulationLowerLimit(e.target.value)}
+                />
+              </label>
+              人
+            </div>
+            <div>
+              <label>
+                最大：
+                <input
+                  type="number"
+                  min="1"
+                  max="10000"
+                  className="input input-bordered input-sm w-24 rounded-md invalid:input-error"
+                  value={populationUpperLimit}
+                  onChange={(e) => setPopulationUpperLimit(e.target.value)}
+                />
+              </label>
+              人
+            </div>
           </fieldset>
           <br />
           <IslandSettingFieldSet
