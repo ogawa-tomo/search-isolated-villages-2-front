@@ -68,12 +68,12 @@ export const VillageListPresentation = ({
             </tbody>
           </table>
         </div>
+        <Pagination
+          current_page={current_page}
+          pages={pages}
+          params={searchParams}
+        />
       </div>
-      <Pagination
-        current_page={current_page}
-        pages={pages}
-        params={searchParams}
-      />
     </>
   );
 };

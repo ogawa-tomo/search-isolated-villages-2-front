@@ -17,37 +17,35 @@ const Pagination = (props: PaginationProps) => {
   );
 
   return (
-    <>
-      <div className="join flex justify-center">
-        {min_page > 1 && (
-          <button className="join-item btn">
-            <PageLink page={1} params={params} />
+    <div>
+      {min_page > 1 && (
+        <button className="btn">
+          <PageLink page={1} params={params} />
+        </button>
+      )}
+      {min_page > 2 && (
+        <button className="btn btn-disabled">...</button>
+      )}
+      {page_array.map((page, index) =>
+        page === current_page ? (
+          <button key={index} className="btn cursor-default">
+            {page}
           </button>
-        )}
-        {min_page > 2 && (
-          <button className="join-item btn btn-disabled">...</button>
-        )}
-        {page_array.map((page, index) =>
-          page === current_page ? (
-            <button key={index} className="join-item btn cursor-default">
-              {page}
-            </button>
-          ) : (
-            <button key={index} className="join-item btn">
-              <PageLink page={page} params={params} />
-            </button>
-          )
-        )}
-        {max_page < pages - 1 && (
-          <button className="join-item btn btn-disabled">...</button>
-        )}
-        {max_page < pages && (
-          <button className="join-item btn">
-            <PageLink page={pages} params={params} />
+        ) : (
+          <button key={index} className="btn">
+            <PageLink page={page} params={params} />
           </button>
-        )}
-      </div>
-    </>
+        )
+      )}
+      {max_page < pages - 1 && (
+        <button className="btn btn-disabled">...</button>
+      )}
+      {max_page < pages && (
+        <button className="btn">
+          <PageLink page={pages} params={params} />
+        </button>
+      )}
+    </div>
   );
 };
 
