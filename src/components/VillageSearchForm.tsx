@@ -35,6 +35,11 @@ const VillageSearchForm = ({
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const router = useRouter();
 
+  const appElementObject: { appElement?: HTMLElement } = {}
+  if (typeof window === 'object') {
+    appElementObject.appElement = document.getElementById('modalRoot');
+  }
+
   const setDefaultValue = () => {
     setPopulationLowerLimit('1');
     setPopulationUpperLimit('10000');
@@ -71,7 +76,7 @@ const VillageSearchForm = ({
         <Modal
           isOpen={modalIsOpen}
           className="modal-box mx-auto"
-          appElement={document.getElementById('modalRoot')}
+          {...appElementObject}
         >
           <h2>詳細条件</h2>
           <br />
