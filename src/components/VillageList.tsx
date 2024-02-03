@@ -71,7 +71,7 @@ export const VillageListPresentation = ({
         <Pagination
           current_page={current_page}
           pages={pages}
-          params={searchParams}
+          queryParams={searchParams}
         />
       </div>
     </>
