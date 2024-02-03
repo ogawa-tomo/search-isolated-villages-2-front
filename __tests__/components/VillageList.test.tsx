@@ -8,10 +8,10 @@ describe('VillageListPresentation', () => {
   it('shows villages', () => {
     const villageSearchParams: VillageSearchParams = {
       region: '北海道',
-      population_lower_limit: '1',
-      population_upper_limit: '10000',
-      island_setting: '離島を含まない',
-      key_words: '',
+      populationLowerLimit: '1',
+      populationUpperLimit: '10000',
+      islandSetting: '離島を含まない',
+      keyWords: '',
       page: '1',
     };
 
