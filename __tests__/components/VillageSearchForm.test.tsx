@@ -1,12 +1,10 @@
-import { getByLabelText, render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event'
 import '@testing-library/jest-dom';
-import Modal from 'react-modal';
 import VillageSearchForm from '@/components/VillageSearchForm';
 import selectEvent from 'react-select-event';
 
 const user = userEvent.setup();
-
 
 const mockFn = jest.fn();
 jest.mock('next/navigation', () => ({
@@ -15,8 +13,6 @@ jest.mock('next/navigation', () => ({
     return { push: mockFn }
   }
 }));
-
-// Modal
 
 describe('VillageSearchForm', () => {
   beforeEach(() => {
