@@ -1,4 +1,3 @@
-import VillageSearchParams from '@/types/villageSearchParams';
 import Link from 'next/link';
 
 type PaginationProps = {
