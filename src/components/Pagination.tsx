@@ -4,11 +4,12 @@ import Link from 'next/link';
 type PaginationProps = {
   current_page: number;
   pages: number;
+  path: string;
   queryParams: {};
 };
 
 const Pagination = (props: PaginationProps) => {
-  const { current_page, pages, queryParams } = props;
+  const { current_page, pages, path, queryParams } = props;
   const neighbors_num = 2;
   const min_page = Math.max(1, current_page - neighbors_num);
   const max_page = Math.min(pages, current_page + neighbors_num);
@@ -20,7 +21,7 @@ const Pagination = (props: PaginationProps) => {
     <div>
       {min_page > 1 && (
         <button className="btn">
-          <PageLink page={1} queryParams={queryParams} />
+          <PageLink page={1} path={path} queryParams={queryParams} />
         </button>
       )}
       {min_page > 2 && (
@@ -33,7 +34,7 @@ const Pagination = (props: PaginationProps) => {
           </button>
         ) : (
           <button key={index} className="btn">
-            <PageLink page={page} queryParams={queryParams} />
+            <PageLink page={page} path={path} queryParams={queryParams} />
           </button>
         )
       )}
@@ -42,7 +43,7 @@ const Pagination = (props: PaginationProps) => {
       )}
       {max_page < pages && (
         <button className="btn">
-          <PageLink page={pages} queryParams={queryParams} />
+          <PageLink page={pages} path={path} queryParams={queryParams} />
         </button>
       )}
     </div>
@@ -51,16 +52,17 @@ const Pagination = (props: PaginationProps) => {
 
 type PageLinkProps = {
   page: number;
+  path: string;
   queryParams: {};
 };
 
 const PageLink = (props: PageLinkProps) => {
-  const { page, queryParams } = props;
+  const { page, path, queryParams } = props;
   const query = new URLSearchParams({
     ...queryParams,
     page: String(page)
   });
-  return <Link href={`/result?${query.toString()}`}>{page}</Link>;
+  return <Link href={`${path}?${query.toString()}`}>{page}</Link>;
 };
 
 export default Pagination;
