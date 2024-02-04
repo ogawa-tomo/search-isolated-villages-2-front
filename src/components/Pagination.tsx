@@ -18,35 +18,37 @@ const Pagination = (props: PaginationProps) => {
   );
 
   return (
-    <div>
-      {min_page > 1 && (
-        <button className="btn">
-          <PageLink page={1} path={path} queryParams={queryParams} />
-        </button>
-      )}
-      {min_page > 2 && (
-        <button className="btn btn-disabled">...</button>
-      )}
-      {page_array.map((page, index) =>
-        page === current_page ? (
-          <button key={index} className="btn cursor-default">
-            {page}
-          </button>
-        ) : (
-          <button key={index} className="btn">
-            <PageLink page={page} path={path} queryParams={queryParams} />
-          </button>
-        )
-      )}
-      {max_page < pages - 1 && (
-        <button className="btn btn-disabled">...</button>
-      )}
-      {max_page < pages && (
-        <button className="btn">
-          <PageLink page={pages} path={path} queryParams={queryParams} />
-        </button>
-      )}
-    </div>
+    <nav aria-label='pagination'>
+      <ul className="join">
+        {min_page > 1 && (
+          <li className="btn join-item">
+            <PageLink page={1} path={path} queryParams={queryParams} />
+          </li>
+        )}
+        {min_page > 2 && (
+          <li className="btn btn-disabled join-item">...</li>
+        )}
+        {page_array.map((page, index) =>
+          page === current_page ? (
+            <li key={index} className="btn cursor-default">
+              {page}
+            </li>
+          ) : (
+            <li key={index} className='btn join-item'>
+              <PageLink key={index} page={page} path={path} queryParams={queryParams} />
+            </li>
+          )
+        )}
+        {max_page < pages - 1 && (
+          <li className="btn btn-disabled join-item">...</li>
+        )}
+        {max_page < pages && (
+          <li className='btn join-item'>
+            <PageLink page={pages} path={path} queryParams={queryParams} />
+          </li>
+        )}
+      </ul>
+    </nav>
   );
 };
 
