@@ -35,6 +35,6 @@
     "react-dom": "^18.2.0",
     "react-modal": "^3.16.1",
     "react-select": "^5.7.4",
-    "swr": "^2.2.2"
+    "wiremock-captain": "^3.3.0"
   }
 }
