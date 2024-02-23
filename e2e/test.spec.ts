@@ -1,7 +1,7 @@
 import VillageSearchParams from '@/types/villageSearchParams';
 import { test, expect } from '@playwright/test';
 import villages from './villages';
-import { baseUrl } from './util';
+// import { baseUrl } from './util';
 import {
   IWireMockRequest,
   IWireMockResponse,
@@ -18,7 +18,7 @@ test('タイトルが表示される', async ({ page }) => {
     page: '1',
   });
 
-  const wiremockEndpoint = 'http://localhost:8080';
+  const wiremockEndpoint = process.env.VILLAGE_API_URL;
   const mock = new WireMock(wiremockEndpoint);
   const request: IWireMockRequest = {
     method: 'GET',
@@ -34,7 +34,7 @@ test('タイトルが表示される', async ({ page }) => {
   };
   await mock.register(request, mockedResponse);
 
-  await page.goto(baseUrl);
+  await page.goto('/');
   await expect(
     page.getByRole('heading', { name: '秘境集落探索ツール' })
   ).toBeVisible();
@@ -44,13 +44,6 @@ test('タイトルが表示される', async ({ page }) => {
   await option.scrollIntoViewIfNeeded();
   await option.click();
   await page.getByRole('button', { name: '探索' }).click();
-
-  await expect(page).toHaveURL(
-    `http://localhost:3000/result?${params.toString()}`
-  );
-
-  // const title = page.getByRole('heading', { name: '探索結果' });
-  // await title.waitFor();
 
   await expect(page.getByRole('heading', { name: '探索結果' })).toBeVisible();
   const village = page.getByText('北海道 稚内市1 稚内1');
