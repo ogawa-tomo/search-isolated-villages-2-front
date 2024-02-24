@@ -10,10 +10,10 @@ import {
   WireMock,
 } from 'wiremock-captain';
 
-test('デフォルトの集落検索', async ({ page }) => {
-  const wiremockEndpoint = process.env.VILLAGE_API_URL;
-  const mock = new WireMock(wiremockEndpoint);
+const wiremockEndpoint = process.env.VILLAGE_API_URL;
+const mock = new WireMock(wiremockEndpoint);
 
+test('デフォルトの集落検索', async ({ page }) => {
   const paramsForFirstPage = new URLSearchParams({
     region: '北海道',
     populationLowerLimit: '1',
@@ -84,9 +84,6 @@ test('デフォルトの集落検索', async ({ page }) => {
 });
 
 test('パラメータを指定した集落検索', async ({ page }) => {
-  const wiremockEndpoint = process.env.VILLAGE_API_URL;
-  const mock = new WireMock(wiremockEndpoint);
-
   const paramsForAomori = new URLSearchParams({
     region: '青森県',
     populationLowerLimit: '10',
