@@ -1,8 +1,8 @@
 import type Village from '@/types/village';
 
-const villages: Village[] = [];
-for (let i = 0; i < 100; i++) {
-  villages.push({
+export const villagesForFirstPage: Village[] = [];
+for (let i = 1; i <= 20; i++) {
+  villagesForFirstPage.push({
     pref: '北海道',
     city: `稚内市${i}`,
     district: `稚内${i}`,
@@ -12,5 +12,3 @@ for (let i = 0; i < 100; i++) {
     mesh_map_path: '/hogehoge',
   });
 }
-
-export default villages;

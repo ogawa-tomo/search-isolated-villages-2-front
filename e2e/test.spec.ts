@@ -1,6 +1,6 @@
 import VillageSearchParams from '@/types/villageSearchParams';
 import { test, expect } from '@playwright/test';
-import villages from './villages';
+import { villagesForFirstPage } from './villages';
 // import { baseUrl } from './util';
 import {
   IWireMockRequest,
@@ -29,7 +29,7 @@ test('タイトルが表示される', async ({ page }) => {
     body: {
       pages: 5,
       per_page: 20,
-      villages: villages,
+      villages: villagesForFirstPage,
     },
   };
   await mock.register(request, mockedResponse);
@@ -46,7 +46,8 @@ test('タイトルが表示される', async ({ page }) => {
   await page.getByRole('button', { name: '探索' }).click();
 
   await expect(page.getByRole('heading', { name: '探索結果' })).toBeVisible();
-  const village = page.getByText('北海道 稚内市1 稚内1');
-  await village.waitFor();
-  await expect(village).toBeVisible();
+  for (let i = 1; i <= 20; i++) {
+    await expect(page.getByText(`北海道 稚内市${i} 稚内${i}`)).toBeVisible();
+  }
+  await expect(page.getByText('北海道 稚内市21 稚内21')).not.toBeVisible();
 });
