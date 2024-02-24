@@ -1,64 +1,6 @@
 import { test, expect } from '@playwright/test';
-import {
-  villagesForAomori,
-  villagesForFirstPage,
-  villagesForSecondPage,
-} from './villages';
-import {
-  IWireMockRequest,
-  IWireMockResponse,
-  WireMock,
-} from 'wiremock-captain';
-
-const wiremockEndpoint = process.env.VILLAGE_API_URL;
-const mock = new WireMock(wiremockEndpoint);
 
 test('デフォルトの集落検索', async ({ page }) => {
-  const paramsForFirstPage = new URLSearchParams({
-    region: '北海道',
-    populationLowerLimit: '1',
-    populationUpperLimit: '10000',
-    islandSetting: '離島を含まない',
-    keyWords: '',
-    page: '1',
-  });
-  const paramsForSecondPage = new URLSearchParams({
-    region: '北海道',
-    populationLowerLimit: '1',
-    populationUpperLimit: '10000',
-    islandSetting: '離島を含まない',
-    keyWords: '',
-    page: '2',
-  });
-
-  const requestForFirstPage: IWireMockRequest = {
-    method: 'GET',
-    endpoint: `/api/result?${paramsForFirstPage.toString()}`,
-  };
-  const mockedResponseForFirstPage: IWireMockResponse = {
-    status: 200,
-    body: {
-      pages: 5,
-      per_page: 20,
-      villages: villagesForFirstPage,
-    },
-  };
-  await mock.register(requestForFirstPage, mockedResponseForFirstPage);
-
-  const requestForSecondPage: IWireMockRequest = {
-    method: 'GET',
-    endpoint: `/api/result?${paramsForSecondPage.toString()}`,
-  };
-  const mockedResponseForSecondPage: IWireMockResponse = {
-    status: 200,
-    body: {
-      pages: 5,
-      per_page: 20,
-      villages: villagesForSecondPage,
-    },
-  };
-  await mock.register(requestForSecondPage, mockedResponseForSecondPage);
-
   await page.goto('/');
   await expect(
     page.getByRole('heading', { name: '秘境集落探索ツール' })
@@ -84,29 +26,6 @@ test('デフォルトの集落検索', async ({ page }) => {
 });
 
 test('パラメータを指定した集落検索', async ({ page }) => {
-  const paramsForAomori = new URLSearchParams({
-    region: '青森県',
-    populationLowerLimit: '10',
-    populationUpperLimit: '500',
-    islandSetting: '離島を含む',
-    keyWords: '佐井村',
-    page: '1',
-  });
-
-  const requestForAomori: IWireMockRequest = {
-    method: 'GET',
-    endpoint: `/api/result?${paramsForAomori.toString()}`,
-  };
-  const mockedResponseForAomori: IWireMockResponse = {
-    status: 200,
-    body: {
-      pages: 5,
-      per_page: 20,
-      villages: villagesForAomori,
-    },
-  };
-  await mock.register(requestForAomori, mockedResponseForAomori);
-
   await page.goto('/');
   await expect(
     page.getByRole('heading', { name: '秘境集落探索ツール' })
