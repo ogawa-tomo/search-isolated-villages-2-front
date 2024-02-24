@@ -9,6 +9,12 @@ const wiremockEndpoint = process.env.VILLAGE_API_URL;
 const mock = new WireMock(wiremockEndpoint);
 
 export const mockVillages = async () => {
+  await mockHokkaido1();
+  await mockHokkaido2();
+  await mockAomori();
+};
+
+const mockHokkaido1 = async () => {
   const paramsForHokkaido1 = new URLSearchParams({
     region: '北海道',
     populationLowerLimit: '1',
@@ -42,7 +48,9 @@ export const mockVillages = async () => {
     },
   };
   await mock.register(requestForHokkaido1, mockedResponseForHokkaido1);
+};
 
+const mockHokkaido2 = async () => {
   const paramsForHokkaido2 = new URLSearchParams({
     region: '北海道',
     populationLowerLimit: '1',
@@ -77,7 +85,9 @@ export const mockVillages = async () => {
     },
   };
   await mock.register(requestForHokkaido2, mockedResponseForHokkaido2);
+};
 
+const mockAomori = async () => {
   const villagesForAomori: Village[] = [];
   for (let i = 1; i <= 20; i++) {
     villagesForAomori.push({
