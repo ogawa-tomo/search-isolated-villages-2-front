@@ -59,7 +59,6 @@ const mockHokkaido2 = async () => {
     keyWords: '',
     page: '2',
   });
-
   const villagesForHokkaido2: Village[] = [];
   for (let i = 21; i <= 40; i++) {
     villagesForHokkaido2.push({
@@ -108,7 +107,6 @@ const mockAomori = async () => {
     keyWords: '佐井村',
     page: '1',
   });
-
   const requestForAomori: IWireMockRequest = {
     method: 'GET',
     endpoint: `/api/result?${paramsForAomori.toString()}`,
