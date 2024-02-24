@@ -1,12 +1,16 @@
 import { test, expect } from '@playwright/test';
-import { villagesForFirstPage, villagesForSecondPage } from './villages';
+import {
+  villagesForAomori,
+  villagesForFirstPage,
+  villagesForSecondPage,
+} from './villages';
 import {
   IWireMockRequest,
   IWireMockResponse,
   WireMock,
 } from 'wiremock-captain';
 
-test('タイトルが表示される', async ({ page }) => {
+test('デフォルトの集落検索', async ({ page }) => {
   const wiremockEndpoint = process.env.VILLAGE_API_URL;
   const mock = new WireMock(wiremockEndpoint);
 
@@ -77,4 +81,59 @@ test('タイトルが表示される', async ({ page }) => {
     await expect(page.getByText(`北海道 稚内市${i} 稚内${i}`)).toBeVisible();
   }
   await expect(page.getByText('北海道 稚内市41 稚内41')).not.toBeVisible();
+});
+
+test('パラメータを指定した集落検索', async ({ page }) => {
+  const wiremockEndpoint = process.env.VILLAGE_API_URL;
+  const mock = new WireMock(wiremockEndpoint);
+
+  const paramsForAomori = new URLSearchParams({
+    region: '青森県',
+    populationLowerLimit: '10',
+    populationUpperLimit: '500',
+    islandSetting: '離島を含む',
+    keyWords: '佐井村',
+    page: '1',
+  });
+
+  const requestForAomori: IWireMockRequest = {
+    method: 'GET',
+    endpoint: `/api/result?${paramsForAomori.toString()}`,
+  };
+  const mockedResponseForAomori: IWireMockResponse = {
+    status: 200,
+    body: {
+      pages: 5,
+      per_page: 20,
+      villages: villagesForAomori,
+    },
+  };
+  await mock.register(requestForAomori, mockedResponseForAomori);
+
+  await page.goto('/');
+  await expect(
+    page.getByRole('heading', { name: '秘境集落探索ツール' })
+  ).toBeVisible();
+
+  await page.getByRole('combobox').click();
+  const option = await page.waitForSelector(':text("青森県")');
+  await option.scrollIntoViewIfNeeded();
+  await option.click();
+
+  await page.getByRole('button', { name: '詳細条件' }).click();
+
+  await page.getByRole('spinbutton', { name: '最小：' }).fill('10');
+  await page.getByRole('spinbutton', { name: '最大：' }).fill('500');
+  await page.getByRole('radio', { name: '離島を含む' }).click();
+  await page
+    .getByRole('textbox', { name: 'キーワード絞り込み' })
+    .fill('佐井村');
+  await page.getByRole('button', { name: '閉じる' }).click();
+  await page.getByRole('button', { name: '探索' }).click();
+
+  await expect(page.getByRole('heading', { name: '探索結果' })).toBeVisible();
+  for (let i = 1; i <= 20; i++) {
+    await expect(page.getByText(`青森県 佐井村${i} 佐井${i}`)).toBeVisible();
+  }
+  await expect(page.getByText('青森県 佐井村21 佐井21')).not.toBeVisible();
 });
