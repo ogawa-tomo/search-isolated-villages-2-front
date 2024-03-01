@@ -40,39 +40,41 @@ export const FacultyListPresentation = ({
     <>
       <div className="max-w-sm mx-auto flex flex-col items-center">
         <table className='w-full border-collapse'>
-          {faculties.map((faculty, index) => (
-            <tr key={index} className='border border-slate-400'>
-              <td className='w-1/6 text-center'>
-                {index + rank_start + 1}位
-              </td>
-              <td className="pl-2">
-                <p className="font-bold text-lg">
-                  {faculty.name}
-                </p>
-                <p className='text-sm'>
-                  <span className="mr-1">{faculty.pref} {faculty.city} {faculty.district}</span>
-                </p>
-                <p className='text-sm'>
-                  <span>都会度: {faculty.urban_point}</span>
-                </p>
-                <p className='text-sm'>
-                  <a
-                    className="mr-1"
-                    href={faculty.google_map_url}
-                    target="_blank"
-                  >
-                    Googleマップ
-                  </a>
-                  <a
-                    href={`http://localhost:5000${faculty.mesh_map_path}`}
-                    target="_blank"
-                  >
-                    人口分布図
-                  </a>
-                </p>
-              </td>
-            </tr>
-          ))}
+          <tbody>
+            {faculties.map((faculty, index) => (
+              <tr key={index} className='border border-slate-400'>
+                <td className='w-1/6 text-center'>
+                  {index + rank_start + 1}位
+                </td>
+                <td className="pl-2">
+                  <p className="font-bold text-lg">
+                    {faculty.name}
+                  </p>
+                  <p className='text-sm'>
+                    <span className="mr-1">{faculty.pref} {faculty.city} {faculty.district}</span>
+                  </p>
+                  <p className='text-sm'>
+                    <span>都会度: {faculty.urban_point}</span>
+                  </p>
+                  <p className='text-sm'>
+                    <a
+                      className="mr-1"
+                      href={faculty.google_map_url}
+                      target="_blank"
+                    >
+                      Googleマップ
+                    </a>
+                    <a
+                      href={`http://localhost:5000${faculty.mesh_map_path}`}
+                      target="_blank"
+                    >
+                      人口分布図
+                    </a>
+                  </p>
+                </td>
+              </tr>
+            ))}
+          </tbody>
         </table>
         <Pagination
           current_page={current_page}
