@@ -5,7 +5,7 @@ import {
   WireMock,
 } from 'wiremock-captain';
 
-const wiremockEndpoint = process.env.VILLAGE_API_URL;
+const wiremockEndpoint = process.env.NEXT_PUBLIC_VILLAGE_API_URL;
 const mock = new WireMock(wiremockEndpoint);
 
 export const mockVillages = async () => {
