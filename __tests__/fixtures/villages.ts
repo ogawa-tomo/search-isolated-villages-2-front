@@ -16,3 +16,13 @@ export const getVillages = (number: number): Village[] => {
   }
   return villages;
 };
+
+export const village: Village = {
+  pref: '北海道',
+  city: '稚内市',
+  district: '稚内地区',
+  population: 20,
+  urban_point: 100,
+  google_map_url: 'https://hogehoge.com',
+  mesh_map_path: '/hogehoge',
+};
