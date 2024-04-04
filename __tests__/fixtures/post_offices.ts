@@ -16,3 +16,13 @@ export const getPostOffices = (number: number): Faculty[] => {
   }
   return post_offices;
 };
+
+export const postOffice: Faculty = {
+  name: '稚内郵便局',
+  pref: '北海道',
+  city: '稚内市',
+  district: '稚内地区',
+  urban_point: 100,
+  google_map_url: 'https://hogehoge.com',
+  mesh_map_path: '/hogehoge',
+};
