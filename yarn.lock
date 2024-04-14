@@ -954,6 +954,13 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-katex@^3.0.4":
+  version "3.0.4"
+  resolved "https://registry.npmjs.org/@types/react-katex/-/react-katex-3.0.4.tgz"
+  integrity sha512-aLkykKzSKLpXI6REJ3uClao6P47HAFfR1gcHOZwDeTuALsyjgMhz+oynLV4gX0kiJVnvHrBKF/TLXqyNTpHDUg==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-modal@^3.16.3":
   version "3.16.3"
   resolved "https://registry.npmjs.org/@types/react-modal/-/react-modal-3.16.3.tgz"
@@ -1606,6 +1613,11 @@ commander@^4.0.0:
   version "4.1.1"
   resolved "https://registry.npmjs.org/commander/-/commander-4.1.1.tgz"
   integrity sha512-NOKm8xhkzAjzFx8B2v5OAHT+u5pRQc2UCa2Vq9jYL/31o2wi9mxBA7LIFs3sV5VSC49z6pEhfbMULvShKj26WA==
+
+commander@^8.3.0:
+  version "8.3.0"
+  resolved "https://registry.npmjs.org/commander/-/commander-8.3.0.tgz"
+  integrity sha512-OkTL9umf+He2DZkUq8f8J9of7yL6RJKI24dVITBmNfZBmri9zYZQrKkuXiKhyfPSu8tUhnVBB1iKXevvnlR4Ww==
 
 concat-map@0.0.1:
   version "0.0.1"
@@ -3517,6 +3529,13 @@ json5@^2.2.3:
     object.assign "^4.1.4"
     object.values "^1.1.6"
 
+katex@^0.16.0:
+  version "0.16.10"
+  resolved "https://registry.npmjs.org/katex/-/katex-0.16.10.tgz"
+  integrity sha512-ZiqaC04tp2O5utMsl2TEZTXxa6WSC4yo0fv5ML++D3QZv/vx2Mct0mTlRx3O+uUkjfuAgOkzsCmq5MiUEsDDdA==
+  dependencies:
+    commander "^8.3.0"
+
 keyv@^4.5.3:
   version "4.5.4"
   resolved "https://registry.npmjs.org/keyv/-/keyv-4.5.4.tgz"
@@ -4185,6 +4204,13 @@ react-is@^18.0.0:
   resolved "https://registry.npmjs.org/react-is/-/react-is-18.2.0.tgz"
   integrity sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==
 
+react-katex@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.npmjs.org/react-katex/-/react-katex-3.0.1.tgz"
+  integrity sha512-wIUW1fU5dHlkKvq4POfDkHruQsYp3fM8xNb/jnc8dnQ+nNCnaj0sx5pw7E6UyuEdLRyFKK0HZjmXBo+AtXXy0A==
+  dependencies:
+    katex "^0.16.0"
+
 react-lifecycles-compat@^3.0.0:
   version "3.0.4"
   resolved "https://registry.npmjs.org/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz"
@@ -4232,7 +4258,7 @@ react-transition-group@^4.3.0:
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
 
-"react@^0.14.0 || ^15.0.0 || ^16 || ^17 || ^18", "react@^16.11.0 || ^17.0.0 || ^18.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", react@^18.0.0, react@^18.2.0, "react@>= 16.8.0 || 17.x.x || ^18.0.0-0", react@>=16.6.0, react@>=16.8.0:
+"react@^0.14.0 || ^15.0.0 || ^16 || ^17 || ^18", "react@^16.11.0 || ^17.0.0 || ^18.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", react@^18.0.0, react@^18.2.0, "react@>= 16.8.0 || 17.x.x || ^18.0.0-0", "react@>=15.3.2 <=18", react@>=16.6.0, react@>=16.8.0:
   version "18.2.0"
   resolved "https://registry.npmjs.org/react/-/react-18.2.0.tgz"
   integrity sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==
