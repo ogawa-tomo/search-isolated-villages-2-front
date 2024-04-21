@@ -1,4 +1,5 @@
 import "./globals.css";
+import { Menu } from "@/components/Menu";
 
 export const metadata = {
   title: '秘境集落探索ツール',
@@ -13,7 +14,12 @@ export default function RootLayout({
   return (
     <html lang="ja" data-theme="corporate">
       <body>
-        <div className="mx-auto max-w-2xl">{children}</div>
+        <div className="flex justify-between mx-auto max-w-3xl">
+          <div className="w-4/1">
+            <Menu />
+          </div>
+          <div className="w-3/4">{children}</div>
+        </div>
       </body>
     </html>
   );
