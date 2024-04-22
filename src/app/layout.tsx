@@ -1,5 +1,6 @@
 import "./globals.css";
-import { Menu } from "@/components/Menu";
+import { HeaderMenu } from "@/components/HeaderMenu";
+import { SideMenu } from "@/components/SideMenu";
 
 export const metadata = {
   title: '秘境集落探索ツール',
@@ -14,11 +15,19 @@ export default function RootLayout({
   return (
     <html lang="ja" data-theme="corporate">
       <body>
-        <div className="flex justify-between mx-auto max-w-3xl">
-          <div className="w-4/1">
-            <Menu />
+        <div className="mx-auto max-w-3xl">
+          <header>
+            <div className="flex items-center justify-between">
+              <div>ロゴ</div>
+              <HeaderMenu />
+            </div>
+          </header>
+          <div className="flex justify-center">
+            <div className="relative hidden md:block">
+              <SideMenu />
+            </div>
+            <div className="p-4 w-full">{children}</div>
           </div>
-          <div className="w-3/4">{children}</div>
         </div>
       </body>
     </html>
