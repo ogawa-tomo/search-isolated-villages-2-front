@@ -20,17 +20,6 @@ describe('Pagination', () => {
     expect(screen.getByText('3')).toHaveProperty('href', 'http://localhost/result?hoge=hoge&fuga=fuga&page=3');
     expect(screen.getByText('...')).toBeInTheDocument();
     expect(screen.getByText('100')).toHaveProperty('href', 'http://localhost/result?hoge=hoge&fuga=fuga&page=100');
-
-
-
-    // expect(pageLinks[0]).toHaveTextContent('1');
-    // expect(pageLinks[1]).toHaveTextContent('2')
-    // expect(within(pageLinks[1]).getByRole('link')).toHaveProperty('href', 'http://localhost/result?hoge=hoge&fuga=fuga&page=2');
-    // expect(pageLinks[2]).toHaveTextContent('3')
-    // expect(within(pageLinks[2]).getByRole('link')).toHaveProperty('href', 'http://localhost/result?hoge=hoge&fuga=fuga&page=3');
-    // expect(pageLinks[3]).toHaveTextContent('...')
-    // expect(pageLinks[4]).toHaveTextContent('100')
-    // expect(within(pageLinks[4]).getByRole('link')).toHaveProperty('href', 'http://localhost/result?hoge=hoge&fuga=fuga&page=100');
   })
 
   it('2ページ目を表示', async () => {
