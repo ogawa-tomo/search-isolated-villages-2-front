@@ -21,7 +21,7 @@ export const Menu = ({ onClick }: { onClick?: () => void }) => {
         <li><MenuElement path="/" name="秘境集落探索" onClick={onClick} /></li>
         <li>
           <details>
-            <summary className="transition">秘境施設探索</summary>
+            <summary>秘境施設探索</summary>
             <ul>
               {facultyCategories.map((facultyCategory => {
                 return (
