@@ -37,7 +37,7 @@ const VillageSearchForm = ({
 
   const appElementObject: { appElement?: HTMLElement } = {}
   if (typeof window === 'object') {
-    appElementObject.appElement = document.getElementById('modalRoot');
+    appElementObject.appElement = document.getElementById('modalRoot') ?? undefined;
   }
 
   const setDefaultValue = () => {

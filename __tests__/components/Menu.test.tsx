@@ -2,8 +2,16 @@ import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event'
 import '@testing-library/jest-dom';
 import { Menu } from '@/components/Menu';
+import { facultyCategories } from '@/lib/facultyCategories';
+import { facultyCategoryPathName } from '@/lib/facultyCategoryPathName';
 
 const user = userEvent.setup();
+
+function assertsNotNull(element: HTMLElement | null): asserts element is HTMLElement {
+  if (element !== null) return;
+
+  throw new Error('element is null');
+}
 
 describe('Menu', () => {
   it('秘境集落探索、秘境施設占い、このツールについてのリンク', async () => {
@@ -13,14 +21,6 @@ describe('Menu', () => {
     expect(screen.getByRole('link', { name: '秘境集落占い' })).toHaveProperty('href', 'http://localhost/fortune');
     expect(screen.getByText('秘境施設占い')).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'このツールについて' })).toHaveProperty('href', 'http://localhost/about');
-
-
-
-    const facultyFortuneSummary = screen.getByText('秘境施設占い');
-    expect(facultyFortuneSummary).toBeInTheDocument();
-    expect(within(facultyFortuneSummary.closest('details')).getByRole('link', { name: '郵便局' })).not.toBeVisible();
-    await user.click(facultyFortuneSummary);
-    expect(within(facultyFortuneSummary.closest('details')).getByRole('link', { name: '郵便局' })).toHaveProperty('href', 'http://localhost/fortune/post_office');
   });
 
   it('秘境施設探索ツールの開閉', async () => {
@@ -28,11 +28,22 @@ describe('Menu', () => {
 
     const facultySearchSummary = screen.getByText('秘境施設探索');
     expect(facultySearchSummary).toBeInTheDocument();
-    expect(within(facultySearchSummary.closest('details')).getByRole('link', { name: '郵便局' })).not.toBeVisible();
+    const facultySearchDetails = facultySearchSummary.closest('details');
+    assertsNotNull(facultySearchDetails);
+
+    for (const facultyCategory of facultyCategories) {
+      expect(within(facultySearchDetails).getByRole('link', { name: facultyCategory })).not.toBeVisible();
+    }
+
     await user.click(facultySearchSummary);
-    expect(within(facultySearchSummary.closest('details')).getByRole('link', { name: '郵便局' })).toHaveProperty('href', 'http://localhost/post_office');
+    for (const facultyCategory of facultyCategories) {
+      expect(within(facultySearchDetails).getByRole('link', { name: facultyCategory })).toHaveProperty('href', `http://localhost/${facultyCategoryPathName(facultyCategory)}`);
+    }
+
     await user.click(facultySearchSummary);
-    expect(within(facultySearchSummary.closest('details')).getByRole('link', { name: '郵便局' })).not.toBeVisible();
+    for (const facultyCategory of facultyCategories) {
+      expect(within(facultySearchDetails).getByRole('link', { name: facultyCategory })).not.toBeVisible();
+    }
   });
 
   it('秘境施設占いの開閉', async () => {
@@ -40,10 +51,21 @@ describe('Menu', () => {
 
     const facultyFortuneSummary = screen.getByText('秘境施設占い');
     expect(facultyFortuneSummary).toBeInTheDocument();
-    expect(within(facultyFortuneSummary.closest('details')).getByRole('link', { name: '郵便局' })).not.toBeVisible();
+    const facultyFortuneDetails = facultyFortuneSummary.closest('details');
+    assertsNotNull(facultyFortuneDetails);
+
+    for (const facultyCategory of facultyCategories) {
+      expect(within(facultyFortuneDetails).getByRole('link', { name: facultyCategory })).not.toBeVisible();
+    }
+
     await user.click(facultyFortuneSummary);
-    expect(within(facultyFortuneSummary.closest('details')).getByRole('link', { name: '郵便局' })).toHaveProperty('href', 'http://localhost/fortune/post_office');
+    for (const facultyCategory of facultyCategories) {
+      expect(within(facultyFortuneDetails).getByRole('link', { name: facultyCategory })).toHaveProperty('href', `http://localhost/fortune/${facultyCategoryPathName(facultyCategory)}`);
+    }
+
     await user.click(facultyFortuneSummary);
-    expect(within(facultyFortuneSummary.closest('details')).getByRole('link', { name: '郵便局' })).not.toBeVisible();
+    for (const facultyCategory of facultyCategories) {
+      expect(within(facultyFortuneDetails).getByRole('link', { name: facultyCategory })).not.toBeVisible();
+    }
   });
 });
