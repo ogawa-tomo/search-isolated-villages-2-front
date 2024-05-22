@@ -3,12 +3,13 @@ import FacultySearchForm from "@/components/FacultySearchForm";
 import { Suspense } from "react";
 import FacultyList from "@/components/FacultyList";
 import FacultySearchParams from "@/types/facultySearchParams";
+import { FacultyCategoryPathName } from "@/types/FacultyCategory";
 
-const Page = async ({ params, searchParams }: { params: { faculties: string }, searchParams: FacultySearchParams }) => {
+const Page = async ({ params, searchParams }: { params: { facultyCategoryPathName: FacultyCategoryPathName }, searchParams: FacultySearchParams }) => {
   return (
     <>
       <FacultySearchForm
-        faculties={params.faculties}
+        facultyCategoryPathName={params.facultyCategoryPathName}
         inputRegion={searchParams.region}
         inputIslandSetting={searchParams.islandSetting}
         inputKeyWords={searchParams.keyWords}
@@ -16,7 +17,7 @@ const Page = async ({ params, searchParams }: { params: { faculties: string }, s
       <h2 className="text-center">探索結果</h2>
       <Suspense fallback={<Loading />}>
         <FacultyList
-          faculty={params.faculties}
+          facultyCategoryPathName={params.facultyCategoryPathName}
           searchParams={searchParams} />
       </Suspense>
     </>

@@ -15,8 +15,8 @@ export const Menu = ({ onClick }: { onClick?: () => void }) => {
             <ul>
               {facultyCategories.map((facultyCategory => {
                 return (
-                  <li key={facultyCategory}>
-                    <MenuElement path={`/${facultyCategoryPathName(facultyCategory)}`} name={facultyCategory} onClick={onClick} />
+                  <li key={facultyCategory.pathName}>
+                    <MenuElement path={`/${facultyCategory.pathName}`} name={facultyCategory.name} onClick={onClick} />
                   </li>
                 )
               }))}
@@ -30,8 +30,8 @@ export const Menu = ({ onClick }: { onClick?: () => void }) => {
             <ul>
               {facultyCategories.map((facultyCategory => {
                 return (
-                  <li key={facultyCategory}>
-                    <MenuElement path={`/fortune/${facultyCategoryPathName(facultyCategory)}`} name={facultyCategory} onClick={onClick} />
+                  <li key={facultyCategory.pathName}>
+                    <MenuElement path={`/fortune/${facultyCategory.pathName}`} name={facultyCategory.name} onClick={onClick} />
                   </li>
                 )
               }))}

@@ -1,7 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event'
 import '@testing-library/jest-dom';
-import VillageSearchForm from '@/components/VillageSearchForm';
 import selectEvent from 'react-select-event';
 import FacultySearchForm from '@/components/FacultySearchForm';
 
@@ -22,7 +21,7 @@ describe('FacultySearchForm', () => {
 
   it('地域を選択しオプションはデフォルト値で検索する', async () => {
     render(<FacultySearchForm
-      faculties='post_office'
+      facultyCategoryPathName='post_office'
     />);
     const button = screen.getByRole('button', { name: '探索' });
     expect(button).toBeDisabled();
@@ -44,7 +43,7 @@ describe('FacultySearchForm', () => {
 
   it('地域とオプションを選択して検索する', async () => {
     render(<FacultySearchForm
-      faculties='post_office'
+      facultyCategoryPathName='post_office'
     />);
 
     const regionSelectBox = screen.getByRole('combobox');
@@ -72,7 +71,7 @@ describe('FacultySearchForm', () => {
 
   it('地域とオプションを選択した後、デフォルト値に戻して検索する', async () => {
     render(<FacultySearchForm
-      faculties='post_office'
+      facultyCategoryPathName='post_office'
     />);
 
     const regionSelectBox = screen.getByRole('combobox');
@@ -101,7 +100,7 @@ describe('FacultySearchForm', () => {
 
   it('propsがフォームの初期値に反映されている', async () => {
     render(<FacultySearchForm
-      faculties='post_office'
+      facultyCategoryPathName='post_office'
       inputRegion='青森県'
       inputIslandSetting='離島のみ'
       inputKeyWords='佐井村'

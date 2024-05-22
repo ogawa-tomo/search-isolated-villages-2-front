@@ -23,7 +23,7 @@ const MockedFacultyFortuneModal = () => {
   return (
     <SWRConfig value={{ use: [testMiddleware] }}>
       <FacultyFortuneModal
-        faculty='post_office'
+        facultyCategoryPathName='post_office'
       />
     </SWRConfig>
   )

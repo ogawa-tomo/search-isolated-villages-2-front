@@ -17,7 +17,7 @@ describe('FacultyListPresentation', () => {
 
     render(
       <FacultyListPresentation
-        facultyName='post_office'
+        facultyCategoryPathName='post_office'
         pages={5}
         per_page={20}
         faculties={postOffices}

@@ -6,16 +6,17 @@ import Modal from 'react-modal';
 import FacultySearchParams from '@/types/facultySearchParams'
 import { RegionSelectBox } from './RegionSelectBox';
 import { IslandSettingFieldSet } from './IslandSettingFieldSet';
+import { FacultyCategoryPathName } from '@/types/FacultyCategory';
 
 type Props = {
-  faculties: string;
+  facultyCategoryPathName: FacultyCategoryPathName;
   inputRegion?: string;
   inputIslandSetting?: string;
   inputKeyWords?: string;
 }
 
 const FacultySearchForm = ({
-  faculties,
+  facultyCategoryPathName,
   inputRegion = '',
   inputIslandSetting = '離島を含まない',
   inputKeyWords = '',
@@ -28,7 +29,7 @@ const FacultySearchForm = ({
 
   const appElementObject: { appElement?: HTMLElement } = {}
   if (typeof window === 'object') {
-    appElementObject.appElement = document.getElementById('modalRoot');
+    appElementObject.appElement = document.getElementById('modalRoot') ?? undefined;
   }
 
   const setDefaultValue = () => {
@@ -38,7 +39,7 @@ const FacultySearchForm = ({
 
   const searchPath = (facultySearchParams: FacultySearchParams): string => {
     const params = new URLSearchParams(facultySearchParams);
-    return `/${faculties}/result?${params.toString()}`;
+    return `/${facultyCategoryPathName}/result?${params.toString()}`;
   };
 
   const onButtonClick = () => {

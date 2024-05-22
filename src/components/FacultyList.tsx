@@ -3,13 +3,14 @@ import Pagination from './Pagination';
 import { fetchFaculties } from '@/lib/fetchFaculties';
 
 import Faculty from '@/types/faculty';
+import { FacultyCategoryPathName } from '@/types/FacultyCategory';
 
-export const FacultyList = async ({ faculty, searchParams }: { faculty: string, searchParams: FacultySearchParams }) => {
-  const { pages, per_page, faculties } = await fetchFaculties({ faculty, params: searchParams });
+export const FacultyList = async ({ facultyCategoryPathName, searchParams }: { facultyCategoryPathName: FacultyCategoryPathName, searchParams: FacultySearchParams }) => {
+  const { pages, per_page, faculties } = await fetchFaculties({ facultyCategoryPathName, params: searchParams });
 
   return (
     <FacultyListPresentation
-      facultyName={faculty}
+      facultyCategoryPathName={facultyCategoryPathName}
       pages={Number(pages)}
       per_page={per_page}
       faculties={faculties}
@@ -19,7 +20,7 @@ export const FacultyList = async ({ faculty, searchParams }: { faculty: string, 
 };
 
 type FacultyListPresentationProps = {
-  facultyName: string;
+  facultyCategoryPathName: string;
   pages: number;
   per_page: number;
   faculties: Faculty[];
@@ -27,7 +28,7 @@ type FacultyListPresentationProps = {
 }
 
 export const FacultyListPresentation = ({
-  facultyName,
+  facultyCategoryPathName,
   pages,
   per_page,
   faculties,
@@ -79,7 +80,7 @@ export const FacultyListPresentation = ({
         <Pagination
           current_page={current_page}
           pages={pages}
-          path={`/${facultyName}/result`}
+          path={`/${facultyCategoryPathName}/result`}
           queryParams={searchParams}
         />
       </div>

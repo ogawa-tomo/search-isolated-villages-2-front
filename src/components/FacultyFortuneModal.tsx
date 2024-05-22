@@ -2,17 +2,17 @@
 
 import { useState } from 'react';
 import Modal from 'react-modal';
-import type Village from '@/types/village';
 import useSWR, { Fetcher } from 'swr';
 import Faculty from '@/types/faculty';
-import { facultyNames } from '@/lib/facultyNames';
+import { FacultyCategoryPathName } from '@/types/FacultyCategory';
+import { getFacultyCategoryFromPathName } from '@/lib/facultyCategories';
 
-const FacultyFortuneModal = ({ faculty }: { faculty: string }) => {
+const FacultyFortuneModal = ({ facultyCategoryPathName }: { facultyCategoryPathName: FacultyCategoryPathName }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const appElementObject: { appElement?: HTMLElement } = {}
   if (typeof window === 'object') {
-    appElementObject.appElement = document.getElementById('modalRoot');
+    appElementObject.appElement = document.getElementById('modalRoot') ?? undefined;
   }
 
   return (
@@ -24,7 +24,7 @@ const FacultyFortuneModal = ({ faculty }: { faculty: string }) => {
           {...appElementObject}
         >
           <ModalContent
-            faculty={faculty}
+            facultyCategoryPathName={facultyCategoryPathName}
           />
           <div className="modal-action">
             <button className="btn" onClick={() => setIsModalOpen(false)}>閉じる</button>
@@ -45,15 +45,15 @@ const FacultyFortuneModal = ({ faculty }: { faculty: string }) => {
 
 const fetcher: Fetcher<Faculty, string> = (url: string) => fetch(url).then(res => res.json());
 
-const ModalContent = ({ faculty }: { faculty: string }) => {
-  const { data, error, isLoading } = useSWR(`${process.env.NEXT_PUBLIC_VILLAGE_API_URL}/api/fortune/${faculty}/result`, fetcher);
+const ModalContent = ({ facultyCategoryPathName }: { facultyCategoryPathName: FacultyCategoryPathName }) => {
+  const { data, error, isLoading } = useSWR(`${process.env.NEXT_PUBLIC_VILLAGE_API_URL}/api/fortune/${facultyCategoryPathName}/result`, fetcher);
 
-  if (error) return <div>failed to load</div>
+  if (error || !data) return <div>failed to load</div>
   if (isLoading) return <div>loading...</div>
   return (
     <>
       <div className='text-center'>
-        <p>今日のラッキー秘境{facultyNames(faculty)}は…</p>
+        <p>今日のラッキー秘境{getFacultyCategoryFromPathName(facultyCategoryPathName).name}は…</p>
         <p className='font-bold text-3xl'>{data.name}</p>
         <p>{data.pref} {data.city} {data.district}</p>
         <p>都会度: {data.urban_point}</p>

@@ -3,7 +3,6 @@ import userEvent from '@testing-library/user-event'
 import '@testing-library/jest-dom';
 import { Menu } from '@/components/Menu';
 import { facultyCategories } from '@/lib/facultyCategories';
-import { facultyCategoryPathName } from '@/lib/facultyCategoryPathName';
 
 const user = userEvent.setup();
 
@@ -32,17 +31,17 @@ describe('Menu', () => {
     assertsNotNull(facultySearchDetails);
 
     for (const facultyCategory of facultyCategories) {
-      expect(within(facultySearchDetails).getByRole('link', { name: facultyCategory })).not.toBeVisible();
+      expect(within(facultySearchDetails).getByRole('link', { name: facultyCategory.name })).not.toBeVisible();
     }
 
     await user.click(facultySearchSummary);
     for (const facultyCategory of facultyCategories) {
-      expect(within(facultySearchDetails).getByRole('link', { name: facultyCategory })).toHaveProperty('href', `http://localhost/${facultyCategoryPathName(facultyCategory)}`);
+      expect(within(facultySearchDetails).getByRole('link', { name: facultyCategory.name })).toHaveProperty('href', `http://localhost/${facultyCategory.pathName}`);
     }
 
     await user.click(facultySearchSummary);
     for (const facultyCategory of facultyCategories) {
-      expect(within(facultySearchDetails).getByRole('link', { name: facultyCategory })).not.toBeVisible();
+      expect(within(facultySearchDetails).getByRole('link', { name: facultyCategory.name })).not.toBeVisible();
     }
   });
 
@@ -55,17 +54,17 @@ describe('Menu', () => {
     assertsNotNull(facultyFortuneDetails);
 
     for (const facultyCategory of facultyCategories) {
-      expect(within(facultyFortuneDetails).getByRole('link', { name: facultyCategory })).not.toBeVisible();
+      expect(within(facultyFortuneDetails).getByRole('link', { name: facultyCategory.name })).not.toBeVisible();
     }
 
     await user.click(facultyFortuneSummary);
     for (const facultyCategory of facultyCategories) {
-      expect(within(facultyFortuneDetails).getByRole('link', { name: facultyCategory })).toHaveProperty('href', `http://localhost/fortune/${facultyCategoryPathName(facultyCategory)}`);
+      expect(within(facultyFortuneDetails).getByRole('link', { name: facultyCategory.name })).toHaveProperty('href', `http://localhost/fortune/${facultyCategory.pathName}`);
     }
 
     await user.click(facultyFortuneSummary);
     for (const facultyCategory of facultyCategories) {
-      expect(within(facultyFortuneDetails).getByRole('link', { name: facultyCategory })).not.toBeVisible();
+      expect(within(facultyFortuneDetails).getByRole('link', { name: facultyCategory.name })).not.toBeVisible();
     }
   });
 });
