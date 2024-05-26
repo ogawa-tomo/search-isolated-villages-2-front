@@ -1,6 +1,8 @@
+import { Prefecture } from './Region';
+
 type Faculty = {
   name: string;
-  pref: string;
+  pref: Prefecture;
   city: string;
   district: string;
   urban_point: number;

@@ -68,8 +68,9 @@ export const getFacultyCategoryFromName = (
     return facultyCategory.name === facultyCategoryName;
   });
 
-  if (facultyCategory === undefined)
+  if (facultyCategory === undefined) {
     throw new Error(`施設定義が不正です: ${facultyCategoryName}`);
+  }
 
   return facultyCategory;
 };
@@ -81,8 +82,9 @@ export const getFacultyCategoryFromPathName = (
     return facultyCategory.pathName === facultyCategoryPathName;
   });
 
-  if (facultyCategory === undefined)
+  if (facultyCategory === undefined) {
     throw new Error(`施設定義が不正です: ${facultyCategoryPathName}`);
+  }
 
   return facultyCategory;
 };
