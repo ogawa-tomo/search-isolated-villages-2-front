@@ -1,6 +1,8 @@
 import "./globals.css";
 import { HeaderMenu } from "@/components/HeaderMenu";
 import { SideMenu } from "@/components/SideMenu";
+import Image from "next/image";
+import headerLogo from "@/public/header_logo.png";
 
 export const metadata = {
   title: '秘境集落探索ツール',
@@ -18,7 +20,7 @@ export default function RootLayout({
         <div className="mx-auto max-w-3xl">
           <header>
             <div className="flex items-center justify-between">
-              <div>ロゴ</div>
+              <Image src={headerLogo} alt="ヘッダ" height="32" className="ml-4" />
               <HeaderMenu />
             </div>
           </header>
