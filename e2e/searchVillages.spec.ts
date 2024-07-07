@@ -2,9 +2,10 @@ import { test, expect } from '@playwright/test';
 
 test('デフォルトの集落検索', async ({ page }) => {
   await page.goto('/');
-  await expect(
-    page.getByRole('heading', { name: '秘境集落探索ツール' })
-  ).toBeVisible();
+  // ロゴを画像にしたのでいったんコメントアウト
+  // await expect(
+  //   page.getByRole('heading', { name: '秘境集落探索ツール' })
+  // ).toBeVisible();
 
   await page.getByRole('combobox').click();
   const option = await page.waitForSelector(':text("北海道")');
@@ -27,9 +28,10 @@ test('デフォルトの集落検索', async ({ page }) => {
 
 test('パラメータを指定した集落検索', async ({ page }) => {
   await page.goto('/');
-  await expect(
-    page.getByRole('heading', { name: '秘境集落探索ツール' })
-  ).toBeVisible();
+  // ロゴを画像にしたのでいったんコメントアウト
+  // await expect(
+  //   page.getByRole('heading', { name: '秘境集落探索ツール' })
+  // ).toBeVisible();
 
   await page.getByRole('combobox').click();
   const option = await page.waitForSelector(':text("青森県")');
