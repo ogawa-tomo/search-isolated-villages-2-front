@@ -6,6 +6,9 @@ import {
 } from 'wiremock-captain';
 
 const wiremockEndpoint = process.env.NEXT_PUBLIC_VILLAGE_API_URL;
+if (!wiremockEndpoint) {
+  throw new Error('NEXT_PUBLIC_VILLAGE_API_URLが設定されていません');
+}
 const mock = new WireMock(wiremockEndpoint);
 
 export const mockPostOffices = async () => {

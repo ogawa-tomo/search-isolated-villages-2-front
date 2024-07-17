@@ -1,6 +1,6 @@
 import FacultySearchForm from "@/components/FacultySearchForm";
 import { getFacultyCategoryFromPathName } from "@/lib/facultyCategories";
-import { FacultyCategoryPathName } from "@/types/FacultyCategoryPathName";
+import { FacultyCategoryPathName } from "@/types/FacultyCategory";
 
 export default function Page({ params }: { params: { facultyCategoryPathName: FacultyCategoryPathName } }) {
   const facultyCategoryName = getFacultyCategoryFromPathName(params.facultyCategoryPathName).name;
