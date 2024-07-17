@@ -1,9 +1,10 @@
 import Loading from "@/components/Loading";
 import VillageList from "@/components/VillageList";
 import VillageSearchForm from "@/components/VillageSearchForm";
+import VillageSearchParams from "@/types/villageSearchParams";
 import { Suspense } from "react";
 
-const Page = async ({ searchParams }) => {
+const Page = async ({ searchParams }: { searchParams: VillageSearchParams }) => {
   return (
     <>
       <VillageSearchForm

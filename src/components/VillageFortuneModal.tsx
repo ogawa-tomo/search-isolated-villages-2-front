@@ -10,7 +10,7 @@ const VillageFortuneModal = () => {
 
   const appElementObject: { appElement?: HTMLElement } = {}
   if (typeof window === 'object') {
-    appElementObject.appElement = document.getElementById('modalRoot');
+    appElementObject.appElement = document.getElementById('modalRoot') ?? undefined;
   }
 
   return (
@@ -45,7 +45,7 @@ const ModalContent = () => {
   const { data, error, isLoading } = useSWR(`${process.env.NEXT_PUBLIC_VILLAGE_API_URL}/api/fortune/result`, fetcher);
 
   if (error) return <div>failed to load</div>
-  if (isLoading) return <div>loading...</div>
+  if (isLoading || !data) return <div>loading...</div>
   return (
     <>
       <div className='text-center'>
