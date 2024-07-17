@@ -1,0 +1,27 @@
+'use client';
+
+import classNames from "classnames"
+import { useState } from "react"
+import { Menu } from "./Menu";
+
+export const HeaderMenu = () => {
+  const [show, setShow] = useState(false);
+
+  return (
+    <>
+      <button className="md:hidden btn btn-square btn-ghost" onClick={() => setShow(!show)}>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-5 h-5 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+      </button>
+      <div className={classNames("md:hidden bg-white top-0 fixed h-screen z-20 transition overflow-scroll", {
+        "-translate-x-full": !show,
+      })}>
+        <Menu
+          onClick={() => setShow(false)}
+        />
+      </div>
+      <div className={classNames("md:hidden top-0 fixed w-screen h-screen z-10", {
+        "hidden": !show,
+      })} onClick={() => setShow(!show)}></div>
+    </>
+  )
+}
