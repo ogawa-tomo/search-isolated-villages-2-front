@@ -66,7 +66,7 @@ export const FacultyListPresentation = ({
                       Googleマップ
                     </a>
                     <a
-                      href={`http://localhost:5000${faculty.mesh_map_path}`}
+                      href={`${process.env.NEXT_PUBLIC_VILLAGE_API_URL}${faculty.mesh_map_path}`}
                       target="_blank"
                     >
                       人口分布図

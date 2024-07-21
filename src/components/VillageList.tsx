@@ -59,7 +59,7 @@ export const VillageListPresentation = ({
                       Googleマップ
                     </a>
                     <a
-                      href={`http://localhost:5000${village.mesh_map_path}`}
+                      href={`${process.env.NEXT_PUBLIC_VILLAGE_API_URL}${village.mesh_map_path}`}
                       target="_blank"
                     >
                       人口分布図
