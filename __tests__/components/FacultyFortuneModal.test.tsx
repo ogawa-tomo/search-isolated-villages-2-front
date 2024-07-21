@@ -1,37 +1,19 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event'
 import '@testing-library/jest-dom';
-import { Middleware, SWRConfig, SWRResponse } from "swr"
-import { postOffice } from '../fixtures/post_offices';
 import FacultyFortuneModal from '@/components/FacultyFortuneModal';
+import * as FacultyFortuneResultFetchers from '@/lib/fetchFacultyFortuneResult'
+import { postOffice } from '../fixtures/post_offices';
 
 const user = userEvent.setup();
 
-const testMiddleware: Middleware = () => {
-  return (): SWRResponse<any, any> => {
-    return {
-      data: postOffice,
-      error: undefined,
-      mutate: (_) => Promise.resolve(),
-      isValidating: false,
-      isLoading: false,
-    }
-  }
-}
-
-const MockedFacultyFortuneModal = () => {
-  return (
-    <SWRConfig value={{ use: [testMiddleware] }}>
-      <FacultyFortuneModal
-        facultyCategoryPathName='post_office'
-      />
-    </SWRConfig>
-  )
-}
+jest.mock('src/lib/fetchFacultyFortuneResult');
 
 describe('FacultyFortuneModal', () => {
   it('shows result', async () => {
-    render(<MockedFacultyFortuneModal />)
+    jest.spyOn(FacultyFortuneResultFetchers, 'fetchFacultyFortuneResult').mockResolvedValueOnce(postOffice);
+
+    render(<FacultyFortuneModal facultyCategoryPathName='post_office' />)
 
     await user.click(screen.getByRole('button', { name: '占う' }));
     expect(screen.getByText('今日のラッキー秘境郵便局は…')).toBeInTheDocument();

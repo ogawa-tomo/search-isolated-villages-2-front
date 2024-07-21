@@ -3,14 +3,22 @@
 import { useState } from 'react';
 import Modal from 'react-modal';
 import type Village from '@/types/village';
-import useSWR, { Fetcher } from 'swr';
+import { fetchVillageFortuneResult } from '@/lib/fetchVillageFortuneResult';
 
 const VillageFortuneModal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [village, setVillage] = useState<Village | undefined>(undefined);
 
   const appElementObject: { appElement?: HTMLElement } = {}
   if (typeof window === 'object') {
     appElementObject.appElement = document.getElementById('modalRoot') ?? undefined;
+  }
+
+  const openModal = () => {
+    setIsModalOpen(true);
+    setVillage(undefined);
+    fetchVillageFortuneResult()
+      .then(village => setVillage(village));
   }
 
   return (
@@ -21,7 +29,7 @@ const VillageFortuneModal = () => {
           className="modal-box mx-auto"
           {...appElementObject}
         >
-          <ModalContent />
+          <ModalContent village={village} />
           <div className="modal-action">
             <button className="btn" onClick={() => setIsModalOpen(false)}>閉じる</button>
           </div>
@@ -29,7 +37,7 @@ const VillageFortuneModal = () => {
         <button
           className="btn btn-primary w-64 btn-sm h-10 text-white rounded-md text-xl my-0.5"
           type="button"
-          onClick={() => setIsModalOpen(true)}
+          onClick={openModal}
         >
           占う
         </button>
@@ -39,32 +47,29 @@ const VillageFortuneModal = () => {
   )
 }
 
-const fetcher: Fetcher<Village, string> = (url: string) => fetch(url).then(res => res.json());
-
-const ModalContent = () => {
-  const { data, error, isLoading } = useSWR(`${process.env.NEXT_PUBLIC_VILLAGE_API_URL}/api/fortune/result`, fetcher);
-
-  if (error) return <div>failed to load</div>
-  if (isLoading || !data) return <div>loading...</div>
+const ModalContent = ({ village }: { village: Village | undefined }) => {
+  if (village === undefined) {
+    return <div>loading...</div>
+  }
   return (
     <>
       <div className='text-center'>
         <p>今日のラッキー秘境集落は…</p>
-        <p className='font-bold text-3xl'>{data.pref} {data.city} {data.district}</p>
+        <p className='font-bold text-3xl'>{village.pref} {village.city} {village.district}</p>
         <p>
-          <span className='mr-1'>人口: {data.population}人</span>
-          <span>都会度: {data.urban_point}</span>
+          <span className='mr-1'>人口: {village.population}人</span>
+          <span>都会度: {village.urban_point}</span>
         </p>
         <p>
           <a
             className="mr-1"
-            href={data.google_map_url}
+            href={village.google_map_url}
             target="_blank"
           >
             Googleマップ
           </a>
           <a
-            href={`${process.env.NEXT_PUBLIC_VILLAGE_API_URL}${data.mesh_map_path}`}
+            href={`${process.env.NEXT_PUBLIC_VILLAGE_API_URL}${village.mesh_map_path}`}
             target="_blank"
           >
             人口分布図
