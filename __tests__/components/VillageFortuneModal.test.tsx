@@ -3,33 +3,17 @@ import userEvent from '@testing-library/user-event'
 import '@testing-library/jest-dom';
 import { village } from '../fixtures/villages';
 import VillageFortuneModal from '@/components/VillageFortuneModal';
-import { Middleware, SWRConfig, SWRResponse } from "swr"
+import * as VillageFortuneResultFetchers from '@/lib/fetchVillageFortuneResult';
 
 const user = userEvent.setup();
 
-const testMiddleware: Middleware = () => {
-  return (): SWRResponse<any, any> => {
-    return {
-      data: village,
-      error: undefined,
-      mutate: (_) => Promise.resolve(),
-      isValidating: false,
-      isLoading: false,
-    }
-  }
-}
-
-const MockedVillageFortuneModal = () => {
-  return (
-    <SWRConfig value={{ use: [testMiddleware] }}>
-      <VillageFortuneModal />
-    </SWRConfig>
-  )
-}
+jest.mock('src/lib/fetchVillageFortuneResult');
 
 describe('VillageFortuneModal', () => {
   it('shows result', async () => {
-    render(<MockedVillageFortuneModal />)
+    jest.spyOn(VillageFortuneResultFetchers, 'fetchVillageFortuneResult').mockResolvedValueOnce(village);
+
+    render(<VillageFortuneModal />)
 
     await user.click(screen.getByRole('button', { name: '占う' }));
     expect(screen.getByText('今日のラッキー秘境集落は…')).toBeInTheDocument();
