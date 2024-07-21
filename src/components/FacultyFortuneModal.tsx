@@ -5,6 +5,7 @@ import Modal from 'react-modal';
 import Faculty from '@/types/faculty';
 import { FacultyCategory, FacultyCategoryPathName } from '@/types/FacultyCategory';
 import { getFacultyCategoryFromPathName } from '@/lib/facultyCategories';
+import { fetchFacultyFortuneResult } from '@/lib/fetchFacultyFortuneResult';
 
 const FacultyFortuneModal = ({ facultyCategoryPathName }: { facultyCategoryPathName: FacultyCategoryPathName }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -19,9 +20,8 @@ const FacultyFortuneModal = ({ facultyCategoryPathName }: { facultyCategoryPathN
   const openModal = () => {
     setIsModalOpen(true);
     setFaculty(undefined);
-    fetch(`/api/fortune/${facultyCategoryPathName}/result`)
-      .then((res) => res.json())
-      .then((data) => setFaculty(data));
+    fetchFacultyFortuneResult(facultyCategoryPathName)
+      .then(faculty => setFaculty(faculty));
   }
 
   return (

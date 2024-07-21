@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Modal from 'react-modal';
 import type Village from '@/types/village';
+import { fetchVillageFortuneResult } from '@/lib/fetchVillageFortuneResult';
 
 const VillageFortuneModal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -16,9 +17,8 @@ const VillageFortuneModal = () => {
   const openModal = () => {
     setIsModalOpen(true);
     setVillage(undefined);
-    fetch('/api/fortune/result')
-      .then((res) => res.json())
-      .then((data) => setVillage(data));
+    fetchVillageFortuneResult()
+      .then(village => setVillage(village));
   }
 
   return (
