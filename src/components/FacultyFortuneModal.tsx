@@ -55,7 +55,14 @@ const FacultyFortuneModal = ({ facultyCategoryPathName }: { facultyCategoryPathN
 
 const ModalContent = ({ faculty, facultyCategory }: { faculty: Faculty | undefined; facultyCategory: FacultyCategory }) => {
 
-  if (faculty === undefined) return <div>loading...</div>
+  if (faculty === undefined) {
+    return (
+      <div className="flex justify-center h-36">
+        <span className="loading loading-spinner loading-lg text-primary"></span>
+      </div>
+    )
+  }
+
   return (
     <>
       <div className='text-center'>

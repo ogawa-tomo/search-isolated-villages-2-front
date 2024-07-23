@@ -49,7 +49,11 @@ const VillageFortuneModal = () => {
 
 const ModalContent = ({ village }: { village: Village | undefined }) => {
   if (village === undefined) {
-    return <div>loading...</div>
+    return (
+      <div className="flex justify-center h-36">
+        <span className="loading loading-spinner loading-lg text-primary"></span>
+      </div>
+    )
   }
   return (
     <>
