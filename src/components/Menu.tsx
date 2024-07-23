@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation"
 export const Menu = ({ onClick }: { onClick?: () => void }) => {
   return (
     <aside>
-      <ul className="menu w-40">
+      <ul className="menu w-60">
         <li><MenuElement path="/" name="秘境集落探索" onClick={onClick} /></li>
         <li>
           <details>
