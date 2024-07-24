@@ -39,7 +39,7 @@ export const FacultyListPresentation = ({
 
   return (
     <>
-      <div className="max-w-sm mx-auto flex flex-col items-center">
+      <div className="max-w-sm mx-auto flex flex-col items-center gap-4">
         <table className='w-full border-collapse'>
           <tbody>
             {faculties.map((faculty, index) => (
