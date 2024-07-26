@@ -2,6 +2,7 @@ import type VillageSearchParams from '@/types/villageSearchParams';
 import Pagination from './Pagination';
 import { fetchVillages } from '@/lib/fetchVillages';
 import Village from '@/types/village';
+import Link from 'next/link';
 
 export const VillageList = async (searchParams: VillageSearchParams) => {
   const { pages, per_page, villages } = await fetchVillages(searchParams);
@@ -51,19 +52,20 @@ export const VillageListPresentation = ({
                     <span>都会度: {village.urban_point}</span>
                   </p>
                   <p className='text-sm'>
-                    <a
-                      className="mr-1"
+                    <Link
+                      className="mr-1 link link-primary"
                       href={village.google_map_url}
                       target="_blank"
                     >
                       Googleマップ
-                    </a>
-                    <a
+                    </Link>
+                    <Link
+                      className="link link-primary"
                       href={`${process.env.NEXT_PUBLIC_VILLAGE_API_URL}${village.mesh_map_path}`}
                       target="_blank"
                     >
                       人口分布図
-                    </a>
+                    </Link>
                   </p>
                 </td>
               </tr>
