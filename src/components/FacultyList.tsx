@@ -5,6 +5,7 @@ import { fetchFaculties } from '@/lib/fetchFaculties';
 import Faculty from '@/types/faculty';
 import { FacultyCategoryPathName } from '@/types/FacultyCategory';
 import Link from 'next/link';
+import { HorizontalSpacer } from './Spacer';
 
 export const FacultyList = async ({ facultyCategoryPathName, searchParams }: { facultyCategoryPathName: FacultyCategoryPathName, searchParams: FacultySearchParams }) => {
   const { pages, per_page, faculties } = await fetchFaculties({ facultyCategoryPathName, params: searchParams });
@@ -45,27 +46,28 @@ export const FacultyListPresentation = ({
           <tbody>
             {faculties.map((faculty, index) => (
               <tr key={index} className='border border-slate-400'>
-                <td className='w-1/6 text-center'>
+                <td className='w-1/5 text-center'>
                   {index + rank_start + 1}位
                 </td>
-                <td className="pl-2">
-                  <p className="font-bold text-lg">
+                <td className="p-1">
+                  <p className="font-bold text-xl">
                     {faculty.name}
                   </p>
                   <p className='text-sm'>
-                    <span className="mr-1">{faculty.pref} {faculty.city} {faculty.district}</span>
+                    <span>{faculty.pref} {faculty.city} {faculty.district}</span>
                   </p>
                   <p className='text-sm'>
                     <span>都会度: {faculty.urban_point}</span>
                   </p>
                   <p className='text-sm'>
                     <Link
-                      className="mr-1 link link-primary"
+                      className="link link-primary"
                       href={faculty.google_map_url}
                       target="_blank"
                     >
                       Googleマップ
                     </Link>
+                    <HorizontalSpacer size={8} />
                     <Link
                       className="link link-primary"
                       href={`${process.env.NEXT_PUBLIC_VILLAGE_API_URL}${faculty.mesh_map_path}`}

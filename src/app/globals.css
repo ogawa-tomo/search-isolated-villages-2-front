@@ -12,9 +12,6 @@
   h4 {
     @apply text-base font-bold;
   }
-  p {
-    @apply py-1;
-  }
 }
 @tailwind components;
 @tailwind utilities;
