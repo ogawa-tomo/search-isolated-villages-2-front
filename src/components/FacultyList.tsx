@@ -4,6 +4,7 @@ import { fetchFaculties } from '@/lib/fetchFaculties';
 
 import Faculty from '@/types/faculty';
 import { FacultyCategoryPathName } from '@/types/FacultyCategory';
+import Link from 'next/link';
 
 export const FacultyList = async ({ facultyCategoryPathName, searchParams }: { facultyCategoryPathName: FacultyCategoryPathName, searchParams: FacultySearchParams }) => {
   const { pages, per_page, faculties } = await fetchFaculties({ facultyCategoryPathName, params: searchParams });
@@ -58,19 +59,20 @@ export const FacultyListPresentation = ({
                     <span>都会度: {faculty.urban_point}</span>
                   </p>
                   <p className='text-sm'>
-                    <a
-                      className="mr-1"
+                    <Link
+                      className="mr-1 link link-primary"
                       href={faculty.google_map_url}
                       target="_blank"
                     >
                       Googleマップ
-                    </a>
-                    <a
+                    </Link>
+                    <Link
+                      className="link link-primary"
                       href={`${process.env.NEXT_PUBLIC_VILLAGE_API_URL}${faculty.mesh_map_path}`}
                       target="_blank"
                     >
                       人口分布図
-                    </a>
+                    </Link>
                   </p>
                 </td>
               </tr>
