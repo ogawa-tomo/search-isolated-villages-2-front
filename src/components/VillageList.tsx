@@ -3,6 +3,7 @@ import Pagination from './Pagination';
 import { fetchVillages } from '@/lib/fetchVillages';
 import Village from '@/types/village';
 import Link from 'next/link';
+import { HorizontalSpacer } from './Spacer';
 
 export const VillageList = async (searchParams: VillageSearchParams) => {
   const { pages, per_page, villages } = await fetchVillages(searchParams);
@@ -40,25 +41,27 @@ export const VillageListPresentation = ({
           <tbody>
             {villages.map((village, index) => (
               <tr key={index} className='border border-slate-400'>
-                <td className='w-1/6 text-center'>
+                <td className='w-1/5 text-center'>
                   {index + rank_start + 1}位
                 </td>
-                <td className="pl-2">
-                  <p className="font-bold text-lg">
+                <td className='p-1'>
+                  <p className="font-bold text-xl">
                     {village.pref} {village.city} {village.district}
                   </p>
                   <p className='text-sm'>
-                    <span className="mr-1">人口: {village.population}人</span>
+                    <span>人口: {village.population}人</span>
+                    <HorizontalSpacer size={8} />
                     <span>都会度: {village.urban_point}</span>
                   </p>
                   <p className='text-sm'>
                     <Link
-                      className="mr-1 link link-primary"
+                      className="link link-primary"
                       href={village.google_map_url}
                       target="_blank"
                     >
                       Googleマップ
                     </Link>
+                    <HorizontalSpacer size={8} />
                     <Link
                       className="link link-primary"
                       href={`${process.env.NEXT_PUBLIC_VILLAGE_API_URL}${village.mesh_map_path}`}
