@@ -20,29 +20,29 @@ const Pagination = (props: PaginationProps) => {
     <nav aria-label='pagination'>
       <ul className="join">
         {min_page > 1 && (
-          <li className="btn join-item">
+          <li className="btn join-item bg-pagination">
             <PageLink page={1} path={path} queryParams={queryParams} />
           </li>
         )}
         {min_page > 2 && (
-          <li className="btn btn-disabled join-item">...</li>
+          <li className="btn cursor-default join-item bg-pagination-dots">...</li>
         )}
         {page_array.map((page, index) =>
           page === current_page ? (
-            <li key={index} className="btn cursor-default">
+            <li key={index} className="btn cursor-default bg-primary">
               {page}
             </li>
           ) : (
-            <li key={index} className='btn join-item'>
+            <li key={index} className='btn join-item bg-pagination'>
               <PageLink key={index} page={page} path={path} queryParams={queryParams} />
             </li>
           )
         )}
         {max_page < pages - 1 && (
-          <li className="btn btn-disabled join-item">...</li>
+          <li className="btn cursor-default join-item bg-pagination-dots">...</li>
         )}
         {max_page < pages && (
-          <li className='btn join-item'>
+          <li className='btn join-item bg-pagination'>
             <PageLink page={pages} path={path} queryParams={queryParams} />
           </li>
         )}
@@ -63,7 +63,7 @@ const PageLink = (props: PageLinkProps) => {
     ...queryParams,
     page: String(page)
   });
-  return <Link href={`${path}?${query.toString()}`}>{page}</Link>;
+  return <Link href={`${path}?${query.toString()}`} className='block'>{page}</Link>;
 };
 
 export default Pagination;
