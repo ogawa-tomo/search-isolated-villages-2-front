@@ -1,11 +1,11 @@
 import type FacultySearchParams from '@/types/facultySearchParams';
 import Pagination from './Pagination';
 import { fetchFaculties } from '@/lib/fetchFaculties';
-
 import Faculty from '@/types/faculty';
 import { FacultyCategoryPathName } from '@/types/FacultyCategory';
-import Link from 'next/link';
 import { HorizontalSpacer } from './Spacer';
+import { GoogleMapLink } from './GoogleMapLink';
+import { PopulationDistributionMapLink } from './PopulationDistributionMapLink';
 
 export const FacultyList = async ({ facultyCategoryPathName, searchParams }: { facultyCategoryPathName: FacultyCategoryPathName, searchParams: FacultySearchParams }) => {
   const { pages, per_page, faculties } = await fetchFaculties({ facultyCategoryPathName, params: searchParams });
@@ -60,21 +60,9 @@ export const FacultyListPresentation = ({
                     <span>都会度: {faculty.urban_point}</span>
                   </p>
                   <p className='text-sm'>
-                    <Link
-                      className="link link-primary"
-                      href={faculty.google_map_url}
-                      target="_blank"
-                    >
-                      Googleマップ
-                    </Link>
+                    <GoogleMapLink href={faculty.google_map_url} />
                     <HorizontalSpacer size={8} />
-                    <Link
-                      className="link link-primary"
-                      href={`${process.env.NEXT_PUBLIC_VILLAGE_API_URL}${faculty.mesh_map_path}`}
-                      target="_blank"
-                    >
-                      人口分布図
-                    </Link>
+                    <PopulationDistributionMapLink href={`${process.env.NEXT_PUBLIC_VILLAGE_API_URL}${faculty.mesh_map_path}`} />
                   </p>
                 </td>
               </tr>
