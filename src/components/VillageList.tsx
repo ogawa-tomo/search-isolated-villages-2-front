@@ -2,8 +2,9 @@ import type VillageSearchParams from '@/types/villageSearchParams';
 import Pagination from './Pagination';
 import { fetchVillages } from '@/lib/fetchVillages';
 import Village from '@/types/village';
-import Link from 'next/link';
 import { HorizontalSpacer } from './Spacer';
+import { GoogleMapLink } from './GoogleMapLink';
+import { PopulationDistributionMapLink } from './PopulationDistributionMapLink';
 
 export const VillageList = async (searchParams: VillageSearchParams) => {
   const { pages, per_page, villages } = await fetchVillages(searchParams);
@@ -54,21 +55,9 @@ export const VillageListPresentation = ({
                     <span>都会度: {village.urban_point}</span>
                   </p>
                   <p className='text-sm'>
-                    <Link
-                      className="link link-primary"
-                      href={village.google_map_url}
-                      target="_blank"
-                    >
-                      Googleマップ
-                    </Link>
+                    <GoogleMapLink href={village.google_map_url} />
                     <HorizontalSpacer size={8} />
-                    <Link
-                      className="link link-primary"
-                      href={`${process.env.NEXT_PUBLIC_VILLAGE_API_URL}${village.mesh_map_path}`}
-                      target="_blank"
-                    >
-                      人口分布図
-                    </Link>
+                    <PopulationDistributionMapLink href={`${process.env.NEXT_PUBLIC_VILLAGE_API_URL}${village.mesh_map_path}`} />
                   </p>
                 </td>
               </tr>
