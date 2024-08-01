@@ -27,8 +27,8 @@ export default function RootLayout({
               <HeaderMenu />
             </div>
           </header>
-          <div className="flex justify-center">
-            <div className="relative hidden md:block">
+          <div className="flex">
+            <div className="hidden md:block">
               <SideMenu />
             </div>
             <div className="p-4 w-full">{children}</div>
