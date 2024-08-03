@@ -21,7 +21,7 @@ export default function RootLayout({
     <html lang="ja" data-theme="corporate">
       {/* <body className={notoSansJP.className}> */}
       <body>
-        <div className="mx-auto max-w-3xl">
+        <div className="mx-auto max-w-5xl">
           <header>
             <div className="flex items-center justify-between">
               <Image src={headerLogo} alt="ヘッダ" height="32" className="ml-4" />
@@ -32,7 +32,8 @@ export default function RootLayout({
             <div className="hidden md:block">
               <SideMenu />
             </div>
-            <div className="p-4 w-full">{children}</div>
+            <div className="p-4 grow">{children}</div>
+            <div className="lg:w-60 shrink-0"></div>
           </div>
         </div>
       </body>
