@@ -3,14 +3,14 @@ import { HeaderMenu } from "@/components/HeaderMenu";
 import { SideMenu } from "@/components/SideMenu";
 import Image from "next/image";
 import headerLogo from "@/public/header_logo.png";
-import { Noto_Sans_JP } from "next/font/google";
+// import { Noto_Sans_JP } from "next/font/google";
 
 export const metadata = {
   title: '秘境集落探索ツール',
   description: '秘境集落を探索し、秘境度を人口分布データをもとに評価して地域別にランキングで出力します。'
 }
 
-const notoSansJP = Noto_Sans_JP({ subsets: ["latin"], weight: ["400"] });
+// const notoSansJP = Noto_Sans_JP({ subsets: ["latin"], weight: ["400"] });
 
 export default function RootLayout({
   children,
@@ -19,7 +19,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ja" data-theme="corporate">
-      <body className={notoSansJP.className}>
+      {/* <body className={notoSansJP.className}> */}
+      <body>
         <div className="mx-auto max-w-3xl">
           <header>
             <div className="flex items-center justify-between">
@@ -27,8 +28,8 @@ export default function RootLayout({
               <HeaderMenu />
             </div>
           </header>
-          <div className="flex justify-center">
-            <div className="relative hidden md:block">
+          <div className="flex">
+            <div className="hidden md:block">
               <SideMenu />
             </div>
             <div className="p-4 w-full">{children}</div>

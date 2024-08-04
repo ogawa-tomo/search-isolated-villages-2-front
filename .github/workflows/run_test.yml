@@ -15,7 +15,7 @@ jobs:
           cache: 'npm'
       - run: npm ci
       - run: npm test
-      - run: docker-compose up -d
+      - run: docker compose up -d
       - run: npx playwright install
       - run: npx playwright install --with-deps
       - run: npx playwright test
