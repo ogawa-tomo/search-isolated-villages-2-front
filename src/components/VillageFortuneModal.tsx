@@ -4,6 +4,9 @@ import { useState } from 'react';
 import Modal from 'react-modal';
 import type Village from '@/types/village';
 import { fetchVillageFortuneResult } from '@/lib/fetchVillageFortuneResult';
+import { GoogleMapLink } from './GoogleMapLink';
+import { HorizontalSpacer } from './Spacer';
+import { PopulationDistributionMapLink } from './PopulationDistributionMapLink';
 
 const VillageFortuneModal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -61,23 +64,14 @@ const ModalContent = ({ village }: { village: Village | undefined }) => {
         <p>今日のラッキー秘境集落は…</p>
         <p className='font-bold text-3xl'>{village.pref} {village.city} {village.district}</p>
         <p>
-          <span className='mr-1'>人口: {village.population}人</span>
+          <span>人口: {village.population}人</span>
+          <HorizontalSpacer size={8} />
           <span>都会度: {village.urban_point}</span>
         </p>
         <p>
-          <a
-            className="mr-1"
-            href={village.google_map_url}
-            target="_blank"
-          >
-            Googleマップ
-          </a>
-          <a
-            href={`${process.env.NEXT_PUBLIC_VILLAGE_API_URL}${village.mesh_map_path}`}
-            target="_blank"
-          >
-            人口分布図
-          </a>
+          <GoogleMapLink href={village.google_map_url} />
+          <HorizontalSpacer size={8} />
+          <PopulationDistributionMapLink href={`${process.env.NEXT_PUBLIC_VILLAGE_API_URL}${village.mesh_map_path}`} />
         </p>
       </div>
     </>
