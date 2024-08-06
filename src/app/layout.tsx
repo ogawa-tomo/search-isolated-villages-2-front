@@ -23,7 +23,7 @@ export default function RootLayout({
       <body>
         <div className="mx-auto max-w-5xl">
           <header>
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between h-12">
               <Image src={headerLogo} alt="ヘッダ" height="32" className="ml-4" />
               <HeaderMenu />
             </div>
