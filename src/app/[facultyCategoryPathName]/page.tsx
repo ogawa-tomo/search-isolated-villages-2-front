@@ -18,7 +18,7 @@ export default function Page({ params }: { params: { facultyCategoryPathName: Fa
         height={200}
       />
       <p className="text-center">
-        秘境{facultyCategoryName}を探索し、秘境度を人口分布データをもとに評価して地域別にランキングで出力します。
+        秘境{facultyCategoryName}を探索し、秘境度を人口分布データをもとに<br />評価して地域別にランキングで出力します。
       </p>
       <FacultySearchForm
         facultyCategoryPathName={params.facultyCategoryPathName}
