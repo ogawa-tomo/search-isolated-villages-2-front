@@ -13,7 +13,7 @@ export default function Page() {
         height={300}
       />
       <p className="text-center">
-        秘境集落を探索し、秘境度を人口分布データをもとに評価して地域別にランキングで出力します。
+        秘境集落を探索し、秘境度を人口分布データをもとに<br />評価して地域別にランキングで出力します。
       </p>
       <VillageSearchForm />
     </>
