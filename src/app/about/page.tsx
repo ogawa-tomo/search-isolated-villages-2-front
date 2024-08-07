@@ -2,14 +2,16 @@ import Image from "next/image";
 import localImage from "@/public/shiiba.png";
 import { InlineMath, BlockMath } from "react-katex";
 import 'katex/dist/katex.min.css';
+import { TextLink } from "@/components/TextLink";
 
 export default function Page() {
   return (
     <>
       <h1>このツールについて</h1>
       <h2>概要</h2>
-      <a href="https://note.com/otomo6sm/n/n65bbb18a6ec5" target="_blank">秘境集落探索ツールを作ったので紹介する</a>（note記事）
-
+      <TextLink href="https" external>
+        秘境集落探索ツールを作ったので紹介する
+      </TextLink>
 
       <h2>探索方法</h2>
 
@@ -72,24 +74,30 @@ export default function Page() {
 
       <h2>使用データ</h2>
       <p>
-        政府統計の総合窓口(e-Stat) 2015/2020年度国勢調査5次メッシュ人口データ<br />
-        <a href="https://www.e-stat.go.jp/gis/statmap-search?type=1" target="_blank">https://www.e-stat.go.jp/gis/statmap-search?type=1</a><br />
+        <TextLink href="https://www.e-stat.go.jp/gis/statmap-search?type=1" external>
+          政府統計の総合窓口(e-Stat) 2015/2020年度国勢調査5次メッシュ人口データ
+        </TextLink>
+        <br />
         <span className="text-sm">
           ※国土をおよそ250m四方のメッシュに区切り、それぞれのメッシュに人口が入っているデータ
         </span>
       </p>
 
       <p>
-        政府統計の総合窓口(e-Stat) 2015/2020年度国勢調査小地域データ<br />
-        <a href="https://www.e-stat.go.jp/gis/statmap-search?type=2" target="_blank">https://www.e-stat.go.jp/gis/statmap-search?type=2</a><br />
+        <TextLink href="https://www.e-stat.go.jp/gis/statmap-search?type=2" external>
+          政府統計の総合窓口(e-Stat) 2015/2020年度国勢調査小地域データ
+        </TextLink>
+        <br />
         <span className="text-sm">
           ※集落と地名の紐づけに利用
         </span>
       </p>
 
       <p>
-        国土交通省国土政策局 国土数値情報<br />
-        <a href="http://nlftp.mlit.go.jp/ksj/" target="_blank">http://nlftp.mlit.go.jp/ksj/</a><br />
+        <TextLink href="http://nlftp.mlit.go.jp/ksj/" external>
+          国土交通省国土政策局 国土数値情報
+        </TextLink>
+        <br />
         <ul className="list-disc list-inside">
           <li>郵便局　※データ作成年度：平成25年度</li>
           <li>学校　※データ作成年度：平成25年度</li>
@@ -102,24 +110,26 @@ export default function Page() {
       </p>
 
       <p>
-        産総研地質調査総合センター　地熱情報データベース<br />
-        <a href="https://gbank.gsj.jp/gres-db/#" target="_blank">https://gbank.gsj.jp/gres-db/#</a>
+        <TextLink href="https://gbank.gsj.jp/gres-db/#" external>
+          産総研地質調査総合センター　地熱情報データベース
+        </TextLink>
       </p>
       <p>
-        774@まとめ屋さんの訪問先まとめマップ<br />
-        <a href="http://umap.openstreetmap.fr/ja/map/r774_368811" target="_blank">http://umap.openstreetmap.fr/ja/map/r774_368811</a><br />
-        774@まとめ屋さん：<a href="https://twitter.com/kendou774" target="_blank">@kendou774</a><br />
-        （作者：<a href="http://umap.openstreetmap.fr/ja/user/muramototomoya/">muramototomoya</a>さん）
+        <TextLink href="http://umap.openstreetmap.fr/ja/map/r774_368811" external>
+          R774@まとめ屋さんの訪問先まとめマップ
+        </TextLink>
+        <br />
+        774@まとめ屋さん：<TextLink href="https://twitter.com/kendou774" external>@kendou774</TextLink>
+        <br />
+        （作者：<TextLink href="http://umap.openstreetmap.fr/ja/user/muramototomoya/" external>muramototomoya</TextLink>さん）
       </p>
 
-      <h2>ver.1</h2>
-      <a href="https://search-isolated-villages.herokuapp.com/" target="_blank">https://search-isolated-villages.herokuapp.com/</a>
-
       <h2>ソースコード</h2>
-      <a href="https://github.com/ogawa-tomo/search-isolated-villages-2.git" target="_blank">https://github.com/ogawa-tomo/search-isolated-villages-2.git</a>
+      フロントエンド：<TextLink href="https://github.com/ogawa-tomo/search-isolated-villages-2-front" external>https://github.com/ogawa-tomo/search-isolated-villages-2-front</TextLink>
+      <br />
+      バックエンド：<TextLink href="https://github.com/ogawa-tomo/search-isolated-villages-2" external>https://github.com/ogawa-tomo/search-isolated-villages-2</TextLink>
       <h2>作者</h2>
-      Twitter: <a href="https://twitter.com/otomo6sm" target="_blank">@otomo6sm</a>
-
+      <TextLink href="https://twitter.com/otomo6sm" external>@otomo6sm</TextLink>
     </>
   );
 }
