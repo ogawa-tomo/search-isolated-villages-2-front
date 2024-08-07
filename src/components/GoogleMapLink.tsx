@@ -1,18 +1,12 @@
-import Link from "next/link"
 import { SiGooglemaps } from "react-icons/si";
-import { FiExternalLink } from "react-icons/fi";
 import React from "react";
+import { TextLink } from "./TextLink";
 
 export const GoogleMapLink = ({ href }: { href: string }) => {
   return (
-    <Link
-      className="link link-primary"
-      href={href}
-      target="_blank"
-    >
+    <TextLink href={href} external>
       <SiGooglemaps className='inline align-baseline' />
       Googleマップ
-      <FiExternalLink className='inline align-baseline' />
-    </Link>
+    </TextLink>
   )
 }
