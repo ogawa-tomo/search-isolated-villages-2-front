@@ -7,8 +7,8 @@ type Props = {
 
 export const IslandSettingFieldSet = ({ defaultValue, onChange }: Props) => {
   return (
-    <fieldset>
-      <legend>離島設定</legend>
+    <fieldset className="py-0.5">
+      <legend className="font-bold">離島設定</legend>
       {islandSettings.map((setting) => {
         return (
           <span key={setting} className="mr-4 flex flex-row items-center">
