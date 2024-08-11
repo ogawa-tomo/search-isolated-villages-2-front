@@ -1,49 +1,47 @@
 'use client';
 
-import { useState } from 'react';
-import Modal from 'react-modal';
+import { useRef, useState } from 'react';
 import Faculty from '@/types/faculty';
-import { FacultyCategory, FacultyCategoryPathName } from '@/types/FacultyCategory';
+import { FacultyCategoryPathName } from '@/types/FacultyCategory';
 import { getFacultyCategoryFromPathName } from '@/lib/facultyCategories';
 import { fetchFacultyFortuneResult } from '@/lib/fetchFacultyFortuneResult';
+import { GoogleMapLink } from './GoogleMapLink';
+import { HorizontalSpacer } from './Spacer';
+import { PopulationDistributionMapLink } from './PopulationDistributionMapLink';
 
 const FacultyFortuneModal = ({ facultyCategoryPathName }: { facultyCategoryPathName: FacultyCategoryPathName }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [faculty, setFaculty] = useState<Faculty | undefined>(undefined);
+  const modalRef = useRef<HTMLDialogElement>(null);
 
+  const facultyCategory = getFacultyCategoryFromPathName(facultyCategoryPathName);
 
-  const appElementObject: { appElement?: HTMLElement } = {}
-  if (typeof window === 'object') {
-    appElementObject.appElement = document.getElementById('modalRoot') ?? undefined;
-  }
-
-  const openModal = () => {
-    setIsModalOpen(true);
+  const handleClick = () => {
     setFaculty(undefined);
     fetchFacultyFortuneResult(facultyCategoryPathName)
       .then(faculty => setFaculty(faculty));
+    modalRef.current?.showModal();
   }
 
   return (
     <>
-      <div className="flex flex-col items-center" id='modalRoot'>
-        <Modal
-          isOpen={isModalOpen}
-          className="modal-box mx-auto"
-          {...appElementObject}
-        >
-          <ModalContent
-            faculty={faculty}
-            facultyCategory={getFacultyCategoryFromPathName(facultyCategoryPathName)}
-          />
-          <div className="modal-action">
-            <button className="btn" onClick={() => setIsModalOpen(false)}>閉じる</button>
+      <div className="flex flex-col items-center">
+        <dialog className='modal' ref={modalRef}>
+          <div className='modal-box'>
+            <p className='text-center'>今日のラッキー秘境{facultyCategory.name}は…</p>
+            <div className='flex items-center h-32'>
+              <ModalContent
+                faculty={faculty}
+              />
+            </div>
           </div>
-        </Modal>
+          <form method='dialog' className='modal-backdrop'>
+            <button>close</button>
+          </form>
+        </dialog>
         <button
           className="btn btn-primary w-64 btn-sm h-10 text-white rounded-md text-xl my-0.5"
           type="button"
-          onClick={openModal}
+          onClick={handleClick}
         >
           占う
         </button>
@@ -53,30 +51,26 @@ const FacultyFortuneModal = ({ facultyCategoryPathName }: { facultyCategoryPathN
   )
 }
 
-const ModalContent = ({ faculty, facultyCategory }: { faculty: Faculty | undefined; facultyCategory: FacultyCategory }) => {
+const ModalContent = ({ faculty }: { faculty: Faculty | undefined }) => {
 
-  if (faculty === undefined) return <div>loading...</div>
+  if (faculty === undefined) {
+    return (
+      <div className="flex justify-center w-full">
+        <span className="loading loading-spinner loading-lg text-primary"></span>
+      </div>
+    )
+  }
+
   return (
     <>
-      <div className='text-center'>
-        <p>今日のラッキー秘境{facultyCategory.name}は…</p>
+      <div className='text-center w-full'>
         <p className='font-bold text-3xl'>{faculty.name}</p>
         <p>{faculty.pref} {faculty.city} {faculty.district}</p>
         <p>都会度: {faculty.urban_point}</p>
         <p>
-          <a
-            className="mr-1"
-            href={faculty.google_map_url}
-            target="_blank"
-          >
-            Googleマップ
-          </a>
-          <a
-            href={`${process.env.NEXT_PUBLIC_VILLAGE_API_URL}${faculty.mesh_map_path}`}
-            target="_blank"
-          >
-            人口分布図
-          </a>
+          <GoogleMapLink href={faculty.google_map_url} />
+          <HorizontalSpacer size={8} />
+          <PopulationDistributionMapLink href={`${process.env.NEXT_PUBLIC_VILLAGE_API_URL}${faculty.mesh_map_path}`} />
         </p>
       </div>
     </>

@@ -14,6 +14,12 @@ jest.mock('next/navigation', () => ({
   }
 }));
 
+HTMLDialogElement.prototype.showModal = jest.fn(function mock(
+  this: HTMLDialogElement
+) {
+  this.open = true;
+});
+
 describe('VillageSearchForm', () => {
   beforeEach(() => {
     mockFn.mockClear();
@@ -62,7 +68,7 @@ describe('VillageSearchForm', () => {
 
     await user.type(screen.getByRole('textbox', { name: 'キーワード絞り込み' }), '佐井村');
 
-    await user.click(screen.getByRole('button', { name: '閉じる' }));
+    await user.click(screen.getByRole('button', { name: 'close' }));
 
     const params = new URLSearchParams({
       region: '青森県',
@@ -99,7 +105,7 @@ describe('VillageSearchForm', () => {
     await user.type(screen.getByRole('textbox', { name: 'キーワード絞り込み' }), '佐井村');
 
     await user.click(screen.getByRole('button', { name: 'デフォルト値に戻す' }));
-    await user.click(screen.getByRole('button', { name: '閉じる' }));
+    await user.click(screen.getByRole('button', { name: 'close' }));
 
     const params = new URLSearchParams({
       region: '青森県',
@@ -138,7 +144,7 @@ describe('VillageSearchForm', () => {
 
     expect(screen.getByRole('textbox', { name: 'キーワード絞り込み' })).toHaveValue('佐井村');
 
-    await user.click(screen.getByRole('button', { name: '閉じる' }));
+    await user.click(screen.getByRole('button', { name: 'close' }));
 
     const params = new URLSearchParams({
       region: '青森県',

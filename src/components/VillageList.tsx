@@ -2,6 +2,9 @@ import type VillageSearchParams from '@/types/villageSearchParams';
 import Pagination from './Pagination';
 import { fetchVillages } from '@/lib/fetchVillages';
 import Village from '@/types/village';
+import { HorizontalSpacer } from './Spacer';
+import { GoogleMapLink } from './GoogleMapLink';
+import { PopulationDistributionMapLink } from './PopulationDistributionMapLink';
 
 export const VillageList = async (searchParams: VillageSearchParams) => {
   const { pages, per_page, villages } = await fetchVillages(searchParams);
@@ -34,36 +37,27 @@ export const VillageListPresentation = ({
 
   return (
     <>
-      <div className="max-w-sm mx-auto flex flex-col items-center">
+      <div className="max-w-sm mx-auto flex flex-col items-center gap-4">
         <table className='w-full border-collapse'>
           <tbody>
             {villages.map((village, index) => (
               <tr key={index} className='border border-slate-400'>
-                <td className='w-1/6 text-center'>
+                <td className='w-1/5 text-center'>
                   {index + rank_start + 1}位
                 </td>
-                <td className="pl-2">
-                  <p className="font-bold text-lg">
+                <td className='p-1'>
+                  <p className="font-bold text-xl">
                     {village.pref} {village.city} {village.district}
                   </p>
                   <p className='text-sm'>
-                    <span className="mr-1">人口: {village.population}人</span>
+                    <span>人口: {village.population}人</span>
+                    <HorizontalSpacer size={8} />
                     <span>都会度: {village.urban_point}</span>
                   </p>
                   <p className='text-sm'>
-                    <a
-                      className="mr-1"
-                      href={village.google_map_url}
-                      target="_blank"
-                    >
-                      Googleマップ
-                    </a>
-                    <a
-                      href={`${process.env.NEXT_PUBLIC_VILLAGE_API_URL}${village.mesh_map_path}`}
-                      target="_blank"
-                    >
-                      人口分布図
-                    </a>
+                    <GoogleMapLink href={village.google_map_url} />
+                    <HorizontalSpacer size={8} />
+                    <PopulationDistributionMapLink href={`${process.env.NEXT_PUBLIC_VILLAGE_API_URL}${village.mesh_map_path}`} />
                   </p>
                 </td>
               </tr>

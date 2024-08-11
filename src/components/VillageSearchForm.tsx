@@ -1,8 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Modal from 'react-modal';
 import VillageSearchParams from '@/types/villageSearchParams';
 import { RegionSelectBox } from './RegionSelectBox';
 import { IslandSettingFieldSet } from './IslandSettingFieldSet';
@@ -20,31 +19,34 @@ type Props = {
   inputKeyWords?: string
 }
 
+const defaultValues = {
+  region: '',
+  populationLowerLimit: '1',
+  populationUpperLimit: '10000',
+  islandSetting: '離島を含まない',
+  keywords: '',
+}
+
 const VillageSearchForm = ({
-  inputRegion = '',
-  inputPopulationLowerLimit = '1',
-  inputPopulationUpperLimit = '10000',
-  inputIslandSetting = '離島を含まない',
-  inputKeyWords = '',
+  inputRegion = defaultValues.region,
+  inputPopulationLowerLimit = defaultValues.populationLowerLimit,
+  inputPopulationUpperLimit = defaultValues.populationUpperLimit,
+  inputIslandSetting = defaultValues.islandSetting,
+  inputKeyWords = defaultValues.keywords,
 }: Props) => {
   const [region, setRegion] = useState(inputRegion);
   const [populationLowerLimit, setPopulationLowerLimit] = useState(inputPopulationLowerLimit);
   const [populationUpperLimit, setPopulationUpperLimit] = useState(inputPopulationUpperLimit);
   const [islandSetting, setIslandSetting] = useState(inputIslandSetting);
   const [keyWords, setKeyWords] = useState(inputKeyWords);
-  const [modalIsOpen, setModalIsOpen] = useState(false)
+  const modalRef = useRef<HTMLDialogElement>(null);
   const router = useRouter();
 
-  const appElementObject: { appElement?: HTMLElement } = {}
-  if (typeof window === 'object') {
-    appElementObject.appElement = document.getElementById('modalRoot') ?? undefined;
-  }
-
   const setDefaultValue = () => {
-    setPopulationLowerLimit('1');
-    setPopulationUpperLimit('10000');
-    setIslandSetting('離島を含まない');
-    setKeyWords('');
+    setPopulationLowerLimit(defaultValues.populationLowerLimit);
+    setPopulationUpperLimit(defaultValues.populationUpperLimit);
+    setIslandSetting(defaultValues.islandSetting);
+    setKeyWords(defaultValues.keywords);
   };
 
   const onButtonClick = () => {
@@ -62,79 +64,78 @@ const VillageSearchForm = ({
 
   return (
     <>
-      <div className="flex flex-col items-center" id='modalRoot'>
+      <div className="flex flex-col items-center">
         <RegionSelectBox
           region={region}
           onChange={setRegion}
         />
         <button
           className="btn btn-sm h-10 w-64 rounded-md text-lg my-0.5"
-          onClick={() => setModalIsOpen(true)}
+          onClick={() => modalRef.current?.showModal()}
         >
           詳細条件
         </button>
-        <Modal
-          isOpen={modalIsOpen}
-          className="modal-box mx-auto"
-          {...appElementObject}
-        >
-          <h2>詳細条件</h2>
-          <br />
-          <fieldset>
-            <legend>人口</legend>
-            <div>
-              <label>
-                最小：
-                <input
-                  type="number"
-                  min="1"
-                  max="10000"
-                  className="input input-bordered input-sm w-24 rounded-md invalid:input-error"
-                  value={populationLowerLimit}
-                  onChange={(e) => setPopulationLowerLimit(e.target.value)}
-                />
-              </label>
-              人
-            </div>
-            <div>
-              <label>
-                最大：
-                <input
-                  type="number"
-                  min="1"
-                  max="10000"
-                  className="input input-bordered input-sm w-24 rounded-md invalid:input-error"
-                  value={populationUpperLimit}
-                  onChange={(e) => setPopulationUpperLimit(e.target.value)}
-                />
-              </label>
-              人
-            </div>
-          </fieldset>
-          <br />
-          <IslandSettingFieldSet
-            defaultValue={islandSetting}
-            onChange={setIslandSetting}
-          />
-          <br />
-          <label>
-            キーワード絞り込み
-            <input
-              type="text"
-              className="input input-bordered input-sm w-64 rounded-md"
-              placeholder="例：〇〇村"
-              value={keyWords}
-              onChange={(e) => setKeyWords(e.target.value)}
+        <dialog className='modal' ref={modalRef}>
+          <div className='modal-box'>
+            <h2>詳細条件</h2>
+            <fieldset className='py-0.5'>
+              <legend className='font-bold'>人口</legend>
+              <div>
+                <label>
+                  最小：
+                  <input
+                    type="number"
+                    min="1"
+                    max="10000"
+                    className="input input-bordered input-sm w-24 rounded-md invalid:input-error"
+                    value={populationLowerLimit}
+                    onChange={(e) => setPopulationLowerLimit(e.target.value)}
+                  />
+                </label>
+                人
+              </div>
+              <div>
+                <label>
+                  最大：
+                  <input
+                    type="number"
+                    min="1"
+                    max="10000"
+                    className="input input-bordered input-sm w-24 rounded-md invalid:input-error"
+                    value={populationUpperLimit}
+                    onChange={(e) => setPopulationUpperLimit(e.target.value)}
+                  />
+                </label>
+                人
+              </div>
+            </fieldset>
+            <IslandSettingFieldSet
+              defaultValue={islandSetting}
+              onChange={setIslandSetting}
             />
-          </label>
-          <div className="modal-action">
-            <button className="btn" onClick={setDefaultValue}>
-              デフォルト値に戻す
-            </button>
-            <button className="btn" onClick={() => setModalIsOpen(false)}>閉じる</button>
+            <p>
+              <label>
+                <span className='font-bold'>キーワード絞り込み</span>
+                <br />
+                <input
+                  type="text"
+                  className="input input-bordered input-sm w-64 rounded-md"
+                  placeholder="例：〇〇村"
+                  value={keyWords}
+                  onChange={(e) => setKeyWords(e.target.value)}
+                />
+              </label>
+            </p>
+            <div className="modal-action">
+              <button className="btn" onClick={setDefaultValue}>
+                デフォルト値に戻す
+              </button>
+            </div>
           </div>
-        </Modal>
-
+          <form method='dialog' className='modal-backdrop'>
+            <button>close</button>
+          </form>
+        </dialog>
         <button
           className="btn btn-primary w-64 btn-sm h-10 text-white rounded-md text-xl my-0.5"
           type="button"

@@ -1,9 +1,11 @@
 import type FacultySearchParams from '@/types/facultySearchParams';
 import Pagination from './Pagination';
 import { fetchFaculties } from '@/lib/fetchFaculties';
-
 import Faculty from '@/types/faculty';
 import { FacultyCategoryPathName } from '@/types/FacultyCategory';
+import { HorizontalSpacer } from './Spacer';
+import { GoogleMapLink } from './GoogleMapLink';
+import { PopulationDistributionMapLink } from './PopulationDistributionMapLink';
 
 export const FacultyList = async ({ facultyCategoryPathName, searchParams }: { facultyCategoryPathName: FacultyCategoryPathName, searchParams: FacultySearchParams }) => {
   const { pages, per_page, faculties } = await fetchFaculties({ facultyCategoryPathName, params: searchParams });
@@ -39,38 +41,28 @@ export const FacultyListPresentation = ({
 
   return (
     <>
-      <div className="max-w-sm mx-auto flex flex-col items-center">
+      <div className="max-w-sm mx-auto flex flex-col items-center gap-4">
         <table className='w-full border-collapse'>
           <tbody>
             {faculties.map((faculty, index) => (
               <tr key={index} className='border border-slate-400'>
-                <td className='w-1/6 text-center'>
+                <td className='w-1/5 text-center'>
                   {index + rank_start + 1}位
                 </td>
-                <td className="pl-2">
-                  <p className="font-bold text-lg">
+                <td className="p-1">
+                  <p className="font-bold text-xl">
                     {faculty.name}
                   </p>
                   <p className='text-sm'>
-                    <span className="mr-1">{faculty.pref} {faculty.city} {faculty.district}</span>
+                    <span>{faculty.pref} {faculty.city} {faculty.district}</span>
                   </p>
                   <p className='text-sm'>
                     <span>都会度: {faculty.urban_point}</span>
                   </p>
                   <p className='text-sm'>
-                    <a
-                      className="mr-1"
-                      href={faculty.google_map_url}
-                      target="_blank"
-                    >
-                      Googleマップ
-                    </a>
-                    <a
-                      href={`${process.env.NEXT_PUBLIC_VILLAGE_API_URL}${faculty.mesh_map_path}`}
-                      target="_blank"
-                    >
-                      人口分布図
-                    </a>
+                    <GoogleMapLink href={faculty.google_map_url} />
+                    <HorizontalSpacer size={8} />
+                    <PopulationDistributionMapLink href={`${process.env.NEXT_PUBLIC_VILLAGE_API_URL}${faculty.mesh_map_path}`} />
                   </p>
                 </td>
               </tr>

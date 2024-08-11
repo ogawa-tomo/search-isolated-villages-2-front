@@ -9,6 +9,12 @@ const user = userEvent.setup();
 
 jest.mock('src/lib/fetchVillageFortuneResult');
 
+HTMLDialogElement.prototype.showModal = jest.fn(function mock(
+  this: HTMLDialogElement
+) {
+  this.open = true;
+});
+
 describe('VillageFortuneModal', () => {
   it('shows result', async () => {
     jest.spyOn(VillageFortuneResultFetchers, 'fetchVillageFortuneResult').mockResolvedValueOnce(village);
