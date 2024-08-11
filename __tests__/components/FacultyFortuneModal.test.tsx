@@ -9,6 +9,12 @@ const user = userEvent.setup();
 
 jest.mock('src/lib/fetchFacultyFortuneResult');
 
+HTMLDialogElement.prototype.showModal = jest.fn(function mock(
+  this: HTMLDialogElement
+) {
+  this.open = true;
+});
+
 describe('FacultyFortuneModal', () => {
   it('shows result', async () => {
     jest.spyOn(FacultyFortuneResultFetchers, 'fetchFacultyFortuneResult').mockResolvedValueOnce(postOffice);
