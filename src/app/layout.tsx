@@ -4,6 +4,7 @@ import { SideMenu } from "@/components/SideMenu";
 import Image from "next/image";
 import headerLogo from "@/public/header_logo.png";
 import { Noto_Sans_JP } from "next/font/google";
+import Link from "next/link";
 
 export const metadata = {
   title: '秘境集落探索ツール',
@@ -23,7 +24,7 @@ export default function RootLayout({
         <div className="mx-auto max-w-5xl">
           <header>
             <div className="flex items-center justify-between h-12">
-              <Image src={headerLogo} alt="ヘッダ" height="32" className="ml-4" />
+              <Link href='/'><Image src={headerLogo} alt="ヘッダ" height="32" className="ml-4" /></Link>
               <HeaderMenu />
             </div>
           </header>
