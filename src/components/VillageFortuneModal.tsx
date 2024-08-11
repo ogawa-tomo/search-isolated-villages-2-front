@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import type Village from '@/types/village';
 import { fetchVillageFortuneResult } from '@/lib/fetchVillageFortuneResult';
 import { GoogleMapLink } from './GoogleMapLink';
@@ -9,19 +9,19 @@ import { PopulationDistributionMapLink } from './PopulationDistributionMapLink';
 
 const VillageFortuneModal = () => {
   const [village, setVillage] = useState<Village | undefined>(undefined);
+  const modalRef = useRef<HTMLDialogElement>(null)
 
   const handleClick = () => {
     setVillage(undefined);
     fetchVillageFortuneResult()
       .then(village => setVillage(village));
-    const modal = document.getElementById('village_fortune_modal') as HTMLDialogElement;
-    modal.showModal();
+    modalRef.current?.showModal();
   }
 
   return (
     <>
-      <div className="flex flex-col items-center" id='modalRoot'>
-        <dialog id="village_fortune_modal" className='modal'>
+      <div className="flex flex-col items-center">
+        <dialog className='modal' ref={modalRef}>
           <div className='modal-box'>
             <p className='text-center'>今日のラッキー秘境集落は…</p>
             <div className='flex items-center h-32'>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import Faculty from '@/types/faculty';
 import { FacultyCategoryPathName } from '@/types/FacultyCategory';
 import { getFacultyCategoryFromPathName } from '@/lib/facultyCategories';
@@ -11,6 +11,7 @@ import { PopulationDistributionMapLink } from './PopulationDistributionMapLink';
 
 const FacultyFortuneModal = ({ facultyCategoryPathName }: { facultyCategoryPathName: FacultyCategoryPathName }) => {
   const [faculty, setFaculty] = useState<Faculty | undefined>(undefined);
+  const modalRef = useRef<HTMLDialogElement>(null);
 
   const facultyCategory = getFacultyCategoryFromPathName(facultyCategoryPathName);
 
@@ -18,14 +19,13 @@ const FacultyFortuneModal = ({ facultyCategoryPathName }: { facultyCategoryPathN
     setFaculty(undefined);
     fetchFacultyFortuneResult(facultyCategoryPathName)
       .then(faculty => setFaculty(faculty));
-    const modal = document.getElementById('faculty_fortune_modal') as HTMLDialogElement;
-    modal.showModal();
+    modalRef.current?.showModal();
   }
 
   return (
     <>
-      <div className="flex flex-col items-center" id='modalRoot'>
-        <dialog id="faculty_fortune_modal" className='modal'>
+      <div className="flex flex-col items-center">
+        <dialog className='modal' ref={modalRef}>
           <div className='modal-box'>
             <p className='text-center'>今日のラッキー秘境{facultyCategory.name}は…</p>
             <div className='flex items-center h-32'>
