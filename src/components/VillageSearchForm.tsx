@@ -71,9 +71,7 @@ const VillageSearchForm = ({
         />
         <button
           className="btn btn-sm h-10 w-64 rounded-md text-lg my-0.5"
-          onClick={() => {
-            modalRef.current?.showModal();
-          }}
+          onClick={() => modalRef.current?.showModal()}
         >
           詳細条件
         </button>
