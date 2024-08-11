@@ -46,7 +46,7 @@ test('パラメータを指定した集落検索', async ({ page }) => {
   await page
     .getByRole('textbox', { name: 'キーワード絞り込み' })
     .fill('佐井村');
-  await page.getByRole('button', { name: '閉じる' }).click();
+  await page.locator('body').click({ position: { x: 0, y: 0 } });
   await page.getByRole('button', { name: '探索' }).click();
 
   await expect(page.getByRole('heading', { name: '探索結果' })).toBeVisible();
