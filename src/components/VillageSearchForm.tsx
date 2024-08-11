@@ -19,12 +19,20 @@ type Props = {
   inputKeyWords?: string
 }
 
+const defaultValues = {
+  region: '',
+  populationLowerLimit: '1',
+  populationUpperLimit: '10000',
+  islandSetting: '離島を含まない',
+  keywords: '',
+}
+
 const VillageSearchForm = ({
-  inputRegion = '',
-  inputPopulationLowerLimit = '1',
-  inputPopulationUpperLimit = '10000',
-  inputIslandSetting = '離島を含まない',
-  inputKeyWords = '',
+  inputRegion = defaultValues.region,
+  inputPopulationLowerLimit = defaultValues.populationLowerLimit,
+  inputPopulationUpperLimit = defaultValues.populationUpperLimit,
+  inputIslandSetting = defaultValues.islandSetting,
+  inputKeyWords = defaultValues.keywords,
 }: Props) => {
   const [region, setRegion] = useState(inputRegion);
   const [populationLowerLimit, setPopulationLowerLimit] = useState(inputPopulationLowerLimit);
@@ -35,10 +43,10 @@ const VillageSearchForm = ({
   const router = useRouter();
 
   const setDefaultValue = () => {
-    setPopulationLowerLimit('1');
-    setPopulationUpperLimit('10000');
-    setIslandSetting('離島を含まない');
-    setKeyWords('');
+    setPopulationLowerLimit(defaultValues.populationLowerLimit);
+    setPopulationUpperLimit(defaultValues.populationUpperLimit);
+    setIslandSetting(defaultValues.islandSetting);
+    setKeyWords(defaultValues.keywords);
   };
 
   const onButtonClick = () => {
@@ -72,9 +80,8 @@ const VillageSearchForm = ({
         <dialog className='modal' ref={modalRef}>
           <div className='modal-box'>
             <h2>詳細条件</h2>
-            <br />
-            <fieldset>
-              <legend>人口</legend>
+            <fieldset className='py-0.5'>
+              <legend className='font-bold'>人口</legend>
               <div>
                 <label>
                   最小：
@@ -104,27 +111,27 @@ const VillageSearchForm = ({
                 人
               </div>
             </fieldset>
-            <br />
             <IslandSettingFieldSet
               defaultValue={islandSetting}
               onChange={setIslandSetting}
             />
-            <br />
-            <label>
-              キーワード絞り込み
-              <input
-                type="text"
-                className="input input-bordered input-sm w-64 rounded-md"
-                placeholder="例：〇〇村"
-                value={keyWords}
-                onChange={(e) => setKeyWords(e.target.value)}
-              />
-            </label>
+            <p>
+              <label>
+                <span className='font-bold'>キーワード絞り込み</span>
+                <br />
+                <input
+                  type="text"
+                  className="input input-bordered input-sm w-64 rounded-md"
+                  placeholder="例：〇〇村"
+                  value={keyWords}
+                  onChange={(e) => setKeyWords(e.target.value)}
+                />
+              </label>
+            </p>
             <div className="modal-action">
               <button className="btn" onClick={setDefaultValue}>
                 デフォルト値に戻す
               </button>
-              {/* <button className="btn" onClick={() => setModalIsOpen(false)}>閉じる</button> */}
             </div>
           </div>
           <form method='dialog' className='modal-backdrop'>
