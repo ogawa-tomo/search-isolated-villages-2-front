@@ -21,7 +21,7 @@ export const HeaderMenu = () => {
           onClick={() => setShow(false)}
         />
       </div>
-      <div className={classNames("md:hidden top-0 fixed w-screen h-screen z-10", {
+      <div className={classNames("md:hidden top-0 fixed w-screen h-screen z-10 bg-gray-500/75", {
         "hidden": !show,
       })} onClick={() => setShow(!show)}></div>
     </>

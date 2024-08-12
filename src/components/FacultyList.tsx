@@ -26,7 +26,7 @@ export const FacultyList = ({ facultyCategoryPathName, searchParams }: { faculty
   }, [facultyCategoryPathName, searchParams])
 
   if (!faculties || !pages || !perPage) return (
-    <div className="flex justify-center h-36">
+    <div className="flex justify-center h-24">
       <span className="loading loading-spinner loading-lg text-primary"></span>
     </div>
   );
