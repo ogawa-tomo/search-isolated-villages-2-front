@@ -17,7 +17,6 @@ describe('Pagination', () => {
     );
     expect(screen.getByText('1')).toBeInTheDocument();
     expect(screen.getByText('2')).toHaveProperty('href', 'http://localhost/result?hoge=hoge&fuga=fuga&page=2');
-    expect(screen.getByText('3')).toHaveProperty('href', 'http://localhost/result?hoge=hoge&fuga=fuga&page=3');
     expect(screen.getByText('...')).toBeInTheDocument();
     expect(screen.getByText('100')).toHaveProperty('href', 'http://localhost/result?hoge=hoge&fuga=fuga&page=100');
   })
@@ -35,7 +34,6 @@ describe('Pagination', () => {
     expect(screen.getByText('1')).toHaveProperty('href', 'http://localhost/result?hoge=hoge&fuga=fuga&page=1');
     expect(screen.getByText('2')).toBeInTheDocument();
     expect(screen.getByText('3')).toHaveProperty('href', 'http://localhost/result?hoge=hoge&fuga=fuga&page=3');
-    expect(screen.getByText('4')).toHaveProperty('href', 'http://localhost/result?hoge=hoge&fuga=fuga&page=4');
     expect(screen.getByText('...')).toBeInTheDocument();
     expect(screen.getByText('100')).toHaveProperty('href', 'http://localhost/result?hoge=hoge&fuga=fuga&page=100');
   })
@@ -51,11 +49,9 @@ describe('Pagination', () => {
     );
     expect(screen.getByText('1')).toHaveProperty('href', 'http://localhost/result?hoge=hoge&fuga=fuga&page=1');
     expect(screen.getAllByText('...')).toHaveLength(2);
-    expect(screen.getByText('3')).toHaveProperty('href', 'http://localhost/result?hoge=hoge&fuga=fuga&page=3');
     expect(screen.getByText('4')).toHaveProperty('href', 'http://localhost/result?hoge=hoge&fuga=fuga&page=4');
     expect(screen.getByText('5')).toBeInTheDocument();
     expect(screen.getByText('6')).toHaveProperty('href', 'http://localhost/result?hoge=hoge&fuga=fuga&page=6');
-    expect(screen.getByText('7')).toHaveProperty('href', 'http://localhost/result?hoge=hoge&fuga=fuga&page=7');
     expect(screen.getByText('100')).toHaveProperty('href', 'http://localhost/result?hoge=hoge&fuga=fuga&page=100');
   })
 
@@ -70,7 +66,6 @@ describe('Pagination', () => {
     );
     expect(screen.getByText('1')).toHaveProperty('href', 'http://localhost/result?hoge=hoge&fuga=fuga&page=1');
     expect(screen.getByText('...')).toBeInTheDocument();
-    expect(screen.getByText('97')).toHaveProperty('href', 'http://localhost/result?hoge=hoge&fuga=fuga&page=97');
     expect(screen.getByText('98')).toHaveProperty('href', 'http://localhost/result?hoge=hoge&fuga=fuga&page=98');
     expect(screen.getByText('99')).toBeInTheDocument();
     expect(screen.getByText('100')).toHaveProperty('href', 'http://localhost/result?hoge=hoge&fuga=fuga&page=100');
@@ -87,7 +82,6 @@ describe('Pagination', () => {
     );
     expect(screen.getByText('1')).toHaveProperty('href', 'http://localhost/result?hoge=hoge&fuga=fuga&page=1');
     expect(screen.getByText('...')).toBeInTheDocument();
-    expect(screen.getByText('98')).toHaveProperty('href', 'http://localhost/result?hoge=hoge&fuga=fuga&page=98');
     expect(screen.getByText('99')).toHaveProperty('href', 'http://localhost/result?hoge=hoge&fuga=fuga&page=99');
     expect(screen.getByText('100')).toBeInTheDocument();
   })

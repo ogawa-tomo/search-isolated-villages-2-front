@@ -13,7 +13,7 @@ export const VillageList = (searchParams: VillageSearchParams) => {
   const [villages, setVillages] = useState<Village[] | undefined>(undefined);
   const [pages, setPages] = useState<number | undefined>(undefined);
   const [perPage, setPerPage] = useState<number | undefined>(undefined);
-  const targetRef = useRef<HTMLDivElement | null>(null);
+  const [isFetchError, setIsFetchError] = useState(false)
 
   useEffect(() => {
     setVillages(undefined);
@@ -23,7 +23,17 @@ export const VillageList = (searchParams: VillageSearchParams) => {
         setPages(result.pages);
         setPerPage(result.per_page);
       })
+      .catch((err) => {
+        console.log(err);
+        setIsFetchError(true);
+      });
   }, [searchParams])
+
+  if (isFetchError) return (
+    <div className='text-center'>
+      集落の取得に失敗しました
+    </div>
+  );
 
   if (!villages || !pages || !perPage) return (
     <div className="flex justify-center h-24">
@@ -36,7 +46,7 @@ export const VillageList = (searchParams: VillageSearchParams) => {
 
   return (
     <>
-      <div className="max-w-sm mx-auto flex flex-col items-center gap-4" ref={targetRef}>
+      <div className="max-w-sm mx-auto flex flex-col items-center gap-4">
         <table className='w-full border-collapse' >
           <tbody>
             {villages.map((village, index) => (

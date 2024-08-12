@@ -5,6 +5,9 @@ import VillageSearchParams from "@/types/villageSearchParams";
 import Image from "next/image";
 
 export default function Page({ searchParams }: { searchParams: VillageSearchParams }) {
+  // herokuのサーバーをスリープ状態から起こすためにリクエストを投げる
+  fetch(process.env.NEXT_PUBLIC_VILLAGE_API_URL ?? '', { next: { revalidate: 3600 } });
+
   return (
     <>
       <Image
