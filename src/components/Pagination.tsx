@@ -1,4 +1,8 @@
+import classNames from 'classnames';
 import Link from 'next/link';
+import { ReactNode } from 'react';
+import { IoIosArrowBack } from "react-icons/io";
+import { IoIosArrowForward } from "react-icons/io";
 
 type PaginationProps = {
   currentPage: number;
@@ -9,61 +13,97 @@ type PaginationProps = {
 
 const Pagination = (props: PaginationProps) => {
   const { currentPage, pages, path, queryParams } = props;
-  const neighbors_num = 2;
-  const min_page = Math.max(1, currentPage - neighbors_num);
-  const max_page = Math.min(pages, currentPage + neighbors_num);
-  const page_array = [...Array(max_page - min_page + 1)].map(
-    (_, i) => i + min_page
+  const neighborsNum = 1;
+  const minPage = Math.max(1, currentPage - neighborsNum);
+  const maxPage = Math.min(pages, currentPage + neighborsNum);
+  const page_array = [...Array(maxPage - minPage + 1)].map(
+    (_, i) => i + minPage
   );
 
   return (
     <nav aria-label='pagination'>
       <ul className="join">
-        {min_page > 1 && (
-          <li className="btn join-item bg-pagination p-0 w-10">
-            <PageLink page={1} path={path} queryParams={queryParams} />
-          </li>
+        {currentPage > 1 && (
+          <PaginationListElementWrapper type='link'>
+            <PageLink page={currentPage - 1} path={path} queryParams={queryParams}><IoIosArrowBack /></PageLink>
+          </PaginationListElementWrapper>
         )}
-        {min_page > 2 && (
-          <li className="btn cursor-default join-item bg-pagination-dots p-0 w-10">...</li>
+        {minPage > 1 && (
+          <PaginationListElementWrapper type='link'>
+            <PageLink page={1} path={path} queryParams={queryParams}>1</PageLink>
+          </PaginationListElementWrapper>
+        )}
+        {minPage > 2 && (
+          <PaginationListElementWrapper type='dots'>
+            ...
+          </PaginationListElementWrapper>
         )}
         {page_array.map((page, index) =>
           page === currentPage ? (
-            <li key={index} className="btn cursor-default bg-primary p-0 w-10">
+            <PaginationListElementWrapper type='current' key={index}>
               {page}
-            </li>
+            </PaginationListElementWrapper>
           ) : (
-            <li key={index} className='btn join-item bg-pagination p-0 w-10'>
-              <PageLink key={index} page={page} path={path} queryParams={queryParams} />
-            </li>
+            // <li key={index} className='btn join-item bg-pagination p-0 w-10'>
+            <PaginationListElementWrapper type='link' key={index}>
+              <PageLink key={index} page={page} path={path} queryParams={queryParams}>{page}</PageLink>
+            </PaginationListElementWrapper>
           )
         )}
-        {max_page < pages - 1 && (
-          <li className="btn cursor-default join-item bg-pagination-dots p-0 w-10">...</li>
+        {maxPage < pages - 1 && (
+          <PaginationListElementWrapper type='dots'>
+            ...
+          </PaginationListElementWrapper>
         )}
-        {max_page < pages && (
-          <li className='btn join-item bg-pagination p-0 w-10'>
-            <PageLink page={pages} path={path} queryParams={queryParams} />
-          </li>
+        {maxPage < pages && (
+          <PaginationListElementWrapper type='link'>
+            <PageLink page={pages} path={path} queryParams={queryParams}>{pages}</PageLink>
+          </PaginationListElementWrapper>
+        )}
+        {currentPage < pages && (
+          <PaginationListElementWrapper type='link'>
+            <PageLink page={currentPage + 1} path={path} queryParams={queryParams}><IoIosArrowForward /></PageLink>
+          </PaginationListElementWrapper>
         )}
       </ul>
     </nav>
   );
 };
 
+type PaginationListElementWrapperProps = {
+  children: ReactNode;
+  type: 'current' | 'dots' | 'link';
+}
+
+const PaginationListElementWrapper = ({ children, type }: PaginationListElementWrapperProps) => {
+  return (
+    <li className={classNames('btn join-item p-0 w-10', {
+      'cursor-default': type === 'current' || type === 'dots',
+      'bg-primary': type === 'current',
+      'text-white': type === 'current',
+      'bg-pagination': type === 'link',
+      'hover:text-white': type === 'link',
+      'bg-pagination-dots': type === 'dots'
+    })}>
+      {children}
+    </li>
+  )
+}
+
 type PageLinkProps = {
   page: number;
   path: string;
   queryParams: {};
+  children: ReactNode
 };
 
 const PageLink = (props: PageLinkProps) => {
-  const { page, path, queryParams } = props;
+  const { page, path, queryParams, children } = props;
   const query = new URLSearchParams({
     ...queryParams,
     page: String(page)
   });
-  return <Link href={`${path}?${query.toString()}`} className='grid place-items-center h-full w-full'>{page}</Link>;
+  return <Link href={`${path}?${query.toString()}`} className='grid place-items-center h-full w-full'>{children}</Link>;
 };
 
 export default Pagination;
