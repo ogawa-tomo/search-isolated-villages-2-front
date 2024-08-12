@@ -7,7 +7,7 @@ test('デフォルトの集落検索', async ({ page }) => {
   //   page.getByRole('heading', { name: '秘境集落探索ツール' })
   // ).toBeVisible();
 
-  await page.getByRole('combobox').click();
+  await page.getByText('地域を選択').click();
   const option = await page.waitForSelector(':text("北海道")');
   await option.scrollIntoViewIfNeeded();
   await option.click();
@@ -32,7 +32,7 @@ test('パラメータを指定した集落検索', async ({ page }) => {
   //   page.getByRole('heading', { name: '秘境集落探索ツール' })
   // ).toBeVisible();
 
-  await page.getByRole('combobox').click();
+  await page.getByText('地域を選択').click();
   const option = await page.waitForSelector(':text("青森県")');
   await option.scrollIntoViewIfNeeded();
   await option.click();

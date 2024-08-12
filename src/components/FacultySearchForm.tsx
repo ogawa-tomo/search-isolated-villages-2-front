@@ -86,10 +86,18 @@ const FacultySearchForm = ({
                 />
               </label>
             </p>
-            <div className="modal-action">
-              <button className="btn" onClick={setDefaultValue}>
-                デフォルト値に戻す
-              </button>
+            <div className='flex justify-end'>
+              <div className="modal-action">
+                <button className="btn" onClick={setDefaultValue}>
+                  デフォルト値に戻す
+                </button>
+              </div>
+              <div className="w-2" />
+              <div className="modal-action">
+                <form method='dialog'>
+                  <button className='btn'>閉じる</button>
+                </form>
+              </div>
             </div>
           </div>
           <form method='dialog' className='modal-backdrop'>

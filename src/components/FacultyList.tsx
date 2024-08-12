@@ -26,13 +26,13 @@ export const FacultyList = ({ facultyCategoryPathName, searchParams }: { faculty
   }, [facultyCategoryPathName, searchParams])
 
   if (!faculties || !pages || !perPage) return (
-    <div className="flex justify-center h-96">
+    <div className="flex justify-center h-36">
       <span className="loading loading-spinner loading-lg text-primary"></span>
     </div>
   );
 
-  const current_page = Number(searchParams.page);
-  const rank_start = perPage * (current_page - 1);
+  const currentPage = Number(searchParams.page);
+  const rankStart = perPage * (currentPage - 1);
 
   return (
     <>
@@ -42,7 +42,7 @@ export const FacultyList = ({ facultyCategoryPathName, searchParams }: { faculty
             {faculties.map((faculty, index) => (
               <tr key={index} className='border border-slate-400'>
                 <td className='w-1/5 text-center'>
-                  {index + rank_start + 1}位
+                  {index + rankStart + 1}位
                 </td>
                 <td className="p-1">
                   <p className="font-bold text-xl">
@@ -65,7 +65,7 @@ export const FacultyList = ({ facultyCategoryPathName, searchParams }: { faculty
           </tbody>
         </table>
         <Pagination
-          current_page={current_page}
+          currentPage={currentPage}
           pages={pages}
           path={`/${facultyCategoryPathName}`}
           queryParams={searchParams}

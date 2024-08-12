@@ -15,7 +15,10 @@ export default function Page({ searchParams }: { searchParams: VillageSearchPara
         height={300}
       />
       <p className="text-center">
-        秘境集落を探索し、秘境度を人口分布データをもとに<br />評価して地域別にランキングで出力します。
+        秘境集落を探索し、人口分布データを<br className="sm:hidden" />
+        もとに秘境度を<br className="hidden sm:block" />
+        評価して地域別に<br className="sm:hidden" />
+        ランキングで出力します。
       </p>
       <VillageSearchForm
         inputRegion={searchParams.region}
