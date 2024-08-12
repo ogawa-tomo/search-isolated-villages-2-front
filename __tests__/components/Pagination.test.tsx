@@ -9,7 +9,7 @@ describe('Pagination', () => {
   it('1ページ目を表示', async () => {
     render(
       <Pagination
-        current_page={1}
+        currentPage={1}
         pages={100}
         path={'/result'}
         queryParams={{ hoge: 'hoge', fuga: 'fuga' }}
@@ -25,7 +25,7 @@ describe('Pagination', () => {
   it('2ページ目を表示', async () => {
     render(
       <Pagination
-        current_page={2}
+        currentPage={2}
         pages={100}
         path={'/result'}
         queryParams={{ hoge: 'hoge', fuga: 'fuga' }}
@@ -43,7 +43,7 @@ describe('Pagination', () => {
   it('5ページ目を表示', async () => {
     render(
       <Pagination
-        current_page={5}
+        currentPage={5}
         pages={100}
         path={'/result'}
         queryParams={{ hoge: 'hoge', fuga: 'fuga' }}
@@ -62,7 +62,7 @@ describe('Pagination', () => {
   it('99ページ目を表示', async () => {
     render(
       <Pagination
-        current_page={99}
+        currentPage={99}
         pages={100}
         path={'/result'}
         queryParams={{ hoge: 'hoge', fuga: 'fuga' }}
@@ -79,7 +79,7 @@ describe('Pagination', () => {
   it('100ページ目を表示', async () => {
     render(
       <Pagination
-        current_page={100}
+        currentPage={100}
         pages={100}
         path={'/result'}
         queryParams={{ hoge: 'hoge', fuga: 'fuga' }}
