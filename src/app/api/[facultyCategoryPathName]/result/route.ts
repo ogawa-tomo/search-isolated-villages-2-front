@@ -9,11 +9,7 @@ export async function GET(
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_VILLAGE_API_URL}/api/${
       params.facultyCategoryPathName
-    }/result?${searchParams.toString()}`,
-    {
-      method: 'GET',
-      cache: 'no-store',
-    }
+    }/result?${searchParams.toString()}`
   );
   const data = await response.json();
   return NextResponse.json(data);

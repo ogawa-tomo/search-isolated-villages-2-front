@@ -6,11 +6,8 @@ export async function GET(request: NextRequest) {
   const res = await fetch(
     `${
       process.env.NEXT_PUBLIC_VILLAGE_API_URL
-    }/api/result?${searchParams.toString()}`,
-    {
-      cache: 'no-store',
-    }
+    }/api/result?${searchParams.toString()}`
   );
-  const data: Village = await res.json();
+  const data = await res.json();
   return NextResponse.json(data);
 }
