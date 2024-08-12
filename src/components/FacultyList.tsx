@@ -9,11 +9,13 @@ import { HorizontalSpacer } from './Spacer';
 import { GoogleMapLink } from './GoogleMapLink';
 import { PopulationDistributionMapLink } from './PopulationDistributionMapLink';
 import { useEffect, useState } from 'react';
+import { getFacultyCategoryFromPathName } from '@/lib/facultyCategories';
 
 export const FacultyList = ({ facultyCategoryPathName, searchParams }: { facultyCategoryPathName: FacultyCategoryPathName, searchParams: FacultySearchParams }) => {
   const [faculties, setFaculties] = useState<Faculty[] | undefined>(undefined);
   const [pages, setPages] = useState<number | undefined>(undefined);
   const [perPage, setPerPage] = useState<number | undefined>(undefined);
+  const [isFetchError, setIsFetchError] = useState(false)
 
   useEffect(() => {
     setFaculties(undefined);
@@ -23,7 +25,17 @@ export const FacultyList = ({ facultyCategoryPathName, searchParams }: { faculty
         setPages(result.pages);
         setPerPage(result.per_page);
       })
+      .catch((err) => {
+        console.log(err);
+        setIsFetchError(true);
+      })
   }, [facultyCategoryPathName, searchParams])
+
+  if (isFetchError) return (
+    <div className='text-center'>
+      {getFacultyCategoryFromPathName(facultyCategoryPathName).name}の取得に失敗しました
+    </div>
+  );
 
   if (!faculties || !pages || !perPage) return (
     <div className="flex justify-center h-24">
