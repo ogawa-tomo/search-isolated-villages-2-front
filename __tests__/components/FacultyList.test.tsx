@@ -2,10 +2,13 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import FacultySearchParams from '@/types/facultySearchParams';
 import { getPostOffices } from '../fixtures/post_offices';
-import { FacultyListPresentation } from '@/components/FacultyList';
+import * as fetchFacultiesResultFetchers from '@/lib/fetchFaculties';
+import FacultyList from '@/components/FacultyList';
 
-describe('FacultyListPresentation', () => {
-  it('shows faculties', () => {
+jest.mock('src/lib/fetchFaculties');
+
+describe('FacultyList', () => {
+  it('shows faculties', async () => {
     const facultySearchParams: FacultySearchParams = {
       region: '北海道',
       islandSetting: '離島を含まない',
@@ -15,17 +18,20 @@ describe('FacultyListPresentation', () => {
 
     const postOffices = getPostOffices(20);
 
+    jest.spyOn(fetchFacultiesResultFetchers, 'fetchFaculties').mockResolvedValue({
+      faculties: postOffices,
+      pages: 5,
+      per_page: 20,
+    });
+
     render(
-      <FacultyListPresentation
+      <FacultyList
         facultyCategoryPathName='post_office'
-        pages={5}
-        per_page={20}
-        faculties={postOffices}
         searchParams={facultySearchParams}
       />
     );
 
-    const villageNameElements = screen.getAllByText(/北海道.*/);
+    const villageNameElements = await screen.findAllByText(/北海道.*/);
     expect(villageNameElements).toHaveLength(20);
     for (let i = 1; i <= 20; i++) {
       expect(screen.getByText(`稚内郵便局${i}`)).toBeInTheDocument();
