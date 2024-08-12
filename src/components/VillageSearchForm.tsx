@@ -40,6 +40,7 @@ const VillageSearchForm = ({
   const [islandSetting, setIslandSetting] = useState(inputIslandSetting);
   const [keyWords, setKeyWords] = useState(inputKeyWords);
   const modalRef = useRef<HTMLDialogElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
   const setDefaultValue = () => {
@@ -71,7 +72,10 @@ const VillageSearchForm = ({
         />
         <button
           className="btn btn-sm h-10 w-64 rounded-md text-lg my-0.5"
-          onClick={() => modalRef.current?.showModal()}
+          onClick={() => {
+            modalRef.current?.showModal();
+            inputRef.current?.blur();
+          }}
         >
           詳細条件
         </button>
@@ -90,6 +94,7 @@ const VillageSearchForm = ({
                     className="input input-bordered input-sm w-24 rounded-md invalid:input-error"
                     value={populationLowerLimit}
                     onChange={(e) => setPopulationLowerLimit(e.target.value)}
+                    ref={inputRef}
                   />
                 </label>
                 人
