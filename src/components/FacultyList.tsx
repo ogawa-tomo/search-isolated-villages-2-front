@@ -1,3 +1,5 @@
+'use client';
+
 import type FacultySearchParams from '@/types/facultySearchParams';
 import Pagination from './Pagination';
 import { fetchFaculties } from '@/lib/fetchFaculties';
@@ -6,38 +8,31 @@ import { FacultyCategoryPathName } from '@/types/FacultyCategory';
 import { HorizontalSpacer } from './Spacer';
 import { GoogleMapLink } from './GoogleMapLink';
 import { PopulationDistributionMapLink } from './PopulationDistributionMapLink';
+import { useEffect, useState } from 'react';
 
-export const FacultyList = async ({ facultyCategoryPathName, searchParams }: { facultyCategoryPathName: FacultyCategoryPathName, searchParams: FacultySearchParams }) => {
-  const { pages, per_page, faculties } = await fetchFaculties({ facultyCategoryPathName, params: searchParams });
+export const FacultyList = ({ facultyCategoryPathName, searchParams }: { facultyCategoryPathName: FacultyCategoryPathName, searchParams: FacultySearchParams }) => {
+  const [faculties, setFaculties] = useState<Faculty[] | undefined>(undefined);
+  const [pages, setPages] = useState<number | undefined>(undefined);
+  const [perPage, setPerPage] = useState<number | undefined>(undefined);
 
-  return (
-    <FacultyListPresentation
-      facultyCategoryPathName={facultyCategoryPathName}
-      pages={Number(pages)}
-      per_page={per_page}
-      faculties={faculties}
-      searchParams={searchParams}
-    />
+  useEffect(() => {
+    setFaculties(undefined);
+    fetchFaculties({ facultyCategoryPathName, params: searchParams })
+      .then((result) => {
+        setFaculties(result.faculties);
+        setPages(result.pages);
+        setPerPage(result.per_page);
+      })
+  }, [facultyCategoryPathName, searchParams])
+
+  if (!faculties || !pages || !perPage) return (
+    <div className="flex justify-center h-96">
+      <span className="loading loading-spinner loading-lg text-primary"></span>
+    </div>
   );
-};
 
-type FacultyListPresentationProps = {
-  facultyCategoryPathName: string;
-  pages: number;
-  per_page: number;
-  faculties: Faculty[];
-  searchParams: FacultySearchParams;
-}
-
-export const FacultyListPresentation = ({
-  facultyCategoryPathName,
-  pages,
-  per_page,
-  faculties,
-  searchParams,
-}: FacultyListPresentationProps) => {
   const current_page = Number(searchParams.page);
-  const rank_start = per_page * (current_page - 1);
+  const rank_start = perPage * (current_page - 1);
 
   return (
     <>
@@ -72,7 +67,7 @@ export const FacultyListPresentation = ({
         <Pagination
           current_page={current_page}
           pages={pages}
-          path={`/${facultyCategoryPathName}/result`}
+          path={`/${facultyCategoryPathName}`}
           queryParams={searchParams}
         />
       </div>

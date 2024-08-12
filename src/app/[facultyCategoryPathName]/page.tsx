@@ -1,10 +1,17 @@
+import FacultyList from "@/components/FacultyList";
 import FacultySearchForm from "@/components/FacultySearchForm";
 import { getFacultyCategoryFromPathName } from "@/lib/facultyCategories";
 import { facultyCategoryLogo } from "@/lib/facultyCategoryLogo";
 import { FacultyCategoryPathName } from "@/types/FacultyCategory";
+import FacultySearchParams from "@/types/facultySearchParams";
 import Image from "next/image";
 
-export default function Page({ params }: { params: { facultyCategoryPathName: FacultyCategoryPathName } }) {
+type Props = {
+  params: { facultyCategoryPathName: FacultyCategoryPathName };
+  searchParams: FacultySearchParams
+}
+
+export default function Page({ params, searchParams }: Props) {
   const facultyCategoryName = getFacultyCategoryFromPathName(params.facultyCategoryPathName).name;
 
   return (
@@ -22,7 +29,18 @@ export default function Page({ params }: { params: { facultyCategoryPathName: Fa
       </p>
       <FacultySearchForm
         facultyCategoryPathName={params.facultyCategoryPathName}
+        inputRegion={searchParams.region}
+        inputIslandSetting={searchParams.islandSetting}
+        inputKeyWords={searchParams.keyWords}
       />
+      <div className="h-5" />
+      {searchParams.region
+        &&
+        <FacultyList
+          facultyCategoryPathName={params.facultyCategoryPathName}
+          searchParams={searchParams}
+        />
+      }
     </>
   );
 }

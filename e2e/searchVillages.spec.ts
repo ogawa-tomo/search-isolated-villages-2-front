@@ -13,7 +13,6 @@ test('デフォルトの集落検索', async ({ page }) => {
   await option.click();
   await page.getByRole('button', { name: '探索' }).click();
 
-  await expect(page.getByRole('heading', { name: '探索結果' })).toBeVisible();
   for (let i = 1; i <= 20; i++) {
     await expect(page.getByText(`北海道 稚内市${i} 稚内${i}`)).toBeVisible();
   }
@@ -49,7 +48,6 @@ test('パラメータを指定した集落検索', async ({ page }) => {
   await page.locator('body').click({ position: { x: 0, y: 0 } });
   await page.getByRole('button', { name: '探索' }).click();
 
-  await expect(page.getByRole('heading', { name: '探索結果' })).toBeVisible();
   for (let i = 1; i <= 20; i++) {
     await expect(page.getByText(`青森県 佐井村${i} 佐井${i}`)).toBeVisible();
   }

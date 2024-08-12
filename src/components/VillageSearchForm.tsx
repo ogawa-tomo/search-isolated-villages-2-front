@@ -8,7 +8,7 @@ import { IslandSettingFieldSet } from './IslandSettingFieldSet';
 
 const searchPath = (villageSearchParams: VillageSearchParams): string => {
   const params = new URLSearchParams(villageSearchParams);
-  return `/result?${params.toString()}`;
+  return `/?${params.toString()}`;
 };
 
 type Props = {

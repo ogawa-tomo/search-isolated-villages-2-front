@@ -44,7 +44,7 @@ describe('FacultySearchForm', () => {
     });
 
     await user.click(button);
-    expect(mockFn).toHaveBeenCalledWith(`/post_office/result?${params.toString()}`);
+    expect(mockFn).toHaveBeenCalledWith(`/post_office/?${params.toString()}`);
   })
 
   it('地域とオプションを選択して検索する', async () => {
@@ -72,7 +72,7 @@ describe('FacultySearchForm', () => {
     });
 
     await user.click(screen.getByRole('button', { name: '探索' }));
-    expect(mockFn).toHaveBeenCalledWith(`/post_office/result?${params.toString()}`);
+    expect(mockFn).toHaveBeenCalledWith(`/post_office/?${params.toString()}`);
   })
 
   it('地域とオプションを選択した後、デフォルト値に戻して検索する', async () => {
@@ -101,7 +101,7 @@ describe('FacultySearchForm', () => {
     });
 
     await user.click(screen.getByRole('button', { name: '探索' }));
-    expect(mockFn).toHaveBeenCalledWith(`/post_office/result?${params.toString()}`);
+    expect(mockFn).toHaveBeenCalledWith(`/post_office/?${params.toString()}`);
   })
 
   it('propsがフォームの初期値に反映されている', async () => {
@@ -131,6 +131,6 @@ describe('FacultySearchForm', () => {
     });
 
     await user.click(screen.getByRole('button', { name: '探索' }));
-    expect(mockFn).toHaveBeenCalledWith(`/post_office/result?${params.toString()}`);
+    expect(mockFn).toHaveBeenCalledWith(`/post_office/?${params.toString()}`);
   })
 });

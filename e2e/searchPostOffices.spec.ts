@@ -12,7 +12,6 @@ test('デフォルトの郵便局検索', async ({ page }) => {
   await option.click();
   await page.getByRole('button', { name: '探索' }).click();
 
-  await expect(page.getByRole('heading', { name: '探索結果' })).toBeVisible();
   for (let i = 1; i <= 20; i++) {
     await expect(
       page.getByText(`稚内郵便局${i}`, { exact: true })
@@ -49,7 +48,6 @@ test('パラメータを指定した郵便局検索', async ({ page }) => {
   await page.locator('body').click({ position: { x: 0, y: 0 } });
   await page.getByRole('button', { name: '探索' }).click();
 
-  await expect(page.getByRole('heading', { name: '探索結果' })).toBeVisible();
   for (let i = 1; i <= 20; i++) {
     await expect(
       page.getByText(`佐井郵便局${i}`, { exact: true })

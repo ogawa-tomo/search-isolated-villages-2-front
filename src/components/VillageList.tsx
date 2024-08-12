@@ -1,3 +1,5 @@
+'use client';
+
 import type VillageSearchParams from '@/types/villageSearchParams';
 import Pagination from './Pagination';
 import { fetchVillages } from '@/lib/fetchVillages';
@@ -5,40 +7,37 @@ import Village from '@/types/village';
 import { HorizontalSpacer } from './Spacer';
 import { GoogleMapLink } from './GoogleMapLink';
 import { PopulationDistributionMapLink } from './PopulationDistributionMapLink';
+import { useEffect, useRef, useState } from 'react';
 
-export const VillageList = async (searchParams: VillageSearchParams) => {
-  const { pages, per_page, villages } = await fetchVillages(searchParams);
+export const VillageList = (searchParams: VillageSearchParams) => {
+  const [villages, setVillages] = useState<Village[] | undefined>(undefined);
+  const [pages, setPages] = useState<number | undefined>(undefined);
+  const [perPage, setPerPage] = useState<number | undefined>(undefined);
+  const targetRef = useRef<HTMLDivElement | null>(null);
 
-  return (
-    <VillageListPresentation
-      pages={Number(pages)}
-      per_page={per_page}
-      villages={villages}
-      searchParams={searchParams}
-    />
+  useEffect(() => {
+    setVillages(undefined);
+    fetchVillages(searchParams)
+      .then((result) => {
+        setVillages(result.villages);
+        setPages(result.pages);
+        setPerPage(result.per_page);
+      })
+  }, [searchParams])
+
+  if (!villages || !pages || !perPage) return (
+    <div className="flex justify-center h-96">
+      <span className="loading loading-spinner loading-lg text-primary"></span>
+    </div>
   );
-};
 
-type VillageListPresentationProps = {
-  pages: number;
-  per_page: number;
-  villages: Village[];
-  searchParams: VillageSearchParams;
-}
-
-export const VillageListPresentation = ({
-  pages,
-  per_page,
-  villages,
-  searchParams,
-}: VillageListPresentationProps) => {
   const current_page = Number(searchParams.page);
-  const rank_start = per_page * (current_page - 1);
+  const rank_start = perPage * (current_page - 1);
 
   return (
     <>
-      <div className="max-w-sm mx-auto flex flex-col items-center gap-4">
-        <table className='w-full border-collapse'>
+      <div className="max-w-sm mx-auto flex flex-col items-center gap-4" ref={targetRef}>
+        <table className='w-full border-collapse' >
           <tbody>
             {villages.map((village, index) => (
               <tr key={index} className='border border-slate-400'>
@@ -67,7 +66,7 @@ export const VillageListPresentation = ({
         <Pagination
           current_page={current_page}
           pages={pages}
-          path={'/result'}
+          path={'/'}
           queryParams={searchParams}
         />
       </div>

@@ -1,11 +1,14 @@
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { VillageListPresentation } from '@/components/VillageList';
 import type VillageSearchParams from '@/types/villageSearchParams';
 import { getVillages } from '../fixtures/villages';
+import VillageList from '@/components/VillageList';
+import * as FetchVillagesResultFetchers from '@/lib/fetchVillages';
 
-describe('VillageListPresentation', () => {
-  it('shows villages', () => {
+jest.mock('src/lib/fetchVillages')
+
+describe('VillageList', () => {
+  it('shows villages', async () => {
     const villageSearchParams: VillageSearchParams = {
       region: '北海道',
       populationLowerLimit: '1',
@@ -17,16 +20,19 @@ describe('VillageListPresentation', () => {
 
     const villages = getVillages(20);
 
+    jest.spyOn(FetchVillagesResultFetchers, 'fetchVillages').mockResolvedValue({
+      villages: villages,
+      pages: 5,
+      per_page: 20
+    });
+
     render(
-      <VillageListPresentation
-        pages={5}
-        per_page={20}
-        villages={villages}
-        searchParams={villageSearchParams}
+      <VillageList
+        {...villageSearchParams}
       />
     );
 
-    const villageNameElements = screen.getAllByText(/北海道.*/);
+    const villageNameElements = await screen.findAllByText(/北海道.*/);
     expect(villageNameElements).toHaveLength(20);
   });
 });
