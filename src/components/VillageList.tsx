@@ -26,7 +26,7 @@ export const VillageList = (searchParams: VillageSearchParams) => {
   }, [searchParams])
 
   if (!villages || !pages || !perPage) return (
-    <div className="flex justify-center h-36">
+    <div className="flex justify-center h-24">
       <span className="loading loading-spinner loading-lg text-primary"></span>
     </div>
   );
@@ -42,7 +42,7 @@ export const VillageList = (searchParams: VillageSearchParams) => {
             {villages.map((village, index) => (
               <tr key={index} className='border border-slate-400'>
                 <td className='w-1/5 text-center'>
-                  {index + rankStart + 1}位
+                  {index + rankStart + 1}<span className='text-xs'>位</span>
                 </td>
                 <td className='p-1'>
                   <p className="font-bold text-xl">
