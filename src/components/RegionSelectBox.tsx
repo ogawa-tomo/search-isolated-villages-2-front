@@ -68,7 +68,7 @@ export const RegionSelectBox = ({ region, onChange }: Props) => {
       className="w-64 text-xl text-center my-0.5"
       placeholder="地域を選択"
       defaultValue={region ? { label: region, value: region } : null}
-      isSearchable
+      isSearchable={false}
       options={groupedOptions}
       onChange={
         (newOption) => {

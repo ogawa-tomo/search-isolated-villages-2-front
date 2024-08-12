@@ -1,17 +1,17 @@
 import Link from 'next/link';
 
 type PaginationProps = {
-  current_page: number;
+  currentPage: number;
   pages: number;
   path: string;
   queryParams: {};
 };
 
 const Pagination = (props: PaginationProps) => {
-  const { current_page, pages, path, queryParams } = props;
+  const { currentPage, pages, path, queryParams } = props;
   const neighbors_num = 2;
-  const min_page = Math.max(1, current_page - neighbors_num);
-  const max_page = Math.min(pages, current_page + neighbors_num);
+  const min_page = Math.max(1, currentPage - neighbors_num);
+  const max_page = Math.min(pages, currentPage + neighbors_num);
   const page_array = [...Array(max_page - min_page + 1)].map(
     (_, i) => i + min_page
   );
@@ -28,7 +28,7 @@ const Pagination = (props: PaginationProps) => {
           <li className="btn cursor-default join-item bg-pagination-dots p-0 w-10">...</li>
         )}
         {page_array.map((page, index) =>
-          page === current_page ? (
+          page === currentPage ? (
             <li key={index} className="btn cursor-default bg-primary p-0 w-10">
               {page}
             </li>
