@@ -10,13 +10,7 @@ export const fetchFaculties = async ({
 }) => {
   const query = new URLSearchParams(params);
   const response = await fetch(
-    `${
-      process.env.NEXT_PUBLIC_VILLAGE_API_URL
-    }/api/${facultyCategoryPathName}/result?${query.toString()}`,
-    {
-      method: 'GET',
-      cache: 'no-store',
-    }
+    `/api/${facultyCategoryPathName}/result?${query.toString()}`
   );
   return response.json();
 };

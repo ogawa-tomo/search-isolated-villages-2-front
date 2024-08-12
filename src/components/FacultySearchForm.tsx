@@ -39,7 +39,7 @@ const FacultySearchForm = ({
 
   const searchPath = (facultySearchParams: FacultySearchParams): string => {
     const params = new URLSearchParams(facultySearchParams);
-    return `/${facultyCategoryPathName}/result?${params.toString()}`;
+    return `/${facultyCategoryPathName}/?${params.toString()}`;
   };
 
   const onButtonClick = () => {

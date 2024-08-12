@@ -44,7 +44,7 @@ describe('VillageSearchForm', () => {
     });
 
     await user.click(button);
-    expect(mockFn).toHaveBeenCalledWith(`/result?${params.toString()}`);
+    expect(mockFn).toHaveBeenCalledWith(`/?${params.toString()}`);
   })
 
   it('地域とオプションを選択して検索する', async () => {
@@ -80,7 +80,7 @@ describe('VillageSearchForm', () => {
     });
 
     await user.click(screen.getByRole('button', { name: '探索' }));
-    expect(mockFn).toHaveBeenCalledWith(`/result?${params.toString()}`);
+    expect(mockFn).toHaveBeenCalledWith(`/?${params.toString()}`);
   })
 
   it('地域とオプションを選択した後、デフォルト値に戻して検索する', async () => {
@@ -117,7 +117,7 @@ describe('VillageSearchForm', () => {
     });
 
     await user.click(screen.getByRole('button', { name: '探索' }));
-    expect(mockFn).toHaveBeenCalledWith(`/result?${params.toString()}`);
+    expect(mockFn).toHaveBeenCalledWith(`/?${params.toString()}`);
   })
 
   it('propsがフォームの初期値に反映されている', async () => {
@@ -156,6 +156,6 @@ describe('VillageSearchForm', () => {
     });
 
     await user.click(screen.getByRole('button', { name: '探索' }));
-    expect(mockFn).toHaveBeenCalledWith(`/result?${params.toString()}`);
+    expect(mockFn).toHaveBeenCalledWith(`/?${params.toString()}`);
   })
 });
