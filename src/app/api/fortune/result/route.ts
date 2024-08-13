@@ -8,6 +8,7 @@ export async function GET() {
       cache: 'no-store',
     }
   );
+  if (!res.ok) throw res;
   const data: Village = await res.json();
   return NextResponse.json(data);
 }
