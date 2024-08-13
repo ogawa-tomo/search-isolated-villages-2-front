@@ -2,7 +2,7 @@
 
 import { useRef, useState } from 'react';
 import Faculty from '@/types/faculty';
-import { FacultyCategoryPathName } from '@/types/FacultyCategory';
+import { FacultyCategoryName, FacultyCategoryPathName } from '@/types/FacultyCategory';
 import { getFacultyCategoryFromPathName } from '@/lib/facultyCategories';
 import { fetchFacultyFortuneResult } from '@/lib/fetchFacultyFortuneResult';
 import { GoogleMapLink } from './GoogleMapLink';
@@ -10,7 +10,7 @@ import { HorizontalSpacer } from './Spacer';
 import { PopulationDistributionMapLink } from './PopulationDistributionMapLink';
 
 const FacultyFortuneModal = ({ facultyCategoryPathName }: { facultyCategoryPathName: FacultyCategoryPathName }) => {
-  const [faculty, setFaculty] = useState<Faculty | undefined>(undefined);
+  const [faculty, setFaculty] = useState<Faculty | undefined | 'error'>(undefined);
   const modalRef = useRef<HTMLDialogElement>(null);
 
   const facultyCategory = getFacultyCategoryFromPathName(facultyCategoryPathName);
@@ -18,7 +18,10 @@ const FacultyFortuneModal = ({ facultyCategoryPathName }: { facultyCategoryPathN
   const handleClick = () => {
     setFaculty(undefined);
     fetchFacultyFortuneResult(facultyCategoryPathName)
-      .then(faculty => setFaculty(faculty));
+      .then(faculty => setFaculty(faculty))
+      .catch(() => {
+        setFaculty('error');
+      });
     modalRef.current?.showModal();
   }
 
@@ -28,9 +31,10 @@ const FacultyFortuneModal = ({ facultyCategoryPathName }: { facultyCategoryPathN
         <dialog className='modal' ref={modalRef}>
           <div className='modal-box'>
             <p className='text-center'>今日のラッキー秘境{facultyCategory.name}は…</p>
-            <div className='flex items-center h-32'>
+            <div className='flex items-center min-h-40'>
               <ModalContent
                 faculty={faculty}
+                facultyCategoryName={facultyCategory.name}
               />
             </div>
           </div>
@@ -51,7 +55,19 @@ const FacultyFortuneModal = ({ facultyCategoryPathName }: { facultyCategoryPathN
   )
 }
 
-const ModalContent = ({ faculty }: { faculty: Faculty | undefined }) => {
+type ModalContentProps = {
+  faculty: Faculty | undefined | 'error';
+  facultyCategoryName: FacultyCategoryName;
+}
+
+const ModalContent = ({ faculty, facultyCategoryName }: ModalContentProps) => {
+  if (faculty === 'error') {
+    return (
+      <div className='text-center w-full'>
+        {facultyCategoryName}の取得に失敗しました
+      </div>
+    );
+  }
 
   if (faculty === undefined) {
     return (

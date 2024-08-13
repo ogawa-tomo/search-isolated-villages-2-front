@@ -12,10 +12,9 @@ import { useEffect, useState } from 'react';
 import { getFacultyCategoryFromPathName } from '@/lib/facultyCategories';
 
 export const FacultyList = ({ facultyCategoryPathName, searchParams }: { facultyCategoryPathName: FacultyCategoryPathName, searchParams: FacultySearchParams }) => {
-  const [faculties, setFaculties] = useState<Faculty[] | undefined>(undefined);
+  const [faculties, setFaculties] = useState<Faculty[] | undefined | 'error'>(undefined);
   const [pages, setPages] = useState<number | undefined>(undefined);
   const [perPage, setPerPage] = useState<number | undefined>(undefined);
-  const [isFetchError, setIsFetchError] = useState(false)
 
   useEffect(() => {
     setFaculties(undefined);
@@ -25,23 +24,34 @@ export const FacultyList = ({ facultyCategoryPathName, searchParams }: { faculty
         setPages(result.pages);
         setPerPage(result.per_page);
       })
-      .catch((err) => {
-        console.log(err);
-        setIsFetchError(true);
+      .catch(() => {
+        setFaculties('error');
       })
   }, [facultyCategoryPathName, searchParams])
 
-  if (isFetchError) return (
-    <div className='text-center'>
-      {getFacultyCategoryFromPathName(facultyCategoryPathName).name}の取得に失敗しました
-    </div>
-  );
+  if (faculties === 'error') {
+    return (
+      <div className='text-center'>
+        {getFacultyCategoryFromPathName(facultyCategoryPathName).name}の取得に失敗しました
+      </div>
+    );
+  }
 
-  if (!faculties || !pages || !perPage) return (
-    <div className="flex justify-center h-24">
-      <span className="loading loading-spinner loading-lg text-primary"></span>
-    </div>
-  );
+  if (faculties === undefined || pages === undefined || !perPage) {
+    return (
+      <div className="flex justify-center h-24">
+        <span className="loading loading-spinner loading-lg text-primary"></span>
+      </div>
+    );
+  }
+
+  if (faculties.length === 0) {
+    return (
+      <div className='text-center'>
+        該当する{getFacultyCategoryFromPathName(facultyCategoryPathName).name}が見つかりませんでした
+      </div>
+    );
+  }
 
   const currentPage = Number(searchParams.page);
   const rankStart = perPage * (currentPage - 1);
