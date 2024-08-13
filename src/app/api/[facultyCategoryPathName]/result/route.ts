@@ -11,6 +11,7 @@ export async function GET(
       params.facultyCategoryPathName
     }/result?${searchParams.toString()}`
   );
+  if (!response.ok) throw response;
   const data = await response.json();
   return NextResponse.json(data);
 }

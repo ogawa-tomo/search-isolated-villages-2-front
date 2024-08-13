@@ -8,13 +8,16 @@ import { HorizontalSpacer } from './Spacer';
 import { PopulationDistributionMapLink } from './PopulationDistributionMapLink';
 
 const VillageFortuneModal = () => {
-  const [village, setVillage] = useState<Village | undefined>(undefined);
+  const [village, setVillage] = useState<Village | undefined | 'error'>(undefined);
   const modalRef = useRef<HTMLDialogElement>(null)
 
   const handleClick = () => {
     setVillage(undefined);
     fetchVillageFortuneResult()
-      .then(village => setVillage(village));
+      .then(village => setVillage(village))
+      .catch(() => {
+        setVillage('error');
+      })
     modalRef.current?.showModal();
   }
 
@@ -24,7 +27,7 @@ const VillageFortuneModal = () => {
         <dialog className='modal' ref={modalRef}>
           <div className='modal-box'>
             <p className='text-center'>今日のラッキー秘境集落は…</p>
-            <div className='flex items-center h-32'>
+            <div className='flex items-center min-h-40'>
               <ModalContent village={village} />
             </div>
           </div>
@@ -45,7 +48,15 @@ const VillageFortuneModal = () => {
   )
 }
 
-const ModalContent = ({ village }: { village: Village | undefined }) => {
+const ModalContent = ({ village }: { village: Village | undefined | 'error' }) => {
+  if (village === 'error') {
+    return (
+      <div className='text-center w-full'>
+        集落の取得に失敗しました
+      </div>
+    );
+  }
+
   if (village === undefined) {
     return (
       <div className="flex justify-center w-full">
@@ -53,6 +64,7 @@ const ModalContent = ({ village }: { village: Village | undefined }) => {
       </div>
     )
   }
+
   return (
     <>
       <div className='text-center w-full'>

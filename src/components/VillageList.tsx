@@ -7,13 +7,12 @@ import Village from '@/types/village';
 import { HorizontalSpacer } from './Spacer';
 import { GoogleMapLink } from './GoogleMapLink';
 import { PopulationDistributionMapLink } from './PopulationDistributionMapLink';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export const VillageList = (searchParams: VillageSearchParams) => {
-  const [villages, setVillages] = useState<Village[] | undefined>(undefined);
+  const [villages, setVillages] = useState<Village[] | undefined | 'error'>(undefined);
   const [pages, setPages] = useState<number | undefined>(undefined);
   const [perPage, setPerPage] = useState<number | undefined>(undefined);
-  const [isFetchError, setIsFetchError] = useState(false)
 
   useEffect(() => {
     setVillages(undefined);
@@ -23,23 +22,34 @@ export const VillageList = (searchParams: VillageSearchParams) => {
         setPages(result.pages);
         setPerPage(result.per_page);
       })
-      .catch((err) => {
-        console.log(err);
-        setIsFetchError(true);
+      .catch(() => {
+        setVillages('error');
       });
   }, [searchParams])
 
-  if (isFetchError) return (
-    <div className='text-center'>
-      集落の取得に失敗しました
-    </div>
-  );
+  if (villages === 'error') {
+    return (
+      <div className='text-center'>
+        集落の取得に失敗しました
+      </div>
+    );
+  }
 
-  if (!villages || !pages || !perPage) return (
-    <div className="flex justify-center h-24">
-      <span className="loading loading-spinner loading-lg text-primary"></span>
-    </div>
-  );
+  if (villages === undefined || pages === undefined || !perPage) {
+    return (
+      <div className="flex justify-center h-24">
+        <span className="loading loading-spinner loading-lg text-primary"></span>
+      </div>
+    );
+  }
+
+  if (villages.length === 0) {
+    return (
+      <div className='text-center'>
+        該当する集落が見つかりませんでした
+      </div>
+    );
+  }
 
   const currentPage = Number(searchParams.page);
   const rankStart = perPage * (currentPage - 1);
