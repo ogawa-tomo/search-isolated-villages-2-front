@@ -4,11 +4,22 @@ import { getFacultyCategoryFromPathName } from "@/lib/facultyCategories";
 import { facultyCategoryLogo } from "@/lib/facultyCategoryLogo";
 import { FacultyCategoryPathName } from "@/types/FacultyCategory";
 import FacultySearchParams from "@/types/facultySearchParams";
+import { Metadata } from "next";
 import Image from "next/image";
 
 type Props = {
   params: { facultyCategoryPathName: FacultyCategoryPathName };
   searchParams: FacultySearchParams
+}
+
+export async function generateMetadata(
+  { params }: Props,
+): Promise<Metadata> {
+  const facultyCategoryName = getFacultyCategoryFromPathName(params.facultyCategoryPathName).name;
+  return {
+    title: `秘境${facultyCategoryName}探索ツール`,
+    description: `秘境${facultyCategoryName}を探索し、人口分布データをもとに秘境度を評価して地域別にランキングで出力します。`,
+  }
 }
 
 export default function Page({ params, searchParams }: Props) {
