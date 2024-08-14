@@ -1,8 +1,13 @@
 import Image from "next/image";
 import localImage from "@/public/shiiba.png";
-import { InlineMath, BlockMath } from "react-katex";
+import { BlockMath } from "react-katex";
 import 'katex/dist/katex.min.css';
 import { TextLink } from "@/components/TextLink";
+
+export const metadata = {
+  title: 'このツールについて',
+  description: '秘境集落ツールについて説明するページです。'
+}
 
 export default function Page() {
   return (
