@@ -6,7 +6,7 @@ import { TextLink } from "@/components/TextLink";
 
 export const metadata = {
   title: 'このツールについて',
-  description: '秘境集落ツールについて説明するページです。'
+  description: '秘境集落探索ツールについて説明するページです。'
 }
 
 export default function Page() {
