@@ -8,7 +8,7 @@ import Link from "next/link";
 
 export const metadata = {
   title: '秘境集落探索ツール',
-  description: '秘境集落を探索し、秘境度を人口分布データをもとに評価して地域別にランキングで出力します。'
+  description: '秘境集落を探索し、人口分布データをもとに秘境度を評価して地域別にランキングで出力します。'
 }
 
 const notoSansJP = Noto_Sans_JP({ subsets: ["latin"], weight: ["400"] });
