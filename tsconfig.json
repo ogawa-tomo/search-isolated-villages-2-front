@@ -24,6 +24,13 @@
     },
     "types": ["@testing-library/jest-dom"]
   },
-  "include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx"],
+  "include": [
+    "next-env.d.ts",
+    ".next/types/**/*.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "src/app/[facultyCategoryPathName]/opengraph-image.js",
+    "src/app/fortune/[facultyCategoryPathName]/opengraph-image.js"
+  ],
   "exclude": ["node_modules"]
 }
