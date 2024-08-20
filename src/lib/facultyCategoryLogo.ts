@@ -8,6 +8,7 @@ import researchInstituteLogo from '@/public/research_institute.png';
 import hotSpringLogo from '@/public/onsen_animal.png';
 import { StaticImageData } from 'next/image';
 import { FacultyCategoryName } from '@/types/FacultyCategory';
+import { join } from 'path';
 
 export function facultyCategoryLogo(
   facultyCategoryName: FacultyCategoryName
@@ -29,5 +30,29 @@ export function facultyCategoryLogo(
       return researchInstituteLogo;
     case '道の駅':
       return michinoekiLogo;
+  }
+}
+
+export function facultyCategoryLogoPath(
+  facultyCategoryName: FacultyCategoryName
+): string {
+  const dir = join(process.cwd(), 'src', 'public');
+  switch (facultyCategoryName) {
+    case '郵便局':
+      return join(dir, 'post_office.png');
+    case '小学校':
+      return join(dir, 'school.png');
+    case '駅':
+      return join(dir, 'station.png');
+    case '廃駅':
+      return join(dir, 'abandoned_station.jpg');
+    case 'ニュータウン':
+      return join(dir, 'new_town.png');
+    case '温泉':
+      return join(dir, 'onsen_animal.png');
+    case '研究機関':
+      return join(dir, 'research_institute.png');
+    case '道の駅':
+      return join(dir, 'michinoeki.png');
   }
 }
