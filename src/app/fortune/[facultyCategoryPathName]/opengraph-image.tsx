@@ -1,15 +1,16 @@
 /* eslint-disable @next/next/no-img-element */
 import { getFacultyCategoryFromPathName } from '@/lib/facultyCategories';
 import { facultyCategoryLogoPath } from '@/lib/facultyCategoryLogo';
+import { FacultyCategoryPathName } from '@/types/FacultyCategory';
 import { readFile } from 'fs/promises';
 import { ImageResponse } from 'next/og';
 
-export default async function Image({ params }) {
+export default async function Image({ params }: { params: { facultyCategoryPathName: FacultyCategoryPathName } }) {
   const path = facultyCategoryLogoPath(
     getFacultyCategoryFromPathName(params.facultyCategoryPathName).name
   );
   const logoData = await readFile(path);
-  const logoSrc = Uint8Array.from(logoData).buffer;
+  const logoSrc: any = Uint8Array.from(logoData).buffer;
 
   return new ImageResponse(
     (
