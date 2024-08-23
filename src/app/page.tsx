@@ -10,13 +10,15 @@ export default function Page({ searchParams }: { searchParams: VillageSearchPara
 
   return (
     <>
-      <Image
-        className="m-auto"
-        src={logo}
-        alt="logo"
-        width={300}
-        height={300}
-      />
+      <h1>
+        <Image
+          className="m-auto"
+          src={logo}
+          alt="秘境集落探索ツール"
+          width={300}
+          height={300}
+        />
+      </h1>
       <p className="text-center">
         秘境集落を探索し、人口分布データを<br className="sm:hidden" />
         もとに秘境度を<br className="hidden sm:block" />
