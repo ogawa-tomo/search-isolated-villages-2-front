@@ -14,7 +14,7 @@ export default function Page() {
       <Image
         className="m-auto"
         src={logo}
-        alt="logo"
+        alt="集落"
         width={200}
         height={200}
       />

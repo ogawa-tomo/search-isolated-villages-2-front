@@ -24,7 +24,7 @@ export default function RootLayout({
         <div className="mx-auto max-w-5xl">
           <header>
             <div className="flex items-center justify-between h-12">
-              <Link href='/'><Image src={headerLogo} alt="ヘッダ" height="32" className="ml-4" /></Link>
+              <Link href='/'><Image src={headerLogo} alt="秘境集落探索ツール" height="32" className="ml-4" /></Link>
               <HeaderMenu />
             </div>
           </header>
