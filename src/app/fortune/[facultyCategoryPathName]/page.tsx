@@ -28,7 +28,7 @@ export default function Page({ params }: Props) {
       <Image
         className="m-auto"
         src={facultyCategoryLogo(facultyCategoryName)}
-        alt="logo"
+        alt={facultyCategoryName}
         width={200}
         height={200}
       />

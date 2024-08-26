@@ -23,7 +23,7 @@ export default async function Image({ params }: { params: { facultyCategoryPathN
           justifyContent: 'center',
         }}
       >
-        <img src={logoSrc} alt="logo" height={500} />
+        <img src={logoSrc} alt="秘境集落探索ツール" height={500} />
       </div>
     )
   );
