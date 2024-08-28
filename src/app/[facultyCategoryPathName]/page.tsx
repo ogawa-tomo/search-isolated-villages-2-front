@@ -32,7 +32,6 @@ export default function Page({ params, searchParams }: Props) {
         className="m-auto"
         src={facultyCategoryLogo(facultyCategoryName)}
         alt={facultyCategoryName}
-        width={200}
         height={200}
       />
       <p className="text-center">
