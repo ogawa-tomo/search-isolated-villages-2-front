@@ -15,7 +15,6 @@ export default function Page() {
         className="m-auto"
         src={logo}
         alt="集落"
-        width={200}
         height={200}
       />
       <p className="text-center">
