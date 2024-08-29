@@ -1,20 +1,3 @@
 @tailwind base;
-@layer base {
-  h1 {
-    @apply text-3xl font-bold py-2;
-  }
-  h2 {
-    @apply text-2xl font-bold py-2;
-  }
-  h3 {
-    @apply text-xl font-bold py-2;
-  }
-  h4 {
-    @apply text-lg font-bold py-2;
-  }
-  p {
-    @apply py-0.5;
-  }
-}
 @tailwind components;
 @tailwind utilities;
