@@ -70,8 +70,9 @@ const VillageSearchForm = ({
           region={region}
           onChange={setRegion}
         />
+        <div className='h-3' />
         <button
-          className="btn btn-sm h-10 w-64 rounded-md text-lg my-0.5"
+          className="btn btn-sm h-10 w-64 rounded-md text-lg"
           onClick={() => {
             modalRef.current?.showModal();
             inputRef.current?.blur();
@@ -79,10 +80,11 @@ const VillageSearchForm = ({
         >
           詳細条件
         </button>
+        <div className='h-3' />
         <dialog className='modal' ref={modalRef}>
           <div className='modal-box'>
             <h2>詳細条件</h2>
-            <fieldset className='py-0.5'>
+            <fieldset>
               <legend className='font-bold'>人口</legend>
               <div>
                 <label>
@@ -150,7 +152,7 @@ const VillageSearchForm = ({
           </form>
         </dialog>
         <button
-          className="btn btn-primary w-64 btn-sm h-10 text-white rounded-md text-xl my-0.5"
+          className="btn btn-primary w-64 btn-sm h-10 text-white rounded-md text-xl"
           type="button"
           onClick={onButtonClick}
           disabled={!region}
