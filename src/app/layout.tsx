@@ -32,7 +32,7 @@ export default function RootLayout({
             <div className="hidden md:block">
               <SideMenu />
             </div>
-            <div className="p-4 grow">{children}</div>
+            <div className="py-2 px-4 md:px-8 grow">{children}</div>
             <div className="lg:w-60 shrink-0"></div>
           </div>
         </div>

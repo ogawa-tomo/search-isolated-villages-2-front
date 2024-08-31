@@ -19,7 +19,7 @@ export default function Page({ searchParams }: { searchParams: VillageSearchPara
           height={300}
         />
       </h1>
-      <p className="text-center">
+      <p className="text-center my-4 leading-relaxed">
         秘境集落を探索し、人口分布データを<br className="sm:hidden" />
         もとに秘境度を<br className="hidden sm:block" />
         評価して地域別に<br className="sm:hidden" />
@@ -30,7 +30,7 @@ export default function Page({ searchParams }: { searchParams: VillageSearchPara
         inputPopulationLowerLimit={searchParams.populationLowerLimit}
         inputPopulationUpperLimit={searchParams.populationUpperLimit}
         inputIslandSetting={searchParams.islandSetting}
-        inputKeyWords={searchParams.keyWords}
+        inputKeywords={searchParams.keywords}
       />
       <div className="h-5" />
       {searchParams.region && <VillageList {...searchParams} />}

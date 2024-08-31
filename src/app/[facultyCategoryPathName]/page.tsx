@@ -27,15 +27,14 @@ export default function Page({ params, searchParams }: Props) {
 
   return (
     <>
-      <h1 className="text-center">秘境{facultyCategoryName}探索ツール</h1>
+      <h1 className="text-3xl font-bold text-center mb-4">秘境{facultyCategoryName}探索ツール</h1>
       <Image
         className="m-auto"
         src={facultyCategoryLogo(facultyCategoryName)}
         alt={facultyCategoryName}
-        width={200}
         height={200}
       />
-      <p className="text-center">
+      <p className="text-center my-4 leading-relaxed">
         秘境{facultyCategoryName}を探索し、人口分布データを<br className="sm:hidden" />
         もとに秘境度を<br className="hidden sm:block" />
         評価して地域別に<br className="sm:hidden" />
@@ -45,7 +44,7 @@ export default function Page({ params, searchParams }: Props) {
         facultyCategoryPathName={params.facultyCategoryPathName}
         inputRegion={searchParams.region}
         inputIslandSetting={searchParams.islandSetting}
-        inputKeyWords={searchParams.keyWords}
+        inputKeywords={searchParams.keywords}
       />
       <div className="h-5" />
       {searchParams.region
