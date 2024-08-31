@@ -21,7 +21,7 @@ const mockHokkaido1 = async () => {
   const paramsForHokkaido1 = new URLSearchParams({
     region: '北海道',
     islandSetting: '離島を含まない',
-    keyWords: '',
+    keywords: '',
     page: '1',
   });
   const postOfficesForHokkaido1: Faculty[] = [];
@@ -55,7 +55,7 @@ const mockHokkaido2 = async () => {
   const paramsForHokkaido2 = new URLSearchParams({
     region: '北海道',
     islandSetting: '離島を含まない',
-    keyWords: '',
+    keywords: '',
     page: '2',
   });
   const postOfficesForHokkaido2: Faculty[] = [];
@@ -101,7 +101,7 @@ const mockAomori = async () => {
   const paramsForAomori = new URLSearchParams({
     region: '青森県',
     islandSetting: '離島を含む',
-    keyWords: '佐井村',
+    keywords: '佐井村',
     page: '1',
   });
   const requestForAomori: IWireMockRequest = {
