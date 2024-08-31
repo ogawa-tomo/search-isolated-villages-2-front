@@ -30,7 +30,7 @@ export default function Page({ searchParams }: { searchParams: VillageSearchPara
         inputPopulationLowerLimit={searchParams.populationLowerLimit}
         inputPopulationUpperLimit={searchParams.populationUpperLimit}
         inputIslandSetting={searchParams.islandSetting}
-        inputKeyWords={searchParams.keyWords}
+        inputKeywords={searchParams.keywords}
       />
       <div className="h-5" />
       {searchParams.region && <VillageList {...searchParams} />}

@@ -23,7 +23,7 @@ const mockHokkaido1 = async () => {
     populationLowerLimit: '1',
     populationUpperLimit: '10000',
     islandSetting: '離島を含まない',
-    keyWords: '',
+    keywords: '',
     page: '1',
   });
   const villagesForHokkaido1: Village[] = [];
@@ -59,7 +59,7 @@ const mockHokkaido2 = async () => {
     populationLowerLimit: '1',
     populationUpperLimit: '10000',
     islandSetting: '離島を含まない',
-    keyWords: '',
+    keywords: '',
     page: '2',
   });
   const villagesForHokkaido2: Village[] = [];
@@ -107,7 +107,7 @@ const mockAomori = async () => {
     populationLowerLimit: '10',
     populationUpperLimit: '500',
     islandSetting: '離島を含む',
-    keyWords: '佐井村',
+    keywords: '佐井村',
     page: '1',
   });
   const requestForAomori: IWireMockRequest = {

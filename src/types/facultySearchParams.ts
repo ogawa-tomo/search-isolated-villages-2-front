@@ -1,7 +1,7 @@
 type FacultySearchParams = {
   region: string;
   islandSetting: string;
-  keyWords: string;
+  keywords: string;
   page: string;
 };
 

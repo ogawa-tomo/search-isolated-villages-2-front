@@ -39,7 +39,7 @@ describe('FacultySearchForm', () => {
     const params = new URLSearchParams({
       region: '青森県',
       islandSetting: '離島を含まない',
-      keyWords: '',
+      keywords: '',
       page: '1'
     });
 
@@ -67,7 +67,7 @@ describe('FacultySearchForm', () => {
     const params = new URLSearchParams({
       region: '青森県',
       islandSetting: '離島のみ',
-      keyWords: '佐井村',
+      keywords: '佐井村',
       page: '1'
     });
 
@@ -96,7 +96,7 @@ describe('FacultySearchForm', () => {
     const params = new URLSearchParams({
       region: '青森県',
       islandSetting: '離島を含まない',
-      keyWords: '',
+      keywords: '',
       page: '1'
     });
 
@@ -109,7 +109,7 @@ describe('FacultySearchForm', () => {
       facultyCategoryPathName='post_office'
       inputRegion='青森県'
       inputIslandSetting='離島のみ'
-      inputKeyWords='佐井村'
+      inputKeywords='佐井村'
     />);
 
     expect(screen.getByText('青森県')).toBeInTheDocument();
@@ -126,7 +126,7 @@ describe('FacultySearchForm', () => {
     const params = new URLSearchParams({
       region: '青森県',
       islandSetting: '離島のみ',
-      keyWords: '佐井村',
+      keywords: '佐井村',
       page: '1'
     });
 

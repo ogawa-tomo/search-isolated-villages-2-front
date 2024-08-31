@@ -39,7 +39,7 @@ describe('VillageSearchForm', () => {
       populationLowerLimit: '1',
       populationUpperLimit: '10000',
       islandSetting: '離島を含まない',
-      keyWords: '',
+      keywords: '',
       page: '1'
     });
 
@@ -75,7 +75,7 @@ describe('VillageSearchForm', () => {
       populationLowerLimit: '200',
       populationUpperLimit: '500',
       islandSetting: '離島のみ',
-      keyWords: '佐井村',
+      keywords: '佐井村',
       page: '1'
     });
 
@@ -112,7 +112,7 @@ describe('VillageSearchForm', () => {
       populationLowerLimit: '1',
       populationUpperLimit: '10000',
       islandSetting: '離島を含まない',
-      keyWords: '',
+      keywords: '',
       page: '1'
     });
 
@@ -126,7 +126,7 @@ describe('VillageSearchForm', () => {
       inputPopulationLowerLimit='200'
       inputPopulationUpperLimit='500'
       inputIslandSetting='離島のみ'
-      inputKeyWords='佐井村'
+      inputKeywords='佐井村'
     />);
 
     expect(screen.getByText('青森県')).toBeInTheDocument();
@@ -151,7 +151,7 @@ describe('VillageSearchForm', () => {
       populationLowerLimit: '200',
       populationUpperLimit: '500',
       islandSetting: '離島のみ',
-      keyWords: '佐井村',
+      keywords: '佐井村',
       page: '1'
     });
 

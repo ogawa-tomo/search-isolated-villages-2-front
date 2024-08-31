@@ -3,7 +3,7 @@ type VillageSearchParams = {
   populationLowerLimit: string;
   populationUpperLimit: string;
   islandSetting: string;
-  keyWords: string;
+  keywords: string;
   page: string;
 };
 

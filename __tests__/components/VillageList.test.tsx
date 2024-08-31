@@ -14,7 +14,7 @@ describe('VillageList', () => {
       populationLowerLimit: '1',
       populationUpperLimit: '10000',
       islandSetting: '離島を含まない',
-      keyWords: '',
+      keywords: '',
       page: '1',
     };
 
