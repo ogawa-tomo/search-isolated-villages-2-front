@@ -6,6 +6,7 @@ import FacultySearchParams from '@/types/facultySearchParams'
 import { RegionSelectBox } from './RegionSelectBox';
 import { IslandSettingFieldSet } from './IslandSettingFieldSet';
 import { FacultyCategoryPathName } from '@/types/FacultyCategory';
+import { DetailedConditionButton } from './DetailedConditionButton';
 
 type Props = {
   facultyCategoryPathName: FacultyCategoryPathName;
@@ -56,12 +57,11 @@ const FacultySearchForm = ({
           onChange={setRegion}
         />
         <div className='h-3' />
-        <button
-          className="btn btn-sm h-10 w-64 rounded-md text-lg my-0.5"
+        <DetailedConditionButton
           onClick={() => modalRef.current?.showModal()}
         >
           詳細条件
-        </button>
+        </DetailedConditionButton>
         <dialog className='modal' ref={modalRef}>
           <div className='modal-box'>
             <DetailedConditionsModalContent
@@ -77,7 +77,7 @@ const FacultySearchForm = ({
         </dialog>
         <div className='h-3' />
         <button
-          className="btn btn-primary w-64 btn-sm h-10 text-white rounded-md text-xl my-0.5"
+          className="btn btn-primary w-64 btn-sm h-10 text-white rounded-md text-xl"
           type="button"
           onClick={onButtonClick}
           disabled={!region}

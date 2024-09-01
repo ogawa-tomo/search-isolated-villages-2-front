@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import VillageSearchParams from '@/types/villageSearchParams';
 import { RegionSelectBox } from './RegionSelectBox';
 import { IslandSettingFieldSet } from './IslandSettingFieldSet';
+import { DetailedConditionButton } from './DetailedConditionButton';
 
 const searchPath = (villageSearchParams: VillageSearchParams): string => {
   const params = new URLSearchParams(villageSearchParams);
@@ -64,15 +65,14 @@ const VillageSearchForm = ({
           onChange={setRegion}
         />
         <div className='h-3' />
-        <button
-          className="h-10 w-64 rounded-md text-xl border text-primary-color bg-white border-primary-color hover:bg-lightened-primary-color"
+        <DetailedConditionButton
           onClick={() => {
             modalRef.current?.showModal();
             inputRef.current?.blur();
           }}
         >
           詳細条件
-        </button>
+        </DetailedConditionButton>
         <div className='h-3' />
         <dialog className='modal' ref={modalRef}>
           <div className='modal-box'>

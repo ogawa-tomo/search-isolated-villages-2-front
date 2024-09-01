@@ -52,15 +52,16 @@ export const RegionSelectBox = ({ region, onChange }: Props) => {
       unstyled
       classNames={{
         control: () => "border border-primary-color rounded-md hover:bg-lightened-primary-color",
-        option: (state) =>
-          clsx(
-            state.isFocused
-              ? "bg-lightened-primary-color"
-              : state.isSelected
-                ? "bg-primary-color text-white"
+        option: (state) => {
+          return clsx(
+            state.isSelected
+              ? "bg-primary-color text-white"
+              : state.isFocused
+                ? "bg-lightened-primary-color"
                 : "bg-white",
             "py-2",
-          ),
+          )
+        },
         singleValue: () => "text-primary-color",
         dropdownIndicator: () => "px-2 text-primary-color",
         placeholder: () => "text-primary-color",
