@@ -49,6 +49,25 @@ type Props = {
 }
 
 const colourStyles: StylesConfig = {
+  control: (baseStyles, state) => ({
+    ...baseStyles,
+    boxShadow: 'none',
+    borderColor: 'green',
+    "&:hover": {
+      borderColor: 'green',
+      backgroundColor: 'green',
+      borderRadius: 4,
+    },
+  }),
+  placeholder: (baseStyles) => ({
+    ...baseStyles,
+    color: 'green',
+
+  }),
+  dropdownIndicator: (baseStyles) => ({
+    ...baseStyles,
+    color: 'green',
+  }),
   option: (styles, { isFocused, isSelected }) => {
     return {
       ...styles,
@@ -59,6 +78,10 @@ const colourStyles: StylesConfig = {
           : undefined,
     }
   },
+  singleValue: (baseStyles) => ({
+    ...baseStyles,
+    color: 'green'
+  })
 }
 
 export const RegionSelectBox = ({ region, onChange }: Props) => {
@@ -70,6 +93,9 @@ export const RegionSelectBox = ({ region, onChange }: Props) => {
       defaultValue={region ? { label: region, value: region } : null}
       isSearchable={false}
       options={groupedOptions}
+      components={{
+        IndicatorSeparator: () => null,
+      }}
       onChange={
         (newOption) => {
           if (isRegionOption(newOption)) onChange(newOption.value)

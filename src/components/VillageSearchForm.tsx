@@ -1,6 +1,6 @@
 'use client';
 
-import { Dispatch, SetStateAction, useRef, useState } from 'react';
+import { Dispatch, RefObject, SetStateAction, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import VillageSearchParams from '@/types/villageSearchParams';
 import { RegionSelectBox } from './RegionSelectBox';
@@ -65,7 +65,7 @@ const VillageSearchForm = ({
         />
         <div className='h-3' />
         <button
-          className="btn btn-sm h-10 w-64 rounded-md text-lg"
+          className="btn btn-sm h-10 w-64 rounded-md text-lg text-primary-color bg-white border-primary-color hover:bg-lightened-primary-color"
           onClick={() => {
             modalRef.current?.showModal();
             inputRef.current?.blur();
@@ -79,6 +79,7 @@ const VillageSearchForm = ({
             <DetailedConditionsModalContent
               populationLowerLimit={populationLowerLimit}
               setPopulationLowerLimit={setPopulationLowerLimit}
+              inputRef={inputRef}
               populationUpperLimit={populationUpperLimit}
               setPopulationUpperLimit={setPopulationUpperLimit}
               islandSetting={islandSetting}
@@ -107,6 +108,7 @@ const VillageSearchForm = ({
 const DetailedConditionsModalContent = ({
   populationLowerLimit,
   setPopulationLowerLimit,
+  inputRef,
   populationUpperLimit,
   setPopulationUpperLimit,
   islandSetting,
@@ -116,6 +118,7 @@ const DetailedConditionsModalContent = ({
 }: {
   populationLowerLimit: string;
   setPopulationLowerLimit: Dispatch<SetStateAction<string>>;
+  inputRef: RefObject<HTMLInputElement>;
   populationUpperLimit: string;
   setPopulationUpperLimit: Dispatch<SetStateAction<string>>;
   islandSetting: string;
@@ -145,6 +148,7 @@ const DetailedConditionsModalContent = ({
               className="input input-bordered input-sm w-24 rounded-md invalid:input-error"
               value={populationLowerLimit}
               onChange={(e) => setPopulationLowerLimit(e.target.value)}
+              ref={inputRef}
             />
           </label>
           人
