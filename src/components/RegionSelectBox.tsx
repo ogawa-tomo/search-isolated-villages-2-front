@@ -1,8 +1,6 @@
 import { prefectures, regions } from '@/lib/regions';
-import Select, { StylesConfig } from 'react-select';
-
-const primaryColor = '#009250';
-const palePrimaryColor = '#91DBB9';
+import clsx from 'clsx';
+import Select from 'react-select';
 
 type RegionOption = {
   value: string;
@@ -48,34 +46,42 @@ type Props = {
   onChange: (value: string) => void
 }
 
-const colourStyles: StylesConfig = {
-  option: (styles, { isFocused, isSelected }) => {
-    return {
-      ...styles,
-      backgroundColor: isFocused
-        ? palePrimaryColor
-        : isSelected
-          ? primaryColor
-          : undefined,
-    }
-  },
-}
-
 export const RegionSelectBox = ({ region, onChange }: Props) => {
   return (
     <Select
+      unstyled
+      classNames={{
+        control: () => "border border-primary-color rounded-md hover:bg-lightened-primary-color",
+        option: (state) => {
+          return clsx(
+            state.isSelected
+              ? "bg-primary-color text-white"
+              : state.isFocused
+                ? "bg-lightened-primary-color"
+                : "bg-white",
+            "py-2",
+          )
+        },
+        singleValue: () => "text-primary-color",
+        dropdownIndicator: () => "px-2 text-primary-color",
+        placeholder: () => "text-primary-color",
+        groupHeading: () => "bg-white text-sm py-2 text-gray-400",
+        menuList: () => "border border-grey-400 rounded-md my-1",
+      }}
       instanceId="selectbox"
       className="w-64 text-xl text-center"
       placeholder="地域を選択"
       defaultValue={region ? { label: region, value: region } : null}
       isSearchable={false}
       options={groupedOptions}
+      components={{
+        IndicatorSeparator: () => null,
+      }}
       onChange={
         (newOption) => {
           if (isRegionOption(newOption)) onChange(newOption.value)
         }
       }
-      styles={colourStyles}
     />
   )
 }

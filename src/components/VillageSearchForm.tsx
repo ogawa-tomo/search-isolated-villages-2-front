@@ -1,10 +1,11 @@
 'use client';
 
-import { Dispatch, SetStateAction, useRef, useState } from 'react';
+import { Dispatch, RefObject, SetStateAction, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import VillageSearchParams from '@/types/villageSearchParams';
 import { RegionSelectBox } from './RegionSelectBox';
 import { IslandSettingFieldSet } from './IslandSettingFieldSet';
+import { DetailedConditionButton } from './DetailedConditionButton';
 
 const searchPath = (villageSearchParams: VillageSearchParams): string => {
   const params = new URLSearchParams(villageSearchParams);
@@ -64,21 +65,21 @@ const VillageSearchForm = ({
           onChange={setRegion}
         />
         <div className='h-3' />
-        <button
-          className="btn btn-sm h-10 w-64 rounded-md text-lg"
+        <DetailedConditionButton
           onClick={() => {
             modalRef.current?.showModal();
             inputRef.current?.blur();
           }}
         >
           詳細条件
-        </button>
+        </DetailedConditionButton>
         <div className='h-3' />
         <dialog className='modal' ref={modalRef}>
           <div className='modal-box'>
             <DetailedConditionsModalContent
               populationLowerLimit={populationLowerLimit}
               setPopulationLowerLimit={setPopulationLowerLimit}
+              inputRef={inputRef}
               populationUpperLimit={populationUpperLimit}
               setPopulationUpperLimit={setPopulationUpperLimit}
               islandSetting={islandSetting}
@@ -107,6 +108,7 @@ const VillageSearchForm = ({
 const DetailedConditionsModalContent = ({
   populationLowerLimit,
   setPopulationLowerLimit,
+  inputRef,
   populationUpperLimit,
   setPopulationUpperLimit,
   islandSetting,
@@ -116,6 +118,7 @@ const DetailedConditionsModalContent = ({
 }: {
   populationLowerLimit: string;
   setPopulationLowerLimit: Dispatch<SetStateAction<string>>;
+  inputRef: RefObject<HTMLInputElement>;
   populationUpperLimit: string;
   setPopulationUpperLimit: Dispatch<SetStateAction<string>>;
   islandSetting: string;
@@ -145,6 +148,7 @@ const DetailedConditionsModalContent = ({
               className="input input-bordered input-sm w-24 rounded-md invalid:input-error"
               value={populationLowerLimit}
               onChange={(e) => setPopulationLowerLimit(e.target.value)}
+              ref={inputRef}
             />
           </label>
           人
