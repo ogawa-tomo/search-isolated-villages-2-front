@@ -65,7 +65,7 @@ const VillageSearchForm = ({
         />
         <div className='h-3' />
         <button
-          className="btn btn-sm h-10 w-64 rounded-md text-lg text-primary-color bg-white border-primary-color hover:bg-lightened-primary-color"
+          className="h-10 w-64 rounded-md text-xl border text-primary-color bg-white border-primary-color hover:bg-lightened-primary-color"
           onClick={() => {
             modalRef.current?.showModal();
             inputRef.current?.blur();
