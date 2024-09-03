@@ -64,20 +64,8 @@ export const VillageList = (searchParams: VillageSearchParams) => {
                 <td className='w-1/5 text-center'>
                   {index + rankStart + 1}<span className='text-xs'>位</span>
                 </td>
-                <td className='p-1'>
-                  <p className="font-bold text-xl">
-                    {village.pref} {village.city} {village.district}
-                  </p>
-                  <p className='text-sm'>
-                    <span>人口: {village.population}人</span>
-                    <HorizontalSpacer size={8} />
-                    <span>都会度: {village.urban_point}</span>
-                  </p>
-                  <p className='text-sm'>
-                    <GoogleMapLink href={village.google_map_url} />
-                    <HorizontalSpacer size={8} />
-                    <PopulationDistributionMapLink href={`${process.env.NEXT_PUBLIC_VILLAGE_API_URL}${village.mesh_map_path}`} />
-                  </p>
+                <td className='p-2'>
+                  <VillageCard village={village} />
                 </td>
               </tr>
             ))}
@@ -93,5 +81,25 @@ export const VillageList = (searchParams: VillageSearchParams) => {
     </>
   );
 };
+
+const VillageCard = ({ village }: { village: Village }) => {
+  return (
+    <div className='flex flex-col gap-2'>
+      <div className="font-bold text-xl">
+        {village.pref} {village.city} {village.district}
+      </div>
+      <div className='text-sm'>
+        <span>人口: {village.population}人</span>
+        <div className='inline-block w-4' />
+        <span>都会度: {village.urban_point}</span>
+      </div>
+      <div className='text-sm'>
+        <GoogleMapLink href={village.google_map_url} />
+        <div className='inline-block w-2' />
+        <PopulationDistributionMapLink href={`${process.env.NEXT_PUBLIC_VILLAGE_API_URL}${village.mesh_map_path}`} />
+      </div>
+    </div>
+  )
+}
 
 export default VillageList;

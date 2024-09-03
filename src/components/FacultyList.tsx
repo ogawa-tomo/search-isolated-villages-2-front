@@ -66,21 +66,8 @@ export const FacultyList = ({ facultyCategoryPathName, searchParams }: { faculty
                 <td className='w-1/5 text-center'>
                   {index + rankStart + 1}位
                 </td>
-                <td className="p-1">
-                  <p className="font-bold text-xl">
-                    {faculty.name}
-                  </p>
-                  <p className='text-sm'>
-                    <span>{faculty.pref} {faculty.city} {faculty.district}</span>
-                  </p>
-                  <p className='text-sm'>
-                    <span>都会度: {faculty.urban_point}</span>
-                  </p>
-                  <p className='text-sm'>
-                    <GoogleMapLink href={faculty.google_map_url} />
-                    <HorizontalSpacer size={8} />
-                    <PopulationDistributionMapLink href={`${process.env.NEXT_PUBLIC_VILLAGE_API_URL}${faculty.mesh_map_path}`} />
-                  </p>
+                <td className="p-2">
+                  <FacultyCard faculty={faculty} />
                 </td>
               </tr>
             ))}
@@ -96,5 +83,26 @@ export const FacultyList = ({ facultyCategoryPathName, searchParams }: { faculty
     </>
   );
 };
+
+const FacultyCard = ({ faculty }: { faculty: Faculty }) => {
+  return (
+    <div className='flex flex-col gap-2'>
+      <div className="font-bold text-xl">
+        {faculty.name}
+      </div>
+      <div className='text-sm'>
+        <span>{faculty.pref} {faculty.city} {faculty.district}</span>
+      </div>
+      <div className='text-sm'>
+        <span>都会度: {faculty.urban_point}</span>
+      </div>
+      <div className='text-sm'>
+        <GoogleMapLink href={faculty.google_map_url} />
+        <div className='inline-block w-2' />
+        <PopulationDistributionMapLink href={`${process.env.NEXT_PUBLIC_VILLAGE_API_URL}${faculty.mesh_map_path}`} />
+      </div>
+    </div>
+  )
+}
 
 export default FacultyList;
