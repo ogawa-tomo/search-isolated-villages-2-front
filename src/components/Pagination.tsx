@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import clsx from 'clsx';
 import Link from 'next/link';
 import { ReactNode } from 'react';
 import { IoIosArrowBack } from "react-icons/io";
@@ -22,7 +22,7 @@ const Pagination = (props: PaginationProps) => {
 
   return (
     <nav aria-label='pagination'>
-      <ul className="join">
+      <ul className="flex gap-1">
         {currentPage > 1 && (
           <PaginationListElementWrapper type='link'>
             <PageLink page={currentPage - 1} path={path} queryParams={queryParams}><IoIosArrowBack /></PageLink>
@@ -44,7 +44,6 @@ const Pagination = (props: PaginationProps) => {
               {page}
             </PaginationListElementWrapper>
           ) : (
-            // <li key={index} className='btn join-item bg-pagination p-0 w-10'>
             <PaginationListElementWrapper type='link' key={index}>
               <PageLink key={index} page={page} path={path} queryParams={queryParams}>{page}</PageLink>
             </PaginationListElementWrapper>
@@ -77,14 +76,14 @@ type PaginationListElementWrapperProps = {
 
 const PaginationListElementWrapper = ({ children, type }: PaginationListElementWrapperProps) => {
   return (
-    <li className={classNames('btn join-item p-0 w-10', {
-      'cursor-default': type === 'current' || type === 'dots',
-      'bg-primary': type === 'current',
-      'text-white': type === 'current',
-      'bg-pagination': type === 'link',
-      'hover:text-white': type === 'link',
-      'bg-pagination-dots': type === 'dots'
-    })}>
+    <li
+      className={clsx("flex items-center justify-center h-12 w-10 border-2",
+        (type === 'current' || type === 'dots') && 'cursor-default',
+        type === 'current' && 'bg-primary text-white',
+        type === 'link' && 'bg-white',
+        type === 'dots' && 'bg-white border-none'
+      )}
+    >
       {children}
     </li>
   )
