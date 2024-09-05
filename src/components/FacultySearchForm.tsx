@@ -49,6 +49,10 @@ const FacultySearchForm = ({
     );
   };
 
+  const isModified =
+    islandSetting !== defaultValues.islandSetting ||
+    keywords !== defaultValues.keywords;
+
   return (
     <>
       <div className="flex flex-col items-center" id='modalRoot'>
@@ -58,6 +62,7 @@ const FacultySearchForm = ({
         />
         <div className='h-3' />
         <DetailedConditionButton
+          isModified={isModified}
           onClick={() => modalRef.current?.showModal()}
         >
           詳細条件
