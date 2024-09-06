@@ -45,7 +45,7 @@ test('パラメータを指定した郵便局検索', async ({ page }) => {
   await page
     .getByRole('textbox', { name: 'キーワード絞り込み' })
     .fill('佐井村');
-  await page.locator('body').click({ position: { x: 0, y: 0 } });
+  await page.getByRole('button', { name: '決定' }).click();
   await page.getByRole('button', { name: '探索' }).click();
 
   for (let i = 1; i <= 20; i++) {

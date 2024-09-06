@@ -2,10 +2,6 @@ import { test, expect } from '@playwright/test';
 
 test('デフォルトの集落検索', async ({ page }) => {
   await page.goto('/');
-  // ロゴを画像にしたのでいったんコメントアウト
-  // await expect(
-  //   page.getByRole('heading', { name: '秘境集落探索ツール' })
-  // ).toBeVisible();
 
   await page.getByText('地域を選択').click();
   const option = await page.waitForSelector(':text("北海道")');
@@ -27,10 +23,6 @@ test('デフォルトの集落検索', async ({ page }) => {
 
 test('パラメータを指定した集落検索', async ({ page }) => {
   await page.goto('/');
-  // ロゴを画像にしたのでいったんコメントアウト
-  // await expect(
-  //   page.getByRole('heading', { name: '秘境集落探索ツール' })
-  // ).toBeVisible();
 
   await page.getByText('地域を選択').click();
   const option = await page.waitForSelector(':text("青森県")');
@@ -45,7 +37,7 @@ test('パラメータを指定した集落検索', async ({ page }) => {
   await page
     .getByRole('textbox', { name: 'キーワード絞り込み' })
     .fill('佐井村');
-  await page.locator('body').click({ position: { x: 0, y: 0 } });
+  await page.getByRole('button', { name: '決定' }).click();
   await page.getByRole('button', { name: '探索' }).click();
 
   for (let i = 1; i <= 20; i++) {

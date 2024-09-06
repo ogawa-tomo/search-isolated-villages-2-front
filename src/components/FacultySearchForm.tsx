@@ -76,9 +76,6 @@ const FacultySearchForm = ({
               setKeywords={setKeywords}
             />
           </div>
-          <form method='dialog' className='modal-backdrop'>
-            <button>close</button>
-          </form>
         </dialog>
         <div className='h-3' />
         <button
@@ -112,13 +109,16 @@ const DetailedConditionsModalContent = ({
 
   return (
     <>
-      <h2>詳細条件</h2>
+      <div className='text-2xl font-bold pb-2 border-b-2 my-4'>詳細条件</div>
 
-      <IslandSettingFieldSet
-        defaultValue={islandSetting}
-        onChange={setIslandSetting}
-      />
-      <p>
+      <div className='my-4'>
+        <IslandSettingFieldSet
+          defaultValue={islandSetting}
+          onChange={setIslandSetting}
+        />
+      </div>
+      <div className='border border-dashed' />
+      <div className='my-4 leading-loose'>
         <label>
           <span className='font-bold'>キーワード絞り込み</span>
           <br />
@@ -130,18 +130,18 @@ const DetailedConditionsModalContent = ({
             onChange={(e) => setKeywords(e.target.value)}
           />
         </label>
-      </p>
-      <div className='flex justify-end'>
-        <div className="modal-action">
-          <button className="btn" onClick={setDefaultValue}>
-            デフォルト値に戻す
-          </button>
-        </div>
-        <div className="w-2" />
+      </div>
+      <div className='border border-dashed' />
+      <div className='flex justify-between'>
         <div className="modal-action">
           <form method='dialog'>
-            <button className='btn'>閉じる</button>
+            <button className='bg-primary-color w-32 h-10 text-white rounded'>決定</button>
           </form>
+        </div>
+        <div className="modal-action">
+          <button className='text-gray-500 underline' onClick={setDefaultValue}>
+            デフォルト値に戻す
+          </button>
         </div>
       </div>
     </>
