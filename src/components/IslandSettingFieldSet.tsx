@@ -7,7 +7,7 @@ type Props = {
 
 export const IslandSettingFieldSet = ({ defaultValue, onChange }: Props) => {
   return (
-    <fieldset className="py-0.5">
+    <fieldset className="leading-loose">
       <legend className="font-bold">離島設定</legend>
       {islandSettings.map((setting) => {
         return (
