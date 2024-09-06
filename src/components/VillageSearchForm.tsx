@@ -57,6 +57,12 @@ const VillageSearchForm = ({
     );
   };
 
+  const isModified =
+    populationLowerLimit !== defaultValues.populationLowerLimit ||
+    populationUpperLimit !== defaultValues.populationUpperLimit ||
+    islandSetting !== defaultValues.islandSetting ||
+    keywords !== defaultValues.keywords;
+
   return (
     <>
       <div className="flex flex-col items-center">
@@ -66,6 +72,7 @@ const VillageSearchForm = ({
         />
         <div className='h-3' />
         <DetailedConditionButton
+          isModified={isModified}
           onClick={() => {
             modalRef.current?.showModal();
             inputRef.current?.blur();
