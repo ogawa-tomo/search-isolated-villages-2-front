@@ -107,7 +107,7 @@ const Accordion = ({
     <details onToggle={handleOnToggle}>
       <Summary isOpen={isOpen}>{title}</Summary>
       <div className="flex my-1">
-        <div className="ml-2 w-2 border-l-2"></div>
+        <div className="ml-4 w-2 border-l-2"></div>
         {children}
       </div>
     </details>
