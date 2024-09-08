@@ -1,4 +1,4 @@
-import { prefectures, regions } from '@/lib/regions';
+import { prefectures, regions } from "@/lib/regions";
 
 export type Prefecture = (typeof prefectures)[number];
 

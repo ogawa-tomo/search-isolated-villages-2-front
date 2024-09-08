@@ -11,10 +11,10 @@ export const GoogleMapLink = ({ href }: { href: string }) => {
       className="inline-block rounded-lg border text-primary-color bg-white border-primary-color hover:bg-lightened-primary-color"
     >
       <div className="p-1">
-        <SiGooglemaps className='inline align-baseline' />
+        <SiGooglemaps className="inline align-baseline" />
         Googleマップ
         <FiExternalLink className="inline align-baseline" />
       </div>
     </Link>
-  )
-}
+  );
+};

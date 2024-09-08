@@ -4,9 +4,15 @@ import logo from "@/public/top_logo.png";
 import VillageSearchParams from "@/types/villageSearchParams";
 import Image from "next/image";
 
-export default function Page({ searchParams }: { searchParams: VillageSearchParams }) {
+export default function Page({
+  searchParams,
+}: {
+  searchParams: VillageSearchParams;
+}) {
   // herokuのサーバーをスリープ状態から起こすためにリクエストを投げる
-  fetch(process.env.NEXT_PUBLIC_VILLAGE_API_URL ?? '', { next: { revalidate: 3600 } });
+  fetch(process.env.NEXT_PUBLIC_VILLAGE_API_URL ?? "", {
+    next: { revalidate: 3600 },
+  });
 
   return (
     <>
@@ -20,9 +26,12 @@ export default function Page({ searchParams }: { searchParams: VillageSearchPara
         />
       </h1>
       <p className="text-center my-4 leading-relaxed">
-        秘境集落を探索し、人口分布データを<br className="sm:hidden" />
-        もとに秘境度を<br className="hidden sm:block" />
-        評価して地域別に<br className="sm:hidden" />
+        秘境集落を探索し、人口分布データを
+        <br className="sm:hidden" />
+        もとに秘境度を
+        <br className="hidden sm:block" />
+        評価して地域別に
+        <br className="sm:hidden" />
         ランキングで出力します。
       </p>
       <VillageSearchForm
@@ -34,7 +43,6 @@ export default function Page({ searchParams }: { searchParams: VillageSearchPara
       />
       <div className="h-5" />
       {searchParams.region && <VillageList {...searchParams} />}
-
     </>
   );
 }

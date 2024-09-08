@@ -7,9 +7,10 @@ import { Noto_Sans_JP } from "next/font/google";
 import Link from "next/link";
 
 export const metadata = {
-  title: '秘境集落探索ツール',
-  description: '秘境集落を探索し、人口分布データをもとに秘境度を評価して地域別にランキングで出力します。'
-}
+  title: "秘境集落探索ツール",
+  description:
+    "秘境集落を探索し、人口分布データをもとに秘境度を評価して地域別にランキングで出力します。",
+};
 
 const notoSansJP = Noto_Sans_JP({ subsets: ["latin"], weight: ["400"] });
 
@@ -24,7 +25,14 @@ export default function RootLayout({
         <div className="mx-auto max-w-5xl">
           <header>
             <div className="flex items-center justify-between h-12">
-              <Link href='/'><Image src={headerLogo} alt="秘境集落探索ツール" height="32" className="ml-4" /></Link>
+              <Link href="/">
+                <Image
+                  src={headerLogo}
+                  alt="秘境集落探索ツール"
+                  height="32"
+                  className="ml-4"
+                />
+              </Link>
               <HeaderMenu />
             </div>
           </header>

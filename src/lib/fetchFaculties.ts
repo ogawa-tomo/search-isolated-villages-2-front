@@ -1,5 +1,5 @@
-import { FacultyCategoryPathName } from '@/types/FacultyCategory';
-import type FacultySearchParams from '@/types/facultySearchParams';
+import { FacultyCategoryPathName } from "@/types/FacultyCategory";
+import type FacultySearchParams from "@/types/facultySearchParams";
 
 export const fetchFaculties = async ({
   facultyCategoryPathName,
@@ -10,7 +10,7 @@ export const fetchFaculties = async ({
 }) => {
   const query = new URLSearchParams(params);
   const response = await fetch(
-    `/api/${facultyCategoryPathName}/result?${query.toString()}`
+    `/api/${facultyCategoryPathName}/result?${query.toString()}`,
   );
   return response.json();
 };

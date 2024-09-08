@@ -1,14 +1,14 @@
 import Image from "next/image";
 import localImage from "@/public/shiiba.png";
 import { BlockMath } from "react-katex";
-import 'katex/dist/katex.min.css';
+import "katex/dist/katex.min.css";
 import { TextLink } from "@/components/TextLink";
 import { ReactNode } from "react";
 
 export const metadata = {
-  title: 'このツールについて',
-  description: '秘境集落探索ツールについて説明するページです。'
-}
+  title: "このツールについて",
+  description: "秘境集落探索ツールについて説明するページです。",
+};
 
 export default function Page() {
   return (
@@ -24,45 +24,50 @@ export default function Page() {
 
       <H3>集落の定義</H3>
       <P>
-        メッシュ人口データを用い、人口を持つ隣接したメッシュの集合を集落として定義する。<br />
+        メッシュ人口データを用い、人口を持つ隣接したメッシュの集合を集落として定義する。
+        <br />
         たとえば下図のような地域があれば、赤丸で示す7集落が定義される。
       </P>
       <P>
-        <Image
-          src={localImage}
-          alt='village'
-        />
+        <Image src={localImage} alt="village" />
       </P>
       <P>
         <Annotation>
-          ※図の四角はメッシュ、メッシュ内の数字は人口を示している。<br />
-          ※メッシュが縦横だけでなく斜めに接している場合も隣接しているとみなす。<br />
+          ※図の四角はメッシュ、メッシュ内の数字は人口を示している。
+          <br />
+          ※メッシュが縦横だけでなく斜めに接している場合も隣接しているとみなす。
+          <br />
           ※人口を持つメッシュが100個より多く隣接している場合は集落とみなさない。
         </Annotation>
       </P>
 
       <H3>秘境集落の定義</H3>
-      <P>集落の「都会度」を以下の式で定義し、都会度が小さいほど秘境度が高いとみなす。</P>
-      <BlockMath
-        math="都会度 = \sum_{集落外メッシュ}{人口 \over 距離^2}"
-      />
-      <P>つまり、より近くにより多くの人口があれば都会であり、その逆であれば秘境である。</P>
+      <P>
+        集落の「都会度」を以下の式で定義し、都会度が小さいほど秘境度が高いとみなす。
+      </P>
+      <BlockMath math="都会度 = \sum_{集落外メッシュ}{人口 \over 距離^2}" />
+      <P>
+        つまり、より近くにより多くの人口があれば都会であり、その逆であれば秘境である。
+      </P>
       <P>
         <Annotation>
-          ※集落外メッシュとの距離は集落の各メッシュからの距離のうち最短のものを採用する。<br />
-          ※計算セグメントを北海道・本州・四国・九州・沖縄の5つにわけ、集落の都会度はセグメント内のメッシュのみを用いて評価する。<br />
+          ※集落外メッシュとの距離は集落の各メッシュからの距離のうち最短のものを採用する。
+          <br />
+          ※計算セグメントを北海道・本州・四国・九州・沖縄の5つにわけ、集落の都会度はセグメント内のメッシュのみを用いて評価する。
+          <br />
           ※本土の都会度計算に離島のメッシュは含めず、離島の都会度計算には本土のメッシュを含んでいる
         </Annotation>
       </P>
 
       <H3>秘境施設の定義</H3>
-      <P>施設の「都会度」を以下の式で定義し、都会度が小さいほど秘境度が高いとみなす。</P>
-      <BlockMath
-        math="都会度 = \sum_{施設が含まれないメッシュ}{人口 \over 距離^2}"
-      />
+      <P>
+        施設の「都会度」を以下の式で定義し、都会度が小さいほど秘境度が高いとみなす。
+      </P>
+      <BlockMath math="都会度 = \sum_{施設が含まれないメッシュ}{人口 \over 距離^2}" />
       <P>
         <Annotation>
-          ※計算セグメントを北海道・本州・四国・九州・沖縄の5つにわけ、施設の都会度はセグメント内のメッシュのみを用いて評価する。<br />
+          ※計算セグメントを北海道・本州・四国・九州・沖縄の5つにわけ、施設の都会度はセグメント内のメッシュのみを用いて評価する。
+          <br />
           ※本土の都会度計算に離島のメッシュは含めず、離島の都会度計算には本土のメッシュを含んでいる
         </Annotation>
       </P>
@@ -80,11 +85,16 @@ export default function Page() {
         <li>九州：福岡県、佐賀県、長崎県、熊本県、大分県、宮崎県、鹿児島県</li>
         <li>沖縄：沖縄県</li>
       </UL>
-      <P>本土を北海道・本州・四国・九州・沖縄本島とし、本土と橋で繋がっていない島を離島と定義する。</P>
+      <P>
+        本土を北海道・本州・四国・九州・沖縄本島とし、本土と橋で繋がっていない島を離島と定義する。
+      </P>
 
       <H2>使用データ</H2>
       <P>
-        <TextLink href="https://www.e-stat.go.jp/gis/statmap-search?type=1" external>
+        <TextLink
+          href="https://www.e-stat.go.jp/gis/statmap-search?type=1"
+          external
+        >
           政府統計の総合窓口(e-Stat) 2015/2020年度国勢調査5次メッシュ人口データ
         </TextLink>
         <br />
@@ -93,13 +103,14 @@ export default function Page() {
         </Annotation>
       </P>
       <P>
-        <TextLink href="https://www.e-stat.go.jp/gis/statmap-search?type=2" external>
+        <TextLink
+          href="https://www.e-stat.go.jp/gis/statmap-search?type=2"
+          external
+        >
           政府統計の総合窓口(e-Stat) 2015/2020年度国勢調査小地域データ
         </TextLink>
         <br />
-        <Annotation>
-          ※集落と地名の紐づけに利用
-        </Annotation>
+        <Annotation>※集落と地名の紐づけに利用</Annotation>
       </P>
       <P>
         <TextLink href="http://nlftp.mlit.go.jp/ksj/" external>
@@ -107,13 +118,40 @@ export default function Page() {
         </TextLink>
       </P>
       <UL>
-        <li>郵便局 <Annotation>※データ作成年度: 平成25年度</Annotation></li>
-        <li>学校 <Annotation>※データ作成年度: 平成25年度</Annotation></li>
-        <li>鉄道 <Annotation>※データの基準となる年月日: 令和元（2019）年12月31日時点</Annotation></li>
-        <li>鉄道時系列 <Annotation>※データ基準年月日: 昭和25年1月1日からデータ整備年の12月31日の間に運行していた鉄道路線</Annotation></li>
-        <li>道の駅 <Annotation>※データ作成年度: 平成30年度（平成31年1月1日時点）</Annotation></li>
-        <li>ニュータウン <Annotation>※データ作成年度: 平成25年度</Annotation></li>
-        <li>研究機関 <Annotation>※データの基準年月日: 平成24（2012）年9月1日時点</Annotation></li>
+        <li>
+          郵便局 <Annotation>※データ作成年度: 平成25年度</Annotation>
+        </li>
+        <li>
+          学校 <Annotation>※データ作成年度: 平成25年度</Annotation>
+        </li>
+        <li>
+          鉄道{" "}
+          <Annotation>
+            ※データの基準となる年月日: 令和元（2019）年12月31日時点
+          </Annotation>
+        </li>
+        <li>
+          鉄道時系列{" "}
+          <Annotation>
+            ※データ基準年月日:
+            昭和25年1月1日からデータ整備年の12月31日の間に運行していた鉄道路線
+          </Annotation>
+        </li>
+        <li>
+          道の駅{" "}
+          <Annotation>
+            ※データ作成年度: 平成30年度（平成31年1月1日時点）
+          </Annotation>
+        </li>
+        <li>
+          ニュータウン <Annotation>※データ作成年度: 平成25年度</Annotation>
+        </li>
+        <li>
+          研究機関{" "}
+          <Annotation>
+            ※データの基準年月日: 平成24（2012）年9月1日時点
+          </Annotation>
+        </li>
       </UL>
       <P>
         <TextLink href="https://gbank.gsj.jp/gres-db/#" external>
@@ -121,13 +159,26 @@ export default function Page() {
         </TextLink>
       </P>
       <P>
-        <TextLink href="http://umap.openstreetmap.fr/ja/map/r774_368811" external>
+        <TextLink
+          href="http://umap.openstreetmap.fr/ja/map/r774_368811"
+          external
+        >
           R774@まとめ屋さんの訪問先まとめマップ
         </TextLink>
         <br />
-        774@まとめ屋さん：<TextLink href="https://twitter.com/kendou774" external>@kendou774</TextLink>
+        774@まとめ屋さん：
+        <TextLink href="https://twitter.com/kendou774" external>
+          @kendou774
+        </TextLink>
         <br />
-        （作者：<TextLink href="http://umap.openstreetmap.fr/ja/user/muramototomoya/" external>muramototomoya</TextLink>さん）
+        （作者：
+        <TextLink
+          href="http://umap.openstreetmap.fr/ja/user/muramototomoya/"
+          external
+        >
+          muramototomoya
+        </TextLink>
+        さん）
       </P>
 
       <H2>ソースコード</H2>
@@ -135,65 +186,60 @@ export default function Page() {
         <UL>
           <li>
             フロントエンド：
-            <TextLink href="https://github.com/ogawa-tomo/search-isolated-villages-2-front" external>https://github.com/ogawa-tomo/search-isolated-villages-2-front</TextLink>
+            <TextLink
+              href="https://github.com/ogawa-tomo/search-isolated-villages-2-front"
+              external
+            >
+              https://github.com/ogawa-tomo/search-isolated-villages-2-front
+            </TextLink>
           </li>
           <li>
-            バックエンド：<TextLink href="https://github.com/ogawa-tomo/search-isolated-villages-2" external>https://github.com/ogawa-tomo/search-isolated-villages-2</TextLink>
+            バックエンド：
+            <TextLink
+              href="https://github.com/ogawa-tomo/search-isolated-villages-2"
+              external
+            >
+              https://github.com/ogawa-tomo/search-isolated-villages-2
+            </TextLink>
           </li>
         </UL>
       </P>
       <H2>作者</H2>
       <P>
-        <TextLink href="https://twitter.com/otomo6sm" external>@otomo6sm</TextLink>
+        <TextLink href="https://twitter.com/otomo6sm" external>
+          @otomo6sm
+        </TextLink>
       </P>
     </>
   );
 }
 
 const H1 = ({ children }: { children: ReactNode }) => {
-  return (
-    <h1 className="text-3xl font-bold mb-4">
-      {children}
-    </h1>
-  )
-}
+  return <h1 className="text-3xl font-bold mb-4">{children}</h1>;
+};
 
 const H2 = ({ children }: { children: ReactNode }) => {
   return (
-    <h2 className="text-2xl font-bold pb-2 border-b-2 my-4">
-      {children}
-    </h2>
-  )
-}
+    <h2 className="text-2xl font-bold pb-2 border-b-2 my-4">{children}</h2>
+  );
+};
 
 const H3 = ({ children }: { children: ReactNode }) => {
-  return (
-    <h3 className="text-xl font-bold my-4">
-      {children}
-    </h3>
-  )
-}
+  return <h3 className="text-xl font-bold my-4">{children}</h3>;
+};
 
 const P = ({ children }: { children: ReactNode }) => {
-  return (
-    <p className="my-4 leading-relaxed">
-      {children}
-    </p>
-  )
-}
+  return <p className="my-4 leading-relaxed">{children}</p>;
+};
 
 const Annotation = ({ children }: { children: ReactNode }) => {
-  return (
-    <span className="text-sm">
-      {children}
-    </span>
-  )
-}
+  return <span className="text-sm">{children}</span>;
+};
 
 const UL = ({ children }: { children: ReactNode }) => {
   return (
     <ul className="list-disc list-outside ml-5 my-4 leading-relaxed">
       {children}
     </ul>
-  )
-}
+  );
+};

@@ -1,13 +1,13 @@
-import type Faculty from '@/types/faculty';
+import type Faculty from "@/types/faculty";
 import {
   IWireMockRequest,
   IWireMockResponse,
   WireMock,
-} from 'wiremock-captain';
+} from "wiremock-captain";
 
 const wiremockEndpoint = process.env.NEXT_PUBLIC_VILLAGE_API_URL;
 if (!wiremockEndpoint) {
-  throw new Error('NEXT_PUBLIC_VILLAGE_API_URLが設定されていません');
+  throw new Error("NEXT_PUBLIC_VILLAGE_API_URLが設定されていません");
 }
 const mock = new WireMock(wiremockEndpoint);
 
@@ -19,25 +19,25 @@ export const mockPostOffices = async () => {
 
 const mockHokkaido1 = async () => {
   const paramsForHokkaido1 = new URLSearchParams({
-    region: '北海道',
-    islandSetting: '離島を含まない',
-    keywords: '',
-    page: '1',
+    region: "北海道",
+    islandSetting: "離島を含まない",
+    keywords: "",
+    page: "1",
   });
   const postOfficesForHokkaido1: Faculty[] = [];
   for (let i = 1; i <= 20; i++) {
     postOfficesForHokkaido1.push({
       name: `稚内郵便局${i}`,
-      pref: '北海道',
+      pref: "北海道",
       city: `稚内市${i}`,
       district: `稚内${i}`,
       urban_point: 100,
-      google_map_url: 'https://hogehoge.com',
-      mesh_map_path: '/hogehoge',
+      google_map_url: "https://hogehoge.com",
+      mesh_map_path: "/hogehoge",
     });
   }
   const requestForHokkaido1: IWireMockRequest = {
-    method: 'GET',
+    method: "GET",
     endpoint: `/api/post_office/result?${paramsForHokkaido1.toString()}`,
   };
   const mockedResponseForHokkaido1: IWireMockResponse = {
@@ -53,25 +53,25 @@ const mockHokkaido1 = async () => {
 
 const mockHokkaido2 = async () => {
   const paramsForHokkaido2 = new URLSearchParams({
-    region: '北海道',
-    islandSetting: '離島を含まない',
-    keywords: '',
-    page: '2',
+    region: "北海道",
+    islandSetting: "離島を含まない",
+    keywords: "",
+    page: "2",
   });
   const postOfficesForHokkaido2: Faculty[] = [];
   for (let i = 21; i <= 40; i++) {
     postOfficesForHokkaido2.push({
       name: `稚内郵便局${i}`,
-      pref: '北海道',
+      pref: "北海道",
       city: `稚内市${i}`,
       district: `稚内${i}`,
       urban_point: 100,
-      google_map_url: 'https://hogehoge.com',
-      mesh_map_path: '/hogehoge',
+      google_map_url: "https://hogehoge.com",
+      mesh_map_path: "/hogehoge",
     });
   }
   const requestForHokkaido2: IWireMockRequest = {
-    method: 'GET',
+    method: "GET",
     endpoint: `/api/post_office/result?${paramsForHokkaido2.toString()}`,
   };
   const mockedResponseForHokkaido2: IWireMockResponse = {
@@ -90,22 +90,22 @@ const mockAomori = async () => {
   for (let i = 1; i <= 20; i++) {
     postOfficesForAomori.push({
       name: `佐井郵便局${i}`,
-      pref: '青森県',
+      pref: "青森県",
       city: `佐井村${i}`,
       district: `佐井${i}`,
       urban_point: 100,
-      google_map_url: 'https://hogehoge.com',
-      mesh_map_path: '/hogehoge',
+      google_map_url: "https://hogehoge.com",
+      mesh_map_path: "/hogehoge",
     });
   }
   const paramsForAomori = new URLSearchParams({
-    region: '青森県',
-    islandSetting: '離島を含む',
-    keywords: '佐井村',
-    page: '1',
+    region: "青森県",
+    islandSetting: "離島を含む",
+    keywords: "佐井村",
+    page: "1",
   });
   const requestForAomori: IWireMockRequest = {
-    method: 'GET',
+    method: "GET",
     endpoint: `/api/post_office/result?${paramsForAomori.toString()}`,
   };
   const mockedResponseForAomori: IWireMockResponse = {

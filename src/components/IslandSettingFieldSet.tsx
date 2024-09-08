@@ -1,9 +1,9 @@
-const islandSettings = ['離島を含まない', '離島を含む', '離島のみ'];
+const islandSettings = ["離島を含まない", "離島を含む", "離島のみ"];
 
 type Props = {
-  defaultValue: string,
-  onChange: (value: string) => void
-}
+  defaultValue: string;
+  onChange: (value: string) => void;
+};
 
 export const IslandSettingFieldSet = ({ defaultValue, onChange }: Props) => {
   return (
@@ -25,5 +25,5 @@ export const IslandSettingFieldSet = ({ defaultValue, onChange }: Props) => {
         );
       })}
     </fieldset>
-  )
-}
+  );
+};
