@@ -19,10 +19,10 @@ export const mockVillages = async () => {
 
 const mockHokkaido1 = async () => {
   const paramsForHokkaido1 = new URLSearchParams({
-    region: "北海道",
+    region: "hokkaido",
     populationLowerLimit: "1",
     populationUpperLimit: "10000",
-    islandSetting: "離島を含まない",
+    islandSetting: "exclude_islands",
     keywords: "",
     page: "1",
   });
@@ -55,10 +55,10 @@ const mockHokkaido1 = async () => {
 
 const mockHokkaido2 = async () => {
   const paramsForHokkaido2 = new URLSearchParams({
-    region: "北海道",
+    region: "hokkaido",
     populationLowerLimit: "1",
     populationUpperLimit: "10000",
-    islandSetting: "離島を含まない",
+    islandSetting: "exclude_islands",
     keywords: "",
     page: "2",
   });
@@ -103,10 +103,10 @@ const mockAomori = async () => {
     });
   }
   const paramsForAomori = new URLSearchParams({
-    region: "青森県",
+    region: "aomori",
     populationLowerLimit: "10",
     populationUpperLimit: "500",
-    islandSetting: "離島を含む",
+    islandSetting: "include_islands",
     keywords: "佐井村",
     page: "1",
   });

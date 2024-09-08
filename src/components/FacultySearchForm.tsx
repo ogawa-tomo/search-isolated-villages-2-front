@@ -17,7 +17,7 @@ type Props = {
 
 const defaultValues = {
   region: "",
-  islandSetting: "離島を含まない",
+  islandSetting: "exclude_islands",
   keywords: "",
 };
 

@@ -35,10 +35,10 @@ describe("VillageSearchForm", () => {
     expect(button).toBeEnabled();
 
     const params = new URLSearchParams({
-      region: "青森県",
+      region: "aomori",
       populationLowerLimit: "1",
       populationUpperLimit: "10000",
-      islandSetting: "離島を含まない",
+      islandSetting: "exclude_islands",
       keywords: "",
       page: "1",
     });
@@ -78,10 +78,10 @@ describe("VillageSearchForm", () => {
     await user.click(screen.getByRole("button", { name: "決定" }));
 
     const params = new URLSearchParams({
-      region: "青森県",
+      region: "aomori",
       populationLowerLimit: "200",
       populationUpperLimit: "500",
-      islandSetting: "離島のみ",
+      islandSetting: "only_islands",
       keywords: "佐井村",
       page: "1",
     });
@@ -124,10 +124,10 @@ describe("VillageSearchForm", () => {
     await user.click(screen.getByRole("button", { name: "決定" }));
 
     const params = new URLSearchParams({
-      region: "青森県",
+      region: "aomori",
       populationLowerLimit: "1",
       populationUpperLimit: "10000",
-      islandSetting: "離島を含まない",
+      islandSetting: "exclude_islands",
       keywords: "",
       page: "1",
     });
@@ -139,10 +139,10 @@ describe("VillageSearchForm", () => {
   it("propsがフォームの初期値に反映されている", async () => {
     render(
       <VillageSearchForm
-        inputRegion="青森県"
+        inputRegion="aomori"
         inputPopulationLowerLimit="200"
         inputPopulationUpperLimit="500"
-        inputIslandSetting="離島のみ"
+        inputIslandSetting="only_islands"
         inputKeywords="佐井村"
       />,
     );
@@ -171,10 +171,10 @@ describe("VillageSearchForm", () => {
     await user.click(screen.getByRole("button", { name: "決定" }));
 
     const params = new URLSearchParams({
-      region: "青森県",
+      region: "aomori",
       populationLowerLimit: "200",
       populationUpperLimit: "500",
-      islandSetting: "離島のみ",
+      islandSetting: "only_islands",
       keywords: "佐井村",
       page: "1",
     });
