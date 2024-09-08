@@ -1,57 +1,58 @@
-import { prefectures, regions } from '@/lib/regions';
-import clsx from 'clsx';
-import Select from 'react-select';
+import { prefectures, regions } from "@/lib/regions";
+import clsx from "clsx";
+import Select from "react-select";
 
 type RegionOption = {
   value: string;
   label: string;
-}
+};
 
 function isRegionOption(value: unknown): value is RegionOption {
-  if (typeof value !== 'object' || value === null) {
+  if (typeof value !== "object" || value === null) {
     return false;
   }
   const option = value as Record<keyof RegionOption, unknown>;
-  if (typeof option.value !== 'string') {
+  if (typeof option.value !== "string") {
     return false;
   }
-  return typeof option.label === 'string';
+  return typeof option.label === "string";
 }
 
 const regionOptions = regions.map((region) => {
-  return { value: region, label: region }
+  return { value: region, label: region };
 });
 
 const prefOptions = prefectures.map((prefecture) => {
-  return { value: prefecture, label: prefecture }
-})
+  return { value: prefecture, label: prefecture };
+});
 
 const groupedOptions = [
   {
-    label: '全国',
-    value: '全国',
+    label: "全国",
+    value: "全国",
   },
   {
-    label: '地域',
+    label: "地域",
     options: regionOptions,
   },
   {
-    label: '都道府県',
+    label: "都道府県",
     options: prefOptions,
   },
 ];
 
 type Props = {
-  region: string,
-  onChange: (value: string) => void
-}
+  region: string;
+  onChange: (value: string) => void;
+};
 
 export const RegionSelectBox = ({ region, onChange }: Props) => {
   return (
     <Select
       unstyled
       classNames={{
-        control: () => "border border-primary-color rounded-md hover:bg-lightened-primary-color",
+        control: () =>
+          "border border-primary-color rounded-md hover:bg-lightened-primary-color",
         option: (state) => {
           return clsx(
             state.isSelected
@@ -60,7 +61,7 @@ export const RegionSelectBox = ({ region, onChange }: Props) => {
                 ? "bg-lightened-primary-color"
                 : "bg-white",
             "py-2",
-          )
+          );
         },
         singleValue: () => "text-primary-color",
         dropdownIndicator: () => "px-2 text-primary-color",
@@ -77,11 +78,9 @@ export const RegionSelectBox = ({ region, onChange }: Props) => {
       components={{
         IndicatorSeparator: () => null,
       }}
-      onChange={
-        (newOption) => {
-          if (isRegionOption(newOption)) onChange(newOption.value)
-        }
-      }
+      onChange={(newOption) => {
+        if (isRegionOption(newOption)) onChange(newOption.value);
+      }}
     />
-  )
-}
+  );
+};

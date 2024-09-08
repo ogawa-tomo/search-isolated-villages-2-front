@@ -1,4 +1,4 @@
-import type VillageSearchParams from '@/types/villageSearchParams';
+import type VillageSearchParams from "@/types/villageSearchParams";
 
 export const fetchVillages = async (params: VillageSearchParams) => {
   const query = new URLSearchParams(params);

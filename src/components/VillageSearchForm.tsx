@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { Dispatch, RefObject, SetStateAction, useRef, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import VillageSearchParams from '@/types/villageSearchParams';
-import { RegionSelectBox } from './RegionSelectBox';
-import { IslandSettingFieldSet } from './IslandSettingFieldSet';
-import { DetailedConditionButton } from './DetailedConditionButton';
+import { Dispatch, RefObject, SetStateAction, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import VillageSearchParams from "@/types/villageSearchParams";
+import { RegionSelectBox } from "./RegionSelectBox";
+import { IslandSettingFieldSet } from "./IslandSettingFieldSet";
+import { DetailedConditionButton } from "./DetailedConditionButton";
 
 const searchPath = (villageSearchParams: VillageSearchParams): string => {
   const params = new URLSearchParams(villageSearchParams);
@@ -13,20 +13,20 @@ const searchPath = (villageSearchParams: VillageSearchParams): string => {
 };
 
 type Props = {
-  inputRegion?: string,
-  inputPopulationLowerLimit?: string,
-  inputPopulationUpperLimit?: string,
-  inputIslandSetting?: string,
-  inputKeywords?: string
-}
+  inputRegion?: string;
+  inputPopulationLowerLimit?: string;
+  inputPopulationUpperLimit?: string;
+  inputIslandSetting?: string;
+  inputKeywords?: string;
+};
 
 const defaultValues = {
-  region: '',
-  populationLowerLimit: '1',
-  populationUpperLimit: '10000',
-  islandSetting: '離島を含まない',
-  keywords: '',
-}
+  region: "",
+  populationLowerLimit: "1",
+  populationUpperLimit: "10000",
+  islandSetting: "離島を含まない",
+  keywords: "",
+};
 
 const VillageSearchForm = ({
   inputRegion = defaultValues.region,
@@ -36,8 +36,12 @@ const VillageSearchForm = ({
   inputKeywords = defaultValues.keywords,
 }: Props) => {
   const [region, setRegion] = useState(inputRegion);
-  const [populationLowerLimit, setPopulationLowerLimit] = useState(inputPopulationLowerLimit);
-  const [populationUpperLimit, setPopulationUpperLimit] = useState(inputPopulationUpperLimit);
+  const [populationLowerLimit, setPopulationLowerLimit] = useState(
+    inputPopulationLowerLimit,
+  );
+  const [populationUpperLimit, setPopulationUpperLimit] = useState(
+    inputPopulationUpperLimit,
+  );
   const [islandSetting, setIslandSetting] = useState(inputIslandSetting);
   const [keywords, setKeywords] = useState(inputKeywords);
   const modalRef = useRef<HTMLDialogElement>(null);
@@ -52,8 +56,8 @@ const VillageSearchForm = ({
         populationUpperLimit,
         islandSetting,
         keywords,
-        page: '1'
-      })
+        page: "1",
+      }),
     );
   };
 
@@ -66,11 +70,8 @@ const VillageSearchForm = ({
   return (
     <>
       <div className="flex flex-col items-center">
-        <RegionSelectBox
-          region={region}
-          onChange={setRegion}
-        />
-        <div className='h-3' />
+        <RegionSelectBox region={region} onChange={setRegion} />
+        <div className="h-3" />
         <DetailedConditionButton
           isModified={isModified}
           onClick={() => {
@@ -80,9 +81,9 @@ const VillageSearchForm = ({
         >
           詳細条件
         </DetailedConditionButton>
-        <div className='h-3' />
-        <dialog className='modal' ref={modalRef}>
-          <div className='modal-box'>
+        <div className="h-3" />
+        <dialog className="modal" ref={modalRef}>
+          <div className="modal-box">
             <DetailedConditionsModalContent
               populationLowerLimit={populationLowerLimit}
               setPopulationLowerLimit={setPopulationLowerLimit}
@@ -95,7 +96,7 @@ const VillageSearchForm = ({
               setKeywords={setKeywords}
             />
           </div>
-        </dialog >
+        </dialog>
         <button
           className="btn btn-primary w-64 btn-sm h-10 text-white rounded-md text-xl"
           type="button"
@@ -104,7 +105,7 @@ const VillageSearchForm = ({
         >
           探索
         </button>
-      </div >
+      </div>
     </>
   );
 };
@@ -139,9 +140,9 @@ const DetailedConditionsModalContent = ({
 
   return (
     <>
-      <div className='text-2xl font-bold pb-2 border-b-2 my-4'>詳細条件</div>
-      <fieldset className='my-4 leading-loose'>
-        <legend className='font-bold'>人口</legend>
+      <div className="text-2xl font-bold pb-2 border-b-2 my-4">詳細条件</div>
+      <fieldset className="my-4 leading-loose">
+        <legend className="font-bold">人口</legend>
         <div>
           <label>
             最小：
@@ -172,17 +173,17 @@ const DetailedConditionsModalContent = ({
           人
         </div>
       </fieldset>
-      <div className='border border-dashed' />
-      <div className='my-4'>
+      <div className="border border-dashed" />
+      <div className="my-4">
         <IslandSettingFieldSet
           defaultValue={islandSetting}
           onChange={setIslandSetting}
         />
       </div>
-      <div className='border border-dashed' />
-      <div className='my-4 leading-loose'>
+      <div className="border border-dashed" />
+      <div className="my-4 leading-loose">
         <label>
-          <span className='font-bold'>キーワード絞り込み</span>
+          <span className="font-bold">キーワード絞り込み</span>
           <br />
           <input
             type="text"
@@ -193,21 +194,23 @@ const DetailedConditionsModalContent = ({
           />
         </label>
       </div>
-      <div className='border border-dashed' />
-      <div className='flex justify-between'>
+      <div className="border border-dashed" />
+      <div className="flex justify-between">
         <div className="modal-action">
-          <form method='dialog'>
-            <button className='bg-primary-color w-32 h-10 text-white rounded'>決定</button>
+          <form method="dialog">
+            <button className="bg-primary-color w-32 h-10 text-white rounded">
+              決定
+            </button>
           </form>
         </div>
         <div className="modal-action">
-          <button className='text-gray-500 underline' onClick={setDefaultValue}>
+          <button className="text-gray-500 underline" onClick={setDefaultValue}>
             デフォルト値に戻す
           </button>
         </div>
       </div>
     </>
   );
-}
+};
 
 export default VillageSearchForm;

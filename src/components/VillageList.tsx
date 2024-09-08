@@ -1,16 +1,18 @@
-'use client';
+"use client";
 
-import type VillageSearchParams from '@/types/villageSearchParams';
-import Pagination from './Pagination';
-import { fetchVillages } from '@/lib/fetchVillages';
-import Village from '@/types/village';
-import { HorizontalSpacer } from './Spacer';
-import { GoogleMapLink } from './GoogleMapLink';
-import { PopulationDistributionMapLink } from './PopulationDistributionMapLink';
-import { useEffect, useState } from 'react';
+import type VillageSearchParams from "@/types/villageSearchParams";
+import Pagination from "./Pagination";
+import { fetchVillages } from "@/lib/fetchVillages";
+import Village from "@/types/village";
+import { HorizontalSpacer } from "./Spacer";
+import { GoogleMapLink } from "./GoogleMapLink";
+import { PopulationDistributionMapLink } from "./PopulationDistributionMapLink";
+import { useEffect, useState } from "react";
 
 export const VillageList = (searchParams: VillageSearchParams) => {
-  const [villages, setVillages] = useState<Village[] | undefined | 'error'>(undefined);
+  const [villages, setVillages] = useState<Village[] | undefined | "error">(
+    undefined,
+  );
   const [pages, setPages] = useState<number | undefined>(undefined);
   const [perPage, setPerPage] = useState<number | undefined>(undefined);
 
@@ -23,16 +25,12 @@ export const VillageList = (searchParams: VillageSearchParams) => {
         setPerPage(result.per_page);
       })
       .catch(() => {
-        setVillages('error');
+        setVillages("error");
       });
-  }, [searchParams])
+  }, [searchParams]);
 
-  if (villages === 'error') {
-    return (
-      <div className='text-center'>
-        集落の取得に失敗しました
-      </div>
-    );
+  if (villages === "error") {
+    return <div className="text-center">集落の取得に失敗しました</div>;
   }
 
   if (villages === undefined || pages === undefined || !perPage) {
@@ -45,9 +43,7 @@ export const VillageList = (searchParams: VillageSearchParams) => {
 
   if (villages.length === 0) {
     return (
-      <div className='text-center'>
-        該当する集落が見つかりませんでした
-      </div>
+      <div className="text-center">該当する集落が見つかりませんでした</div>
     );
   }
 
@@ -57,14 +53,15 @@ export const VillageList = (searchParams: VillageSearchParams) => {
   return (
     <>
       <div className="max-w-sm mx-auto flex flex-col items-center gap-4">
-        <table className='w-full border-collapse' >
+        <table className="w-full border-collapse">
           <tbody>
             {villages.map((village, index) => (
-              <tr key={index} className='border border-slate-400'>
-                <td className='w-1/5 text-center'>
-                  {index + rankStart + 1}<span className='text-xs'>位</span>
+              <tr key={index} className="border border-slate-400">
+                <td className="w-1/5 text-center">
+                  {index + rankStart + 1}
+                  <span className="text-xs">位</span>
                 </td>
-                <td className='p-2'>
+                <td className="p-2">
                   <VillageCard village={village} />
                 </td>
               </tr>
@@ -74,7 +71,7 @@ export const VillageList = (searchParams: VillageSearchParams) => {
         <Pagination
           currentPage={currentPage}
           pages={pages}
-          path={'/'}
+          path={"/"}
           queryParams={searchParams}
         />
       </div>
@@ -84,22 +81,24 @@ export const VillageList = (searchParams: VillageSearchParams) => {
 
 const VillageCard = ({ village }: { village: Village }) => {
   return (
-    <div className='flex flex-col gap-2'>
+    <div className="flex flex-col gap-2">
       <div className="font-bold text-xl">
         {village.pref} {village.city} {village.district}
       </div>
-      <div className='text-sm'>
+      <div className="text-sm">
         <span>人口: {village.population}人</span>
-        <div className='inline-block w-4' />
+        <div className="inline-block w-4" />
         <span>都会度: {village.urban_point}</span>
       </div>
-      <div className='text-sm'>
+      <div className="text-sm">
         <GoogleMapLink href={village.google_map_url} />
-        <div className='inline-block w-2' />
-        <PopulationDistributionMapLink href={`${process.env.NEXT_PUBLIC_VILLAGE_API_URL}${village.mesh_map_path}`} />
+        <div className="inline-block w-2" />
+        <PopulationDistributionMapLink
+          href={`${process.env.NEXT_PUBLIC_VILLAGE_API_URL}${village.mesh_map_path}`}
+        />
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default VillageList;

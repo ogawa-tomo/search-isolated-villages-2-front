@@ -9,25 +9,29 @@ import Image from "next/image";
 
 type Props = {
   params: { facultyCategoryPathName: FacultyCategoryPathName };
-  searchParams: FacultySearchParams
-}
+  searchParams: FacultySearchParams;
+};
 
-export async function generateMetadata(
-  { params }: Props,
-): Promise<Metadata> {
-  const facultyCategoryName = getFacultyCategoryFromPathName(params.facultyCategoryPathName).name;
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const facultyCategoryName = getFacultyCategoryFromPathName(
+    params.facultyCategoryPathName,
+  ).name;
   return {
     title: `秘境${facultyCategoryName}探索ツール`,
     description: `秘境${facultyCategoryName}を探索し、人口分布データをもとに秘境度を評価して地域別にランキングで出力します。`,
-  }
+  };
 }
 
 export default function Page({ params, searchParams }: Props) {
-  const facultyCategoryName = getFacultyCategoryFromPathName(params.facultyCategoryPathName).name;
+  const facultyCategoryName = getFacultyCategoryFromPathName(
+    params.facultyCategoryPathName,
+  ).name;
 
   return (
     <>
-      <h1 className="text-3xl font-bold text-center mb-4">秘境{facultyCategoryName}探索ツール</h1>
+      <h1 className="text-3xl font-bold text-center mb-4">
+        秘境{facultyCategoryName}探索ツール
+      </h1>
       <Image
         className="m-auto"
         src={facultyCategoryLogo(facultyCategoryName)}
@@ -35,9 +39,12 @@ export default function Page({ params, searchParams }: Props) {
         height={200}
       />
       <p className="text-center my-4 leading-relaxed">
-        秘境{facultyCategoryName}を探索し、人口分布データを<br className="sm:hidden" />
-        もとに秘境度を<br className="hidden sm:block" />
-        評価して地域別に<br className="sm:hidden" />
+        秘境{facultyCategoryName}を探索し、人口分布データを
+        <br className="sm:hidden" />
+        もとに秘境度を
+        <br className="hidden sm:block" />
+        評価して地域別に
+        <br className="sm:hidden" />
         ランキングで出力します。
       </p>
       <FacultySearchForm
@@ -47,13 +54,12 @@ export default function Page({ params, searchParams }: Props) {
         inputKeywords={searchParams.keywords}
       />
       <div className="h-5" />
-      {searchParams.region
-        &&
+      {searchParams.region && (
         <FacultyList
           facultyCategoryPathName={params.facultyCategoryPathName}
           searchParams={searchParams}
         />
-      }
+      )}
     </>
   );
 }

@@ -1,4 +1,4 @@
-import { Prefecture } from './Region';
+import { Prefecture } from "./Region";
 
 type Village = {
   pref: Prefecture;

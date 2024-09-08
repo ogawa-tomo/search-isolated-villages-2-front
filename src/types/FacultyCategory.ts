@@ -1,7 +1,7 @@
 import {
   facultyCategoryNames,
   facultyCategoryPathNames,
-} from '@/lib/facultyCategories';
+} from "@/lib/facultyCategories";
 
 export type FacultyCategoryName = (typeof facultyCategoryNames)[number];
 

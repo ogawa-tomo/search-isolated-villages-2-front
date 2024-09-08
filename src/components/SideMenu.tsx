@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { Menu } from "./Menu";
 
@@ -7,5 +7,5 @@ export const SideMenu = () => {
     <div className="sticky top-0">
       <Menu />
     </div>
-  )
-}
+  );
+};
