@@ -1,4 +1,4 @@
-import { prefectures, regions } from "@/lib/regions";
+import { getRegionByEnName, prefectures, regions } from "@/lib/regions";
 import clsx from "clsx";
 import Select from "react-select";
 
@@ -18,18 +18,22 @@ function isRegionOption(value: unknown): value is RegionOption {
   return typeof option.label === "string";
 }
 
-const regionOptions = regions.map((region) => {
-  return { value: region, label: region };
-});
+const regionOptions: { value: string; label: string }[] = regions.map(
+  (region) => {
+    return { value: region.enName, label: region.jpName };
+  },
+);
 
-const prefOptions = prefectures.map((prefecture) => {
-  return { value: prefecture, label: prefecture };
-});
+const prefOptions: { value: string; label: string }[] = prefectures.map(
+  (prefecture) => {
+    return { value: prefecture.enName, label: prefecture.jpName };
+  },
+);
 
 const groupedOptions = [
   {
     label: "全国",
-    value: "全国",
+    value: "all_country",
   },
   {
     label: "地域",
@@ -47,6 +51,7 @@ type Props = {
 };
 
 export const RegionSelectBox = ({ region, onChange }: Props) => {
+  const regionObj = region ? getRegionByEnName(region) : "";
   return (
     <Select
       unstyled
@@ -72,7 +77,14 @@ export const RegionSelectBox = ({ region, onChange }: Props) => {
       instanceId="selectbox"
       className="w-64 text-xl text-center"
       placeholder="地域を選択"
-      defaultValue={region ? { label: region, value: region } : null}
+      defaultValue={
+        regionObj
+          ? {
+              label: regionObj.jpName as string,
+              value: regionObj.enName as string,
+            }
+          : null
+      }
       isSearchable={false}
       options={groupedOptions}
       components={{

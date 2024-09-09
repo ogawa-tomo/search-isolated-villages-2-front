@@ -35,8 +35,8 @@ describe("FacultySearchForm", () => {
     expect(button).toBeEnabled();
 
     const params = new URLSearchParams({
-      region: "青森県",
-      islandSetting: "離島を含まない",
+      region: "aomori",
+      islandSetting: "exclude_islands",
       keywords: "",
       page: "1",
     });
@@ -64,8 +64,8 @@ describe("FacultySearchForm", () => {
     await user.click(screen.getByRole("button", { name: "決定" }));
 
     const params = new URLSearchParams({
-      region: "青森県",
-      islandSetting: "離島のみ",
+      region: "aomori",
+      islandSetting: "only_islands",
       keywords: "佐井村",
       page: "1",
     });
@@ -96,8 +96,8 @@ describe("FacultySearchForm", () => {
     await user.click(screen.getByRole("button", { name: "決定" }));
 
     const params = new URLSearchParams({
-      region: "青森県",
-      islandSetting: "離島を含まない",
+      region: "aomori",
+      islandSetting: "exclude_islands",
       keywords: "",
       page: "1",
     });
@@ -110,8 +110,8 @@ describe("FacultySearchForm", () => {
     render(
       <FacultySearchForm
         facultyCategoryPathName="post_office"
-        inputRegion="青森県"
-        inputIslandSetting="離島のみ"
+        inputRegion="aomori"
+        inputIslandSetting="only_islands"
         inputKeywords="佐井村"
       />,
     );
@@ -130,8 +130,8 @@ describe("FacultySearchForm", () => {
     await user.click(screen.getByRole("button", { name: "決定" }));
 
     const params = new URLSearchParams({
-      region: "青森県",
-      islandSetting: "離島のみ",
+      region: "aomori",
+      islandSetting: "only_islands",
       keywords: "佐井村",
       page: "1",
     });

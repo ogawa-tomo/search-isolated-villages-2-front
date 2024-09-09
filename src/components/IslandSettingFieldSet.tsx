@@ -1,4 +1,4 @@
-const islandSettings = ["離島を含まない", "離島を含む", "離島のみ"];
+import { islandSettings } from "@/lib/islandSettings";
 
 type Props = {
   defaultValue: string;
@@ -11,16 +11,19 @@ export const IslandSettingFieldSet = ({ defaultValue, onChange }: Props) => {
       <legend className="font-bold">離島設定</legend>
       {islandSettings.map((setting) => {
         return (
-          <span key={setting} className="mr-4 flex flex-row items-center">
+          <span
+            key={setting.enName}
+            className="mr-4 flex flex-row items-center"
+          >
             <input
-              id={setting}
+              id={setting.enName}
               type="radio"
               className="radio radio-sm mr-2"
-              value={setting}
+              value={setting.enName}
               onChange={(e) => onChange(e.target.value)}
-              checked={setting === defaultValue}
+              checked={setting.enName === defaultValue}
             />
-            <label htmlFor={setting}>{setting}</label>
+            <label htmlFor={setting.enName}>{setting.jpName}</label>
           </span>
         );
       })}
