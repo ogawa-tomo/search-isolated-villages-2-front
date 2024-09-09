@@ -1,10 +1,11 @@
-'use client';
+"use client";
 
-import { Dispatch, SetStateAction, useRef, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import VillageSearchParams from '@/types/villageSearchParams';
-import { RegionSelectBox } from './RegionSelectBox';
-import { IslandSettingFieldSet } from './IslandSettingFieldSet';
+import { Dispatch, RefObject, SetStateAction, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import VillageSearchParams from "@/types/villageSearchParams";
+import { RegionSelectBox } from "./RegionSelectBox";
+import { IslandSettingFieldSet } from "./IslandSettingFieldSet";
+import { DetailedConditionButton } from "./DetailedConditionButton";
 
 const searchPath = (villageSearchParams: VillageSearchParams): string => {
   const params = new URLSearchParams(villageSearchParams);
@@ -12,20 +13,20 @@ const searchPath = (villageSearchParams: VillageSearchParams): string => {
 };
 
 type Props = {
-  inputRegion?: string,
-  inputPopulationLowerLimit?: string,
-  inputPopulationUpperLimit?: string,
-  inputIslandSetting?: string,
-  inputKeywords?: string
-}
+  inputRegion?: string;
+  inputPopulationLowerLimit?: string;
+  inputPopulationUpperLimit?: string;
+  inputIslandSetting?: string;
+  inputKeywords?: string;
+};
 
 const defaultValues = {
-  region: '',
-  populationLowerLimit: '1',
-  populationUpperLimit: '10000',
-  islandSetting: '離島を含まない',
-  keywords: '',
-}
+  region: "",
+  populationLowerLimit: "1",
+  populationUpperLimit: "10000",
+  islandSetting: "exclude_islands",
+  keywords: "",
+};
 
 const VillageSearchForm = ({
   inputRegion = defaultValues.region,
@@ -35,8 +36,12 @@ const VillageSearchForm = ({
   inputKeywords = defaultValues.keywords,
 }: Props) => {
   const [region, setRegion] = useState(inputRegion);
-  const [populationLowerLimit, setPopulationLowerLimit] = useState(inputPopulationLowerLimit);
-  const [populationUpperLimit, setPopulationUpperLimit] = useState(inputPopulationUpperLimit);
+  const [populationLowerLimit, setPopulationLowerLimit] = useState(
+    inputPopulationLowerLimit,
+  );
+  const [populationUpperLimit, setPopulationUpperLimit] = useState(
+    inputPopulationUpperLimit,
+  );
   const [islandSetting, setIslandSetting] = useState(inputIslandSetting);
   const [keywords, setKeywords] = useState(inputKeywords);
   const modalRef = useRef<HTMLDialogElement>(null);
@@ -51,34 +56,38 @@ const VillageSearchForm = ({
         populationUpperLimit,
         islandSetting,
         keywords,
-        page: '1'
-      })
+        page: "1",
+      }),
     );
   };
+
+  const isModified =
+    populationLowerLimit !== defaultValues.populationLowerLimit ||
+    populationUpperLimit !== defaultValues.populationUpperLimit ||
+    islandSetting !== defaultValues.islandSetting ||
+    keywords !== defaultValues.keywords;
 
   return (
     <>
       <div className="flex flex-col items-center">
-        <RegionSelectBox
-          region={region}
-          onChange={setRegion}
-        />
-        <div className='h-3' />
-        <button
-          className="btn btn-sm h-10 w-64 rounded-md text-lg"
+        <RegionSelectBox region={region} onChange={setRegion} />
+        <div className="h-3" />
+        <DetailedConditionButton
+          isModified={isModified}
           onClick={() => {
             modalRef.current?.showModal();
             inputRef.current?.blur();
           }}
         >
           詳細条件
-        </button>
-        <div className='h-3' />
-        <dialog className='modal' ref={modalRef}>
-          <div className='modal-box'>
+        </DetailedConditionButton>
+        <div className="h-3" />
+        <dialog className="modal" ref={modalRef}>
+          <div className="modal-box">
             <DetailedConditionsModalContent
               populationLowerLimit={populationLowerLimit}
               setPopulationLowerLimit={setPopulationLowerLimit}
+              inputRef={inputRef}
               populationUpperLimit={populationUpperLimit}
               setPopulationUpperLimit={setPopulationUpperLimit}
               islandSetting={islandSetting}
@@ -87,10 +96,7 @@ const VillageSearchForm = ({
               setKeywords={setKeywords}
             />
           </div>
-          <form method='dialog' className='modal-backdrop'>
-            <button>close</button>
-          </form>
-        </dialog >
+        </dialog>
         <button
           className="btn btn-primary w-64 btn-sm h-10 text-white rounded-md text-xl"
           type="button"
@@ -99,7 +105,7 @@ const VillageSearchForm = ({
         >
           探索
         </button>
-      </div >
+      </div>
     </>
   );
 };
@@ -107,6 +113,7 @@ const VillageSearchForm = ({
 const DetailedConditionsModalContent = ({
   populationLowerLimit,
   setPopulationLowerLimit,
+  inputRef,
   populationUpperLimit,
   setPopulationUpperLimit,
   islandSetting,
@@ -116,6 +123,7 @@ const DetailedConditionsModalContent = ({
 }: {
   populationLowerLimit: string;
   setPopulationLowerLimit: Dispatch<SetStateAction<string>>;
+  inputRef: RefObject<HTMLInputElement>;
   populationUpperLimit: string;
   setPopulationUpperLimit: Dispatch<SetStateAction<string>>;
   islandSetting: string;
@@ -132,9 +140,9 @@ const DetailedConditionsModalContent = ({
 
   return (
     <>
-      <h2>詳細条件</h2>
-      <fieldset>
-        <legend className='font-bold'>人口</legend>
+      <div className="text-2xl font-bold pb-2 border-b-2 my-4">詳細条件</div>
+      <fieldset className="my-4 leading-loose">
+        <legend className="font-bold">人口</legend>
         <div>
           <label>
             最小：
@@ -145,6 +153,7 @@ const DetailedConditionsModalContent = ({
               className="input input-bordered input-sm w-24 rounded-md invalid:input-error"
               value={populationLowerLimit}
               onChange={(e) => setPopulationLowerLimit(e.target.value)}
+              ref={inputRef}
             />
           </label>
           人
@@ -164,13 +173,17 @@ const DetailedConditionsModalContent = ({
           人
         </div>
       </fieldset>
-      <IslandSettingFieldSet
-        defaultValue={islandSetting}
-        onChange={setIslandSetting}
-      />
-      <p>
+      <div className="border border-dashed" />
+      <div className="my-4">
+        <IslandSettingFieldSet
+          defaultValue={islandSetting}
+          onChange={setIslandSetting}
+        />
+      </div>
+      <div className="border border-dashed" />
+      <div className="my-4 leading-loose">
         <label>
-          <span className='font-bold'>キーワード絞り込み</span>
+          <span className="font-bold">キーワード絞り込み</span>
           <br />
           <input
             type="text"
@@ -180,22 +193,24 @@ const DetailedConditionsModalContent = ({
             onChange={(e) => setKeywords(e.target.value)}
           />
         </label>
-      </p>
-      <div className='flex justify-end'>
+      </div>
+      <div className="border border-dashed" />
+      <div className="flex justify-between">
         <div className="modal-action">
-          <button className="btn" onClick={setDefaultValue}>
+          <form method="dialog">
+            <button className="bg-primary-color w-32 h-10 text-white rounded">
+              決定
+            </button>
+          </form>
+        </div>
+        <div className="modal-action">
+          <button className="text-gray-500 underline" onClick={setDefaultValue}>
             デフォルト値に戻す
           </button>
-        </div>
-        <div className="w-2" />
-        <div className="modal-action">
-          <form method='dialog'>
-            <button className='btn'>閉じる</button>
-          </form>
         </div>
       </div>
     </>
   );
-}
+};
 
 export default VillageSearchForm;

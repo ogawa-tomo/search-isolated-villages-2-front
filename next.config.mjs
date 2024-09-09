@@ -6,7 +6,7 @@
 const nextConfig = {
   experimental: {
     outputFileTracingIncludes: {
-      '/': ['./src/public/**/*'],
+      "/": ["./src/public/**/*"],
     },
   },
 };

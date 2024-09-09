@@ -1,34 +1,36 @@
-import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import FacultySearchParams from '@/types/facultySearchParams';
-import { getPostOffices } from '../fixtures/post_offices';
-import * as fetchFacultiesResultFetchers from '@/lib/fetchFaculties';
-import FacultyList from '@/components/FacultyList';
+import { render, screen } from "@testing-library/react";
+import "@testing-library/jest-dom";
+import FacultySearchParams from "@/types/facultySearchParams";
+import { getPostOffices } from "../fixtures/post_offices";
+import * as fetchFacultiesResultFetchers from "@/lib/fetchFaculties";
+import FacultyList from "@/components/FacultyList";
 
-jest.mock('src/lib/fetchFaculties');
+jest.mock("src/lib/fetchFaculties");
 
-describe('FacultyList', () => {
-  it('shows faculties', async () => {
+describe("FacultyList", () => {
+  it("shows faculties", async () => {
     const facultySearchParams: FacultySearchParams = {
-      region: '北海道',
-      islandSetting: '離島を含まない',
-      keyWords: '',
-      page: '1',
+      region: "北海道",
+      islandSetting: "離島を含まない",
+      keyWords: "",
+      page: "1",
     };
 
     const postOffices = getPostOffices(20);
 
-    jest.spyOn(fetchFacultiesResultFetchers, 'fetchFaculties').mockResolvedValue({
-      faculties: postOffices,
-      pages: 5,
-      per_page: 20,
-    });
+    jest
+      .spyOn(fetchFacultiesResultFetchers, "fetchFaculties")
+      .mockResolvedValue({
+        faculties: postOffices,
+        pages: 5,
+        per_page: 20,
+      });
 
     render(
       <FacultyList
-        facultyCategoryPathName='post_office'
+        facultyCategoryPathName="post_office"
         searchParams={facultySearchParams}
-      />
+      />,
     );
 
     const villageNameElements = await screen.findAllByText(/北海道.*/);

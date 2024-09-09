@@ -1,13 +1,13 @@
 services:
   wiremock:
-    image: 'wiremock/wiremock:latest'
+    image: "wiremock/wiremock:latest"
     container_name: my_wiremock
     ports:
       - 8080:8080
     entrypoint:
       [
-        '/docker-entrypoint.sh',
-        '--global-response-templating',
-        '--disable-gzip',
-        '--verbose',
+        "/docker-entrypoint.sh",
+        "--global-response-templating",
+        "--disable-gzip",
+        "--verbose",
       ]

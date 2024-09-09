@@ -1,7 +1,7 @@
-import { Prefecture } from './Region';
+import { PrefectureJpName } from "./Region";
 
 type Village = {
-  pref: Prefecture;
+  pref: PrefectureJpName;
   city: string;
   district: string;
   population: number;

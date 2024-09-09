@@ -1,24 +1,25 @@
-'use client';
+"use client";
 
-import { Dispatch, SetStateAction, useRef, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import FacultySearchParams from '@/types/facultySearchParams'
-import { RegionSelectBox } from './RegionSelectBox';
-import { IslandSettingFieldSet } from './IslandSettingFieldSet';
-import { FacultyCategoryPathName } from '@/types/FacultyCategory';
+import { Dispatch, SetStateAction, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import FacultySearchParams from "@/types/facultySearchParams";
+import { RegionSelectBox } from "./RegionSelectBox";
+import { IslandSettingFieldSet } from "./IslandSettingFieldSet";
+import { FacultyCategoryPathName } from "@/types/FacultyCategory";
+import { DetailedConditionButton } from "./DetailedConditionButton";
 
 type Props = {
   facultyCategoryPathName: FacultyCategoryPathName;
   inputRegion?: string;
   inputIslandSetting?: string;
   inputKeywords?: string;
-}
+};
 
 const defaultValues = {
-  region: '',
-  islandSetting: '離島を含まない',
-  keywords: '',
-}
+  region: "",
+  islandSetting: "exclude_islands",
+  keywords: "",
+};
 
 const FacultySearchForm = ({
   facultyCategoryPathName,
@@ -43,27 +44,28 @@ const FacultySearchForm = ({
         region,
         islandSetting,
         keywords,
-        page: '1'
-      })
+        page: "1",
+      }),
     );
   };
 
+  const isModified =
+    islandSetting !== defaultValues.islandSetting ||
+    keywords !== defaultValues.keywords;
+
   return (
     <>
-      <div className="flex flex-col items-center" id='modalRoot'>
-        <RegionSelectBox
-          region={region}
-          onChange={setRegion}
-        />
-        <div className='h-3' />
-        <button
-          className="btn btn-sm h-10 w-64 rounded-md text-lg my-0.5"
+      <div className="flex flex-col items-center" id="modalRoot">
+        <RegionSelectBox region={region} onChange={setRegion} />
+        <div className="h-3" />
+        <DetailedConditionButton
+          isModified={isModified}
           onClick={() => modalRef.current?.showModal()}
         >
           詳細条件
-        </button>
-        <dialog className='modal' ref={modalRef}>
-          <div className='modal-box'>
+        </DetailedConditionButton>
+        <dialog className="modal" ref={modalRef}>
+          <div className="modal-box">
             <DetailedConditionsModalContent
               islandSetting={islandSetting}
               setIslandSetting={setIslandSetting}
@@ -71,13 +73,10 @@ const FacultySearchForm = ({
               setKeywords={setKeywords}
             />
           </div>
-          <form method='dialog' className='modal-backdrop'>
-            <button>close</button>
-          </form>
         </dialog>
-        <div className='h-3' />
+        <div className="h-3" />
         <button
-          className="btn btn-primary w-64 btn-sm h-10 text-white rounded-md text-xl my-0.5"
+          className="btn btn-primary w-64 btn-sm h-10 text-white rounded-md text-xl"
           type="button"
           onClick={onButtonClick}
           disabled={!region}
@@ -107,15 +106,18 @@ const DetailedConditionsModalContent = ({
 
   return (
     <>
-      <h2>詳細条件</h2>
+      <div className="text-2xl font-bold pb-2 border-b-2 my-4">詳細条件</div>
 
-      <IslandSettingFieldSet
-        defaultValue={islandSetting}
-        onChange={setIslandSetting}
-      />
-      <p>
+      <div className="my-4">
+        <IslandSettingFieldSet
+          defaultValue={islandSetting}
+          onChange={setIslandSetting}
+        />
+      </div>
+      <div className="border border-dashed" />
+      <div className="my-4 leading-loose">
         <label>
-          <span className='font-bold'>キーワード絞り込み</span>
+          <span className="font-bold">キーワード絞り込み</span>
           <br />
           <input
             type="text"
@@ -125,22 +127,24 @@ const DetailedConditionsModalContent = ({
             onChange={(e) => setKeywords(e.target.value)}
           />
         </label>
-      </p>
-      <div className='flex justify-end'>
+      </div>
+      <div className="border border-dashed" />
+      <div className="flex justify-between">
         <div className="modal-action">
-          <button className="btn" onClick={setDefaultValue}>
+          <form method="dialog">
+            <button className="bg-primary-color w-32 h-10 text-white rounded">
+              決定
+            </button>
+          </form>
+        </div>
+        <div className="modal-action">
+          <button className="text-gray-500 underline" onClick={setDefaultValue}>
             デフォルト値に戻す
           </button>
         </div>
-        <div className="w-2" />
-        <div className="modal-action">
-          <form method='dialog'>
-            <button className='btn'>閉じる</button>
-          </form>
-        </div>
       </div>
     </>
-  )
-}
+  );
+};
 
 export default FacultySearchForm;

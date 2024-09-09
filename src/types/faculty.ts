@@ -1,8 +1,8 @@
-import { Prefecture } from './Region';
+import { PrefectureJpName } from "./Region";
 
 type Faculty = {
   name: string;
-  pref: Prefecture;
+  pref: PrefectureJpName;
   city: string;
   district: string;
   urban_point: number;
