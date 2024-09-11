@@ -10,9 +10,9 @@ jest.mock("src/lib/fetchFaculties");
 describe("FacultyList", () => {
   it("shows faculties", async () => {
     const facultySearchParams: FacultySearchParams = {
-      region: "北海道",
-      islandSetting: "離島を含まない",
-      keyWords: "",
+      area: "hokkaido",
+      islandSetting: "exclude_islands",
+      keywords: "",
       page: "1",
     };
 

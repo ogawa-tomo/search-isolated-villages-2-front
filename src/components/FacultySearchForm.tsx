@@ -3,31 +3,33 @@
 import { Dispatch, SetStateAction, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import FacultySearchParams from "@/types/facultySearchParams";
-import { RegionSelectBox } from "./RegionSelectBox";
+import { AreaSelectBox } from "./AreaSelectBox";
 import { IslandSettingFieldSet } from "./IslandSettingFieldSet";
 import { FacultyCategoryPathName } from "@/types/FacultyCategory";
 import { DetailedConditionButton } from "./DetailedConditionButton";
+import { Area } from "@/types/Area";
+import { assertAreaEnName, getAreaByEnName } from "@/lib/areas";
 
 type Props = {
   facultyCategoryPathName: FacultyCategoryPathName;
-  inputRegion?: string;
+  inputArea?: Area;
   inputIslandSetting?: string;
   inputKeywords?: string;
 };
 
 const defaultValues = {
-  region: "",
+  area: undefined,
   islandSetting: "exclude_islands",
   keywords: "",
 };
 
 const FacultySearchForm = ({
   facultyCategoryPathName,
-  inputRegion = defaultValues.region,
+  inputArea = defaultValues.area,
   inputIslandSetting = defaultValues.islandSetting,
   inputKeywords = defaultValues.keywords,
 }: Props) => {
-  const [region, setRegion] = useState(inputRegion);
+  const [area, setArea] = useState(inputArea);
   const [islandSetting, setIslandSetting] = useState(inputIslandSetting);
   const [keywords, setKeywords] = useState(inputKeywords);
   const modalRef = useRef<HTMLDialogElement>(null);
@@ -39,14 +41,21 @@ const FacultySearchForm = ({
   };
 
   const onButtonClick = () => {
+    if (!area) return;
     router.push(
       searchPath({
-        region,
+        area: area.enName,
         islandSetting,
         keywords,
         page: "1",
       }),
     );
+  };
+
+  const onAreaChange = (optionValue: string) => {
+    assertAreaEnName(optionValue);
+    const area = getAreaByEnName(optionValue);
+    setArea(area);
   };
 
   const isModified =
@@ -56,7 +65,7 @@ const FacultySearchForm = ({
   return (
     <>
       <div className="flex flex-col items-center" id="modalRoot">
-        <RegionSelectBox region={region} onChange={setRegion} />
+        <AreaSelectBox area={area} onChange={onAreaChange} />
         <div className="h-3" />
         <DetailedConditionButton
           isModified={isModified}
@@ -79,7 +88,7 @@ const FacultySearchForm = ({
           className="btn btn-primary w-64 btn-sm h-10 text-white rounded-md text-xl"
           type="button"
           onClick={onButtonClick}
-          disabled={!region}
+          disabled={!area}
         >
           探索
         </button>

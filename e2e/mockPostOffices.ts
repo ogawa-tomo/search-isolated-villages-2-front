@@ -19,7 +19,7 @@ export const mockPostOffices = async () => {
 
 const mockHokkaido1 = async () => {
   const paramsForHokkaido1 = new URLSearchParams({
-    region: "hokkaido",
+    area: "hokkaido",
     islandSetting: "exclude_islands",
     keywords: "",
     page: "1",
@@ -53,7 +53,7 @@ const mockHokkaido1 = async () => {
 
 const mockHokkaido2 = async () => {
   const paramsForHokkaido2 = new URLSearchParams({
-    region: "hokkaido",
+    area: "hokkaido",
     islandSetting: "exclude_islands",
     keywords: "",
     page: "2",
@@ -99,7 +99,7 @@ const mockAomori = async () => {
     });
   }
   const paramsForAomori = new URLSearchParams({
-    region: "aomori",
+    area: "aomori",
     islandSetting: "include_islands",
     keywords: "佐井村",
     page: "1",

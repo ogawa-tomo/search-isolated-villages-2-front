@@ -3,9 +3,11 @@
 import { Dispatch, RefObject, SetStateAction, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import VillageSearchParams from "@/types/villageSearchParams";
-import { RegionSelectBox } from "./RegionSelectBox";
+import { AreaSelectBox } from "./AreaSelectBox";
 import { IslandSettingFieldSet } from "./IslandSettingFieldSet";
 import { DetailedConditionButton } from "./DetailedConditionButton";
+import { Area } from "@/types/Area";
+import { assertAreaEnName, getAreaByEnName } from "@/lib/areas";
 
 const searchPath = (villageSearchParams: VillageSearchParams): string => {
   const params = new URLSearchParams(villageSearchParams);
@@ -13,7 +15,7 @@ const searchPath = (villageSearchParams: VillageSearchParams): string => {
 };
 
 type Props = {
-  inputRegion?: string;
+  inputArea?: Area;
   inputPopulationLowerLimit?: string;
   inputPopulationUpperLimit?: string;
   inputIslandSetting?: string;
@@ -21,7 +23,7 @@ type Props = {
 };
 
 const defaultValues = {
-  region: "",
+  area: undefined,
   populationLowerLimit: "1",
   populationUpperLimit: "10000",
   islandSetting: "exclude_islands",
@@ -29,13 +31,13 @@ const defaultValues = {
 };
 
 const VillageSearchForm = ({
-  inputRegion = defaultValues.region,
+  inputArea = defaultValues.area,
   inputPopulationLowerLimit = defaultValues.populationLowerLimit,
   inputPopulationUpperLimit = defaultValues.populationUpperLimit,
   inputIslandSetting = defaultValues.islandSetting,
   inputKeywords = defaultValues.keywords,
 }: Props) => {
-  const [region, setRegion] = useState(inputRegion);
+  const [area, setArea] = useState<Area | undefined>(inputArea);
   const [populationLowerLimit, setPopulationLowerLimit] = useState(
     inputPopulationLowerLimit,
   );
@@ -49,9 +51,10 @@ const VillageSearchForm = ({
   const router = useRouter();
 
   const onButtonClick = () => {
+    if (!area) return;
     router.push(
       searchPath({
-        region,
+        area: area.enName,
         populationLowerLimit,
         populationUpperLimit,
         islandSetting,
@@ -59,6 +62,12 @@ const VillageSearchForm = ({
         page: "1",
       }),
     );
+  };
+
+  const onAreaChange = (optionValue: string) => {
+    assertAreaEnName(optionValue);
+    const area = getAreaByEnName(optionValue);
+    setArea(area);
   };
 
   const isModified =
@@ -70,7 +79,7 @@ const VillageSearchForm = ({
   return (
     <>
       <div className="flex flex-col items-center">
-        <RegionSelectBox region={region} onChange={setRegion} />
+        <AreaSelectBox area={area} onChange={onAreaChange} />
         <div className="h-3" />
         <DetailedConditionButton
           isModified={isModified}
@@ -101,7 +110,7 @@ const VillageSearchForm = ({
           className="btn btn-primary w-64 btn-sm h-10 text-white rounded-md text-xl"
           type="button"
           onClick={onButtonClick}
-          disabled={!region}
+          disabled={!area}
         >
           探索
         </button>
