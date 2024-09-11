@@ -19,7 +19,7 @@ export const mockVillages = async () => {
 
 const mockHokkaido1 = async () => {
   const paramsForHokkaido1 = new URLSearchParams({
-    region: "hokkaido",
+    area: "hokkaido",
     populationLowerLimit: "1",
     populationUpperLimit: "10000",
     islandSetting: "exclude_islands",
@@ -55,7 +55,7 @@ const mockHokkaido1 = async () => {
 
 const mockHokkaido2 = async () => {
   const paramsForHokkaido2 = new URLSearchParams({
-    region: "hokkaido",
+    area: "hokkaido",
     populationLowerLimit: "1",
     populationUpperLimit: "10000",
     islandSetting: "exclude_islands",
@@ -103,7 +103,7 @@ const mockAomori = async () => {
     });
   }
   const paramsForAomori = new URLSearchParams({
-    region: "aomori",
+    area: "aomori",
     populationLowerLimit: "10",
     populationUpperLimit: "500",
     islandSetting: "include_islands",

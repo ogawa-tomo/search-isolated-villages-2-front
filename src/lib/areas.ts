@@ -1,3 +1,5 @@
+import { AreaEnName } from "@/types/Area";
+
 export const prefectures = [
   {
     jpName: "北海道",
@@ -238,11 +240,18 @@ export const allCountry = {
   enName: "all_country",
 } as const;
 
-export const allRegions = [...prefectures, ...regions, allCountry];
+export const areas = [...prefectures, ...regions, allCountry] as const;
 
-export const getRegionByEnName = (enName: string) => {
-  const region = allRegions.find((region) => region.enName === enName);
-  if (!region) throw new Error("地域名が不正");
+export const getAreaByEnName = (enName: AreaEnName) => {
+  const area = areas.find((area) => area.enName === enName);
 
-  return region;
+  return area;
 };
+
+export const areaEnNames = areas.map((area) => area.enName);
+
+export function assertAreaEnName(name: string): asserts name is AreaEnName {
+  if ((areaEnNames as string[]).includes(name)) return;
+
+  throw new Error("エリア名ではありません");
+}

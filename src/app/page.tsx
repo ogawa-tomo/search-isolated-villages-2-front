@@ -1,5 +1,6 @@
 import VillageList from "@/components/VillageList";
 import VillageSearchForm from "@/components/VillageSearchForm";
+import { getAreaByEnName } from "@/lib/areas";
 import logo from "@/public/top_logo.png";
 import VillageSearchParams from "@/types/villageSearchParams";
 import Image from "next/image";
@@ -35,14 +36,16 @@ export default function Page({
         ランキングで出力します。
       </p>
       <VillageSearchForm
-        inputRegion={searchParams.region}
+        inputArea={
+          searchParams.area ? getAreaByEnName(searchParams.area) : undefined
+        }
         inputPopulationLowerLimit={searchParams.populationLowerLimit}
         inputPopulationUpperLimit={searchParams.populationUpperLimit}
         inputIslandSetting={searchParams.islandSetting}
         inputKeywords={searchParams.keywords}
       />
       <div className="h-5" />
-      {searchParams.region && <VillageList {...searchParams} />}
+      {searchParams.area && <VillageList {...searchParams} />}
     </>
   );
 }

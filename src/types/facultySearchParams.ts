@@ -1,5 +1,7 @@
+import { AreaEnName } from "./Area";
+
 type FacultySearchParams = {
-  region: string;
+  area: AreaEnName | "";
   islandSetting: string;
   keywords: string;
   page: string;

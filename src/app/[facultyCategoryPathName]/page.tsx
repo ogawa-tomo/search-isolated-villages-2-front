@@ -1,5 +1,6 @@
 import FacultyList from "@/components/FacultyList";
 import FacultySearchForm from "@/components/FacultySearchForm";
+import { getAreaByEnName } from "@/lib/areas";
 import { getFacultyCategoryFromPathName } from "@/lib/facultyCategories";
 import { facultyCategoryLogo } from "@/lib/facultyCategoryLogo";
 import { FacultyCategoryPathName } from "@/types/FacultyCategory";
@@ -49,12 +50,14 @@ export default function Page({ params, searchParams }: Props) {
       </p>
       <FacultySearchForm
         facultyCategoryPathName={params.facultyCategoryPathName}
-        inputRegion={searchParams.region}
+        inputArea={
+          searchParams.area ? getAreaByEnName(searchParams.area) : undefined
+        }
         inputIslandSetting={searchParams.islandSetting}
         inputKeywords={searchParams.keywords}
       />
       <div className="h-5" />
-      {searchParams.region && (
+      {searchParams.area && (
         <FacultyList
           facultyCategoryPathName={params.facultyCategoryPathName}
           searchParams={searchParams}

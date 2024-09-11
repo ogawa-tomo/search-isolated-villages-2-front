@@ -1,5 +1,7 @@
+import { AreaEnName } from "./Area";
+
 type VillageSearchParams = {
-  region: string;
+  area: AreaEnName | "";
   populationLowerLimit: string;
   populationUpperLimit: string;
   islandSetting: string;
