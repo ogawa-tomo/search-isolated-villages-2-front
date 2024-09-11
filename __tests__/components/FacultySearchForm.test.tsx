@@ -30,12 +30,12 @@ describe("FacultySearchForm", () => {
     const button = screen.getByRole("button", { name: "探索" });
     expect(button).toBeDisabled();
 
-    const regionSelectBox = screen.getByRole("combobox");
-    await selectEvent.select(regionSelectBox, "青森県");
+    const areaSelectBox = screen.getByRole("combobox");
+    await selectEvent.select(areaSelectBox, "青森県");
     expect(button).toBeEnabled();
 
     const params = new URLSearchParams({
-      region: "aomori",
+      area: "aomori",
       islandSetting: "exclude_islands",
       keywords: "",
       page: "1",
@@ -48,8 +48,8 @@ describe("FacultySearchForm", () => {
   it("地域とオプションを選択して検索する", async () => {
     render(<FacultySearchForm facultyCategoryPathName="post_office" />);
 
-    const regionSelectBox = screen.getByRole("combobox");
-    await selectEvent.select(regionSelectBox, "青森県");
+    const areaSelectBox = screen.getByRole("combobox");
+    await selectEvent.select(areaSelectBox, "青森県");
 
     await user.click(screen.getByRole("button", { name: "詳細条件" }));
 
@@ -64,7 +64,7 @@ describe("FacultySearchForm", () => {
     await user.click(screen.getByRole("button", { name: "決定" }));
 
     const params = new URLSearchParams({
-      region: "aomori",
+      area: "aomori",
       islandSetting: "only_islands",
       keywords: "佐井村",
       page: "1",
@@ -77,8 +77,8 @@ describe("FacultySearchForm", () => {
   it("地域とオプションを選択した後、デフォルト値に戻して検索する", async () => {
     render(<FacultySearchForm facultyCategoryPathName="post_office" />);
 
-    const regionSelectBox = screen.getByRole("combobox");
-    await selectEvent.select(regionSelectBox, "青森県");
+    const areaSelectBox = screen.getByRole("combobox");
+    await selectEvent.select(areaSelectBox, "青森県");
 
     await user.click(screen.getByRole("button", { name: "詳細条件" }));
 
@@ -96,7 +96,7 @@ describe("FacultySearchForm", () => {
     await user.click(screen.getByRole("button", { name: "決定" }));
 
     const params = new URLSearchParams({
-      region: "aomori",
+      area: "aomori",
       islandSetting: "exclude_islands",
       keywords: "",
       page: "1",
@@ -110,7 +110,7 @@ describe("FacultySearchForm", () => {
     render(
       <FacultySearchForm
         facultyCategoryPathName="post_office"
-        inputRegion="aomori"
+        inputArea={{ enName: "aomori", jpName: "青森県" }}
         inputIslandSetting="only_islands"
         inputKeywords="佐井村"
       />,
@@ -130,7 +130,7 @@ describe("FacultySearchForm", () => {
     await user.click(screen.getByRole("button", { name: "決定" }));
 
     const params = new URLSearchParams({
-      region: "aomori",
+      area: "aomori",
       islandSetting: "only_islands",
       keywords: "佐井村",
       page: "1",

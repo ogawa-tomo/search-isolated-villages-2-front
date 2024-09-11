@@ -1,4 +1,4 @@
-import { PrefectureJpName } from "./Region";
+import { PrefectureJpName } from "./Area";
 
 type Faculty = {
   name: string;

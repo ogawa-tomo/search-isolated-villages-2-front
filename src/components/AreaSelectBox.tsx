@@ -1,34 +1,15 @@
-import { getRegionByEnName, prefectures, regions } from "@/lib/regions";
+import { prefectures, regions } from "@/lib/areas";
+import { Area } from "@/types/Area";
 import clsx from "clsx";
 import Select from "react-select";
 
-type RegionOption = {
-  value: string;
-  label: string;
-};
+const regionOptions = regions.map((region) => {
+  return { value: region.enName, label: region.jpName };
+});
 
-function isRegionOption(value: unknown): value is RegionOption {
-  if (typeof value !== "object" || value === null) {
-    return false;
-  }
-  const option = value as Record<keyof RegionOption, unknown>;
-  if (typeof option.value !== "string") {
-    return false;
-  }
-  return typeof option.label === "string";
-}
-
-const regionOptions: { value: string; label: string }[] = regions.map(
-  (region) => {
-    return { value: region.enName, label: region.jpName };
-  },
-);
-
-const prefOptions: { value: string; label: string }[] = prefectures.map(
-  (prefecture) => {
-    return { value: prefecture.enName, label: prefecture.jpName };
-  },
-);
+const prefOptions = prefectures.map((prefecture) => {
+  return { value: prefecture.enName, label: prefecture.jpName };
+});
 
 const groupedOptions = [
   {
@@ -46,12 +27,11 @@ const groupedOptions = [
 ];
 
 type Props = {
-  region: string;
+  area?: Area;
   onChange: (value: string) => void;
 };
 
-export const RegionSelectBox = ({ region, onChange }: Props) => {
-  const regionObj = region ? getRegionByEnName(region) : "";
+export const AreaSelectBox = ({ area, onChange }: Props) => {
   return (
     <Select
       unstyled
@@ -78,10 +58,10 @@ export const RegionSelectBox = ({ region, onChange }: Props) => {
       className="w-64 text-xl text-center"
       placeholder="地域を選択"
       defaultValue={
-        regionObj
+        area
           ? {
-              label: regionObj.jpName as string,
-              value: regionObj.enName as string,
+              label: area.jpName as string,
+              value: area.enName as string,
             }
           : null
       }
@@ -91,7 +71,7 @@ export const RegionSelectBox = ({ region, onChange }: Props) => {
         IndicatorSeparator: () => null,
       }}
       onChange={(newOption) => {
-        if (isRegionOption(newOption)) onChange(newOption.value);
+        newOption && onChange(newOption.value);
       }}
     />
   );

@@ -30,12 +30,12 @@ describe("VillageSearchForm", () => {
     const button = screen.getByRole("button", { name: "探索" });
     expect(button).toBeDisabled();
 
-    const regionSelectBox = screen.getByRole("combobox");
-    await selectEvent.select(regionSelectBox, "青森県");
+    const areaSelectBox = screen.getByRole("combobox");
+    await selectEvent.select(areaSelectBox, "青森県");
     expect(button).toBeEnabled();
 
     const params = new URLSearchParams({
-      region: "aomori",
+      area: "aomori",
       populationLowerLimit: "1",
       populationUpperLimit: "10000",
       islandSetting: "exclude_islands",
@@ -50,8 +50,8 @@ describe("VillageSearchForm", () => {
   it("地域とオプションを選択して検索する", async () => {
     render(<VillageSearchForm />);
 
-    const regionSelectBox = screen.getByRole("combobox");
-    await selectEvent.select(regionSelectBox, "青森県");
+    const areaSelectBox = screen.getByRole("combobox");
+    await selectEvent.select(areaSelectBox, "青森県");
 
     await user.click(screen.getByRole("button", { name: "詳細条件" }));
 
@@ -78,7 +78,7 @@ describe("VillageSearchForm", () => {
     await user.click(screen.getByRole("button", { name: "決定" }));
 
     const params = new URLSearchParams({
-      region: "aomori",
+      area: "aomori",
       populationLowerLimit: "200",
       populationUpperLimit: "500",
       islandSetting: "only_islands",
@@ -93,8 +93,8 @@ describe("VillageSearchForm", () => {
   it("地域とオプションを選択した後、デフォルト値に戻して検索する", async () => {
     render(<VillageSearchForm />);
 
-    const regionSelectBox = screen.getByRole("combobox");
-    await selectEvent.select(regionSelectBox, "青森県");
+    const areaSelectBox = screen.getByRole("combobox");
+    await selectEvent.select(areaSelectBox, "青森県");
 
     await user.click(screen.getByRole("button", { name: "詳細条件" }));
 
@@ -124,7 +124,7 @@ describe("VillageSearchForm", () => {
     await user.click(screen.getByRole("button", { name: "決定" }));
 
     const params = new URLSearchParams({
-      region: "aomori",
+      area: "aomori",
       populationLowerLimit: "1",
       populationUpperLimit: "10000",
       islandSetting: "exclude_islands",
@@ -139,7 +139,7 @@ describe("VillageSearchForm", () => {
   it("propsがフォームの初期値に反映されている", async () => {
     render(
       <VillageSearchForm
-        inputRegion="aomori"
+        inputArea={{ enName: "aomori", jpName: "青森県" }}
         inputPopulationLowerLimit="200"
         inputPopulationUpperLimit="500"
         inputIslandSetting="only_islands"
@@ -171,7 +171,7 @@ describe("VillageSearchForm", () => {
     await user.click(screen.getByRole("button", { name: "決定" }));
 
     const params = new URLSearchParams({
-      region: "aomori",
+      area: "aomori",
       populationLowerLimit: "200",
       populationUpperLimit: "500",
       islandSetting: "only_islands",
