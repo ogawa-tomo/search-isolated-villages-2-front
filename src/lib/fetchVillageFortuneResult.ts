@@ -1,4 +1,4 @@
-import Village from "@/types/village";
+import Village from "@/types/Village";
 
 export const fetchVillageFortuneResult = async (): Promise<Village> => {
   const res = await fetch("/api/fortune/result");

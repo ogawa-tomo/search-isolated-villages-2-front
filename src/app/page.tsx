@@ -3,7 +3,7 @@ import VillageSearchForm from "@/components/VillageSearchForm";
 import { getAreaByEnName } from "@/lib/areas";
 import { getIslandSettingByEnName } from "@/lib/islandSettings";
 import logo from "@/public/top_logo.png";
-import VillageSearchParams from "@/types/villageSearchParams";
+import VillageSearchParams from "@/types/VillageSearchParams";
 import Image from "next/image";
 
 export default function Page({

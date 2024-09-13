@@ -1,5 +1,5 @@
 import { FacultyCategoryPathName } from "@/types/FacultyCategory";
-import Faculty from "@/types/faculty";
+import Faculty from "@/types/Faculty";
 
 export const fetchFacultyFortuneResult = async (
   facultyCategoryPathName: FacultyCategoryPathName,

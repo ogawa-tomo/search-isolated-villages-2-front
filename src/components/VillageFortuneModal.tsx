@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import type Village from "@/types/village";
+import type Village from "@/types/Village";
 import { fetchVillageFortuneResult } from "@/lib/fetchVillageFortuneResult";
 import { GoogleMapLink } from "./GoogleMapLink";
 import { HorizontalSpacer } from "./Spacer";

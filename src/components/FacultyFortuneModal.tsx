@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import Faculty from "@/types/faculty";
+import Faculty from "@/types/Faculty";
 import {
   FacultyCategoryName,
   FacultyCategoryPathName,
