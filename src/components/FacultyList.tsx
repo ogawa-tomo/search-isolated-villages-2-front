@@ -1,9 +1,9 @@
 "use client";
 
-import type FacultySearchParams from "@/types/facultySearchParams";
+import type FacultySearchParams from "@/types/FacultySearchParams";
 import Pagination from "./Pagination";
 import { fetchFaculties } from "@/lib/fetchFaculties";
-import Faculty from "@/types/faculty";
+import Faculty from "@/types/Faculty";
 import { FacultyCategoryPathName } from "@/types/FacultyCategory";
 import { HorizontalSpacer } from "./Spacer";
 import { GoogleMapLink } from "./GoogleMapLink";

@@ -1,5 +1,5 @@
 import { FacultyCategoryPathName } from "@/types/FacultyCategory";
-import type FacultySearchParams from "@/types/facultySearchParams";
+import type FacultySearchParams from "@/types/FacultySearchParams";
 
 export const fetchFaculties = async ({
   facultyCategoryPathName,

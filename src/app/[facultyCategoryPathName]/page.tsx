@@ -5,7 +5,7 @@ import { getFacultyCategoryFromPathName } from "@/lib/facultyCategories";
 import { facultyCategoryLogo } from "@/lib/facultyCategoryLogo";
 import { getIslandSettingByEnName } from "@/lib/islandSettings";
 import { FacultyCategoryPathName } from "@/types/FacultyCategory";
-import FacultySearchParams from "@/types/facultySearchParams";
+import FacultySearchParams from "@/types/FacultySearchParams";
 import { Metadata } from "next";
 import Image from "next/image";
 

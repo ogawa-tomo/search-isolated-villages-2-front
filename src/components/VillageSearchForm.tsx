@@ -2,7 +2,7 @@
 
 import { Dispatch, RefObject, SetStateAction, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import VillageSearchParams from "@/types/villageSearchParams";
+import VillageSearchParams from "@/types/VillageSearchParams";
 import { AreaSelectBox } from "./AreaSelectBox";
 import { IslandSettingFieldSet } from "./IslandSettingFieldSet";
 import { DetailedConditionButton } from "./DetailedConditionButton";

@@ -1,4 +1,4 @@
-import Faculty from "@/types/faculty";
+import Faculty from "@/types/Faculty";
 
 export const getPostOffices = (number: number): Faculty[] => {
   const post_offices: Faculty[] = [];

@@ -2,7 +2,7 @@
 
 import { Dispatch, SetStateAction, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import FacultySearchParams from "@/types/facultySearchParams";
+import FacultySearchParams from "@/types/FacultySearchParams";
 import { AreaSelectBox } from "./AreaSelectBox";
 import { IslandSettingFieldSet } from "./IslandSettingFieldSet";
 import { FacultyCategoryPathName } from "@/types/FacultyCategory";
