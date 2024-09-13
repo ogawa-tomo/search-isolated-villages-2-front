@@ -4,7 +4,6 @@ import type VillageSearchParams from "@/types/villageSearchParams";
 import Pagination from "./Pagination";
 import { fetchVillages } from "@/lib/fetchVillages";
 import Village from "@/types/village";
-import { HorizontalSpacer } from "./Spacer";
 import { GoogleMapLink } from "./GoogleMapLink";
 import { PopulationDistributionMapLink } from "./PopulationDistributionMapLink";
 import { useEffect, useState } from "react";

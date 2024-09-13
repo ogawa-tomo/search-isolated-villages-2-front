@@ -142,7 +142,10 @@ describe("VillageSearchForm", () => {
         inputArea={{ enName: "aomori", jpName: "青森県" }}
         inputPopulationLowerLimit="200"
         inputPopulationUpperLimit="500"
-        inputIslandSetting="only_islands"
+        inputIslandSetting={{
+          jpName: "離島のみ",
+          enName: "only_islands",
+        }}
         inputKeywords="佐井村"
       />,
     );
