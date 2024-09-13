@@ -1,8 +1,12 @@
-import { islandSettings } from "@/lib/islandSettings";
+import {
+  assertIslandSettingEnName,
+  islandSettings,
+} from "@/lib/islandSettings";
+import { IslandSetting, IslandSettingEnName } from "@/types/IslandSetting";
 
 type Props = {
-  defaultValue: string;
-  onChange: (value: string) => void;
+  defaultValue: IslandSetting;
+  onChange: (value: IslandSettingEnName) => void;
 };
 
 export const IslandSettingFieldSet = ({ defaultValue, onChange }: Props) => {
@@ -20,8 +24,11 @@ export const IslandSettingFieldSet = ({ defaultValue, onChange }: Props) => {
               type="radio"
               className="radio radio-sm mr-2"
               value={setting.enName}
-              onChange={(e) => onChange(e.target.value)}
-              checked={setting.enName === defaultValue}
+              onChange={(e) => {
+                assertIslandSettingEnName(e.target.value);
+                onChange(e.target.value);
+              }}
+              checked={setting.enName === defaultValue.enName}
             />
             <label htmlFor={setting.enName}>{setting.jpName}</label>
           </span>

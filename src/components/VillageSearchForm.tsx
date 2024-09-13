@@ -8,6 +8,8 @@ import { IslandSettingFieldSet } from "./IslandSettingFieldSet";
 import { DetailedConditionButton } from "./DetailedConditionButton";
 import { Area } from "@/types/Area";
 import { assertAreaEnName, getAreaByEnName } from "@/lib/areas";
+import { IslandSetting } from "@/types/IslandSetting";
+import { getIslandSettingByEnName } from "@/lib/islandSettings";
 
 const searchPath = (villageSearchParams: VillageSearchParams): string => {
   const params = new URLSearchParams(villageSearchParams);
@@ -18,15 +20,24 @@ type Props = {
   inputArea?: Area;
   inputPopulationLowerLimit?: string;
   inputPopulationUpperLimit?: string;
-  inputIslandSetting?: string;
+  inputIslandSetting?: IslandSetting;
   inputKeywords?: string;
 };
 
-const defaultValues = {
+const defaultValues: {
+  area: Area | undefined;
+  populationLowerLimit: string;
+  populationUpperLimit: string;
+  islandSetting: IslandSetting;
+  keywords: string;
+} = {
   area: undefined,
   populationLowerLimit: "1",
   populationUpperLimit: "10000",
-  islandSetting: "exclude_islands",
+  islandSetting: {
+    jpName: "離島を含まない",
+    enName: "exclude_islands",
+  },
   keywords: "",
 };
 
@@ -44,7 +55,8 @@ const VillageSearchForm = ({
   const [populationUpperLimit, setPopulationUpperLimit] = useState(
     inputPopulationUpperLimit,
   );
-  const [islandSetting, setIslandSetting] = useState(inputIslandSetting);
+  const [islandSetting, setIslandSetting] =
+    useState<IslandSetting>(inputIslandSetting);
   const [keywords, setKeywords] = useState(inputKeywords);
   const modalRef = useRef<HTMLDialogElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -57,7 +69,7 @@ const VillageSearchForm = ({
         area: area.enName,
         populationLowerLimit,
         populationUpperLimit,
-        islandSetting,
+        islandSetting: islandSetting.enName,
         keywords,
         page: "1",
       }),
@@ -135,8 +147,8 @@ const DetailedConditionsModalContent = ({
   inputRef: RefObject<HTMLInputElement>;
   populationUpperLimit: string;
   setPopulationUpperLimit: Dispatch<SetStateAction<string>>;
-  islandSetting: string;
-  setIslandSetting: Dispatch<SetStateAction<string>>;
+  islandSetting: IslandSetting;
+  setIslandSetting: Dispatch<SetStateAction<IslandSetting>>;
   keywords: string;
   setKeywords: Dispatch<SetStateAction<string>>;
 }) => {
@@ -186,7 +198,9 @@ const DetailedConditionsModalContent = ({
       <div className="my-4">
         <IslandSettingFieldSet
           defaultValue={islandSetting}
-          onChange={setIslandSetting}
+          onChange={(value) =>
+            setIslandSetting(getIslandSettingByEnName(value))
+          }
         />
       </div>
       <div className="border border-dashed" />
