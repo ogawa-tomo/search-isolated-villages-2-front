@@ -1,10 +1,9 @@
 "use client";
 
-import type VillageSearchParams from "@/types/villageSearchParams";
+import type VillageSearchParams from "@/types/VillageSearchParams";
 import Pagination from "./Pagination";
 import { fetchVillages } from "@/lib/fetchVillages";
-import Village from "@/types/village";
-import { HorizontalSpacer } from "./Spacer";
+import Village from "@/types/Village";
 import { GoogleMapLink } from "./GoogleMapLink";
 import { PopulationDistributionMapLink } from "./PopulationDistributionMapLink";
 import { useEffect, useState } from "react";

@@ -2,24 +2,33 @@
 
 import { Dispatch, SetStateAction, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import FacultySearchParams from "@/types/facultySearchParams";
+import FacultySearchParams from "@/types/FacultySearchParams";
 import { AreaSelectBox } from "./AreaSelectBox";
 import { IslandSettingFieldSet } from "./IslandSettingFieldSet";
 import { FacultyCategoryPathName } from "@/types/FacultyCategory";
 import { DetailedConditionButton } from "./DetailedConditionButton";
 import { Area } from "@/types/Area";
 import { assertAreaEnName, getAreaByEnName } from "@/lib/areas";
+import { IslandSetting } from "@/types/IslandSetting";
+import { getIslandSettingByEnName } from "@/lib/islandSettings";
 
 type Props = {
   facultyCategoryPathName: FacultyCategoryPathName;
   inputArea?: Area;
-  inputIslandSetting?: string;
+  inputIslandSetting?: IslandSetting;
   inputKeywords?: string;
 };
 
-const defaultValues = {
+const defaultValues: {
+  area: Area | undefined;
+  islandSetting: IslandSetting;
+  keywords: string;
+} = {
   area: undefined,
-  islandSetting: "exclude_islands",
+  islandSetting: {
+    jpName: "離島を含まない",
+    enName: "exclude_islands",
+  },
   keywords: "",
 };
 
@@ -30,7 +39,8 @@ const FacultySearchForm = ({
   inputKeywords = defaultValues.keywords,
 }: Props) => {
   const [area, setArea] = useState(inputArea);
-  const [islandSetting, setIslandSetting] = useState(inputIslandSetting);
+  const [islandSetting, setIslandSetting] =
+    useState<IslandSetting>(inputIslandSetting);
   const [keywords, setKeywords] = useState(inputKeywords);
   const modalRef = useRef<HTMLDialogElement>(null);
   const router = useRouter();
@@ -45,7 +55,7 @@ const FacultySearchForm = ({
     router.push(
       searchPath({
         area: area.enName,
-        islandSetting,
+        islandSetting: islandSetting.enName,
         keywords,
         page: "1",
       }),
@@ -103,8 +113,8 @@ const DetailedConditionsModalContent = ({
   keywords,
   setKeywords,
 }: {
-  islandSetting: string;
-  setIslandSetting: Dispatch<SetStateAction<string>>;
+  islandSetting: IslandSetting;
+  setIslandSetting: Dispatch<SetStateAction<IslandSetting>>;
   keywords: string;
   setKeywords: Dispatch<SetStateAction<string>>;
 }) => {
@@ -120,7 +130,9 @@ const DetailedConditionsModalContent = ({
       <div className="my-4">
         <IslandSettingFieldSet
           defaultValue={islandSetting}
-          onChange={setIslandSetting}
+          onChange={(value) =>
+            setIslandSetting(getIslandSettingByEnName(value))
+          }
         />
       </div>
       <div className="border border-dashed" />

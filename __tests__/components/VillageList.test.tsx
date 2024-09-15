@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import type VillageSearchParams from "@/types/villageSearchParams";
+import type VillageSearchParams from "@/types/VillageSearchParams";
 import { getVillages } from "../fixtures/villages";
 import VillageList from "@/components/VillageList";
 import * as FetchVillagesResultFetchers from "@/lib/fetchVillages";
@@ -13,7 +13,7 @@ describe("VillageList", () => {
       area: "hokkaido",
       populationLowerLimit: "1",
       populationUpperLimit: "10000",
-      islandSetting: "離島を含まない",
+      islandSetting: "exclude_islands",
       keywords: "",
       page: "1",
     };

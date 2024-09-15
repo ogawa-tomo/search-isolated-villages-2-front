@@ -1,4 +1,4 @@
-import type Faculty from "@/types/faculty";
+import type Faculty from "@/types/Faculty";
 import {
   IWireMockRequest,
   IWireMockResponse,

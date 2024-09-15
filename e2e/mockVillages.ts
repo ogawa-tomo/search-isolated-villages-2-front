@@ -1,4 +1,4 @@
-import type Village from "@/types/village";
+import type Village from "@/types/Village";
 import {
   IWireMockRequest,
   IWireMockResponse,

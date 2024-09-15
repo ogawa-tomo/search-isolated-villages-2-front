@@ -3,8 +3,9 @@ import FacultySearchForm from "@/components/FacultySearchForm";
 import { getAreaByEnName } from "@/lib/areas";
 import { getFacultyCategoryFromPathName } from "@/lib/facultyCategories";
 import { facultyCategoryLogo } from "@/lib/facultyCategoryLogo";
+import { getIslandSettingByEnName } from "@/lib/islandSettings";
 import { FacultyCategoryPathName } from "@/types/FacultyCategory";
-import FacultySearchParams from "@/types/facultySearchParams";
+import FacultySearchParams from "@/types/FacultySearchParams";
 import { Metadata } from "next";
 import Image from "next/image";
 
@@ -53,7 +54,11 @@ export default function Page({ params, searchParams }: Props) {
         inputArea={
           searchParams.area ? getAreaByEnName(searchParams.area) : undefined
         }
-        inputIslandSetting={searchParams.islandSetting}
+        inputIslandSetting={
+          searchParams.islandSetting
+            ? getIslandSettingByEnName(searchParams.islandSetting)
+            : undefined
+        }
         inputKeywords={searchParams.keywords}
       />
       <div className="h-5" />

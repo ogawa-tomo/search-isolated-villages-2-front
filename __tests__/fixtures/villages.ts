@@ -1,4 +1,4 @@
-import Village from "@/types/village";
+import Village from "@/types/Village";
 
 export const getVillages = (number: number): Village[] => {
   const villages: Village[] = [];

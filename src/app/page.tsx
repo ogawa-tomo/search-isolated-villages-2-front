@@ -1,8 +1,9 @@
 import VillageList from "@/components/VillageList";
 import VillageSearchForm from "@/components/VillageSearchForm";
 import { getAreaByEnName } from "@/lib/areas";
+import { getIslandSettingByEnName } from "@/lib/islandSettings";
 import logo from "@/public/top_logo.png";
-import VillageSearchParams from "@/types/villageSearchParams";
+import VillageSearchParams from "@/types/VillageSearchParams";
 import Image from "next/image";
 
 export default function Page({
@@ -41,7 +42,11 @@ export default function Page({
         }
         inputPopulationLowerLimit={searchParams.populationLowerLimit}
         inputPopulationUpperLimit={searchParams.populationUpperLimit}
-        inputIslandSetting={searchParams.islandSetting}
+        inputIslandSetting={
+          searchParams.islandSetting
+            ? getIslandSettingByEnName(searchParams.islandSetting)
+            : undefined
+        }
         inputKeywords={searchParams.keywords}
       />
       <div className="h-5" />
