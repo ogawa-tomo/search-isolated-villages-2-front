@@ -35,7 +35,7 @@ export default function Page({ params }: Props) {
         alt={facultyCategoryName}
         height={200}
       />
-      <p className="text-center">
+      <p className="text-center my-4">
         今日のラッキー秘境{facultyCategoryName}を占います。
       </p>
 
