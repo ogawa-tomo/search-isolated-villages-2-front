@@ -9,7 +9,6 @@ import {
 import { getFacultyCategoryFromPathName } from "@/lib/facultyCategories";
 import { fetchFacultyFortuneResult } from "@/lib/fetchFacultyFortuneResult";
 import { GoogleMapLink } from "./GoogleMapLink";
-import { HorizontalSpacer } from "./Spacer";
 import { PopulationDistributionMapLink } from "./PopulationDistributionMapLink";
 
 const FacultyFortuneModal = ({
@@ -41,10 +40,11 @@ const FacultyFortuneModal = ({
       <div className="flex flex-col items-center">
         <dialog className="modal" ref={modalRef}>
           <div className="modal-box">
-            <p className="text-center">
+            <div className="text-center">
               今日のラッキー秘境{facultyCategory.name}は…
-            </p>
-            <div className="flex items-center min-h-40">
+            </div>
+            <div className="h-4" />
+            <div className="flex items-center min-h-44">
               <ModalContent
                 faculty={faculty}
                 facultyCategoryName={facultyCategory.name}
@@ -91,19 +91,19 @@ const ModalContent = ({ faculty, facultyCategoryName }: ModalContentProps) => {
 
   return (
     <>
-      <div className="text-center w-full">
-        <p className="font-bold text-3xl">{faculty.name}</p>
-        <p>
+      <div className="text-center w-full flex flex-col gap-4">
+        <div className="font-bold text-3xl">{faculty.name}</div>
+        <div>
           {faculty.pref} {faculty.city} {faculty.district}
-        </p>
-        <p>都会度: {faculty.urban_point}</p>
-        <p>
+        </div>
+        <div>都会度: {faculty.urban_point}</div>
+        <div>
           <GoogleMapLink href={faculty.google_map_url} />
-          <HorizontalSpacer size={8} />
+          <div className="inline-block w-2" />
           <PopulationDistributionMapLink
             href={`${process.env.NEXT_PUBLIC_VILLAGE_API_URL}${faculty.mesh_map_path}`}
           />
-        </p>
+        </div>
       </div>
     </>
   );

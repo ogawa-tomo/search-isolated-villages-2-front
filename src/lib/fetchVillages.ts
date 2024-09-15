@@ -12,7 +12,6 @@ type Response = {
 export const fetchVillages = async (
   params: VillageSearchParams,
 ): Promise<Response> => {
-  console.log("fetchVillage!");
   const query = new URLSearchParams(params);
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_VILLAGE_API_URL}/api/result?${query.toString()}`,
