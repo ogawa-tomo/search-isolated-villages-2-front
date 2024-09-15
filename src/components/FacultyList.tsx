@@ -5,7 +5,6 @@ import Pagination from "./Pagination";
 import { fetchFaculties } from "@/lib/fetchFaculties";
 import Faculty from "@/types/Faculty";
 import { FacultyCategoryPathName } from "@/types/FacultyCategory";
-import { HorizontalSpacer } from "./Spacer";
 import { GoogleMapLink } from "./GoogleMapLink";
 import { PopulationDistributionMapLink } from "./PopulationDistributionMapLink";
 import { useEffect, useState } from "react";
@@ -24,6 +23,10 @@ export const FacultyList = ({
   const [pages, setPages] = useState<number | undefined>(undefined);
   const [perPage, setPerPage] = useState<number | undefined>(undefined);
 
+  const facultyCategory = getFacultyCategoryFromPathName(
+    facultyCategoryPathName,
+  );
+
   useEffect(() => {
     setFaculties(undefined);
     fetchFaculties({ facultyCategoryPathName, params: searchParams })
@@ -40,7 +43,7 @@ export const FacultyList = ({
   if (faculties === "error") {
     return (
       <div className="text-center">
-        {getFacultyCategoryFromPathName(facultyCategoryPathName).name}
+        {facultyCategory.name}
         の取得に失敗しました
       </div>
     );
@@ -58,7 +61,7 @@ export const FacultyList = ({
     return (
       <div className="text-center">
         該当する
-        {getFacultyCategoryFromPathName(facultyCategoryPathName).name}
+        {facultyCategory.name}
         が見つかりませんでした
       </div>
     );
