@@ -5,6 +5,7 @@ import type Village from "@/types/Village";
 import { fetchVillageFortuneResult } from "@/lib/fetchVillageFortuneResult";
 import { GoogleMapLink } from "./GoogleMapLink";
 import { PopulationDistributionMapLink } from "./PopulationDistributionMapLink";
+import { Loading } from "./Loading";
 
 const VillageFortuneModal = () => {
   const [village, setVillage] = useState<Village | undefined | "error">(
@@ -60,7 +61,7 @@ const ModalContent = ({
   if (village === undefined) {
     return (
       <div className="flex justify-center w-full">
-        <span className="loading loading-spinner loading-lg text-primary"></span>
+        <Loading />
       </div>
     );
   }

@@ -1,11 +1,5 @@
-const Loading = () => {
+export const Loading = () => {
   return (
-    <>
-      <div className="flex justify-center h-96">
-        <span className="loading loading-spinner loading-lg text-primary"></span>
-      </div>
-    </>
+    <div className="loading loading-spinner loading-lg text-primary"></div>
   );
 };
-
-export default Loading;

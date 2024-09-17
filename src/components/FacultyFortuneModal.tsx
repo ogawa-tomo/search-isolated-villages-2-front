@@ -10,6 +10,7 @@ import { getFacultyCategoryFromPathName } from "@/lib/facultyCategories";
 import { fetchFacultyFortuneResult } from "@/lib/fetchFacultyFortuneResult";
 import { GoogleMapLink } from "./GoogleMapLink";
 import { PopulationDistributionMapLink } from "./PopulationDistributionMapLink";
+import { Loading } from "./Loading";
 
 const FacultyFortuneModal = ({
   facultyCategoryPathName,
@@ -84,7 +85,7 @@ const ModalContent = ({ faculty, facultyCategoryName }: ModalContentProps) => {
   if (faculty === undefined) {
     return (
       <div className="flex justify-center w-full">
-        <span className="loading loading-spinner loading-lg text-primary"></span>
+        <Loading />
       </div>
     );
   }

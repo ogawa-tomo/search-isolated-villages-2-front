@@ -7,6 +7,7 @@ import Village from "@/types/Village";
 import { GoogleMapLink } from "./GoogleMapLink";
 import { PopulationDistributionMapLink } from "./PopulationDistributionMapLink";
 import { useEffect, useState } from "react";
+import { Loading } from "./Loading";
 
 export const VillageList = (searchParams: VillageSearchParams) => {
   const [villages, setVillages] = useState<Village[] | undefined | "error">(
@@ -35,7 +36,7 @@ export const VillageList = (searchParams: VillageSearchParams) => {
   if (villages === undefined || pages === undefined || !perPage) {
     return (
       <div className="flex justify-center h-24">
-        <span className="loading loading-spinner loading-lg text-primary"></span>
+        <Loading />
       </div>
     );
   }
