@@ -9,6 +9,7 @@ import { GoogleMapLink } from "./GoogleMapLink";
 import { PopulationDistributionMapLink } from "./PopulationDistributionMapLink";
 import { useEffect, useState } from "react";
 import { getFacultyCategoryFromPathName } from "@/lib/facultyCategories";
+import { Loading } from "./Loading";
 
 export const FacultyList = ({
   facultyCategoryPathName,
@@ -52,7 +53,7 @@ export const FacultyList = ({
   if (faculties === undefined || pages === undefined || !perPage) {
     return (
       <div className="flex justify-center h-24">
-        <span className="loading loading-spinner loading-lg text-primary"></span>
+        <Loading />
       </div>
     );
   }
