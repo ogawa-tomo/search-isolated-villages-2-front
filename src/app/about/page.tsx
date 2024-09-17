@@ -1,6 +1,6 @@
 import Image from "next/image";
 import localImage from "@/public/shiiba.png";
-import { BlockMath } from "react-katex";
+import { BlockMath, InlineMath } from "react-katex";
 import "katex/dist/katex.min.css";
 import { TextLink } from "@/components/TextLink";
 import { ReactNode } from "react";
@@ -16,9 +16,16 @@ export default function Page() {
       <H1>このツールについて</H1>
 
       <H2>概要</H2>
-      <TextLink href="https" external>
-        秘境集落探索ツールを作ったので紹介する
-      </TextLink>
+      <P>
+        秘境集落もしくは秘境施設を探索し、人口分布データをもとに秘境度を評価して地域別にランキングで出力します。
+      </P>
+      <P>
+        詳しい紹介は下記のnote記事を参照。
+        <br />
+        <TextLink href="https" external>
+          秘境集落探索ツールを作ったので紹介する
+        </TextLink>
+      </P>
 
       <H2>探索方法</H2>
 
@@ -41,11 +48,34 @@ export default function Page() {
         </Annotation>
       </P>
 
-      <H3>秘境集落の定義</H3>
+      <H3>集落の秘境度の定義</H3>
       <P>
-        集落の「都会度」を以下の式で定義し、都会度が小さいほど秘境度が高いとみなす。
+        集落
+        <InlineMath math="v" />
+        の「都会度」
+        <InlineMath math="U(v)" />
+        を以下の式で定義し、都会度が小さいほど集落の秘境度が高いとみなす。
       </P>
-      <BlockMath math="都会度 = \sum_{集落外メッシュ}{人口 \over 距離^2}" />
+      <BlockMath math="U(v) = \sum_{m \notin v}{p(m) \over d(v, m)^2}" />
+      <div className="text-center">
+        <Annotation>
+          <InlineMath math="m \notin v" />: 集落
+          <InlineMath math="v" />
+          に含まれない人口メッシュ
+          <InlineMath math="m" />
+          全体の集合
+          <br />
+          <InlineMath math="p(m)" />: 人口メッシュ
+          <InlineMath math="m" />
+          の人口
+          <br />
+          <InlineMath math="d(v, m)" />: 集落
+          <InlineMath math="v" />
+          と人口メッシュ
+          <InlineMath math="m" />
+          の距離
+        </Annotation>
+      </div>
       <P>
         つまり、より近くにより多くの人口があれば都会であり、その逆であれば秘境である。
       </P>
@@ -59,11 +89,37 @@ export default function Page() {
         </Annotation>
       </P>
 
-      <H3>秘境施設の定義</H3>
+      <H3>施設の秘境度の定義</H3>
       <P>
-        施設の「都会度」を以下の式で定義し、都会度が小さいほど秘境度が高いとみなす。
+        施設
+        <InlineMath math="f" />
+        の「都会度」
+        <InlineMath math="U(f)" />
+        を以下の式で定義し、都会度が小さいほど秘境度が高いとみなす。
       </P>
-      <BlockMath math="都会度 = \sum_{施設が含まれないメッシュ}{人口 \over 距離^2}" />
+      <BlockMath math="U(f) = \sum_{m \neq m(f) }{p(m) \over d(f, m)^2}" />
+      <div className="text-center">
+        <Annotation>
+          <InlineMath math="m(f)" />: 施設
+          <InlineMath math="f" />
+          を含む人口メッシュ
+          <br />
+          <InlineMath math="m \neq m(f)" />: <InlineMath math="m(f)" />
+          を除く人口メッシュ
+          <InlineMath math="m" />
+          全体の集合
+          <br />
+          <InlineMath math="p(m)" />: 人口メッシュ
+          <InlineMath math="m" />
+          の人口
+          <br />
+          <InlineMath math="d(v, m)" />: 集落
+          <InlineMath math="v" />
+          と人口メッシュ
+          <InlineMath math="m" />
+          の距離
+        </Annotation>
+      </div>
       <P>
         <Annotation>
           ※計算セグメントを北海道・本州・四国・九州・沖縄の5つにわけ、施設の都会度はセグメント内のメッシュのみを用いて評価する。
@@ -215,7 +271,7 @@ export default function Page() {
 }
 
 const H1 = ({ children }: { children: ReactNode }) => {
-  return <h1 className="text-3xl font-bold mb-4">{children}</h1>;
+  return <h1 className="text-3xl font-bold mb-6">{children}</h1>;
 };
 
 const H2 = ({ children }: { children: ReactNode }) => {
