@@ -56,7 +56,16 @@ export const VillageList = (searchParams: VillageSearchParams) => {
         <table className="w-full border-collapse">
           <tbody>
             {villages.map((village, index) => (
-              <tr key={index} className="border border-slate-400">
+              <tr
+                key={
+                  village.pref +
+                  village.city +
+                  village.district +
+                  village.urban_point +
+                  village.google_map_url
+                }
+                className="border border-slate-400"
+              >
                 <td className="w-1/5 text-center">
                   {index + rankStart + 1}
                   <span className="text-xs">位</span>
