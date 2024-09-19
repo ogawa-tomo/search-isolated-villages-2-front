@@ -77,7 +77,17 @@ export const FacultyList = ({
         <table className="w-full border-collapse">
           <tbody>
             {faculties.map((faculty, index) => (
-              <tr key={index} className="border border-slate-400">
+              <tr
+                key={
+                  faculty.name +
+                  faculty.pref +
+                  faculty.city +
+                  faculty.district +
+                  faculty.urban_point +
+                  faculty.google_map_url
+                }
+                className="border border-slate-400"
+              >
                 <td className="w-1/5 text-center">{index + rankStart + 1}位</td>
                 <td className="p-2">
                   <FacultyCard faculty={faculty} />
