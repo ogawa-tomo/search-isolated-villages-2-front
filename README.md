@@ -2,21 +2,13 @@
 
 [秘境集落探索ツール](https://search-isolated-villages-2.herokuapp.com/)のフロントエンドを置き換えるプロジェクトです。
 
-現サービスのリポジトリはこちら
-https://github.com/ogawa-tomo/search-isolated-villages-2
+現サービスのリポジトリは[こちら](https://github.com/ogawa-tomo/search-isolated-villages-2)
 
 ## ローカル環境での動作確認
 
-このディレクトリと並列の位置に秘境集落探索ツールのバックエンドサーバーのリポジトリを clone する
+バックエンドサーバのリポジトリをcloneして立ち上げておく（[リポジトリ](https://github.com/ogawa-tomo/search-isolated-villages-2)のREADMEを参照）
 
-```
-$ cd ..
-$ git clone https://github.com/ogawa-tomo/search-isolated-villages-2.git
-```
-
-秘境集落探索ツールのバックエンドサーバーを立ち上げる（秘境集落探索ツールのバックエンドサーバーのリポジトリの README を参照）
-
-立ち上げる
+フロントエンドサーバを立ち上げる
 
 ```
 $ npm run dev
