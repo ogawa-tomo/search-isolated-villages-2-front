@@ -46,19 +46,14 @@ const Pagination = (props: PaginationProps) => {
             ...
           </PaginationListElementWrapper>
         )}
-        {page_array.map((page, index) =>
+        {page_array.map((page) =>
           page === currentPage ? (
-            <PaginationListElementWrapper type="current" key={index}>
+            <PaginationListElementWrapper type="current" key={page}>
               {page}
             </PaginationListElementWrapper>
           ) : (
-            <PaginationListElementWrapper type="link" key={index}>
-              <PageLink
-                key={index}
-                page={page}
-                path={path}
-                queryParams={queryParams}
-              >
+            <PaginationListElementWrapper type="link" key={page}>
+              <PageLink page={page} path={path} queryParams={queryParams}>
                 {page}
               </PageLink>
             </PaginationListElementWrapper>
