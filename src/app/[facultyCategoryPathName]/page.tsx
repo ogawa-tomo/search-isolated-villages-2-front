@@ -1,13 +1,17 @@
 import FacultyList from "@/components/FacultyList";
 import FacultySearchForm from "@/components/FacultySearchForm";
 import { getAreaByEnName } from "@/lib/areas";
-import { getFacultyCategoryFromPathName } from "@/lib/facultyCategories";
+import {
+  facultyCategoryPathNames,
+  getFacultyCategoryFromPathName,
+} from "@/lib/facultyCategories";
 import { facultyCategoryLogo } from "@/lib/facultyCategoryLogo";
 import { getIslandSettingByEnName } from "@/lib/islandSettings";
 import { FacultyCategoryPathName } from "@/types/FacultyCategory";
 import FacultySearchParams from "@/types/FacultySearchParams";
 import { Metadata } from "next";
 import Image from "next/image";
+import { notFound } from "next/navigation";
 
 type Props = {
   params: { facultyCategoryPathName: FacultyCategoryPathName };
@@ -15,6 +19,9 @@ type Props = {
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  if (!facultyCategoryPathNames.includes(params.facultyCategoryPathName)) {
+    notFound();
+  }
   const facultyCategoryName = getFacultyCategoryFromPathName(
     params.facultyCategoryPathName,
   ).name;
