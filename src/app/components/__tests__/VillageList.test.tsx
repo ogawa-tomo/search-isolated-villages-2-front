@@ -1,8 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import type VillageSearchParams from "@/types/VillageSearchParams";
-import { getVillages } from "../fixtures/villages";
-import VillageList from "@/components/VillageList";
+import { getVillages } from "@/fixtures/villages";
+import VillageList from "@/app/components/VillageList";
 import * as FetchVillagesResultFetchers from "@/lib/fetchVillages";
 
 jest.mock("src/lib/fetchVillages");

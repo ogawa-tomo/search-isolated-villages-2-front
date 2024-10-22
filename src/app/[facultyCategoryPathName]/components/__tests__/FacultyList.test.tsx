@@ -1,9 +1,9 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import FacultySearchParams from "@/types/FacultySearchParams";
-import { getPostOffices } from "../fixtures/post_offices";
+import { getPostOffices } from "@/fixtures/post_offices";
 import * as fetchFacultiesResultFetchers from "@/lib/fetchFaculties";
-import FacultyList from "@/components/FacultyList";
+import FacultyList from "@/app/[facultyCategoryPathName]/components/FacultyList";
 
 jest.mock("src/lib/fetchFaculties");
 

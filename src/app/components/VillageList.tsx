@@ -1,13 +1,13 @@
 "use client";
 
 import type VillageSearchParams from "@/types/VillageSearchParams";
-import Pagination from "./Pagination";
+import Pagination from "@/components/Pagination";
 import { fetchVillages } from "@/lib/fetchVillages";
 import Village from "@/types/Village";
-import { GoogleMapLink } from "./GoogleMapLink";
-import { PopulationDistributionMapLink } from "./PopulationDistributionMapLink";
+import { GoogleMapLink } from "@/components/GoogleMapLink";
+import { PopulationDistributionMapLink } from "@/components/PopulationDistributionMapLink";
 import { useEffect, useState } from "react";
-import { Loading } from "./Loading";
+import { Loading } from "@/components/Loading";
 
 export const VillageList = (searchParams: VillageSearchParams) => {
   const [villages, setVillages] = useState<Village[] | undefined | "error">(
