@@ -1,5 +1,5 @@
-import FacultyList from "@/components/FacultyList";
-import FacultySearchForm from "@/components/FacultySearchForm";
+import FacultyList from "@/app/[facultyCategoryPathName]/components/FacultyList";
+import FacultySearchForm from "@/app/[facultyCategoryPathName]/components/FacultySearchForm";
 import { getAreaByEnName } from "@/lib/areas";
 import {
   facultyCategoryPathNames,

@@ -1,15 +1,15 @@
 "use client";
 
 import type FacultySearchParams from "@/types/FacultySearchParams";
-import Pagination from "./Pagination";
+import Pagination from "@/components/Pagination";
 import { fetchFaculties } from "@/lib/fetchFaculties";
 import Faculty from "@/types/Faculty";
 import { FacultyCategoryPathName } from "@/types/FacultyCategory";
-import { GoogleMapLink } from "./GoogleMapLink";
-import { PopulationDistributionMapLink } from "./PopulationDistributionMapLink";
+import { GoogleMapLink } from "@/components/GoogleMapLink";
+import { PopulationDistributionMapLink } from "@/components/PopulationDistributionMapLink";
 import { useEffect, useState } from "react";
 import { getFacultyCategoryFromPathName } from "@/lib/facultyCategories";
-import { Loading } from "./Loading";
+import { Loading } from "@/components/Loading";
 
 export const FacultyList = ({
   facultyCategoryPathName,

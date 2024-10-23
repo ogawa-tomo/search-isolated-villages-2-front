@@ -1,4 +1,4 @@
-import FacultyFortuneModal from "@/components/FacultyFortuneModal";
+import FacultyFortuneModal from "@/app/fortune/[facultyCategoryPathName]/components/FacultyFortuneModal";
 import {
   facultyCategoryPathNames,
   getFacultyCategoryFromPathName,

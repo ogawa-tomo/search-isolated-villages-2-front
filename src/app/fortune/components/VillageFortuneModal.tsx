@@ -3,9 +3,9 @@
 import { useRef, useState } from "react";
 import type Village from "@/types/Village";
 import { fetchVillageFortuneResult } from "@/lib/fetchVillageFortuneResult";
-import { GoogleMapLink } from "./GoogleMapLink";
-import { PopulationDistributionMapLink } from "./PopulationDistributionMapLink";
-import { Loading } from "./Loading";
+import { GoogleMapLink } from "@/components/GoogleMapLink";
+import { PopulationDistributionMapLink } from "@/components/PopulationDistributionMapLink";
+import { Loading } from "@/components/Loading";
 
 const VillageFortuneModal = () => {
   const [village, setVillage] = useState<Village | undefined | "error">(
