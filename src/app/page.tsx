@@ -26,7 +26,7 @@ export default function Page({
           width={300}
         />
       </h1>
-      <p className="text-center my-4 leading-relaxed">
+      <p className="my-4 text-center leading-relaxed">
         秘境集落を探索し、人口分布データを
         <br className="sm:hidden" />
         もとに秘境度を

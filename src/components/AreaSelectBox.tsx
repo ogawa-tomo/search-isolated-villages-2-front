@@ -55,7 +55,7 @@ export const AreaSelectBox = ({ area, onChange }: Props) => {
         menuList: () => "border border-grey-400 rounded-md my-1",
       }}
       instanceId="selectbox"
-      className="w-64 text-xl text-center"
+      className="w-64 text-center text-xl"
       placeholder="地域を選択"
       defaultValue={
         area

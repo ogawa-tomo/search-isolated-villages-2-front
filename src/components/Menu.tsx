@@ -9,13 +9,13 @@ import { IoIosArrowUp } from "react-icons/io";
 export const Menu = ({ onClick }: { onClick?: () => void }) => {
   return (
     <aside>
-      <ul className="w-56 px-2 flex flex-col gap-2">
+      <ul className="flex w-56 flex-col gap-2 px-2">
         <MenuListElement path="/" onClick={onClick}>
           秘境集落探索
         </MenuListElement>
         <li>
           <Accordion title="秘境施設探索">
-            <ul className="flex flex-col gap-2 w-full">
+            <ul className="flex w-full flex-col gap-2">
               {facultyCategories.map((facultyCategory) => {
                 return (
                   <MenuListElement
@@ -35,7 +35,7 @@ export const Menu = ({ onClick }: { onClick?: () => void }) => {
         </MenuListElement>
         <li>
           <Accordion title="秘境施設占い">
-            <ul className="flex flex-col gap-2 w-full">
+            <ul className="flex w-full flex-col gap-2">
               {facultyCategories.map((facultyCategory) => {
                 return (
                   <MenuListElement
@@ -73,7 +73,7 @@ const MenuListElement = ({
         href={path}
         className={clsx(
           path === usePathname() && "bg-lightened-primary-color",
-          "flex items-center h-10 p-4",
+          "flex h-10 items-center p-4",
         )}
         onClick={onClick}
       >
@@ -91,7 +91,7 @@ const Summary = ({
   isOpen: boolean;
 }) => {
   return (
-    <summary className="list-none h-10 flex items-center p-4 cursor-pointer justify-between">
+    <summary className="flex h-10 cursor-pointer list-none items-center justify-between p-4">
       <span>{children}</span>
       <span>{isOpen ? <IoIosArrowUp /> : <IoIosArrowDown />}</span>
     </summary>
@@ -115,7 +115,7 @@ const Accordion = ({
   return (
     <details onToggle={handleOnToggle}>
       <Summary isOpen={isOpen}>{title}</Summary>
-      <div className="flex my-1">
+      <div className="my-1 flex">
         <div className="ml-4 w-2 border-l-2"></div>
         {children}
       </div>
