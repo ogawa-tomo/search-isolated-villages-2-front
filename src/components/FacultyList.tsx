@@ -52,7 +52,7 @@ export const FacultyList = ({
 
   if (faculties === undefined || pages === undefined || !perPage) {
     return (
-      <div className="flex justify-center h-24">
+      <div className="flex h-24 justify-center">
         <Loading />
       </div>
     );
@@ -73,7 +73,7 @@ export const FacultyList = ({
 
   return (
     <>
-      <div className="max-w-sm mx-auto flex flex-col items-center gap-4">
+      <div className="mx-auto flex max-w-sm flex-col items-center gap-4">
         <table className="w-full border-collapse">
           <tbody>
             {faculties.map((faculty, index) => (
@@ -110,7 +110,7 @@ export const FacultyList = ({
 const FacultyCard = ({ faculty }: { faculty: Faculty }) => {
   return (
     <div className="flex flex-col gap-2">
-      <div className="font-bold text-xl">{faculty.name}</div>
+      <div className="text-xl font-bold">{faculty.name}</div>
       <div className="text-sm">
         <span>
           {faculty.pref} {faculty.city} {faculty.district}

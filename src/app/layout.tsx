@@ -24,7 +24,7 @@ export default function RootLayout({
       <body className={notoSansJP.className}>
         <div className="mx-auto max-w-5xl">
           <header>
-            <div className="flex items-center justify-between h-12">
+            <div className="flex h-12 items-center justify-between">
               <Link href="/">
                 <Image
                   src={headerLogo}
@@ -40,8 +40,8 @@ export default function RootLayout({
             <div className="hidden md:block">
               <SideMenu />
             </div>
-            <div className="py-2 px-4 md:px-8 grow">{children}</div>
-            <div className="lg:w-60 shrink-0"></div>
+            <div className="grow px-4 py-2 md:px-8">{children}</div>
+            <div className="shrink-0 lg:w-60"></div>
           </div>
         </div>
       </body>

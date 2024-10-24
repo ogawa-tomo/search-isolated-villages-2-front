@@ -11,7 +11,7 @@ type Props = {
 export const TextLink = ({ href, external = false, children }: Props) => {
   return (
     <Link
-      className="link link-primary"
+      className="link-primary link"
       href={href}
       target={external ? "_blank" : ""}
     >

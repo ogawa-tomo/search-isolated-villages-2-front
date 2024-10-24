@@ -38,7 +38,7 @@ export default function Page({ params, searchParams }: Props) {
 
   return (
     <>
-      <h1 className="text-3xl font-bold text-center mb-4">
+      <h1 className="mb-4 text-center text-3xl font-bold">
         秘境{facultyCategoryName}探索ツール
       </h1>
       <Image
@@ -47,7 +47,7 @@ export default function Page({ params, searchParams }: Props) {
         alt={facultyCategoryName}
         height={200}
       />
-      <p className="text-center my-4 leading-relaxed">
+      <p className="my-4 text-center leading-relaxed">
         秘境{facultyCategoryName}を探索し、人口分布データを
         <br className="sm:hidden" />
         もとに秘境度を

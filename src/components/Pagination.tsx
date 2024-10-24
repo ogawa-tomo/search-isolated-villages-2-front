@@ -99,11 +99,11 @@ const PaginationListElementWrapper = ({
   return (
     <li
       className={clsx(
-        "flex items-center justify-center h-12 w-10 border-2",
+        "flex h-12 w-10 items-center justify-center border-2",
         (type === "current" || type === "dots") && "cursor-default",
         type === "current" && "bg-primary text-white",
         type === "link" && "bg-white",
-        type === "dots" && "bg-white border-none",
+        type === "dots" && "border-none bg-white",
       )}
     >
       {children}
@@ -127,7 +127,7 @@ const PageLink = (props: PageLinkProps) => {
   return (
     <Link
       href={`${path}?${query.toString()}`}
-      className="grid place-items-center h-full w-full"
+      className="grid size-full place-items-center"
     >
       {children}
     </Link>
