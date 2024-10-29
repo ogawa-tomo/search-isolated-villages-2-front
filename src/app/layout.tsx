@@ -12,7 +12,10 @@ export const metadata = {
     "秘境集落を探索し、人口分布データをもとに秘境度を評価して地域別にランキングで出力します。",
 };
 
-const notoSansJP = Noto_Sans_JP({ subsets: ["latin"], weight: ["400"] });
+const notoSansJP = Noto_Sans_JP({
+  subsets: ["latin"],
+  variable: "--font-noto-sans-jp",
+});
 
 export default function RootLayout({
   children,
@@ -20,8 +23,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ja" data-theme="corporate">
-      <body className={notoSansJP.className}>
+    <html lang="ja" data-theme="corporate" className={`${notoSansJP.variable}`}>
+      <body>
         <div className="mx-auto max-w-5xl">
           <header>
             <div className="flex h-12 items-center justify-between">
