@@ -8,9 +8,9 @@ import {
 } from "@/types/FacultyCategory";
 import { getFacultyCategoryFromPathName } from "@/lib/facultyCategories";
 import { fetchFacultyFortuneResult } from "@/lib/fetchFacultyFortuneResult";
-import { GoogleMapLink } from "./GoogleMapLink";
-import { PopulationDistributionMapLink } from "./PopulationDistributionMapLink";
-import { Loading } from "./Loading";
+import { GoogleMapLink } from "@/components/GoogleMapLink";
+import { PopulationDistributionMapLink } from "@/components/PopulationDistributionMapLink";
+import { Loading } from "@/components/Loading";
 
 const FacultyFortuneModal = ({
   facultyCategoryPathName,

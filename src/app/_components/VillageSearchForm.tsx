@@ -3,9 +3,9 @@
 import { Dispatch, RefObject, SetStateAction, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import VillageSearchParams from "@/types/VillageSearchParams";
-import { AreaSelectBox } from "./AreaSelectBox";
-import { IslandSettingFieldSet } from "./IslandSettingFieldSet";
-import { DetailedConditionButton } from "./DetailedConditionButton";
+import { AreaSelectBox } from "@/components/AreaSelectBox";
+import { IslandSettingFieldSet } from "@/components/IslandSettingFieldSet";
+import { DetailedConditionButton } from "@/components/DetailedConditionButton";
 import { Area } from "@/types/Area";
 import { assertAreaEnName, getAreaByEnName } from "@/lib/areas";
 import { IslandSetting } from "@/types/IslandSetting";

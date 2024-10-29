@@ -3,10 +3,10 @@
 import { Dispatch, SetStateAction, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import FacultySearchParams from "@/types/FacultySearchParams";
-import { AreaSelectBox } from "./AreaSelectBox";
-import { IslandSettingFieldSet } from "./IslandSettingFieldSet";
+import { AreaSelectBox } from "@/components/AreaSelectBox";
+import { IslandSettingFieldSet } from "@/components/IslandSettingFieldSet";
 import { FacultyCategoryPathName } from "@/types/FacultyCategory";
-import { DetailedConditionButton } from "./DetailedConditionButton";
+import { DetailedConditionButton } from "../../../components/DetailedConditionButton";
 import { Area } from "@/types/Area";
 import { assertAreaEnName, getAreaByEnName } from "@/lib/areas";
 import { IslandSetting } from "@/types/IslandSetting";

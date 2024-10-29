@@ -1,8 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
-import { village } from "../fixtures/villages";
-import VillageFortuneModal from "@/components/VillageFortuneModal";
+import { village } from "@/fixtures/villages";
+import VillageFortuneModal from "@/app/fortune/_components/VillageFortuneModal";
 import * as VillageFortuneResultFetchers from "@/lib/fetchVillageFortuneResult";
 
 const user = userEvent.setup();

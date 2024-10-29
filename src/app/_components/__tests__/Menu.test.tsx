@@ -1,7 +1,7 @@
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
-import { Menu } from "@/components/Menu";
+import { Menu } from "@/app/_components/Menu";
 import { facultyCategories } from "@/lib/facultyCategories";
 
 const user = userEvent.setup();
