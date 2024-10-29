@@ -1,6 +1,6 @@
 "use client";
 
-import { Menu } from "@/app/components/Menu";
+import { Menu } from "@/app/_components/Menu";
 
 export const SideMenu = () => {
   return (

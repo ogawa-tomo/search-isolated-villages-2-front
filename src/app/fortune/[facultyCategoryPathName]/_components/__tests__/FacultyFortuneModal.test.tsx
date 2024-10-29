@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
-import FacultyFortuneModal from "@/app/fortune/[facultyCategoryPathName]/components/FacultyFortuneModal";
+import FacultyFortuneModal from "@/app/fortune/[facultyCategoryPathName]/_components/FacultyFortuneModal";
 import * as FacultyFortuneResultFetchers from "@/lib/fetchFacultyFortuneResult";
 import { postOffice } from "@/fixtures/post_offices";
 

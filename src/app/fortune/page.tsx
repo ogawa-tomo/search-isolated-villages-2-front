@@ -1,4 +1,4 @@
-import VillageFortuneModal from "@/app/fortune/components/VillageFortuneModal";
+import VillageFortuneModal from "@/app/fortune/_components/VillageFortuneModal";
 import Image from "next/image";
 import logo from "@/public/village.png";
 

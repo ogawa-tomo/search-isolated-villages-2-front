@@ -2,7 +2,7 @@
 
 import classNames from "classnames";
 import { useState } from "react";
-import { Menu } from "@/app/components/Menu";
+import { Menu } from "@/app/_components/Menu";
 
 export const HeaderMenu = () => {
   const [show, setShow] = useState(false);

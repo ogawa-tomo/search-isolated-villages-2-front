@@ -1,6 +1,6 @@
 import "./globals.css";
-import { HeaderMenu } from "@/app/components/HeaderMenu";
-import { SideMenu } from "@/app/components/SideMenu";
+import { HeaderMenu } from "@/app/_components/HeaderMenu";
+import { SideMenu } from "@/app/_components/SideMenu";
 import Image from "next/image";
 import headerLogo from "@/public/header_logo.png";
 import { Noto_Sans_JP } from "next/font/google";

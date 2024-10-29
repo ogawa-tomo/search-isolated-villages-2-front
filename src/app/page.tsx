@@ -1,5 +1,5 @@
-import VillageList from "@/app/components/VillageList";
-import VillageSearchForm from "@/app/components/VillageSearchForm";
+import VillageList from "@/app/_components/VillageList";
+import VillageSearchForm from "@/app/_components/VillageSearchForm";
 import { getAreaByEnName } from "@/lib/areas";
 import { getIslandSettingByEnName } from "@/lib/islandSettings";
 import logo from "@/public/top_logo.png";
