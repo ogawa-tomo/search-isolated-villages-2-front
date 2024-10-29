@@ -26,12 +26,8 @@ export default function Page({
           width={300}
         />
       </h1>
-      <p className="text-center my-4 leading-relaxed">
-        秘境集落を探索し、人口分布データを
-        <br className="sm:hidden" />
-        もとに秘境度を
-        <br className="hidden sm:block" />
-        評価して地域別に
+      <p className="mx-auto my-4 w-[280px] text-center leading-relaxed sm:w-[390px]">
+        秘境集落を探索し、人口分布データをもとに秘境度を評価して地域別に
         <br className="sm:hidden" />
         ランキングで出力します。
       </p>

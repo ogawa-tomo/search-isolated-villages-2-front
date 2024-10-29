@@ -4,6 +4,9 @@ const primaryColor = "#009250";
 const lightenedPrimaryColor = "#C6EDDB";
 const paginationColor = "#91DBB9";
 export const theme = {
+  fontFamily: {
+    sans: ["var(--font-noto-sans-jp)"],
+  },
   extend: {
     colors: {
       "primary-color": primaryColor,

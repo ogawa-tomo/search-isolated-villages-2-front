@@ -45,7 +45,7 @@ const FacultyFortuneModal = ({
               今日のラッキー秘境{facultyCategory.name}は…
             </div>
             <div className="h-4" />
-            <div className="flex items-center min-h-44">
+            <div className="flex min-h-44 items-center">
               <ModalContent
                 faculty={faculty}
                 facultyCategoryName={facultyCategory.name}
@@ -57,7 +57,7 @@ const FacultyFortuneModal = ({
           </form>
         </dialog>
         <button
-          className="btn btn-primary w-64 btn-sm h-10 text-white rounded-md text-xl my-0.5"
+          className="btn btn-primary btn-sm my-0.5 h-10 w-64 rounded-md text-xl text-white"
           type="button"
           onClick={handleClick}
         >
@@ -76,7 +76,7 @@ type ModalContentProps = {
 const ModalContent = ({ faculty, facultyCategoryName }: ModalContentProps) => {
   if (faculty === "error") {
     return (
-      <div className="text-center w-full">
+      <div className="w-full text-center">
         {facultyCategoryName}の取得に失敗しました
       </div>
     );
@@ -84,7 +84,7 @@ const ModalContent = ({ faculty, facultyCategoryName }: ModalContentProps) => {
 
   if (faculty === undefined) {
     return (
-      <div className="flex justify-center w-full">
+      <div className="flex w-full justify-center">
         <Loading />
       </div>
     );
@@ -92,8 +92,8 @@ const ModalContent = ({ faculty, facultyCategoryName }: ModalContentProps) => {
 
   return (
     <>
-      <div className="text-center w-full flex flex-col gap-4">
-        <div className="font-bold text-3xl">{faculty.name}</div>
+      <div className="flex w-full flex-col gap-4 text-center">
+        <div className="text-3xl font-bold">{faculty.name}</div>
         <div>
           {faculty.pref} {faculty.city} {faculty.district}
         </div>

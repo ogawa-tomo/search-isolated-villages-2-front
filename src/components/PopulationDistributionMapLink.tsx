@@ -8,7 +8,7 @@ export const PopulationDistributionMapLink = ({ href }: { href: string }) => {
     <Link
       href={href}
       target="_blank"
-      className="inline-block rounded-lg border text-primary-color bg-white border-primary-color hover:bg-lightened-primary-color"
+      className="inline-block rounded-lg border border-primary-color bg-white text-primary-color hover:bg-lightened-primary-color"
     >
       <div className="p-1">
         <PiMapTrifold className="inline align-baseline" />
