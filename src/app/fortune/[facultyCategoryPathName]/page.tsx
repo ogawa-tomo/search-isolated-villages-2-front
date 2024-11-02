@@ -41,6 +41,7 @@ export default function Page({ params }: Props) {
         src={facultyCategoryLogo(facultyCategoryName)}
         alt={facultyCategoryName}
         height={200}
+        priority
       />
       <p className="my-4 text-center">
         今日のラッキー秘境{facultyCategoryName}を占います。

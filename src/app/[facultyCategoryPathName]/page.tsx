@@ -46,6 +46,7 @@ export default function Page({ params, searchParams }: Props) {
         src={facultyCategoryLogo(facultyCategoryName)}
         alt={facultyCategoryName}
         height={200}
+        priority
       />
       <p className="my-4 text-center leading-relaxed">
         秘境{facultyCategoryName}を探索し、人口分布データを
