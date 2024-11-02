@@ -19,6 +19,7 @@ export default function Page({
           src={logo}
           alt="秘境集落探索ツール"
           width={300}
+          priority
         />
       </h1>
       <p className="mx-auto my-4 w-[280px] text-center leading-relaxed sm:w-[390px]">
