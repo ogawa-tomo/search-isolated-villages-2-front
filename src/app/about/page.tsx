@@ -238,28 +238,27 @@ export default function Page() {
       </P>
 
       <H2>ソースコード</H2>
-      <P>
-        <UL>
-          <li>
-            フロントエンド：
-            <TextLink
-              href="https://github.com/ogawa-tomo/search-isolated-villages-2-front"
-              external
-            >
-              https://github.com/ogawa-tomo/search-isolated-villages-2-front
-            </TextLink>
-          </li>
-          <li>
-            バックエンド：
-            <TextLink
-              href="https://github.com/ogawa-tomo/search-isolated-villages-2"
-              external
-            >
-              https://github.com/ogawa-tomo/search-isolated-villages-2
-            </TextLink>
-          </li>
-        </UL>
-      </P>
+      <UL>
+        <li>
+          フロントエンド：
+          <TextLink
+            href="https://github.com/ogawa-tomo/search-isolated-villages-2-front"
+            external
+          >
+            https://github.com/ogawa-tomo/search-isolated-villages-2-front
+          </TextLink>
+        </li>
+        <li>
+          バックエンド：
+          <TextLink
+            href="https://github.com/ogawa-tomo/search-isolated-villages-2"
+            external
+          >
+            https://github.com/ogawa-tomo/search-isolated-villages-2
+          </TextLink>
+        </li>
+      </UL>
+
       <H2>作者</H2>
       <P>
         <TextLink href="https://twitter.com/otomo6sm" external>
