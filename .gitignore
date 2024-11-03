@@ -38,3 +38,5 @@ yarn-error.log*
 /playwright/.cache/
 
 tsconfig.tsbuildinfo
+
+certificates
