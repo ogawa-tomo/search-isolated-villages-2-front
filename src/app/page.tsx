@@ -1,5 +1,5 @@
-import VillageList from "@/components/VillageList";
-import VillageSearchForm from "@/components/VillageSearchForm";
+import VillageList from "@/app/_components/VillageList";
+import VillageSearchForm from "@/app/_components/VillageSearchForm";
 import { getAreaByEnName } from "@/lib/areas";
 import { getIslandSettingByEnName } from "@/lib/islandSettings";
 import logo from "@/public/top_logo.png";
@@ -11,11 +11,6 @@ export default function Page({
 }: {
   searchParams: VillageSearchParams;
 }) {
-  // herokuのサーバーをスリープ状態から起こすためにリクエストを投げる
-  fetch(process.env.NEXT_PUBLIC_VILLAGE_API_URL ?? "", {
-    next: { revalidate: 3600 },
-  });
-
   return (
     <>
       <h1>
@@ -24,15 +19,11 @@ export default function Page({
           src={logo}
           alt="秘境集落探索ツール"
           width={300}
-          height={300}
+          priority
         />
       </h1>
-      <p className="text-center my-4 leading-relaxed">
-        秘境集落を探索し、人口分布データを
-        <br className="sm:hidden" />
-        もとに秘境度を
-        <br className="hidden sm:block" />
-        評価して地域別に
+      <p className="mx-auto my-4 w-[280px] text-center leading-relaxed sm:w-[390px]">
+        秘境集落を探索し、人口分布データをもとに秘境度を評価して地域別に
         <br className="sm:hidden" />
         ランキングで出力します。
       </p>

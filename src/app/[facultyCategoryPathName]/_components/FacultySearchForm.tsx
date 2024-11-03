@@ -3,10 +3,10 @@
 import { Dispatch, SetStateAction, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import FacultySearchParams from "@/types/FacultySearchParams";
-import { AreaSelectBox } from "./AreaSelectBox";
-import { IslandSettingFieldSet } from "./IslandSettingFieldSet";
+import { AreaSelectBox } from "@/components/AreaSelectBox";
+import { IslandSettingFieldSet } from "@/components/IslandSettingFieldSet";
 import { FacultyCategoryPathName } from "@/types/FacultyCategory";
-import { DetailedConditionButton } from "./DetailedConditionButton";
+import { DetailedConditionButton } from "../../../components/DetailedConditionButton";
 import { Area } from "@/types/Area";
 import { assertAreaEnName, getAreaByEnName } from "@/lib/areas";
 import { IslandSetting } from "@/types/IslandSetting";
@@ -95,7 +95,7 @@ const FacultySearchForm = ({
         </dialog>
         <div className="h-3" />
         <button
-          className="btn btn-primary w-64 btn-sm h-10 text-white rounded-md text-xl"
+          className="btn btn-primary btn-sm h-10 w-64 rounded-md text-xl text-white"
           type="button"
           onClick={onButtonClick}
           disabled={!area}
@@ -125,7 +125,7 @@ const DetailedConditionsModalContent = ({
 
   return (
     <>
-      <div className="text-2xl font-bold pb-2 border-b-2 my-4">詳細条件</div>
+      <div className="my-4 border-b-2 pb-2 text-2xl font-bold">詳細条件</div>
 
       <div className="my-4">
         <IslandSettingFieldSet
@@ -153,7 +153,7 @@ const DetailedConditionsModalContent = ({
       <div className="flex justify-between">
         <div className="modal-action">
           <form method="dialog">
-            <button className="bg-primary-color w-32 h-10 text-white rounded">
+            <button className="h-10 w-32 rounded bg-primary-color text-white">
               決定
             </button>
           </form>

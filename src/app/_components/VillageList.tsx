@@ -1,13 +1,13 @@
 "use client";
 
 import type VillageSearchParams from "@/types/VillageSearchParams";
-import Pagination from "./Pagination";
+import Pagination from "@/components/Pagination";
 import { fetchVillages } from "@/lib/fetchVillages";
 import Village from "@/types/Village";
-import { GoogleMapLink } from "./GoogleMapLink";
-import { PopulationDistributionMapLink } from "./PopulationDistributionMapLink";
+import { GoogleMapLink } from "@/components/GoogleMapLink";
+import { PopulationDistributionMapLink } from "@/components/PopulationDistributionMapLink";
 import { useEffect, useState } from "react";
-import { Loading } from "./Loading";
+import { Loading } from "@/components/Loading";
 
 export const VillageList = (searchParams: VillageSearchParams) => {
   const [villages, setVillages] = useState<Village[] | undefined | "error">(
@@ -35,7 +35,7 @@ export const VillageList = (searchParams: VillageSearchParams) => {
 
   if (villages === undefined || pages === undefined || !perPage) {
     return (
-      <div className="flex justify-center h-24">
+      <div className="flex h-24 justify-center">
         <Loading />
       </div>
     );
@@ -52,7 +52,7 @@ export const VillageList = (searchParams: VillageSearchParams) => {
 
   return (
     <>
-      <div className="max-w-sm mx-auto flex flex-col items-center gap-4">
+      <div className="mx-auto flex max-w-sm flex-col items-center gap-4">
         <table className="w-full border-collapse">
           <tbody>
             {villages.map((village, index) => (
@@ -91,7 +91,7 @@ export const VillageList = (searchParams: VillageSearchParams) => {
 const VillageCard = ({ village }: { village: Village }) => {
   return (
     <div className="flex flex-col gap-2">
-      <div className="font-bold text-xl">
+      <div className="text-xl font-bold">
         {village.pref} {village.city} {village.district}
       </div>
       <div className="text-sm">

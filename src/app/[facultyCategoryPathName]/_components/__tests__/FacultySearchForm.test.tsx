@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 import selectEvent from "react-select-event";
-import FacultySearchForm from "@/components/FacultySearchForm";
+import FacultySearchForm from "@/app/[facultyCategoryPathName]/_components/FacultySearchForm";
 
 const user = userEvent.setup();
 

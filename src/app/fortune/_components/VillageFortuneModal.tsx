@@ -3,9 +3,9 @@
 import { useRef, useState } from "react";
 import type Village from "@/types/Village";
 import { fetchVillageFortuneResult } from "@/lib/fetchVillageFortuneResult";
-import { GoogleMapLink } from "./GoogleMapLink";
-import { PopulationDistributionMapLink } from "./PopulationDistributionMapLink";
-import { Loading } from "./Loading";
+import { GoogleMapLink } from "@/components/GoogleMapLink";
+import { PopulationDistributionMapLink } from "@/components/PopulationDistributionMapLink";
+import { Loading } from "@/components/Loading";
 
 const VillageFortuneModal = () => {
   const [village, setVillage] = useState<Village | undefined | "error">(
@@ -29,7 +29,7 @@ const VillageFortuneModal = () => {
         <dialog className="modal" ref={modalRef}>
           <div className="modal-box">
             <div className="text-center">今日のラッキー秘境集落は…</div>
-            <div className="flex items-center min-h-40">
+            <div className="flex min-h-40 items-center">
               <ModalContent village={village} />
             </div>
           </div>
@@ -38,7 +38,7 @@ const VillageFortuneModal = () => {
           </form>
         </dialog>
         <button
-          className="btn btn-primary w-64 btn-sm h-10 text-white rounded-md text-xl my-0.5"
+          className="btn btn-primary btn-sm my-0.5 h-10 w-64 rounded-md text-xl text-white"
           type="button"
           onClick={handleClick}
         >
@@ -55,12 +55,12 @@ const ModalContent = ({
   village: Village | undefined | "error";
 }) => {
   if (village === "error") {
-    return <div className="text-center w-full">集落の取得に失敗しました</div>;
+    return <div className="w-full text-center">集落の取得に失敗しました</div>;
   }
 
   if (village === undefined) {
     return (
-      <div className="flex justify-center w-full">
+      <div className="flex w-full justify-center">
         <Loading />
       </div>
     );
@@ -68,8 +68,8 @@ const ModalContent = ({
 
   return (
     <>
-      <div className="text-center w-full flex flex-col gap-4">
-        <div className="font-bold text-3xl">
+      <div className="flex w-full flex-col gap-4 text-center">
+        <div className="text-3xl font-bold">
           {village.pref} {village.city} {village.district}
         </div>
         <div>

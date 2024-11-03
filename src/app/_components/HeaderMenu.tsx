@@ -2,7 +2,7 @@
 
 import classNames from "classnames";
 import { useState } from "react";
-import { Menu } from "./Menu";
+import { Menu } from "@/app/_components/Menu";
 
 export const HeaderMenu = () => {
   const [show, setShow] = useState(false);
@@ -10,15 +10,15 @@ export const HeaderMenu = () => {
   return (
     <>
       <button
-        className="md:hidden btn btn-square btn-ghost fixed top-0 right-0"
+        className="btn btn-square btn-ghost fixed right-0 top-0 md:hidden"
         onClick={() => setShow(!show)}
       >
-        <div className="p-2 rounded bg-white border border-neutral-600">
+        <div className="rounded border border-neutral-600 bg-white p-2">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
-            className="grid place-items-center w-5 h-5 stroke-current"
+            className="grid size-5 place-items-center stroke-current"
           >
             <path
               strokeLinecap="round"

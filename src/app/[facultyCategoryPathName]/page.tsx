@@ -1,13 +1,17 @@
-import FacultyList from "@/components/FacultyList";
-import FacultySearchForm from "@/components/FacultySearchForm";
+import FacultyList from "@/app/[facultyCategoryPathName]/_components/FacultyList";
+import FacultySearchForm from "@/app/[facultyCategoryPathName]/_components/FacultySearchForm";
 import { getAreaByEnName } from "@/lib/areas";
-import { getFacultyCategoryFromPathName } from "@/lib/facultyCategories";
+import {
+  facultyCategoryPathNames,
+  getFacultyCategoryFromPathName,
+} from "@/lib/facultyCategories";
 import { facultyCategoryLogo } from "@/lib/facultyCategoryLogo";
 import { getIslandSettingByEnName } from "@/lib/islandSettings";
 import { FacultyCategoryPathName } from "@/types/FacultyCategory";
 import FacultySearchParams from "@/types/FacultySearchParams";
 import { Metadata } from "next";
 import Image from "next/image";
+import { notFound } from "next/navigation";
 
 type Props = {
   params: { facultyCategoryPathName: FacultyCategoryPathName };
@@ -15,6 +19,9 @@ type Props = {
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  if (!facultyCategoryPathNames.includes(params.facultyCategoryPathName)) {
+    notFound();
+  }
   const facultyCategoryName = getFacultyCategoryFromPathName(
     params.facultyCategoryPathName,
   ).name;
@@ -31,7 +38,7 @@ export default function Page({ params, searchParams }: Props) {
 
   return (
     <>
-      <h1 className="text-3xl font-bold text-center mb-4">
+      <h1 className="mb-4 text-center text-3xl font-bold">
         秘境{facultyCategoryName}探索ツール
       </h1>
       <Image
@@ -39,8 +46,9 @@ export default function Page({ params, searchParams }: Props) {
         src={facultyCategoryLogo(facultyCategoryName)}
         alt={facultyCategoryName}
         height={200}
+        priority
       />
-      <p className="text-center my-4 leading-relaxed">
+      <p className="my-4 text-center leading-relaxed">
         秘境{facultyCategoryName}を探索し、人口分布データを
         <br className="sm:hidden" />
         もとに秘境度を

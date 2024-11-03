@@ -1,11 +1,10 @@
-name: Run Test
+name: Component Test
 
 on: [push]
 
 jobs:
   test:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js
@@ -14,8 +13,6 @@ jobs:
           node-version: "20.x"
           cache: "npm"
       - run: npm ci
+      - run: npm run typecheck
+      - run: npm run build
       - run: npm test
-      - run: docker compose up -d
-      - run: npx playwright install
-      - run: npx playwright install --with-deps
-      - run: npx playwright test

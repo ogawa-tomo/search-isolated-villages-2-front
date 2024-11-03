@@ -238,28 +238,27 @@ export default function Page() {
       </P>
 
       <H2>ソースコード</H2>
-      <P>
-        <UL>
-          <li>
-            フロントエンド：
-            <TextLink
-              href="https://github.com/ogawa-tomo/search-isolated-villages-2-front"
-              external
-            >
-              https://github.com/ogawa-tomo/search-isolated-villages-2-front
-            </TextLink>
-          </li>
-          <li>
-            バックエンド：
-            <TextLink
-              href="https://github.com/ogawa-tomo/search-isolated-villages-2"
-              external
-            >
-              https://github.com/ogawa-tomo/search-isolated-villages-2
-            </TextLink>
-          </li>
-        </UL>
-      </P>
+      <UL>
+        <li>
+          フロントエンド：
+          <TextLink
+            href="https://github.com/ogawa-tomo/search-isolated-villages-2-front"
+            external
+          >
+            https://github.com/ogawa-tomo/search-isolated-villages-2-front
+          </TextLink>
+        </li>
+        <li>
+          バックエンド：
+          <TextLink
+            href="https://github.com/ogawa-tomo/search-isolated-villages-2"
+            external
+          >
+            https://github.com/ogawa-tomo/search-isolated-villages-2
+          </TextLink>
+        </li>
+      </UL>
+
       <H2>作者</H2>
       <P>
         <TextLink href="https://twitter.com/otomo6sm" external>
@@ -271,17 +270,17 @@ export default function Page() {
 }
 
 const H1 = ({ children }: { children: ReactNode }) => {
-  return <h1 className="text-3xl font-bold mb-6">{children}</h1>;
+  return <h1 className="mb-6 text-3xl font-bold">{children}</h1>;
 };
 
 const H2 = ({ children }: { children: ReactNode }) => {
   return (
-    <h2 className="text-2xl font-bold pb-2 border-b-2 my-4">{children}</h2>
+    <h2 className="my-4 border-b-2 pb-2 text-2xl font-bold">{children}</h2>
   );
 };
 
 const H3 = ({ children }: { children: ReactNode }) => {
-  return <h3 className="text-xl font-bold my-4">{children}</h3>;
+  return <h3 className="my-4 text-xl font-bold">{children}</h3>;
 };
 
 const P = ({ children }: { children: ReactNode }) => {
@@ -294,7 +293,7 @@ const Annotation = ({ children }: { children: ReactNode }) => {
 
 const UL = ({ children }: { children: ReactNode }) => {
   return (
-    <ul className="list-disc list-outside ml-5 my-4 leading-relaxed">
+    <ul className="my-4 ml-5 list-outside list-disc leading-relaxed">
       {children}
     </ul>
   );
