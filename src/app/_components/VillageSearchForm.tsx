@@ -85,7 +85,7 @@ const VillageSearchForm = ({
   const isModified =
     populationLowerLimit !== defaultValues.populationLowerLimit ||
     populationUpperLimit !== defaultValues.populationUpperLimit ||
-    islandSetting !== defaultValues.islandSetting ||
+    islandSetting.enName !== defaultValues.islandSetting.enName ||
     keywords !== defaultValues.keywords;
 
   return (
