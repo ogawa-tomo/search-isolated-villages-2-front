@@ -5,6 +5,7 @@ import Image from "next/image";
 import headerLogo from "@/public/header_logo.png";
 import { Noto_Sans_JP } from "next/font/google";
 import Link from "next/link";
+import { Analytics } from "@vercel/analytics/react";
 
 export const metadata = {
   title: "秘境集落探索ツール",
@@ -47,6 +48,7 @@ export default function RootLayout({
             <div className="shrink-0 lg:w-60"></div>
           </div>
         </div>
+        <Analytics />
       </body>
     </html>
   );
