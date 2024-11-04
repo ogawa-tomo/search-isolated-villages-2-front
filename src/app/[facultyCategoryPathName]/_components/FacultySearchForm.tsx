@@ -69,7 +69,7 @@ const FacultySearchForm = ({
   };
 
   const isModified =
-    islandSetting !== defaultValues.islandSetting ||
+    islandSetting.enName !== defaultValues.islandSetting.enName ||
     keywords !== defaultValues.keywords;
 
   return (
