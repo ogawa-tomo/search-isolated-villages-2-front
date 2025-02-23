@@ -30,7 +30,7 @@ export const Menu = ({ onClick }: { onClick?: () => void }) => {
             </ul>
           </Accordion>
         </li>
-        <MenuListElement path="/fortune" onClick={onClick}>
+        {/* <MenuListElement path="/fortune" onClick={onClick}>
           秘境集落占い
         </MenuListElement>
         <li>
@@ -49,7 +49,7 @@ export const Menu = ({ onClick }: { onClick?: () => void }) => {
               })}
             </ul>
           </Accordion>
-        </li>
+        </li> */}
         <MenuListElement path="/about" onClick={onClick}>
           このツールについて
         </MenuListElement>
