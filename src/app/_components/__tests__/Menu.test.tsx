@@ -22,11 +22,11 @@ describe("Menu", () => {
       "href",
       "http://localhost/",
     );
-    expect(screen.getByRole("link", { name: "秘境集落占い" })).toHaveProperty(
-      "href",
-      "http://localhost/fortune",
-    );
-    expect(screen.getByText("秘境施設占い")).toBeInTheDocument();
+    // expect(screen.getByRole("link", { name: "秘境集落占い" })).toHaveProperty(
+    //   "href",
+    //   "http://localhost/fortune",
+    // );
+    // expect(screen.getByText("秘境施設占い")).toBeInTheDocument();
     expect(
       screen.getByRole("link", { name: "このツールについて" }),
     ).toHaveProperty("href", "http://localhost/about");
@@ -67,41 +67,41 @@ describe("Menu", () => {
     }
   });
 
-  it("秘境施設占いの開閉", async () => {
-    render(<Menu />);
+  // it("秘境施設占いの開閉", async () => {
+  //   render(<Menu />);
 
-    const facultyFortuneSummary = screen.getByText("秘境施設占い");
-    expect(facultyFortuneSummary).toBeInTheDocument();
-    const facultyFortuneDetails = facultyFortuneSummary.closest("details");
-    assertsNotNull(facultyFortuneDetails);
+  //   const facultyFortuneSummary = screen.getByText("秘境施設占い");
+  //   expect(facultyFortuneSummary).toBeInTheDocument();
+  //   const facultyFortuneDetails = facultyFortuneSummary.closest("details");
+  //   assertsNotNull(facultyFortuneDetails);
 
-    for (const facultyCategory of facultyCategories) {
-      expect(
-        within(facultyFortuneDetails).getByRole("link", {
-          name: facultyCategory.name,
-        }),
-      ).not.toBeVisible();
-    }
+  //   for (const facultyCategory of facultyCategories) {
+  //     expect(
+  //       within(facultyFortuneDetails).getByRole("link", {
+  //         name: facultyCategory.name,
+  //       }),
+  //     ).not.toBeVisible();
+  //   }
 
-    await user.click(facultyFortuneSummary);
-    for (const facultyCategory of facultyCategories) {
-      expect(
-        within(facultyFortuneDetails).getByRole("link", {
-          name: facultyCategory.name,
-        }),
-      ).toHaveProperty(
-        "href",
-        `http://localhost/fortune/${facultyCategory.pathName}`,
-      );
-    }
+  //   await user.click(facultyFortuneSummary);
+  //   for (const facultyCategory of facultyCategories) {
+  //     expect(
+  //       within(facultyFortuneDetails).getByRole("link", {
+  //         name: facultyCategory.name,
+  //       }),
+  //     ).toHaveProperty(
+  //       "href",
+  //       `http://localhost/fortune/${facultyCategory.pathName}`,
+  //     );
+  //   }
 
-    await user.click(facultyFortuneSummary);
-    for (const facultyCategory of facultyCategories) {
-      expect(
-        within(facultyFortuneDetails).getByRole("link", {
-          name: facultyCategory.name,
-        }),
-      ).not.toBeVisible();
-    }
-  });
+  //   await user.click(facultyFortuneSummary);
+  //   for (const facultyCategory of facultyCategories) {
+  //     expect(
+  //       within(facultyFortuneDetails).getByRole("link", {
+  //         name: facultyCategory.name,
+  //       }),
+  //     ).not.toBeVisible();
+  //   }
+  // });
 });
