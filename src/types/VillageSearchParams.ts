@@ -10,4 +10,13 @@ type VillageSearchParams = {
   page: string;
 };
 
+export const defaultVillageSearchParams: VillageSearchParams = {
+  area: "",
+  populationLowerLimit: "1",
+  populationUpperLimit: "10000",
+  islandSetting: "exclude_islands",
+  keywords: "",
+  page: "1",
+};
+
 export default VillageSearchParams;

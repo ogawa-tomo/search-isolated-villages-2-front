@@ -28,7 +28,7 @@ export const prefectures = [
   },
   {
     jpName: "福島県",
-    enName: "hukushima",
+    enName: "fukushima",
   },
   {
     jpName: "茨城県",

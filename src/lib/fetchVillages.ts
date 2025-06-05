@@ -3,7 +3,7 @@
 import Village from "@/types/Village";
 import type VillageSearchParams from "@/types/VillageSearchParams";
 
-type Response = {
+export type FetchVillagesResponse = {
   villages: Village[];
   pages: number;
   per_page: number;
@@ -11,7 +11,7 @@ type Response = {
 
 export const fetchVillages = async (
   params: VillageSearchParams,
-): Promise<Response> => {
+): Promise<FetchVillagesResponse> => {
   const query = new URLSearchParams(params);
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_VILLAGE_API_URL}/api/result?${query.toString()}`,

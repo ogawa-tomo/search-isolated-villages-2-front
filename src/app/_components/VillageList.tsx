@@ -1,46 +1,44 @@
-"use client";
-
-import type VillageSearchParams from "@/types/VillageSearchParams";
+import { Loading } from "@/components/Loading";
 import Pagination from "@/components/Pagination";
-import { fetchVillages } from "@/lib/fetchVillages";
+import type VillageSearchParams from "@/types/VillageSearchParams";
 import Village from "@/types/Village";
 import { GoogleMapLink } from "@/components/GoogleMapLink";
 import { PopulationDistributionMapLink } from "@/components/PopulationDistributionMapLink";
-import { useEffect, useState } from "react";
-import { Loading } from "@/components/Loading";
 
-export const VillageList = (searchParams: VillageSearchParams) => {
-  const [villages, setVillages] = useState<Village[] | undefined | "error">(
-    undefined,
-  );
-  const [pages, setPages] = useState<number | undefined>(undefined);
-  const [perPage, setPerPage] = useState<number | undefined>(undefined);
+export type FetchedVillages =
+  | Village[]
+  | "beforeSearch"
+  | "searching"
+  | "error";
 
-  useEffect(() => {
-    setVillages(undefined);
-    fetchVillages(searchParams)
-      .then((result) => {
-        setVillages(result.villages);
-        setPages(result.pages);
-        setPerPage(result.per_page);
-      })
-      .catch(() => {
-        setVillages("error");
-      });
-  }, [searchParams]);
+export const VillageList = ({
+  villages,
+  setSelectedVillage,
+  searchParams,
+  pages,
+  perPage,
+}: {
+  villages: FetchedVillages;
+  setSelectedVillage: (village: Village | undefined) => void;
+  searchParams: VillageSearchParams;
+  pages: number | undefined;
+  perPage: number | undefined;
+}) => {
+  if (villages === "beforeSearch") {
+    return <div className="text-center">ここに集落が表示されます</div>;
+  }
 
   if (villages === "error") {
     return <div className="text-center">集落の取得に失敗しました</div>;
   }
 
-  if (villages === undefined || pages === undefined || !perPage) {
+  if (villages === "searching" || !pages || !perPage) {
     return (
       <div className="flex h-24 justify-center">
         <Loading />
       </div>
     );
   }
-
   if (villages.length === 0) {
     return (
       <div className="text-center">該当する集落が見つかりませんでした</div>
@@ -52,8 +50,8 @@ export const VillageList = (searchParams: VillageSearchParams) => {
 
   return (
     <>
-      <div className="mx-auto flex max-w-sm flex-col items-center gap-4">
-        <table className="w-full border-collapse">
+      <div className="mx-auto flex flex-col items-center">
+        <table className="block w-80 border-collapse p-2">
           <tbody>
             {villages.map((village, index) => (
               <tr
@@ -65,9 +63,10 @@ export const VillageList = (searchParams: VillageSearchParams) => {
                   village.google_map_url
                 }
                 className="border border-slate-400"
+                onClick={() => setSelectedVillage(village)}
               >
                 <td className="w-1/5 text-center">
-                  {index + rankStart + 1}
+                  {index + 1 + rankStart}
                   <span className="text-xs">位</span>
                 </td>
                 <td className="p-2">

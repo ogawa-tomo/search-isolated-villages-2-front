@@ -22,6 +22,7 @@ type Props = {
   inputPopulationUpperLimit?: string;
   inputIslandSetting?: IslandSetting;
   inputKeywords?: string;
+  onSearch?: () => void;
 };
 
 const defaultValues: {
@@ -47,6 +48,7 @@ const VillageSearchForm = ({
   inputPopulationUpperLimit = defaultValues.populationUpperLimit,
   inputIslandSetting = defaultValues.islandSetting,
   inputKeywords = defaultValues.keywords,
+  onSearch,
 }: Props) => {
   const [area, setArea] = useState<Area | undefined>(inputArea);
   const [populationLowerLimit, setPopulationLowerLimit] = useState(
@@ -64,6 +66,7 @@ const VillageSearchForm = ({
 
   const onButtonClick = () => {
     if (!area) return;
+    onSearch && onSearch();
     router.push(
       searchPath({
         area: area.enName,

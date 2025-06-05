@@ -37,6 +37,21 @@ $ npm run dev
 
 http://localhost:3000 にアクセス
 
+### 集落の取得に失敗したとき
+
+以下のコマンドでWSLから見たWindowsのIPを取得
+
+```
+$ ip route | grep 'default via' | grep -Eo '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'
+```
+
+それを.env.developmentに設定
+
+```
+NEXT_PUBLIC_VILLAGE_API_URL=http://172.29.128.1:5000
+
+```
+
 ## コンポーネントテスト
 
 ```

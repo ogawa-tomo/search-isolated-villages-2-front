@@ -26,8 +26,8 @@ export default function RootLayout({
   return (
     <html lang="ja" data-theme="corporate" className={`${notoSansJP.variable}`}>
       <body>
-        <div className="mx-auto max-w-5xl">
-          <header>
+        <div className="mx-auto">
+          {/* <header>
             <div className="flex h-12 items-center justify-between">
               <Link href="/">
                 <Image
@@ -39,13 +39,13 @@ export default function RootLayout({
               </Link>
               <HeaderMenu />
             </div>
-          </header>
+          </header> */}
           <div className="flex">
             <div className="hidden md:block">
               <SideMenu />
             </div>
-            <div className="grow px-4 py-2 md:px-8">{children}</div>
-            <div className="shrink-0 lg:w-60"></div>
+            <div className="w-full">{children}</div>
+            {/* <div className="shrink-0 lg:w-60"></div> */}
           </div>
         </div>
         <Analytics />
