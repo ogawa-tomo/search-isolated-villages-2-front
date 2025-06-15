@@ -7,25 +7,18 @@ import { useMediaQuery } from "react-responsive";
 import { useVillageSearchParams } from "../_hooks/VillageSearchParamsContext";
 import { useEffect } from "react";
 
-export const VillageView = ({
-  searchParams,
-}: {
-  searchParams: VillageSearchParams;
-}) => {
+export const VillageView = () => {
   const isMobile = useMediaQuery({ maxWidth: 768 });
-  const [_, setVillageSearchParams] = useVillageSearchParams();
-
-  useEffect(() => {
-    setVillageSearchParams(searchParams);
-  }, [searchParams, setVillageSearchParams]);
 
   return (
     <>
-      {isMobile ? (
-        <VillageViewMobile searchParams={searchParams} />
+      {/* 開発中のためモバイルのみ */}
+      {/* {isMobile ? (
+        <VillageViewMobile/>
       ) : (
-        <VillageViewPC searchParams={searchParams} />
-      )}
+        <VillageViewPC />
+      )} */}
+      <VillageViewMobile />
     </>
   );
 };

@@ -10,10 +10,12 @@ export const VillageSearchModal = ({
   searchParams,
   isOpen,
   onSearch,
+  onClose,
 }: {
   searchParams: VillageSearchParams;
   isOpen: boolean;
-  onSearch: () => void;
+  onSearch: (searchParams: VillageSearchParams) => void;
+  onClose: () => void;
 }) => {
   const customStyles = {
     content: {
@@ -24,7 +26,7 @@ export const VillageSearchModal = ({
   };
 
   return (
-    <Modal isOpen={isOpen} style={customStyles} onRequestClose={onSearch}>
+    <Modal isOpen={isOpen} style={customStyles} onRequestClose={onClose}>
       <ModalContent searchParams={searchParams} onSearch={onSearch} />
     </Modal>
   );
@@ -35,7 +37,7 @@ const ModalContent = ({
   onSearch,
 }: {
   searchParams: VillageSearchParams;
-  onSearch: () => void;
+  onSearch: (searchParams: VillageSearchParams) => void;
 }) => {
   return (
     <>

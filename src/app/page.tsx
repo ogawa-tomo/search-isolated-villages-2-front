@@ -1,18 +1,13 @@
 "use client";
 
 import { VillageView } from "@/app/_components/VillageView";
-import VillageSearchParams from "@/types/VillageSearchParams";
 import { VillageSearchParamsProvider } from "./_hooks/VillageSearchParamsContext";
 
-export default function Page({
-  searchParams,
-}: {
-  searchParams: VillageSearchParams;
-}) {
+export default function Page() {
   return (
     <>
       <VillageSearchParamsProvider>
-        {<VillageView searchParams={searchParams} />}
+        {<VillageView />}
       </VillageSearchParamsProvider>
     </>
   );

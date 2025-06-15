@@ -22,7 +22,7 @@ type Props = {
   inputPopulationUpperLimit?: string;
   inputIslandSetting?: IslandSetting;
   inputKeywords?: string;
-  onSearch?: () => void;
+  onSearch?: (searchParams: VillageSearchParams) => void;
 };
 
 const defaultValues: {
@@ -62,21 +62,19 @@ const VillageSearchForm = ({
   const [keywords, setKeywords] = useState(inputKeywords);
   const modalRef = useRef<HTMLDialogElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const router = useRouter();
+
+  const searchParams: VillageSearchParams = {
+    area: area?.enName ?? "",
+    populationLowerLimit,
+    populationUpperLimit,
+    islandSetting: islandSetting.enName,
+    keywords,
+    page: "1",
+  };
 
   const onButtonClick = () => {
     if (!area) return;
-    onSearch && onSearch();
-    router.push(
-      searchPath({
-        area: area.enName,
-        populationLowerLimit,
-        populationUpperLimit,
-        islandSetting: islandSetting.enName,
-        keywords,
-        page: "1",
-      }),
-    );
+    onSearch && onSearch(searchParams);
   };
 
   const onAreaChange = (optionValue: string) => {

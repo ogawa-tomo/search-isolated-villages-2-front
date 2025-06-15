@@ -21,7 +21,7 @@ export const VillageSearchParamsProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [searchParams, dispatch] = useReducer(
+  const [searchParams, setSearchParams] = useReducer(
     villageSearchParamsReducer,
     defaultVillageSearchParams,
   );
@@ -32,13 +32,19 @@ export const VillageSearchParamsProvider = ({
 
   return (
     <VillageSearchParamsContext.Provider value={searchParams}>
-      <VillageSearchParamsDispatchContext.Provider value={dispatch}>
+      <VillageSearchParamsDispatchContext.Provider value={setSearchParams}>
         <ShowVillageSearchModalContext.Provider value={showModal}>
           <ShowVillageSearchModalDispatchContext.Provider value={setShowModal}>
             <VillageSearchModal
               searchParams={searchParams}
               isOpen={showModal}
-              onSearch={() => setShowModal(false)}
+              onSearch={(searchParams) => {
+                setSearchParams(searchParams);
+                setShowModal(false);
+              }}
+              onClose={() => {
+                setShowModal(false);
+              }}
             />
             {children}
           </ShowVillageSearchModalDispatchContext.Provider>
