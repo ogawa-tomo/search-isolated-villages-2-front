@@ -29,13 +29,6 @@ export const VillageViewMobile = () => {
         <div className="size-full">
           <VillageMap villages={villages} selectedVillage={selectedVillage} />
           <BottomSheet isOpen={!showVillageSearchModal}>
-            {/* <VillageList
-              villages={villages}
-              setSelectedVillage={setSelectedVillage}
-              searchParams={searchParams}
-              pages={pages}
-              perPage={perPage}
-            /> */}
             <VillageListView
               villages={villages}
               onClickVillage={setSelectedVillage}
@@ -74,12 +67,16 @@ const VillageListView = ({
   }
 
   if (villages === "error") {
-    return <div className="text-center">集落の取得に失敗しました</div>;
+    return (
+      <div className="flex h-full items-center justify-center">
+        <div className="text-center">集落の取得に失敗しました</div>
+      </div>
+    );
   }
 
   if (villages === "searching" || !pages || !perPage) {
     return (
-      <div className="flex h-24 justify-center">
+      <div className="flex h-full items-center justify-center">
         <Loading />
       </div>
     );
@@ -89,16 +86,18 @@ const VillageListView = ({
 
   return (
     <>
-      <VillageList2
-        villages={villages}
-        rankStart={rankStart}
-        onClickVillage={onClickVillage}
-      />
-      <Pagination2
-        pages={pages ?? 1}
-        currentPage={currentPage}
-        onPageChange={onPageChange}
-      />
+      <div className="flex flex-col items-center gap-2 py-4">
+        <VillageList2
+          villages={villages}
+          rankStart={rankStart}
+          onClickVillage={onClickVillage}
+        />
+        <Pagination2
+          pages={pages ?? 1}
+          currentPage={currentPage}
+          onPageChange={onPageChange}
+        />
+      </div>
     </>
   );
 };
