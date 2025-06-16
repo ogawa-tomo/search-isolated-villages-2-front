@@ -2,11 +2,11 @@ import VillageSearchParams from "@/types/VillageSearchParams";
 import Village from "@/types/Village";
 import useSWR, { Fetcher } from "swr";
 
-export type FetchVillagesResponse = {
-  villages: Village[];
-  pages: number;
-  per_page: number;
-};
+// export type FetchVillagesResponse = {
+//   villages: Village[];
+//   pages: number;
+//   per_page: number;
+// };
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
@@ -19,12 +19,12 @@ export const useVillages2 = ({
   const url = searchParams.area
     ? `${process.env.NEXT_PUBLIC_VILLAGE_API_URL}/api/result?${query.toString()}`
     : null;
-  const { data, error, isLoading } = useSWR<FetchVillagesResponse, Error>(
+  const { data, error, isLoading } = useSWR<{ villages: Village[] }, Error>(
     url,
     fetcher,
   );
   return {
-    villageData: data,
+    villages: data?.villages,
     error,
     isLoading,
   };

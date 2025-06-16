@@ -16,6 +16,9 @@ const ShowVillageSearchModalDispatchContext = createContext<Dispatch<boolean>>(
   () => {},
 );
 
+const CurrentPageContext = createContext<number>(1);
+const CurrentPageDispatchContext = createContext<Dispatch<number>>(() => {});
+
 export const VillageSearchParamsProvider = ({
   children,
 }: {
@@ -29,24 +32,30 @@ export const VillageSearchParamsProvider = ({
     showVillageSearchModalReducer,
     true,
   );
+  const [currentPage, setCurrentPage] = useReducer(currentPageReducer, 1);
 
   return (
     <VillageSearchParamsContext.Provider value={searchParams}>
       <VillageSearchParamsDispatchContext.Provider value={setSearchParams}>
         <ShowVillageSearchModalContext.Provider value={showModal}>
           <ShowVillageSearchModalDispatchContext.Provider value={setShowModal}>
-            <VillageSearchModal
-              searchParams={searchParams}
-              isOpen={showModal}
-              onSearch={(searchParams) => {
-                setSearchParams(searchParams);
-                setShowModal(false);
-              }}
-              onClose={() => {
-                setShowModal(false);
-              }}
-            />
-            {children}
+            <CurrentPageContext.Provider value={currentPage}>
+              <CurrentPageDispatchContext.Provider value={setCurrentPage}>
+                <VillageSearchModal
+                  searchParams={searchParams}
+                  isOpen={showModal}
+                  onSearch={(searchParams) => {
+                    setSearchParams(searchParams);
+                    setShowModal(false);
+                    setCurrentPage(1);
+                  }}
+                  onClose={() => {
+                    setShowModal(false);
+                  }}
+                />
+                {children}
+              </CurrentPageDispatchContext.Provider>
+            </CurrentPageContext.Provider>
           </ShowVillageSearchModalDispatchContext.Provider>
         </ShowVillageSearchModalContext.Provider>
       </VillageSearchParamsDispatchContext.Provider>
@@ -72,6 +81,14 @@ export const useSetShowVillageSearchModal = () => {
   return useContext(ShowVillageSearchModalDispatchContext);
 };
 
+export const useCurrentPage = () => {
+  return useContext(CurrentPageContext);
+};
+
+export const useSetCurrentPage = () => {
+  return useContext(CurrentPageDispatchContext);
+};
+
 const villageSearchParamsReducer = (
   old: VillageSearchParams,
   saved: VillageSearchParams,
@@ -83,5 +100,9 @@ const villageSearchParamsReducer = (
 };
 
 const showVillageSearchModalReducer = (old: boolean, saved: boolean) => {
+  return saved;
+};
+
+const currentPageReducer = (old: number, saved: number) => {
   return saved;
 };

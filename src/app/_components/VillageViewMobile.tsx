@@ -2,6 +2,8 @@ import { VillageMap } from "./VillageMap";
 import { MobileHeader } from "@/components/MobileHeader";
 import { BottomSheet } from "./BottomSheet";
 import {
+  useCurrentPage,
+  useSetCurrentPage,
   useShowVillageSearchModal,
   useVillageSearchParams,
 } from "../_hooks/VillageSearchParamsContext";
@@ -10,18 +12,28 @@ import { VillageList2 } from "./VillageList2";
 import { Loading } from "@/components/Loading";
 import Village from "@/types/Village";
 import { useState } from "react";
-import { FetchVillagesResponse, useVillages2 } from "../_hooks/useVillages2";
+import { useVillages2 } from "../_hooks/useVillages2";
+
+const PER_PAGE = 20;
 
 export const VillageViewMobile = () => {
   const [searchParams, setSearchParams] = useVillageSearchParams();
-  const { villageData, error, isLoading } = useVillages2({
+  const { villages, error, isLoading } = useVillages2({
     searchParams,
   });
   const [selectedVillage, setSelectedVillage] = useState<Village | undefined>(
     undefined,
   );
-  const [currentPage, setCurrentPage] = useState(1);
+  const currentPage = useCurrentPage();
+  const setCurrentPage = useSetCurrentPage();
   const showVillageSearchModal = useShowVillageSearchModal();
+
+  const pages = Math.ceil((villages?.length ?? 0) / PER_PAGE);
+
+  const villagesOnPage = villages?.slice(
+    (currentPage - 1) * PER_PAGE,
+    currentPage * PER_PAGE,
+  );
 
   return (
     <>
@@ -29,19 +41,20 @@ export const VillageViewMobile = () => {
         <MobileHeader />
         <div className="size-full">
           <VillageMap
-            villages={villageData?.villages ?? []}
+            villages={villagesOnPage ?? []}
             selectedVillage={selectedVillage}
           />
           <BottomSheet isOpen={!showVillageSearchModal}>
             <VillageListView
-              villageData={villageData}
+              villages={villagesOnPage}
               error={error}
               isLoading={isLoading}
               onClickVillage={setSelectedVillage}
               currentPage={currentPage}
+              pages={pages}
               onPageChange={(page) => {
                 setCurrentPage(page);
-                setSearchParams({ ...searchParams, page: page.toString() });
+                // setSearchParams({ ...searchParams, page: page.toString() });
               }}
             />
           </BottomSheet>
@@ -52,17 +65,19 @@ export const VillageViewMobile = () => {
 };
 
 const VillageListView = ({
-  villageData,
+  villages,
   error,
   isLoading,
   currentPage,
+  pages,
   onPageChange,
   onClickVillage,
 }: {
-  villageData: FetchVillagesResponse | undefined;
+  villages: Village[] | undefined;
   error: Error | undefined;
   isLoading: boolean;
   currentPage: number;
+  pages: number;
   onPageChange: (page: number) => void;
   onClickVillage: (village: Village) => void;
 }) => {
@@ -74,7 +89,7 @@ const VillageListView = ({
     );
   }
 
-  if (isLoading || !villageData) {
+  if (isLoading || !villages) {
     return (
       <div className="flex h-full items-center justify-center">
         <Loading />
@@ -82,18 +97,18 @@ const VillageListView = ({
     );
   }
 
-  const rankStart = villageData.per_page * (currentPage - 1) + 1;
+  const rankStart = PER_PAGE * (currentPage - 1) + 1;
 
   return (
     <>
       <div className="flex flex-col items-center gap-2 py-4">
         <VillageList2
-          villages={villageData.villages}
+          villages={villages}
           rankStart={rankStart}
           onClickVillage={onClickVillage}
         />
         <Pagination2
-          pages={villageData.pages}
+          pages={pages}
           currentPage={currentPage}
           onPageChange={onPageChange}
         />
