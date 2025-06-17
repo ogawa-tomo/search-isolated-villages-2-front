@@ -23,6 +23,9 @@ export const VillageSearchModal = ({
       height: "600px",
       margin: "auto",
     },
+    overlay: {
+      zIndex: 10,
+    },
   };
 
   return (

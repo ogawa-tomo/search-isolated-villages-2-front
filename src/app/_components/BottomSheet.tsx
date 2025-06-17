@@ -15,6 +15,7 @@ export const BottomSheet = ({
       onClose={() => {}}
       snapPoints={snapPoints}
       initialSnap={1}
+      style={{ zIndex: 2 }}
     >
       <Sheet.Container>
         <Sheet.Header />
