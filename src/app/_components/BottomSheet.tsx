@@ -1,6 +1,6 @@
 import { Sheet } from "react-modal-sheet";
 
-const snapPoints = [0.9, 0.5, 0.1];
+const snapPoints = [0.9, 0.5, 0.4, 0.1];
 
 export const BottomSheet = ({
   isOpen,
@@ -14,7 +14,7 @@ export const BottomSheet = ({
       isOpen={isOpen}
       onClose={() => {}}
       snapPoints={snapPoints}
-      initialSnap={1}
+      initialSnap={2}
       style={{ zIndex: 2 }}
     >
       <Sheet.Container>
