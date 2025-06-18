@@ -77,18 +77,20 @@ const VillageViewPC = ({
   return (
     <>
       <div className="flex size-full">
-        <div className="flex h-full flex-col items-center gap-2 overflow-y-auto">
-          <VillageList2
-            villages={villagesOnPage}
-            rankStart={rankStart}
-            onClickVillage={setSelectedVillage}
-          />
-          <Pagination2
-            pages={pages}
-            currentPage={currentPage}
-            onPageChange={onPageChange}
-          />
-        </div>
+        {villagesOnPage.length > 0 && (
+          <div className="flex h-full flex-col items-center gap-2 overflow-y-auto">
+            <VillageList2
+              villages={villagesOnPage}
+              rankStart={rankStart}
+              onClickVillage={setSelectedVillage}
+            />
+            <Pagination2
+              pages={pages}
+              currentPage={currentPage}
+              onPageChange={onPageChange}
+            />
+          </div>
+        )}
         <div className="grow pt-2">
           <VillageMap
             villages={villagesOnPage ?? []}

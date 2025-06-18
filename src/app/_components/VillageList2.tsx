@@ -11,12 +11,6 @@ export const VillageList2 = ({
   rankStart: number;
   onClickVillage?: (village: Village) => void;
 }) => {
-  if (villages.length === 0) {
-    return (
-      <div className="text-center">該当する集落が見つかりませんでした</div>
-    );
-  }
-
   return (
     <>
       <table className="flex w-80 border-collapse flex-col items-center p-2">
