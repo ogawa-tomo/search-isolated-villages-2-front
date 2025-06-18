@@ -26,28 +26,7 @@ export default function RootLayout({
   return (
     <html lang="ja" data-theme="corporate" className={`${notoSansJP.variable}`}>
       <body>
-        <div className="mx-auto">
-          {/* <header>
-            <div className="flex h-12 items-center justify-between">
-              <Link href="/">
-                <Image
-                  src={headerLogo}
-                  alt="秘境集落探索ツール"
-                  height="32"
-                  className="ml-4"
-                />
-              </Link>
-              <HeaderMenu />
-            </div>
-          </header> */}
-          <div className="flex">
-            <div className="hidden md:block">
-              <SideMenu />
-            </div>
-            <div className="w-full">{children}</div>
-            {/* <div className="shrink-0 lg:w-60"></div> */}
-          </div>
-        </div>
+        {children}
         <Analytics />
       </body>
     </html>

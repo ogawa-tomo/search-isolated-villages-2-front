@@ -8,7 +8,7 @@ import VillageSearchParams, {
 } from "@/types/VillageSearchParams";
 import Village from "@/types/Village";
 import { fetchVillages } from "@/lib/fetchVillages";
-import { VillageViewMobile } from "./_components/VillageViewMobile";
+import { VillageView } from "./_components/VillageView";
 import { Loading } from "@/components/Loading";
 
 export default function Page() {
@@ -52,12 +52,16 @@ export default function Page() {
           setShowModal(false);
         }}
       />
-      <MobileHeader onClickSearch={() => setShowModal(true)} />
-      <VillageViewMobile
-        villages={villages}
-        currentPage={currentPage}
-        onPageChange={setCurrentPage}
-      />
+      <div className="flex h-screen w-screen flex-col">
+        <MobileHeader onClickSearch={() => setShowModal(true)} />
+        <div className="grow overflow-y-auto">
+          <VillageView
+            villages={villages}
+            currentPage={currentPage}
+            onPageChange={setCurrentPage}
+          />
+        </div>
+      </div>
     </>
   );
 }
