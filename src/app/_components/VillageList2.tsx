@@ -19,8 +19,8 @@ export const VillageList2 = ({
 
   return (
     <>
-      <table className="block w-80 border-collapse p-2">
-        <tbody>
+      <table className="flex w-80 border-collapse flex-col items-center p-2">
+        <tbody className="flex w-full flex-col items-center">
           {villages.map((village, index) => (
             <tr
               key={
@@ -30,14 +30,14 @@ export const VillageList2 = ({
                 village.urban_point +
                 village.google_map_url
               }
-              className="border border-slate-400"
+              className="flex w-full items-center border border-slate-400"
               onClick={() => onClickVillage?.(village)}
             >
               <td className="w-1/5 text-center">
                 {rankStart + index}
                 <span className="text-xs">位</span>
               </td>
-              <td className="p-2">
+              <td className="grow p-2">
                 <VillageCard village={village} />
               </td>
             </tr>
