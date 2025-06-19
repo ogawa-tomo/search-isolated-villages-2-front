@@ -28,7 +28,7 @@ export const HeaderMenu = () => {
       </button>
       <div
         className={classNames(
-          "md:hidden bg-white top-0 left-0 fixed h-screen z-20 transition overflow-scroll",
+          "bg-white top-0 left-0 fixed h-screen z-20 transition overflow-scroll py-2",
           {
             "-translate-x-full": !show,
           },
@@ -38,7 +38,7 @@ export const HeaderMenu = () => {
       </div>
       <div
         className={classNames(
-          "md:hidden top-0 left-0 fixed w-screen h-screen z-10 bg-white/50",
+          "top-0 left-0 fixed w-screen h-screen z-10 bg-white/50",
           {
             hidden: !show,
           },
