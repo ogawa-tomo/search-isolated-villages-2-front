@@ -5,6 +5,7 @@ import VillageSearchForm from "./VillageSearchForm";
 import { getAreaByEnName } from "@/lib/areas";
 import { getIslandSettingByEnName } from "@/lib/islandSettings";
 import Modal from "react-modal";
+import { useEffect, useRef } from "react";
 
 export const VillageSearchModal = ({
   searchParams,
@@ -17,21 +18,29 @@ export const VillageSearchModal = ({
   onSearch: (searchParams: VillageSearchParams) => void;
   onClose: () => void;
 }) => {
-  const customStyles = {
-    content: {
-      width: "500px",
-      height: "600px",
-      margin: "auto",
-    },
-    overlay: {
-      zIndex: 10,
-    },
-  };
+  const modalRef = useRef<HTMLDialogElement>(null);
+
+  useEffect(() => {
+    if (isOpen) {
+      modalRef.current?.showModal();
+    } else {
+      modalRef.current?.close();
+    }
+  }, [isOpen]);
 
   return (
-    <Modal isOpen={isOpen} style={customStyles} onRequestClose={onClose}>
-      <ModalContent searchParams={searchParams} onSearch={onSearch} />
-    </Modal>
+    <>
+      <dialog ref={modalRef} className="modal">
+        <div className="modal-box">
+          <ModalContent searchParams={searchParams} onSearch={onSearch} />
+        </div>
+        <form method="dialog" className="modal-backdrop">
+          <button className="bg-white/50" onClick={onClose}>
+            close
+          </button>
+        </form>
+      </dialog>
+    </>
   );
 };
 
