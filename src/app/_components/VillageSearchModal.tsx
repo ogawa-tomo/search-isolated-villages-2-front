@@ -31,7 +31,7 @@ export const VillageSearchModal = ({
   return (
     <>
       <dialog ref={modalRef} className="modal">
-        <div className="modal-box">
+        <div className="modal-box pb-20">
           <ModalContent searchParams={searchParams} onSearch={onSearch} />
         </div>
         <form method="dialog" className="modal-backdrop">
@@ -62,7 +62,7 @@ const ModalContent = ({
           priority
         />
       </h1>
-      <p className="mx-auto my-4 w-[280px] text-center leading-relaxed sm:w-[390px]">
+      <p className="mx-auto my-2 w-[280px] text-center leading-relaxed sm:w-[390px]">
         秘境集落を探索し、人口分布データをもとに秘境度を評価して地域別に
         <br className="sm:hidden" />
         ランキングで出力します。
