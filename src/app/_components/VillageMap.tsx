@@ -48,21 +48,15 @@ export const VillageMap = ({
   villages,
   selectedVillage,
 }: {
-  villages: FetchedVillages;
+  villages: Village[];
   selectedVillage: Village | undefined;
 }) => {
   const mapRef = useRef<MapRef>(null);
   const map = mapRef.current?.getMap();
   const markersRef = useRef<maplibregl.Marker[]>([]);
 
-  const existsVillages =
-    villages !== "error" &&
-    villages !== "beforeSearch" &&
-    villages !== "searching" &&
-    villages.length > 0;
-
   useEffect(() => {
-    if (!existsVillages || !map) return;
+    if (!map || villages.length === 0) return;
 
     let totalLat = 0;
     let totalLng = 0;
@@ -72,10 +66,10 @@ export const VillageMap = ({
     });
 
     map.panTo([totalLng / villages.length, totalLat / villages.length]);
-  }, [map, villages, existsVillages]);
+  }, [map, villages]);
 
   useEffect(() => {
-    if (!map || !existsVillages) return;
+    if (!map) return;
 
     markersRef.current.forEach((marker) => marker.remove());
     const newMarkers: maplibregl.Marker[] = [];
@@ -83,7 +77,7 @@ export const VillageMap = ({
       newMarkers.push(villageMarker({ village, map }));
     });
     markersRef.current = newMarkers;
-  }, [map, villages, existsVillages]);
+  }, [map, villages]);
 
   useEffect(() => {
     if (!selectedVillage || !map) return;
