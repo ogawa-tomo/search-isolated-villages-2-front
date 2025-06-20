@@ -1,6 +1,4 @@
 import Village from "@/types/Village";
-import { GoogleMapLink } from "@/components/GoogleMapLink";
-import { PopulationDistributionMapLink } from "@/components/PopulationDistributionMapLink";
 
 export const VillageList2 = ({
   villages,
@@ -13,6 +11,7 @@ export const VillageList2 = ({
 }) => {
   return (
     <>
+      {/* TODO: テーブルの枠を施設と共通化したい */}
       <table className="flex w-80 border-collapse flex-col items-center p-2">
         <tbody className="flex w-full flex-col items-center">
           {villages.map((village, index) => (

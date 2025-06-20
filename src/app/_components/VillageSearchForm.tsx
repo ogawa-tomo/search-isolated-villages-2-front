@@ -1,7 +1,6 @@
 "use client";
 
 import { Dispatch, RefObject, SetStateAction, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
 import VillageSearchParams from "@/types/VillageSearchParams";
 import { AreaSelectBox } from "@/components/AreaSelectBox";
 import { IslandSettingFieldSet } from "@/components/IslandSettingFieldSet";
@@ -10,11 +9,6 @@ import { Area } from "@/types/Area";
 import { assertAreaEnName, getAreaByEnName } from "@/lib/areas";
 import { IslandSetting } from "@/types/IslandSetting";
 import { getIslandSettingByEnName } from "@/lib/islandSettings";
-
-const searchPath = (villageSearchParams: VillageSearchParams): string => {
-  const params = new URLSearchParams(villageSearchParams);
-  return `/?${params.toString()}`;
-};
 
 type Props = {
   inputArea?: Area;
