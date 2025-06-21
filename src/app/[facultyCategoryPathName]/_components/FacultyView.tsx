@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import Faculty from "@/types/Faculty";
 import FacultyList2 from "./FacultyList2";
-import { FacultyMap } from "@/app/_components/FacultyMap";
+import { BaseMap } from "@/components/BaseMap";
 
 const PER_PAGE = 20;
 
@@ -92,9 +92,9 @@ const FacultyViewPC = ({
           </div>
         )}
         <div className="grow pt-2">
-          <FacultyMap
-            faculties={facultiesOnPage ?? []}
-            selectedFaculty={selectedFaculty}
+          <BaseMap
+            objects={facultiesOnPage ?? []}
+            selectedObject={selectedFaculty}
           />
         </div>
       </div>
@@ -123,10 +123,7 @@ const FacultyViewSP = ({
     <>
       <div className="flex h-screen w-screen flex-col">
         <div className="size-full">
-          <FacultyMap
-            faculties={facultiesOnPage}
-            selectedFaculty={selectedFaculty}
-          />
+          <BaseMap objects={facultiesOnPage} selectedObject={selectedFaculty} />
           <BottomSheet isOpen={facultiesOnPage.length > 0}>
             <div className="flex flex-col items-center gap-2 py-4">
               <FacultyList2

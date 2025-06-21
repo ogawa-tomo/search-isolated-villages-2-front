@@ -1,6 +1,7 @@
 import { PrefectureJpName } from "./Area";
 
 type Faculty = {
+  type: "faculty";
   name: string;
   pref: PrefectureJpName;
   city: string;

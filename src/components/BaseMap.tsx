@@ -4,6 +4,7 @@ import OpacityControl from "maplibre-gl-opacity";
 import maplibregl from "maplibre-gl";
 import Village from "@/types/Village";
 import { useEffect, useRef } from "react";
+import Faculty from "@/types/Faculty";
 
 const mapStyle: maplibregl.StyleSpecification = {
   version: 8,
@@ -60,75 +61,93 @@ const opacity = new OpacityControl({
   },
 });
 
-const villageMarker = ({
-  village,
+const markerContent = (object: Village | Faculty) => {
+  switch (object.type) {
+    case "village":
+      return `
+        <p>${object.pref} ${object.city} ${object.district}</p>
+        <p>人口：${object.population}人</p>
+      `;
+    case "faculty":
+      return `
+        <p>${object.name}</p>
+        <p>${object.pref} ${object.city} ${object.district}</p>
+      `;
+  }
+};
+
+const objectMarker = ({
+  object,
   map,
 }: {
-  village: Village;
+  object: Village | Faculty;
   map: maplibregl.Map;
 }) => {
-  const popup = new maplibregl.Popup().setHTML(`
-        <p>${village.city} ${village.district}</p>
-        <p>人口：${village.population}人</p>
-        `);
+  const popup = new maplibregl.Popup().setHTML(markerContent(object));
   const marker = new maplibregl.Marker()
-    .setLngLat([village.longitude, village.latitude])
+    .setLngLat([object.longitude, object.latitude])
     .addTo(map)
     .setPopup(popup);
   marker.getElement().style.cursor = "pointer";
   return marker;
 };
 
-export const VillageMap = ({
-  villages,
-  selectedVillage,
-}: {
-  villages: Village[];
-  selectedVillage: Village | undefined;
-}) => {
+type VillageProps = {
+  objects: Village[];
+  selectedObject: Village | undefined;
+};
+type FacultyProps = {
+  objects: Faculty[];
+  selectedObject: Faculty | undefined;
+};
+
+export const BaseMap = ({
+  objects,
+  selectedObject,
+}: VillageProps | FacultyProps) => {
   const mapRef = useRef<MapRef>(null);
   const map = mapRef.current?.getMap();
   const markersRef = useRef<maplibregl.Marker[]>([]);
 
   useEffect(() => {
-    if (!map || villages.length === 0) return;
+    if (!map || objects.length === 0) return;
 
     let totalLat = 0;
     let totalLng = 0;
-    villages.forEach((village) => {
-      totalLat += village.latitude;
-      totalLng += village.longitude;
+    objects.forEach((object) => {
+      totalLat += object.latitude;
+      totalLng += object.longitude;
     });
 
-    map.panTo([totalLng / villages.length, totalLat / villages.length]);
-  }, [map, villages]);
+    map.panTo([totalLng / objects.length, totalLat / objects.length]);
+  }, [map, objects]);
 
   useEffect(() => {
     if (!map) return;
 
     markersRef.current.forEach((marker) => marker.remove());
     const newMarkers: maplibregl.Marker[] = [];
-    villages.forEach((village) => {
-      newMarkers.push(villageMarker({ village, map }));
+    objects.forEach((object) => {
+      newMarkers.push(objectMarker({ object, map }));
     });
     markersRef.current = newMarkers;
-  }, [map, villages]);
+  }, [map, objects]);
 
   useEffect(() => {
-    if (!selectedVillage || !map) return;
+    if (!selectedObject || !map) return;
 
-    map.panTo([selectedVillage.longitude, selectedVillage.latitude]);
+    map.panTo([selectedObject.longitude, selectedObject.latitude]);
     markersRef.current.forEach((marker) => {
       if (
-        marker.getLngLat().lng === selectedVillage.longitude &&
-        marker.getLngLat().lat === selectedVillage.latitude
+        marker.getLngLat().lng === selectedObject.longitude &&
+        marker.getLngLat().lat === selectedObject.latitude
       ) {
         if (!marker.getPopup().isOpen()) marker.togglePopup();
       } else {
         if (marker.getPopup().isOpen()) marker.togglePopup();
       }
     });
-  }, [map, selectedVillage]);
+  }, [map, selectedObject]);
 
   return (
     <>

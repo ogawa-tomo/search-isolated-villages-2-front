@@ -1,10 +1,10 @@
-import { VillageMap } from "./VillageMap";
 import { BottomSheet } from "./BottomSheet";
 import Pagination2 from "@/components/Pagination2";
 import { VillageList2 } from "./VillageList2";
 import Village from "@/types/Village";
 import { useState } from "react";
 import { useMediaQuery } from "react-responsive";
+import { BaseMap } from "@/components/BaseMap";
 
 const PER_PAGE = 20;
 
@@ -92,9 +92,9 @@ const VillageViewPC = ({
           </div>
         )}
         <div className="grow pt-2">
-          <VillageMap
-            villages={villagesOnPage ?? []}
-            selectedVillage={selectedVillage}
+          <BaseMap
+            objects={villagesOnPage ?? []}
+            selectedObject={selectedVillage}
           />
         </div>
       </div>
@@ -123,10 +123,7 @@ const VillageViewSP = ({
     <>
       <div className="flex h-screen w-screen flex-col">
         <div className="size-full">
-          <VillageMap
-            villages={villagesOnPage}
-            selectedVillage={selectedVillage}
-          />
+          <BaseMap objects={villagesOnPage} selectedObject={selectedVillage} />
           <BottomSheet isOpen={villagesOnPage.length > 0}>
             <div className="flex flex-col items-center gap-2 py-4">
               <VillageList2

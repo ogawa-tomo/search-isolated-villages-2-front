@@ -1,6 +1,7 @@
 import { PrefectureJpName } from "./Area";
 
 type Village = {
+  type: "village";
   pref: PrefectureJpName;
   city: string;
   district: string;
