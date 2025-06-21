@@ -4,7 +4,6 @@ import OpacityControl from "maplibre-gl-opacity";
 import maplibregl from "maplibre-gl";
 import Village from "@/types/Village";
 import { useEffect, useRef } from "react";
-import { type FetchedVillages } from "./VillageList";
 
 const mapStyle: maplibregl.StyleSpecification = {
   version: 8,
@@ -14,7 +13,16 @@ const mapStyle: maplibregl.StyleSpecification = {
       tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
       maxzoom: 19,
       tileSize: 256,
-      attribution: "&copy; OpenStreetMap",
+      attribution:
+        "&copy; <a href='https://www.openstreetmap.org/copyright' target='_blank'>OpenStreetMap</a> contributors",
+    },
+    base: {
+      type: "raster",
+      tiles: ["https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png"],
+      maxzoom: 19,
+      tileSize: 256,
+      attribution:
+        "<a href='https://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a> GRUS画像（© Axelspace）",
     },
     photo: {
       type: "raster",
@@ -23,14 +31,6 @@ const mapStyle: maplibregl.StyleSpecification = {
       ],
       maxzoom: 19,
       tileSize: 256,
-      attribution: "&copy; 国土地理院 GRUS画像（© Axelspace）",
-    },
-    photo_1974_1978: {
-      type: "raster",
-      tiles: ["https://cyberjapandata.gsi.go.jp/xyz/gazo1/{z}/{x}/{y}.jpg"],
-      maxzoom: 19,
-      tileSize: 256,
-      attribution: "&copy; 国土地理院",
     },
   },
   layers: [
@@ -40,13 +40,13 @@ const mapStyle: maplibregl.StyleSpecification = {
       type: "raster",
     },
     {
-      id: "photo-layer",
-      source: "photo",
+      id: "base-layer",
+      source: "base",
       type: "raster",
     },
     {
-      id: "photo_1974_1978-layer",
-      source: "photo_1974_1978",
+      id: "photo-layer",
+      source: "photo",
       type: "raster",
     },
   ],
@@ -55,8 +55,8 @@ const mapStyle: maplibregl.StyleSpecification = {
 const opacity = new OpacityControl({
   baseLayers: {
     "osm-layer": "OpenStreetMap",
-    "photo-layer": "航空写真",
-    "photo_1974_1978-layer": "1974-1978年の航空写真",
+    "base-layer": "地理院タイル 標準地図",
+    "photo-layer": "地理院タイル 写真（最新）",
   },
 });
 
