@@ -109,10 +109,12 @@ type FacultyProps = {
   selectedObject: Faculty | undefined;
 };
 
-export const BaseMap = ({
-  objects,
-  selectedObject,
-}: VillageProps | FacultyProps) => {
+type Props = {
+  objects: Village[] | Faculty[];
+  selectedObject: Village | Faculty | undefined;
+};
+
+export const BaseMap = ({ objects, selectedObject }: Props) => {
   const mapRef = useRef<MapRef>(null);
   const map = mapRef.current?.getMap();
   const markersRef = useRef<maplibregl.Marker[]>([]);
