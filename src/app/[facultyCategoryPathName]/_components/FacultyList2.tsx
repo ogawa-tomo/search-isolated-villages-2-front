@@ -30,7 +30,7 @@ export const FacultyList = ({
                 {index + rankStart}
                 <span className="text-xs">位</span>
               </td>
-              <td className="grow p-2">
+              <td className="w-4/5 p-2">
                 <FacultyCard faculty={faculty} />
               </td>
             </tr>

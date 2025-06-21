@@ -30,7 +30,7 @@ export const VillageList2 = ({
                 {rankStart + index}
                 <span className="text-xs">位</span>
               </td>
-              <td className="grow p-2">
+              <td className="w-4/5 p-2">
                 <VillageCard village={village} />
               </td>
             </tr>
