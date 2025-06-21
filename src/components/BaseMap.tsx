@@ -27,7 +27,7 @@ const mapStyle: maplibregl.StyleSpecification = {
       maxzoom: 19,
       tileSize: 256,
       attribution:
-        "<a href='https://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a> GRUS画像（© Axelspace）",
+        "<a href='https://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>",
     },
     photo: {
       type: "raster",
@@ -36,6 +36,8 @@ const mapStyle: maplibregl.StyleSpecification = {
       ],
       maxzoom: 19,
       tileSize: 256,
+      attribution:
+        "<a href='https://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a> GRUS画像（© Axelspace）",
     },
   },
   layers: [
