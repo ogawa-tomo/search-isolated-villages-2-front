@@ -6,6 +6,10 @@ import Village from "@/types/Village";
 import { useEffect, useRef } from "react";
 import Faculty from "@/types/Faculty";
 
+const googleMapLink = (object: Village | Faculty) => {
+  return `https://www.google.com/maps/@?api=1&map_action=map&center=${object.latitude}%2C${object.longitude}&zoom=15&basemap=satellite`;
+};
+
 const mapStyle: maplibregl.StyleSpecification = {
   version: 8,
   sources: {
@@ -65,13 +69,15 @@ const markerContent = (object: Village | Faculty) => {
   switch (object.type) {
     case "village":
       return `
-        <p>${object.pref} ${object.city} ${object.district}</p>
+        <p class="text-lg font-bold">${object.pref} ${object.city} ${object.district}</p>
         <p>人口：${object.population}人</p>
+        <a href="${googleMapLink(object)}" target="_blank" class="text-blue-500">Google Map</a>
       `;
     case "faculty":
       return `
-        <p>${object.name}</p>
+        <p class="text-lg font-bold">${object.name}</p>
         <p>${object.pref} ${object.city} ${object.district}</p>
+        <a href="${googleMapLink(object)}" target="_blank" class="text-blue-500">Google Map</a>
       `;
   }
 };
