@@ -1,5 +1,6 @@
 import Map, { MapRef } from "react-map-gl/maplibre";
 import "maplibre-gl/dist/maplibre-gl.css";
+import OpacityControl from "maplibre-gl-opacity";
 import maplibregl from "maplibre-gl";
 import Village from "@/types/Village";
 import { useEffect, useRef } from "react";
@@ -15,6 +16,22 @@ const mapStyle: maplibregl.StyleSpecification = {
       tileSize: 256,
       attribution: "&copy; OpenStreetMap",
     },
+    photo: {
+      type: "raster",
+      tiles: [
+        "https://cyberjapandata.gsi.go.jp/xyz/seamlessphoto/{z}/{x}/{y}.jpg",
+      ],
+      maxzoom: 19,
+      tileSize: 256,
+      attribution: "&copy; 国土地理院 GRUS画像（© Axelspace）",
+    },
+    photo_1974_1978: {
+      type: "raster",
+      tiles: ["https://cyberjapandata.gsi.go.jp/xyz/gazo1/{z}/{x}/{y}.jpg"],
+      maxzoom: 19,
+      tileSize: 256,
+      attribution: "&copy; 国土地理院",
+    },
   },
   layers: [
     {
@@ -22,8 +39,26 @@ const mapStyle: maplibregl.StyleSpecification = {
       source: "osm",
       type: "raster",
     },
+    {
+      id: "photo-layer",
+      source: "photo",
+      type: "raster",
+    },
+    {
+      id: "photo_1974_1978-layer",
+      source: "photo_1974_1978",
+      type: "raster",
+    },
   ],
 };
+
+const opacity = new OpacityControl({
+  baseLayers: {
+    "osm-layer": "OpenStreetMap",
+    "photo-layer": "航空写真",
+    "photo_1974_1978-layer": "1974-1978年の航空写真",
+  },
+});
 
 const villageMarker = ({
   village,
@@ -105,6 +140,9 @@ export const VillageMap = ({
           zoom: 8,
         }}
         mapStyle={mapStyle}
+        onLoad={(map) => {
+          map.target.addControl(opacity, "top-right");
+        }}
       />
     </>
   );

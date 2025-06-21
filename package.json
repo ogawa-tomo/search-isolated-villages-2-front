@@ -51,6 +51,7 @@
     "dotenv": "^16.4.5",
     "mapbox-gl": "^3.10.0",
     "maplibre-gl": "^5.1.1",
+    "maplibre-gl-opacity": "^1.8.0",
     "motion": "^12.18.1",
     "next": "^14.2.5",
     "node-fetch": "^3.3.2",
