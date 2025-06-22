@@ -28,6 +28,10 @@
 - Street View Static API
 - Maps Embed API
 
+### MapTiler APIキーの取得
+
+[MapTiler](https://www.maptiler.com/)のアカウントを作成し、APIキーを用意する。
+
 ### 環境変数の設定
 
 プロジェクト直下に`.env.local`ファイルを作成し、以下のように記述する
@@ -35,6 +39,7 @@
 ```
 NEXT_PUBLIC_VILLAGE_API_URL=http://localhost:5000
 NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=your_google_maps_api_key
+NEXT_PUBLIC_MAP_TILER_API_KEY=your_map_tiler_api_key
 ```
 
 ### 立ち上げ

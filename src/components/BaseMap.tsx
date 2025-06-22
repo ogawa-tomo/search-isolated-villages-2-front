@@ -1,71 +1,14 @@
 import Map, { MapRef } from "react-map-gl/maplibre";
 import "maplibre-gl/dist/maplibre-gl.css";
-import OpacityControl from "maplibre-gl-opacity";
 import maplibregl from "maplibre-gl";
 import Village from "@/types/Village";
 import { useEffect, useRef } from "react";
 import Faculty from "@/types/Faculty";
+import { mapStyle } from "@/lib/mapStyle";
 
 const googleMapLink = (object: Village | Faculty) => {
   return `https://www.google.com/maps/@?api=1&map_action=map&center=${object.latitude}%2C${object.longitude}&zoom=15&basemap=satellite`;
 };
-
-const mapStyle: maplibregl.StyleSpecification = {
-  version: 8,
-  sources: {
-    osm: {
-      type: "raster",
-      tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
-      maxzoom: 19,
-      tileSize: 256,
-      attribution:
-        "&copy; <a href='https://www.openstreetmap.org/copyright' target='_blank'>OpenStreetMap</a> contributors",
-    },
-    base: {
-      type: "raster",
-      tiles: ["https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png"],
-      maxzoom: 19,
-      tileSize: 256,
-      attribution:
-        "<a href='https://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>",
-    },
-    photo: {
-      type: "raster",
-      tiles: [
-        "https://cyberjapandata.gsi.go.jp/xyz/seamlessphoto/{z}/{x}/{y}.jpg",
-      ],
-      maxzoom: 19,
-      tileSize: 256,
-      attribution:
-        "<a href='https://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a> GRUS画像（© Axelspace）",
-    },
-  },
-  layers: [
-    {
-      id: "osm-layer",
-      source: "osm",
-      type: "raster",
-    },
-    {
-      id: "base-layer",
-      source: "base",
-      type: "raster",
-    },
-    {
-      id: "photo-layer",
-      source: "photo",
-      type: "raster",
-    },
-  ],
-};
-
-const opacity = new OpacityControl({
-  baseLayers: {
-    "osm-layer": "OpenStreetMap",
-    "base-layer": "地理院タイル 標準地図",
-    "photo-layer": "地理院タイル 写真（最新）",
-  },
-});
 
 const markerContent = (object: Village | Faculty) => {
   switch (object.type) {
@@ -177,9 +120,6 @@ export const BaseMap = ({ objects, selectedObject }: Props) => {
           zoom: 8,
         }}
         mapStyle={mapStyle}
-        onLoad={(map) => {
-          map.target.addControl(opacity, "top-right");
-        }}
       />
     </>
   );
