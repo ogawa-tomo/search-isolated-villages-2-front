@@ -1,136 +1,85 @@
 import clsx from "clsx";
-import Link from "next/link";
 import { ReactNode } from "react";
-import { IoIosArrowBack } from "react-icons/io";
-import { IoIosArrowForward } from "react-icons/io";
+import { MdKeyboardArrowRight } from "react-icons/md";
+import { MdKeyboardDoubleArrowRight } from "react-icons/md";
+import { MdKeyboardArrowLeft } from "react-icons/md";
+import { MdKeyboardDoubleArrowLeft } from "react-icons/md";
 
 type PaginationProps = {
-  currentPage: number;
   pages: number;
-  path: string;
-  queryParams: {};
+  currentPage: number;
+  onPageChange: (page: number) => void;
 };
 
 const Pagination = (props: PaginationProps) => {
-  const { currentPage, pages, path, queryParams } = props;
-  const neighborsNum = 1;
-  const minPage = Math.max(1, currentPage - neighborsNum);
-  const maxPage = Math.min(pages, currentPage + neighborsNum);
-  const page_array = [...Array(maxPage - minPage + 1)].map(
-    (_, i) => i + minPage,
-  );
+  const { pages, currentPage, onPageChange } = props;
 
   return (
     <nav aria-label="pagination">
-      <ul className="flex gap-1">
-        {currentPage > 1 && (
-          <PaginationListElementWrapper type="link">
-            <PageLink
-              page={currentPage - 1}
-              path={path}
-              queryParams={queryParams}
-            >
-              <IoIosArrowBack />
-            </PageLink>
-          </PaginationListElementWrapper>
-        )}
-        {minPage > 1 && (
-          <PaginationListElementWrapper type="link">
-            <PageLink page={1} path={path} queryParams={queryParams}>
-              1
-            </PageLink>
-          </PaginationListElementWrapper>
-        )}
-        {minPage > 2 && (
-          <PaginationListElementWrapper type="dots">
-            ...
-          </PaginationListElementWrapper>
-        )}
-        {page_array.map((page) =>
-          page === currentPage ? (
-            <PaginationListElementWrapper type="current" key={page}>
-              {page}
-            </PaginationListElementWrapper>
-          ) : (
-            <PaginationListElementWrapper type="link" key={page}>
-              <PageLink page={page} path={path} queryParams={queryParams}>
-                {page}
-              </PageLink>
-            </PaginationListElementWrapper>
-          ),
-        )}
-        {maxPage < pages - 1 && (
-          <PaginationListElementWrapper type="dots">
-            ...
-          </PaginationListElementWrapper>
-        )}
-        {maxPage < pages && (
-          <PaginationListElementWrapper type="link">
-            <PageLink page={pages} path={path} queryParams={queryParams}>
-              {pages}
-            </PageLink>
-          </PaginationListElementWrapper>
-        )}
-        {currentPage < pages && (
-          <PaginationListElementWrapper type="link">
-            <PageLink
-              page={currentPage + 1}
-              path={path}
-              queryParams={queryParams}
-            >
-              <IoIosArrowForward />
-            </PageLink>
-          </PaginationListElementWrapper>
-        )}
+      <ul className="flex items-center gap-1">
+        <PageLink
+          disabled={currentPage === 1}
+          onClick={() => {
+            onPageChange(1);
+          }}
+        >
+          <MdKeyboardDoubleArrowLeft />
+        </PageLink>
+        <PageLink
+          disabled={currentPage === 1}
+          onClick={() => {
+            onPageChange(Math.max(currentPage - 1, 1));
+          }}
+        >
+          <MdKeyboardArrowLeft />
+        </PageLink>
+
+        <div className="flex w-16 items-center justify-center">
+          {currentPage}/{pages}
+        </div>
+
+        <PageLink
+          disabled={currentPage === pages}
+          onClick={() => {
+            onPageChange(Math.min(currentPage + 1, pages));
+          }}
+        >
+          <MdKeyboardArrowRight />
+        </PageLink>
+
+        <PageLink
+          disabled={currentPage === pages}
+          onClick={() => {
+            onPageChange(pages);
+          }}
+        >
+          <MdKeyboardDoubleArrowRight />
+        </PageLink>
       </ul>
     </nav>
   );
 };
 
-type PaginationListElementWrapperProps = {
-  children: ReactNode;
-  type: "current" | "dots" | "link";
-};
-
-const PaginationListElementWrapper = ({
-  children,
-  type,
-}: PaginationListElementWrapperProps) => {
-  return (
-    <li
-      className={clsx(
-        "flex h-12 w-10 items-center justify-center border-2",
-        (type === "current" || type === "dots") && "cursor-default",
-        type === "current" && "bg-primary text-white",
-        type === "link" && "bg-white",
-        type === "dots" && "border-none bg-white",
-      )}
-    >
-      {children}
-    </li>
-  );
-};
-
 type PageLinkProps = {
-  page: number;
-  path: string;
-  queryParams: {};
+  disabled?: boolean;
+  onClick: () => void;
   children: ReactNode;
 };
 
 const PageLink = (props: PageLinkProps) => {
-  const { page, path, queryParams, children } = props;
-  const query = new URLSearchParams({
-    ...queryParams,
-    page: String(page),
-  });
+  const { onClick, children, disabled } = props;
   return (
-    <Link
-      href={`${path}?${query.toString()}`}
-      className="grid size-full place-items-center"
-    >
-      {children}
-    </Link>
+    <li className="flex h-12 w-8 items-center justify-center">
+      <button
+        onClick={onClick}
+        className={clsx(
+          "grid size-full place-items-center",
+          disabled && "cursor-default text-gray-400",
+        )}
+      >
+        {children}
+      </button>
+    </li>
   );
 };
 

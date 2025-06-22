@@ -1,4 +1,4 @@
-import Pagination2 from "@/components/Pagination2";
+import Pagination from "@/components/Pagination";
 import Village from "@/types/Village";
 import { useState } from "react";
 import { useMediaQuery } from "react-responsive";
@@ -34,7 +34,7 @@ export const ObjectView = ({
   return (
     <>
       {isMobile ? (
-        <VillageViewSP
+        <ObjectViewSP
           objectsOnPage={objectsOnPage}
           selectedObject={selectedObject}
           setSelectedObject={setSelectedObject}
@@ -79,8 +79,8 @@ const ObjectViewPC = ({
     <>
       <div className="flex size-full">
         {objectsOnPage.length > 0 && (
-          <div className="flex h-full flex-col items-center gap-2 overflow-y-auto px-2">
-            <Pagination2
+          <div className="flex h-full flex-col items-center overflow-y-auto px-2">
+            <Pagination
               pages={pages}
               currentPage={currentPage}
               onPageChange={onPageChange}
@@ -90,7 +90,7 @@ const ObjectViewPC = ({
               rankStart={rankStart}
               onClickObject={setSelectedObject}
             />
-            <Pagination2
+            <Pagination
               pages={pages}
               currentPage={currentPage}
               onPageChange={onPageChange}
@@ -108,7 +108,7 @@ const ObjectViewPC = ({
   );
 };
 
-const VillageViewSP = ({
+const ObjectViewSP = ({
   objectsOnPage,
   selectedObject,
   setSelectedObject,
@@ -132,7 +132,7 @@ const VillageViewSP = ({
           <BaseMap objects={objectsOnPage} selectedObject={selectedObject} />
           <BottomSheet isOpen={objectsOnPage.length > 0}>
             <div className="flex flex-col items-center pb-4">
-              <Pagination2
+              <Pagination
                 pages={pages}
                 currentPage={currentPage}
                 onPageChange={onPageChange}
@@ -142,7 +142,7 @@ const VillageViewSP = ({
                 rankStart={rankStart}
                 onClickObject={setSelectedObject}
               />
-              <Pagination2
+              <Pagination
                 pages={pages}
                 currentPage={currentPage}
                 onPageChange={onPageChange}
