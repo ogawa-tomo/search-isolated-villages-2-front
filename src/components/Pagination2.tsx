@@ -1,7 +1,5 @@
 import clsx from "clsx";
-import { ReactNode, useState } from "react";
-import { IoIosArrowBack } from "react-icons/io";
-import { IoIosArrowForward } from "react-icons/io";
+import { ReactNode } from "react";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import { MdKeyboardArrowLeft } from "react-icons/md";
@@ -19,84 +17,69 @@ const Pagination2 = (props: PaginationProps) => {
   return (
     <nav aria-label="pagination">
       <ul className="flex items-center gap-1">
-        <PaginationListElementWrapper disabled={currentPage === 1}>
-          <PageLink
-            onClick={() => {
-              onPageChange(1);
-            }}
-          >
-            <MdKeyboardDoubleArrowLeft />
-          </PageLink>
-        </PaginationListElementWrapper>
-        <PaginationListElementWrapper disabled={currentPage === 1}>
-          <PageLink
-            onClick={() => {
-              onPageChange(currentPage - 1);
-            }}
-          >
-            <MdKeyboardArrowLeft />
-          </PageLink>
-        </PaginationListElementWrapper>
+        <PageLink
+          disabled={currentPage === 1}
+          onClick={() => {
+            onPageChange(1);
+          }}
+        >
+          <MdKeyboardDoubleArrowLeft />
+        </PageLink>
+        <PageLink
+          disabled={currentPage === 1}
+          onClick={() => {
+            onPageChange(Math.max(currentPage - 1, 1));
+          }}
+        >
+          <MdKeyboardArrowLeft />
+        </PageLink>
 
         <div className="flex w-16 items-center justify-center">
           {currentPage}/{pages}
         </div>
 
-        <PaginationListElementWrapper disabled={currentPage === pages}>
-          <PageLink
-            onClick={() => {
-              onPageChange(currentPage + 1);
-            }}
-          >
-            <MdKeyboardArrowRight />
-          </PageLink>
-        </PaginationListElementWrapper>
-        <PaginationListElementWrapper disabled={currentPage === pages}>
-          <PageLink
-            onClick={() => {
-              onPageChange(pages);
-            }}
-          >
-            <MdKeyboardDoubleArrowRight />
-          </PageLink>
-        </PaginationListElementWrapper>
+        <PageLink
+          disabled={currentPage === pages}
+          onClick={() => {
+            onPageChange(Math.min(currentPage + 1, pages));
+          }}
+        >
+          <MdKeyboardArrowRight />
+        </PageLink>
+
+        <PageLink
+          disabled={currentPage === pages}
+          onClick={() => {
+            onPageChange(pages);
+          }}
+        >
+          <MdKeyboardDoubleArrowRight />
+        </PageLink>
       </ul>
     </nav>
   );
 };
 
-type PaginationListElementWrapperProps = {
-  children: ReactNode;
-  disabled?: boolean;
-};
-
-const PaginationListElementWrapper = ({
-  children,
-  disabled,
-}: PaginationListElementWrapperProps) => {
-  return (
-    <li
-      className={clsx(
-        "flex h-12 w-8 items-center justify-center",
-        disabled && "cursor-default text-gray-400",
-      )}
-    >
-      {children}
-    </li>
-  );
-};
-
 type PageLinkProps = {
+  disabled?: boolean;
   onClick: () => void;
   children: ReactNode;
 };
 
 const PageLink = (props: PageLinkProps) => {
-  const { onClick, children } = props;
+  const { onClick, children, disabled } = props;
   return (
-    <button onClick={onClick} className="grid size-full place-items-center">
-      {children}
-    </button>
+    <li className="flex h-12 w-8 items-center justify-center">
+      <button
+        onClick={onClick}
+        className={clsx(
+          "grid size-full place-items-center",
+          disabled && "cursor-default text-gray-400",
+        )}
+      >
+        {children}
+      </button>
+    </li>
   );
 };
 

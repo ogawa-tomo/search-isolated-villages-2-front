@@ -80,6 +80,11 @@ const ObjectViewPC = ({
       <div className="flex size-full">
         {objectsOnPage.length > 0 && (
           <div className="flex h-full flex-col items-center gap-2 overflow-y-auto px-2">
+            <Pagination2
+              pages={pages}
+              currentPage={currentPage}
+              onPageChange={onPageChange}
+            />
             <ObjectList
               objects={objectsOnPage}
               rankStart={rankStart}
@@ -126,7 +131,12 @@ const VillageViewSP = ({
         <div className="size-full">
           <BaseMap objects={objectsOnPage} selectedObject={selectedObject} />
           <BottomSheet isOpen={objectsOnPage.length > 0}>
-            <div className="flex flex-col items-center gap-2 py-4">
+            <div className="flex flex-col items-center pb-4">
+              <Pagination2
+                pages={pages}
+                currentPage={currentPage}
+                onPageChange={onPageChange}
+              />
               <ObjectList
                 objects={objectsOnPage}
                 rankStart={rankStart}
