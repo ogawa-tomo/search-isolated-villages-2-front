@@ -100,15 +100,6 @@ const objectMarker = ({
   return marker;
 };
 
-type VillageProps = {
-  objects: Village[];
-  selectedObject: Village | undefined;
-};
-type FacultyProps = {
-  objects: Faculty[];
-  selectedObject: Faculty | undefined;
-};
-
 type Props = {
   objects: Village[] | Faculty[];
   selectedObject: Village | Faculty | undefined;
@@ -118,6 +109,7 @@ export const BaseMap = ({ objects, selectedObject }: Props) => {
   const mapRef = useRef<MapRef>(null);
   const map = mapRef.current?.getMap();
   const markersRef = useRef<maplibregl.Marker[]>([]);
+  const streetViewPluginRef = useRef<any>(null);
 
   useEffect(() => {
     if (!map || objects.length === 0) return;
@@ -158,6 +150,22 @@ export const BaseMap = ({ objects, selectedObject }: Props) => {
       }
     });
   }, [map, selectedObject]);
+
+  useEffect(() => {
+    if (!map) return;
+
+    // maplibre-google-streetviewがnpm経由でインストールできないため、CDN経由で読み込んでいる
+    // https://github.com/rezw4n/maplibre-google-streetview/issues/1
+    const streetViewPlugin = new window.MaplibreGoogleStreetView({
+      map,
+      apiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
+    });
+    streetViewPluginRef.current = streetViewPlugin;
+
+    return () => {
+      streetViewPluginRef.current?.remove();
+    };
+  }, [map]);
 
   return (
     <>

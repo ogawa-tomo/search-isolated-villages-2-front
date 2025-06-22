@@ -21,6 +21,24 @@
 
 ## ローカル環境での動作確認
 
+### Google Maps APIキーの取得
+
+[MapLibre Google Street View](https://github.com/rezw4n/maplibre-google-streetview)を用いているため、下記の権限を持つGoogle Maps APIキーを用意する。
+
+- Street View Static API
+- Maps Embed API
+
+### 環境変数の設定
+
+プロジェクト直下に`.env.local`ファイルを作成し、以下のように記述する
+
+```
+NEXT_PUBLIC_VILLAGE_API_URL=http://localhost:5000
+NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=your_google_maps_api_key
+```
+
+### 立ち上げ
+
 バックエンドサーバのリポジトリをcloneして立ち上げておく（[リポジトリ](https://github.com/ogawa-tomo/search-isolated-villages-2)のREADMEを参照）
 
 セットアップ
@@ -45,7 +63,7 @@ http://localhost:3000 にアクセス
 $ ip route | grep 'default via' | grep -Eo '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'
 ```
 
-それを.env.developmentに設定
+それを.env.localに設定
 
 ```
 NEXT_PUBLIC_VILLAGE_API_URL=http://172.29.128.1:5000

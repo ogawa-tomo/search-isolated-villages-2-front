@@ -25,6 +25,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ja" data-theme="corporate" className={`${notoSansJP.variable}`}>
+      <head>
+        {/* maplibre-google-streetviewがnpm経由でインストールできないため、CDN経由で読み込むために設定している */}
+        {/* https://github.com/rezw4n/maplibre-google-streetview/issues/1 */}
+        <link
+          href="https://cdn.jsdelivr.net/npm/@rezw4n/maplibre-google-streetview@latest/dist/maplibre-google-streetview.css"
+          rel="stylesheet"
+        />
+        {/* eslint-disable-next-line @next/next/no-sync-scripts */}
+        <script src="https://cdn.jsdelivr.net/npm/@rezw4n/maplibre-google-streetview@latest/dist/maplibre-google-streetview.js"></script>
+      </head>
       <body>
         {children}
         <Analytics />
