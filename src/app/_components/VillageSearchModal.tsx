@@ -4,8 +4,7 @@ import logo from "@/public/top_logo.png";
 import VillageSearchForm from "./VillageSearchForm";
 import { getAreaByEnName } from "@/lib/areas";
 import { getIslandSettingByEnName } from "@/lib/islandSettings";
-import Modal from "react-modal";
-import { useEffect, useRef } from "react";
+import { SearchModal } from "@/components/SearchModal";
 
 export const VillageSearchModal = ({
   searchParams,
@@ -18,28 +17,11 @@ export const VillageSearchModal = ({
   onSearch: (searchParams: VillageSearchParams) => void;
   onClose: () => void;
 }) => {
-  const modalRef = useRef<HTMLDialogElement>(null);
-
-  useEffect(() => {
-    if (isOpen) {
-      modalRef.current?.showModal();
-    } else {
-      modalRef.current?.close();
-    }
-  }, [isOpen]);
-
   return (
     <>
-      <dialog ref={modalRef} className="modal">
-        <div className="modal-box pb-20">
-          <ModalContent searchParams={searchParams} onSearch={onSearch} />
-        </div>
-        <form method="dialog" className="modal-backdrop">
-          <button className="bg-white/50" onClick={onClose}>
-            close
-          </button>
-        </form>
-      </dialog>
+      <SearchModal isOpen={isOpen} onClose={onClose}>
+        <ModalContent searchParams={searchParams} onSearch={onSearch} />
+      </SearchModal>
     </>
   );
 };

@@ -1,11 +1,11 @@
 import Image from "next/image";
 import { getAreaByEnName } from "@/lib/areas";
 import { getIslandSettingByEnName } from "@/lib/islandSettings";
-import { useEffect, useRef } from "react";
 import FacultySearchParams from "@/types/FacultySearchParams";
 import FacultySearchForm from "./FacultySearchForm";
 import { FacultyCategory } from "@/types/FacultyCategory";
 import { facultyCategoryLogo } from "@/lib/facultyCategoryLogo";
+import { SearchModal } from "@/components/SearchModal";
 
 export const FacultySearchModal = ({
   facultyCategory,
@@ -20,32 +20,15 @@ export const FacultySearchModal = ({
   onSearch: (searchParams: FacultySearchParams) => void;
   onClose: () => void;
 }) => {
-  const modalRef = useRef<HTMLDialogElement>(null);
-
-  useEffect(() => {
-    if (isOpen) {
-      modalRef.current?.showModal();
-    } else {
-      modalRef.current?.close();
-    }
-  }, [isOpen]);
-
   return (
     <>
-      <dialog ref={modalRef} className="modal">
-        <div className="modal-box pb-20">
-          <ModalContent
-            facultyCategory={facultyCategory}
-            searchParams={searchParams}
-            onSearch={onSearch}
-          />
-        </div>
-        <form method="dialog" className="modal-backdrop">
-          <button className="bg-white/50" onClick={onClose}>
-            close
-          </button>
-        </form>
-      </dialog>
+      <SearchModal isOpen={isOpen} onClose={onClose}>
+        <ModalContent
+          facultyCategory={facultyCategory}
+          searchParams={searchParams}
+          onSearch={onSearch}
+        />
+      </SearchModal>
     </>
   );
 };
