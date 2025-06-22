@@ -8,7 +8,7 @@ import FacultySearchParams, {
   defaultFacultySearchParams,
 } from "@/types/FacultySearchParams";
 import { fetchFaculties } from "@/lib/fetchFaculties";
-import { MobileHeader } from "@/components/MobileHeader";
+import { Header } from "@/components/Header";
 import { useState } from "react";
 import { FacultySearchModal } from "./_components/FacultySearchModal";
 import { ObjectView } from "@/components/ObjectView";
@@ -81,7 +81,7 @@ export default function Page({ params }: Props) {
         }}
       />
       <div className="flex h-screen w-screen flex-col">
-        <MobileHeader onClickSearch={() => setShowModal(true)} />
+        <Header onClickSearch={() => setShowModal(true)} />
         <div className="grow overflow-y-auto">
           <ObjectView
             objects={faculties}

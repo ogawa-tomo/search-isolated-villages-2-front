@@ -4,9 +4,7 @@ import { BlockMath, InlineMath } from "react-katex";
 import "katex/dist/katex.min.css";
 import { TextLink } from "@/components/TextLink";
 import { ReactNode } from "react";
-import { HeaderMenu } from "../_components/HeaderMenu";
-import Link from "next/link";
-import headerLogo from "@/public/header_logo.png";
+import { Header } from "@/components/Header";
 
 export const metadata = {
   title: "このツールについて",
@@ -16,12 +14,7 @@ export const metadata = {
 export default function Page() {
   return (
     <>
-      <div className="sticky top-0 z-10 flex w-screen items-center bg-white p-1">
-        <HeaderMenu />
-        <Link href="/">
-          <Image src={headerLogo} alt="秘境集落探索ツール" height="32" />
-        </Link>
-      </div>
+      <Header />
       <div className="mx-auto w-[550px] p-4">
         <Content />
       </div>

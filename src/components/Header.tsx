@@ -4,21 +4,19 @@ import { CiSearch } from "react-icons/ci";
 import headerLogo from "@/public/header_logo.png";
 import { HeaderMenu } from "@/app/_components/HeaderMenu";
 
-export const MobileHeader = ({
-  onClickSearch,
-}: {
-  onClickSearch: () => void;
-}) => {
+export const Header = ({ onClickSearch }: { onClickSearch?: () => void }) => {
   return (
     <>
-      <div className="flex items-center p-1">
+      <div className="sticky top-0 z-10 flex w-screen items-center bg-white p-1">
         <HeaderMenu />
         <Link href="/">
           <Image src={headerLogo} alt="秘境集落探索ツール" height="32" />
         </Link>
-        <button onClick={onClickSearch}>
-          <CiSearch />
-        </button>
+        {onClickSearch && (
+          <button onClick={onClickSearch}>
+            <CiSearch />
+          </button>
+        )}
       </div>
     </>
   );

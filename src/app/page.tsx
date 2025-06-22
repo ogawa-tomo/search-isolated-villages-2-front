@@ -1,6 +1,6 @@
 "use client";
 
-import { MobileHeader } from "@/components/MobileHeader";
+import { Header } from "@/components/Header";
 import { VillageSearchModal } from "./_components/VillageSearchModal";
 import { useState } from "react";
 import VillageSearchParams, {
@@ -53,7 +53,7 @@ export default function Page() {
         }}
       />
       <div className="flex h-screen w-screen flex-col">
-        <MobileHeader onClickSearch={() => setShowModal(true)} />
+        <Header onClickSearch={() => setShowModal(true)} />
         <div className="grow overflow-y-auto">
           <ObjectView
             objects={villages}
