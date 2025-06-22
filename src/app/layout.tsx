@@ -1,10 +1,5 @@
 import "./globals.css";
-import { HeaderMenu } from "@/app/_components/HeaderMenu";
-import { SideMenu } from "@/app/_components/SideMenu";
-import Image from "next/image";
-import headerLogo from "@/public/header_logo.png";
 import { Noto_Sans_JP } from "next/font/google";
-import Link from "next/link";
 import { Analytics } from "@vercel/analytics/react";
 
 export const metadata = {
