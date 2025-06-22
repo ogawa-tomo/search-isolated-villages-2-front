@@ -7,7 +7,7 @@ import { HeaderMenu } from "@/app/_components/HeaderMenu";
 export const Header = ({ onClickSearch }: { onClickSearch?: () => void }) => {
   return (
     <>
-      <div className="sticky top-0 z-10 flex w-screen items-center bg-white p-1">
+      <div className="flex w-screen items-center bg-white p-1">
         <HeaderMenu />
         <Link href="/">
           <Image src={headerLogo} alt="秘境集落探索ツール" height="32" />

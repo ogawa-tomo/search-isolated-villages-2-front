@@ -14,7 +14,9 @@ export const metadata = {
 export default function Page() {
   return (
     <>
-      <Header />
+      <div className="sticky top-0 z-10">
+        <Header />
+      </div>
       <div className="mx-auto w-[550px] p-4">
         <Content />
       </div>

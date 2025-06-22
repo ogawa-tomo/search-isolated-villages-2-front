@@ -46,7 +46,6 @@ const FacultySearchForm = ({
     area: area?.enName ?? "",
     islandSetting: islandSetting.enName,
     keywords,
-    page: "1",
   };
 
   const onButtonClick = () => {

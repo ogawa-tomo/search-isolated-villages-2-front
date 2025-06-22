@@ -63,7 +63,6 @@ const VillageSearchForm = ({
     populationUpperLimit,
     islandSetting: islandSetting.enName,
     keywords,
-    page: "1",
   };
 
   const onButtonClick = () => {
