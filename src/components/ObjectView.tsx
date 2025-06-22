@@ -1,6 +1,6 @@
 import Pagination from "@/components/Pagination";
 import Village from "@/types/Village";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { BaseMap } from "@/components/BaseMap";
 import ObjectList from "@/components/ObjectList";
@@ -24,9 +24,9 @@ export const ObjectView = ({
 
   const pages = Math.ceil(objects.length / PER_PAGE);
   const rankStart = PER_PAGE * (currentPage - 1) + 1;
-  const objectsOnPage = objects.slice(
-    (currentPage - 1) * PER_PAGE,
-    currentPage * PER_PAGE,
+  const objectsOnPage = useMemo(
+    () => objects.slice((currentPage - 1) * PER_PAGE, currentPage * PER_PAGE),
+    [objects, currentPage],
   );
 
   const isMobile = useMediaQuery({ maxWidth: 768 });
@@ -69,7 +69,7 @@ const ObjectViewPC = ({
 }: {
   objectsOnPage: Village[] | Faculty[];
   selectedObject: Village | Faculty | undefined;
-  setSelectedObject: (object: Village | Faculty) => void;
+  setSelectedObject: (object: Village | Faculty | undefined) => void;
   pages: number;
   currentPage: number;
   onPageChange: (page: number) => void;
@@ -87,6 +87,7 @@ const ObjectViewPC = ({
             />
             <ObjectList
               objects={objectsOnPage}
+              selectedObject={selectedObject}
               rankStart={rankStart}
               onClickObject={setSelectedObject}
             />
@@ -119,7 +120,7 @@ const ObjectViewSP = ({
 }: {
   objectsOnPage: Village[] | Faculty[];
   selectedObject: Village | Faculty | undefined;
-  setSelectedObject: (object: Village | Faculty) => void;
+  setSelectedObject: (object: Village | Faculty | undefined) => void;
   pages: number;
   currentPage: number;
   onPageChange: (page: number) => void;
@@ -139,6 +140,7 @@ const ObjectViewSP = ({
               />
               <ObjectList
                 objects={objectsOnPage}
+                selectedObject={selectedObject}
                 rankStart={rankStart}
                 onClickObject={setSelectedObject}
               />

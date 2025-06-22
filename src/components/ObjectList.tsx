@@ -1,5 +1,6 @@
 import Village from "@/types/Village";
 import Faculty from "@/types/Faculty";
+import clsx from "clsx";
 
 const objectKey = (object: Village | Faculty) => {
   return (
@@ -13,11 +14,17 @@ const objectKey = (object: Village | Faculty) => {
 
 type Props = {
   objects: Village[] | Faculty[];
+  selectedObject: Village | Faculty | undefined;
   rankStart: number;
   onClickObject?: (object: Village | Faculty) => void;
 };
 
-export const ObjectList = ({ objects, rankStart, onClickObject }: Props) => {
+export const ObjectList = ({
+  objects,
+  rankStart,
+  selectedObject,
+  onClickObject,
+}: Props) => {
   return (
     <>
       <table className="flex w-80 border-collapse flex-col items-center">
@@ -25,7 +32,10 @@ export const ObjectList = ({ objects, rankStart, onClickObject }: Props) => {
           {objects.map((object, index) => (
             <tr
               key={objectKey(object)}
-              className="flex w-full items-center border border-slate-400"
+              className={clsx(
+                "flex w-full cursor-pointer items-center border border-slate-400",
+                selectedObject === object && "bg-slate-200",
+              )}
               onClick={() => onClickObject?.(object)}
             >
               <td className="w-1/6 text-center">
