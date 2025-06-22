@@ -20,7 +20,7 @@ type Props = {
 export const ObjectList = ({ objects, rankStart, onClickObject }: Props) => {
   return (
     <>
-      <table className="flex w-80 border-collapse flex-col items-center p-2">
+      <table className="flex w-80 border-collapse flex-col items-center">
         <tbody className="flex w-full flex-col items-center">
           {objects.map((object, index) => (
             <tr
@@ -28,11 +28,11 @@ export const ObjectList = ({ objects, rankStart, onClickObject }: Props) => {
               className="flex w-full items-center border border-slate-400"
               onClick={() => onClickObject?.(object)}
             >
-              <td className="w-1/5 text-center">
+              <td className="w-1/6 text-center">
                 {rankStart + index}
                 <span className="text-xs">位</span>
               </td>
-              <td className="w-4/5 p-2">
+              <td className="w-5/6 p-2">
                 <ObjectCard object={object} />
               </td>
             </tr>

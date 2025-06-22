@@ -79,7 +79,7 @@ const ObjectViewPC = ({
     <>
       <div className="flex size-full">
         {objectsOnPage.length > 0 && (
-          <div className="flex h-full flex-col items-center gap-2 overflow-y-auto">
+          <div className="flex h-full flex-col items-center gap-2 overflow-y-auto px-2">
             <ObjectList
               objects={objectsOnPage}
               rankStart={rankStart}
@@ -92,7 +92,7 @@ const ObjectViewPC = ({
             />
           </div>
         )}
-        <div className="grow pt-2">
+        <div className="grow">
           <BaseMap
             objects={objectsOnPage ?? []}
             selectedObject={selectedObject}
