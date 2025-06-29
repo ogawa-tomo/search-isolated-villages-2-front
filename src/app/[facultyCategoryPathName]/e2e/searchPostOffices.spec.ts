@@ -19,7 +19,7 @@ test("デフォルトの郵便局検索", async ({ page }) => {
   }
   await expect(page.getByText("稚内郵便局21")).not.toBeVisible();
 
-  await page.getByRole("link", { name: "2" }).click();
+  await page.getByLabel("次のページへ").first().click();
   for (let i = 21; i <= 40; i++) {
     await expect(
       page.getByText(`稚内郵便局${i}`, { exact: true }),
