@@ -18,6 +18,7 @@ const Pagination = (props: PaginationProps) => {
     <nav aria-label="pagination">
       <ul className="flex items-center gap-1">
         <PageLink
+          ariaLabel="最初のページへ"
           disabled={currentPage === 1}
           onClick={() => {
             onPageChange(1);
@@ -26,6 +27,7 @@ const Pagination = (props: PaginationProps) => {
           <MdKeyboardDoubleArrowLeft />
         </PageLink>
         <PageLink
+          ariaLabel="前のページへ"
           disabled={currentPage === 1}
           onClick={() => {
             onPageChange(Math.max(currentPage - 1, 1));
@@ -39,6 +41,7 @@ const Pagination = (props: PaginationProps) => {
         </div>
 
         <PageLink
+          ariaLabel="次のページへ"
           disabled={currentPage === pages}
           onClick={() => {
             onPageChange(Math.min(currentPage + 1, pages));
@@ -48,6 +51,7 @@ const Pagination = (props: PaginationProps) => {
         </PageLink>
 
         <PageLink
+          ariaLabel="最後のページへ"
           disabled={currentPage === pages}
           onClick={() => {
             onPageChange(pages);
@@ -61,16 +65,18 @@ const Pagination = (props: PaginationProps) => {
 };
 
 type PageLinkProps = {
+  ariaLabel: string;
   disabled?: boolean;
   onClick: () => void;
   children: ReactNode;
 };
 
 const PageLink = (props: PageLinkProps) => {
-  const { onClick, children, disabled } = props;
+  const { ariaLabel, onClick, children, disabled } = props;
   return (
     <li className="flex h-12 w-8 items-center justify-center">
       <button
+        aria-label={ariaLabel}
         onClick={onClick}
         className={clsx(
           "grid size-full place-items-center",

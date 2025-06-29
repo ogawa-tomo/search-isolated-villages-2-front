@@ -5,8 +5,6 @@ import type VillageSearchParams from "@/types/VillageSearchParams";
 
 export type FetchVillagesResponse = {
   villages: Village[];
-  pages: number;
-  per_page: number;
 };
 
 export const fetchVillages = async (
