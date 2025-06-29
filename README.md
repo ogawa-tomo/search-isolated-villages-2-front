@@ -86,7 +86,7 @@ $ npm run test
 テスト環境で立ち上げる
 
 ```
-$ NODE_ENV=test npm run dev
+$ npm run dev:test
 ```
 
 バックエンドのモックサーバーを立ち上げる
