@@ -9,7 +9,11 @@ export const HeaderMenu = () => {
 
   return (
     <>
-      <button className="p-1" onClick={() => setShow(!show)}>
+      <button
+        aria-label="メニュー"
+        className="p-1"
+        onClick={() => setShow(!show)}
+      >
         <div className="rounded bg-white p-1">
           <svg
             xmlns="http://www.w3.org/2000/svg"
