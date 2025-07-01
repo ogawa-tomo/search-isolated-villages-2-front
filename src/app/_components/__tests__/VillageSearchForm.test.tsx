@@ -7,12 +7,6 @@ import selectEvent from "react-select-event";
 const user = userEvent.setup();
 
 const mockFn = jest.fn();
-jest.mock("next/navigation", () => ({
-  ...jest.requireActual("next/navigation"),
-  useRouter: () => {
-    return { push: mockFn };
-  },
-}));
 
 HTMLDialogElement.prototype.showModal = jest.fn(function mock(
   this: HTMLDialogElement,
@@ -26,7 +20,7 @@ describe("VillageSearchForm", () => {
   });
 
   it("地域を選択しオプションはデフォルト値で検索する", async () => {
-    render(<VillageSearchForm />);
+    render(<VillageSearchForm onSearch={mockFn} />);
     const button = screen.getByRole("button", { name: "探索" });
     expect(button).toBeDisabled();
 
@@ -34,21 +28,20 @@ describe("VillageSearchForm", () => {
     await selectEvent.select(areaSelectBox, "青森県");
     expect(button).toBeEnabled();
 
-    const params = new URLSearchParams({
+    const params = {
       area: "aomori",
       populationLowerLimit: "1",
       populationUpperLimit: "10000",
       islandSetting: "exclude_islands",
       keywords: "",
-      page: "1",
-    });
+    };
 
     await user.click(button);
-    expect(mockFn).toHaveBeenCalledWith(`/?${params.toString()}`);
+    expect(mockFn).toHaveBeenCalledWith(params);
   });
 
   it("地域とオプションを選択して検索する", async () => {
-    render(<VillageSearchForm />);
+    render(<VillageSearchForm onSearch={mockFn} />);
 
     const areaSelectBox = screen.getByRole("combobox");
     await selectEvent.select(areaSelectBox, "青森県");
@@ -77,21 +70,20 @@ describe("VillageSearchForm", () => {
 
     await user.click(screen.getByRole("button", { name: "決定" }));
 
-    const params = new URLSearchParams({
+    const params = {
       area: "aomori",
       populationLowerLimit: "200",
       populationUpperLimit: "500",
       islandSetting: "only_islands",
       keywords: "佐井村",
-      page: "1",
-    });
+    };
 
     await user.click(screen.getByRole("button", { name: "探索" }));
-    expect(mockFn).toHaveBeenCalledWith(`/?${params.toString()}`);
+    expect(mockFn).toHaveBeenCalledWith(params);
   });
 
   it("地域とオプションを選択した後、デフォルト値に戻して検索する", async () => {
-    render(<VillageSearchForm />);
+    render(<VillageSearchForm onSearch={mockFn} />);
 
     const areaSelectBox = screen.getByRole("combobox");
     await selectEvent.select(areaSelectBox, "青森県");
@@ -123,17 +115,16 @@ describe("VillageSearchForm", () => {
     );
     await user.click(screen.getByRole("button", { name: "決定" }));
 
-    const params = new URLSearchParams({
+    const params = {
       area: "aomori",
       populationLowerLimit: "1",
       populationUpperLimit: "10000",
       islandSetting: "exclude_islands",
       keywords: "",
-      page: "1",
-    });
+    };
 
     await user.click(screen.getByRole("button", { name: "探索" }));
-    expect(mockFn).toHaveBeenCalledWith(`/?${params.toString()}`);
+    expect(mockFn).toHaveBeenCalledWith(params);
   });
 
   it("propsがフォームの初期値に反映されている", async () => {
@@ -147,6 +138,7 @@ describe("VillageSearchForm", () => {
           enName: "only_islands",
         }}
         inputKeywords="佐井村"
+        onSearch={mockFn}
       />,
     );
 
@@ -173,16 +165,15 @@ describe("VillageSearchForm", () => {
 
     await user.click(screen.getByRole("button", { name: "決定" }));
 
-    const params = new URLSearchParams({
+    const params = {
       area: "aomori",
       populationLowerLimit: "200",
       populationUpperLimit: "500",
       islandSetting: "only_islands",
       keywords: "佐井村",
-      page: "1",
-    });
+    };
 
     await user.click(screen.getByRole("button", { name: "探索" }));
-    expect(mockFn).toHaveBeenCalledWith(`/?${params.toString()}`);
+    expect(mockFn).toHaveBeenCalledWith(params);
   });
 });
