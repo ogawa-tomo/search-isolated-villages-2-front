@@ -14,7 +14,7 @@ test("デフォルトの集落検索", async ({ page }) => {
   }
   await expect(page.getByText("北海道 稚内市21 稚内21")).not.toBeVisible();
 
-  await page.getByRole("link", { name: "2" }).click();
+  await page.getByLabel("次のページへ").first().click();
   for (let i = 21; i <= 40; i++) {
     await expect(page.getByText(`北海道 稚内市${i} 稚内${i}`)).toBeVisible();
   }

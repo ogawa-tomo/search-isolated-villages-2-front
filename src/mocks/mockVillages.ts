@@ -12,23 +12,24 @@ if (!wiremockEndpoint) {
 const mock = new WireMock(wiremockEndpoint);
 
 export const mockVillages = async () => {
-  await mockHokkaido1();
-  await mockHokkaido2();
+  await mockHokkaido();
   await mockAomori();
 };
 
-const mockHokkaido1 = async () => {
+const mockHokkaido = async () => {
   const paramsForHokkaido1 = new URLSearchParams({
     area: "hokkaido",
     populationLowerLimit: "1",
     populationUpperLimit: "10000",
     islandSetting: "exclude_islands",
     keywords: "",
-    page: "1",
   });
-  const villagesForHokkaido1: Village[] = [];
-  for (let i = 1; i <= 20; i++) {
-    villagesForHokkaido1.push({
+  const villagesForHokkaido: Village[] = [];
+  for (let i = 1; i <= 40; i++) {
+    villagesForHokkaido.push({
+      type: "village",
+      latitude: 45.0,
+      longitude: 145.0,
       pref: "北海道",
       city: `稚内市${i}`,
       district: `稚内${i}`,
@@ -38,61 +39,26 @@ const mockHokkaido1 = async () => {
       mesh_map_path: "/hogehoge",
     });
   }
-  const requestForHokkaido1: IWireMockRequest = {
+  const requestForHokkaido: IWireMockRequest = {
     method: "GET",
     endpoint: `/api/result?${paramsForHokkaido1.toString()}`,
   };
   const mockedResponseForHokkaido1: IWireMockResponse = {
     status: 200,
     body: {
-      pages: 5,
-      per_page: 20,
-      villages: villagesForHokkaido1,
+      villages: villagesForHokkaido,
     },
   };
-  await mock.register(requestForHokkaido1, mockedResponseForHokkaido1);
-};
-
-const mockHokkaido2 = async () => {
-  const paramsForHokkaido2 = new URLSearchParams({
-    area: "hokkaido",
-    populationLowerLimit: "1",
-    populationUpperLimit: "10000",
-    islandSetting: "exclude_islands",
-    keywords: "",
-    page: "2",
-  });
-  const villagesForHokkaido2: Village[] = [];
-  for (let i = 21; i <= 40; i++) {
-    villagesForHokkaido2.push({
-      pref: "北海道",
-      city: `稚内市${i}`,
-      district: `稚内${i}`,
-      population: 20,
-      urban_point: 100,
-      google_map_url: "https://hogehoge.com",
-      mesh_map_path: "/hogehoge",
-    });
-  }
-  const requestForHokkaido2: IWireMockRequest = {
-    method: "GET",
-    endpoint: `/api/result?${paramsForHokkaido2.toString()}`,
-  };
-  const mockedResponseForHokkaido2: IWireMockResponse = {
-    status: 200,
-    body: {
-      pages: 5,
-      per_page: 20,
-      villages: villagesForHokkaido2,
-    },
-  };
-  await mock.register(requestForHokkaido2, mockedResponseForHokkaido2);
+  await mock.register(requestForHokkaido, mockedResponseForHokkaido1);
 };
 
 const mockAomori = async () => {
   const villagesForAomori: Village[] = [];
   for (let i = 1; i <= 20; i++) {
     villagesForAomori.push({
+      type: "village",
+      latitude: 45.0,
+      longitude: 145.0,
       pref: "青森県",
       city: `佐井村${i}`,
       district: `佐井${i}`,
@@ -108,7 +74,6 @@ const mockAomori = async () => {
     populationUpperLimit: "500",
     islandSetting: "include_islands",
     keywords: "佐井村",
-    page: "1",
   });
   const requestForAomori: IWireMockRequest = {
     method: "GET",
@@ -117,8 +82,6 @@ const mockAomori = async () => {
   const mockedResponseForAomori: IWireMockResponse = {
     status: 200,
     body: {
-      pages: 5,
-      per_page: 20,
       villages: villagesForAomori,
     },
   };

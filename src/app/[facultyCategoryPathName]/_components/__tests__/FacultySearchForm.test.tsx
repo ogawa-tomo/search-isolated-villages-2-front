@@ -7,12 +7,6 @@ import FacultySearchForm from "@/app/[facultyCategoryPathName]/_components/Facul
 const user = userEvent.setup();
 
 const mockFn = jest.fn();
-jest.mock("next/navigation", () => ({
-  ...jest.requireActual("next/navigation"),
-  useRouter: () => {
-    return { push: mockFn };
-  },
-}));
 
 HTMLDialogElement.prototype.showModal = jest.fn(function mock(
   this: HTMLDialogElement,
@@ -26,7 +20,7 @@ describe("FacultySearchForm", () => {
   });
 
   it("地域を選択しオプションはデフォルト値で検索する", async () => {
-    render(<FacultySearchForm facultyCategoryPathName="post_office" />);
+    render(<FacultySearchForm onSearch={mockFn} />);
     const button = screen.getByRole("button", { name: "探索" });
     expect(button).toBeDisabled();
 
@@ -34,19 +28,18 @@ describe("FacultySearchForm", () => {
     await selectEvent.select(areaSelectBox, "青森県");
     expect(button).toBeEnabled();
 
-    const params = new URLSearchParams({
+    const params = {
       area: "aomori",
       islandSetting: "exclude_islands",
       keywords: "",
-      page: "1",
-    });
+    };
 
     await user.click(button);
-    expect(mockFn).toHaveBeenCalledWith(`/post_office/?${params.toString()}`);
+    expect(mockFn).toHaveBeenCalledWith(params);
   });
 
   it("地域とオプションを選択して検索する", async () => {
-    render(<FacultySearchForm facultyCategoryPathName="post_office" />);
+    render(<FacultySearchForm onSearch={mockFn} />);
 
     const areaSelectBox = screen.getByRole("combobox");
     await selectEvent.select(areaSelectBox, "青森県");
@@ -63,19 +56,18 @@ describe("FacultySearchForm", () => {
 
     await user.click(screen.getByRole("button", { name: "決定" }));
 
-    const params = new URLSearchParams({
+    const params = {
       area: "aomori",
       islandSetting: "only_islands",
       keywords: "佐井村",
-      page: "1",
-    });
+    };
 
     await user.click(screen.getByRole("button", { name: "探索" }));
-    expect(mockFn).toHaveBeenCalledWith(`/post_office/?${params.toString()}`);
+    expect(mockFn).toHaveBeenCalledWith(params);
   });
 
   it("地域とオプションを選択した後、デフォルト値に戻して検索する", async () => {
-    render(<FacultySearchForm facultyCategoryPathName="post_office" />);
+    render(<FacultySearchForm onSearch={mockFn} />);
 
     const areaSelectBox = screen.getByRole("combobox");
     await selectEvent.select(areaSelectBox, "青森県");
@@ -95,21 +87,20 @@ describe("FacultySearchForm", () => {
     );
     await user.click(screen.getByRole("button", { name: "決定" }));
 
-    const params = new URLSearchParams({
+    const params = {
       area: "aomori",
       islandSetting: "exclude_islands",
       keywords: "",
-      page: "1",
-    });
+    };
 
     await user.click(screen.getByRole("button", { name: "探索" }));
-    expect(mockFn).toHaveBeenCalledWith(`/post_office/?${params.toString()}`);
+    expect(mockFn).toHaveBeenCalledWith(params);
   });
 
   it("propsがフォームの初期値に反映されている", async () => {
     render(
       <FacultySearchForm
-        facultyCategoryPathName="post_office"
+        onSearch={mockFn}
         inputArea={{ enName: "aomori", jpName: "青森県" }}
         inputIslandSetting={{
           jpName: "離島のみ",
@@ -132,14 +123,13 @@ describe("FacultySearchForm", () => {
 
     await user.click(screen.getByRole("button", { name: "決定" }));
 
-    const params = new URLSearchParams({
+    const params = {
       area: "aomori",
       islandSetting: "only_islands",
       keywords: "佐井村",
-      page: "1",
-    });
+    };
 
     await user.click(screen.getByRole("button", { name: "探索" }));
-    expect(mockFn).toHaveBeenCalledWith(`/post_office/?${params.toString()}`);
+    expect(mockFn).toHaveBeenCalledWith(params);
   });
 });

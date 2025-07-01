@@ -1,47 +1,67 @@
-import VillageList from "@/app/_components/VillageList";
-import VillageSearchForm from "@/app/_components/VillageSearchForm";
-import { getAreaByEnName } from "@/lib/areas";
-import { getIslandSettingByEnName } from "@/lib/islandSettings";
-import logo from "@/public/top_logo.png";
-import VillageSearchParams from "@/types/VillageSearchParams";
-import Image from "next/image";
+"use client";
 
-export default function Page({
-  searchParams,
-}: {
-  searchParams: VillageSearchParams;
-}) {
+import { Header } from "@/components/Header";
+import { VillageSearchModal } from "./_components/VillageSearchModal";
+import { useState } from "react";
+import VillageSearchParams, {
+  defaultVillageSearchParams,
+} from "@/types/VillageSearchParams";
+import Village from "@/types/Village";
+import { fetchVillages } from "@/lib/fetchVillages";
+import { Loading } from "@/components/Loading";
+import { ObjectView } from "@/components/ObjectView";
+
+export default function Page() {
+  const [searchParams, setSearchParams] = useState<VillageSearchParams>(
+    defaultVillageSearchParams,
+  );
+  const [showModal, setShowModal] = useState(true);
+  const [villages, setVillages] = useState<Village[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const searchVillages = (searchParams: VillageSearchParams) => {
+    setShowModal(false);
+    setIsLoading(true);
+    setSearchParams(searchParams);
+    fetchVillages(searchParams)
+      .then((result) => {
+        setVillages(result.villages);
+        setCurrentPage(1);
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
+
   return (
     <>
-      <h1>
-        <Image
-          className="m-auto"
-          src={logo}
-          alt="秘境集落探索ツール"
-          width={300}
-          priority
-        />
-      </h1>
-      <p className="mx-auto my-4 w-[280px] text-center leading-relaxed sm:w-[390px]">
-        秘境集落を探索し、人口分布データをもとに秘境度を評価して地域別に
-        <br className="sm:hidden" />
-        ランキングで出力します。
-      </p>
-      <VillageSearchForm
-        inputArea={
-          searchParams.area ? getAreaByEnName(searchParams.area) : undefined
-        }
-        inputPopulationLowerLimit={searchParams.populationLowerLimit}
-        inputPopulationUpperLimit={searchParams.populationUpperLimit}
-        inputIslandSetting={
-          searchParams.islandSetting
-            ? getIslandSettingByEnName(searchParams.islandSetting)
-            : undefined
-        }
-        inputKeywords={searchParams.keywords}
+      {isLoading && (
+        <div className="fixed z-50 flex h-screen w-screen items-center justify-center bg-white/50">
+          <Loading />
+        </div>
+      )}
+      <VillageSearchModal
+        searchParams={searchParams}
+        isOpen={showModal}
+        onSearch={searchVillages}
+        onClose={() => {
+          setShowModal(false);
+        }}
       />
-      <div className="h-5" />
-      {searchParams.area && <VillageList {...searchParams} />}
+      <div className="flex h-screen w-screen flex-col">
+        <Header onClickSearch={() => setShowModal(true)} />
+        <div className="grow overflow-y-auto">
+          <ObjectView
+            objects={villages}
+            currentPage={currentPage}
+            onPageChange={setCurrentPage}
+          />
+        </div>
+      </div>
     </>
   );
 }
