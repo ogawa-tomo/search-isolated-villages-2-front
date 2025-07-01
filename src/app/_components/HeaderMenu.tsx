@@ -10,10 +10,11 @@ export const HeaderMenu = () => {
   return (
     <>
       <button
-        className="btn btn-square btn-ghost fixed right-0 top-0 md:hidden"
+        aria-label="メニュー"
+        className="p-1"
         onClick={() => setShow(!show)}
       >
-        <div className="rounded border border-neutral-600 bg-white p-2">
+        <div className="rounded bg-white p-1">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -31,7 +32,7 @@ export const HeaderMenu = () => {
       </button>
       <div
         className={classNames(
-          "md:hidden bg-white top-0 fixed h-screen z-20 transition overflow-scroll",
+          "bg-white top-0 left-0 fixed h-screen z-20 transition overflow-scroll py-2",
           {
             "-translate-x-full": !show,
           },
@@ -41,7 +42,7 @@ export const HeaderMenu = () => {
       </div>
       <div
         className={classNames(
-          "md:hidden top-0 fixed w-screen h-screen z-10 bg-gray-500/75",
+          "top-0 left-0 fixed w-screen h-screen z-10 bg-white/50",
           {
             hidden: !show,
           },

@@ -4,6 +4,9 @@ export const getPostOffices = (number: number): Faculty[] => {
   const post_offices: Faculty[] = [];
   for (let i = 1; i <= number; i++) {
     const post_office: Faculty = {
+      type: "faculty",
+      latitude: 45,
+      longitude: 140,
       name: `稚内郵便局${i}`,
       pref: "北海道",
       city: "稚内市",
@@ -18,6 +21,9 @@ export const getPostOffices = (number: number): Faculty[] => {
 };
 
 export const postOffice: Faculty = {
+  type: "faculty",
+  latitude: 45,
+  longitude: 140,
   name: "稚内郵便局",
   pref: "北海道",
   city: "稚内市",

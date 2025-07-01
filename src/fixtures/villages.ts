@@ -4,6 +4,9 @@ export const getVillages = (number: number): Village[] => {
   const villages: Village[] = [];
   for (let i = 1; i <= number; i++) {
     const village: Village = {
+      type: "village",
+      latitude: 45,
+      longitude: 140,
       pref: "北海道",
       city: "稚内市",
       district: `地区${i}`,
@@ -18,6 +21,9 @@ export const getVillages = (number: number): Village[] => {
 };
 
 export const village: Village = {
+  type: "village",
+  latitude: 45,
+  longitude: 140,
   pref: "北海道",
   city: "稚内市",
   district: "稚内地区",

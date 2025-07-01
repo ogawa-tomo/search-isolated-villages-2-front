@@ -4,6 +4,7 @@ import { BlockMath, InlineMath } from "react-katex";
 import "katex/dist/katex.min.css";
 import { TextLink } from "@/components/TextLink";
 import { ReactNode } from "react";
+import { Header } from "@/components/Header";
 
 export const metadata = {
   title: "このツールについて",
@@ -11,6 +12,19 @@ export const metadata = {
 };
 
 export default function Page() {
+  return (
+    <>
+      <div className="sticky top-0 z-10">
+        <Header />
+      </div>
+      <div className="mx-auto w-[550px] p-4">
+        <Content />
+      </div>
+    </>
+  );
+}
+
+const Content = () => {
   return (
     <>
       <H1>このツールについて</H1>
@@ -267,7 +281,7 @@ export default function Page() {
       </P>
     </>
   );
-}
+};
 
 const H1 = ({ children }: { children: ReactNode }) => {
   return <h1 className="mb-6 text-3xl font-bold">{children}</h1>;

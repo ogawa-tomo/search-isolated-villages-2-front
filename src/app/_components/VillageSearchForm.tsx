@@ -1,7 +1,6 @@
 "use client";
 
 import { Dispatch, RefObject, SetStateAction, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
 import VillageSearchParams from "@/types/VillageSearchParams";
 import { AreaSelectBox } from "@/components/AreaSelectBox";
 import { IslandSettingFieldSet } from "@/components/IslandSettingFieldSet";
@@ -11,17 +10,13 @@ import { assertAreaEnName, getAreaByEnName } from "@/lib/areas";
 import { IslandSetting } from "@/types/IslandSetting";
 import { getIslandSettingByEnName } from "@/lib/islandSettings";
 
-const searchPath = (villageSearchParams: VillageSearchParams): string => {
-  const params = new URLSearchParams(villageSearchParams);
-  return `/?${params.toString()}`;
-};
-
 type Props = {
   inputArea?: Area;
   inputPopulationLowerLimit?: string;
   inputPopulationUpperLimit?: string;
   inputIslandSetting?: IslandSetting;
   inputKeywords?: string;
+  onSearch?: (searchParams: VillageSearchParams) => void;
 };
 
 const defaultValues: {
@@ -47,6 +42,7 @@ const VillageSearchForm = ({
   inputPopulationUpperLimit = defaultValues.populationUpperLimit,
   inputIslandSetting = defaultValues.islandSetting,
   inputKeywords = defaultValues.keywords,
+  onSearch,
 }: Props) => {
   const [area, setArea] = useState<Area | undefined>(inputArea);
   const [populationLowerLimit, setPopulationLowerLimit] = useState(
@@ -60,20 +56,18 @@ const VillageSearchForm = ({
   const [keywords, setKeywords] = useState(inputKeywords);
   const modalRef = useRef<HTMLDialogElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const router = useRouter();
+
+  const searchParams: VillageSearchParams = {
+    area: area?.enName ?? "",
+    populationLowerLimit,
+    populationUpperLimit,
+    islandSetting: islandSetting.enName,
+    keywords,
+  };
 
   const onButtonClick = () => {
     if (!area) return;
-    router.push(
-      searchPath({
-        area: area.enName,
-        populationLowerLimit,
-        populationUpperLimit,
-        islandSetting: islandSetting.enName,
-        keywords,
-        page: "1",
-      }),
-    );
+    onSearch && onSearch(searchParams);
   };
 
   const onAreaChange = (optionValue: string) => {

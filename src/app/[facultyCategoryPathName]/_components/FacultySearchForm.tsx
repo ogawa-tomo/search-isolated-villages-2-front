@@ -1,11 +1,9 @@
 "use client";
 
 import { Dispatch, SetStateAction, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
 import FacultySearchParams from "@/types/FacultySearchParams";
 import { AreaSelectBox } from "@/components/AreaSelectBox";
 import { IslandSettingFieldSet } from "@/components/IslandSettingFieldSet";
-import { FacultyCategoryPathName } from "@/types/FacultyCategory";
 import { DetailedConditionButton } from "../../../components/DetailedConditionButton";
 import { Area } from "@/types/Area";
 import { assertAreaEnName, getAreaByEnName } from "@/lib/areas";
@@ -13,10 +11,10 @@ import { IslandSetting } from "@/types/IslandSetting";
 import { getIslandSettingByEnName } from "@/lib/islandSettings";
 
 type Props = {
-  facultyCategoryPathName: FacultyCategoryPathName;
   inputArea?: Area;
   inputIslandSetting?: IslandSetting;
   inputKeywords?: string;
+  onSearch?: (searchParams: FacultySearchParams) => void;
 };
 
 const defaultValues: {
@@ -33,33 +31,26 @@ const defaultValues: {
 };
 
 const FacultySearchForm = ({
-  facultyCategoryPathName,
   inputArea = defaultValues.area,
   inputIslandSetting = defaultValues.islandSetting,
   inputKeywords = defaultValues.keywords,
+  onSearch,
 }: Props) => {
   const [area, setArea] = useState(inputArea);
   const [islandSetting, setIslandSetting] =
     useState<IslandSetting>(inputIslandSetting);
   const [keywords, setKeywords] = useState(inputKeywords);
   const modalRef = useRef<HTMLDialogElement>(null);
-  const router = useRouter();
 
-  const searchPath = (facultySearchParams: FacultySearchParams): string => {
-    const params = new URLSearchParams(facultySearchParams);
-    return `/${facultyCategoryPathName}/?${params.toString()}`;
+  const searchParams: FacultySearchParams = {
+    area: area?.enName ?? "",
+    islandSetting: islandSetting.enName,
+    keywords,
   };
 
   const onButtonClick = () => {
     if (!area) return;
-    router.push(
-      searchPath({
-        area: area.enName,
-        islandSetting: islandSetting.enName,
-        keywords,
-        page: "1",
-      }),
-    );
+    onSearch && onSearch(searchParams);
   };
 
   const onAreaChange = (optionValue: string) => {

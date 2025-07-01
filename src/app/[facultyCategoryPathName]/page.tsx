@@ -1,81 +1,95 @@
-import FacultyList from "@/app/[facultyCategoryPathName]/_components/FacultyList";
-import FacultySearchForm from "@/app/[facultyCategoryPathName]/_components/FacultySearchForm";
-import { getAreaByEnName } from "@/lib/areas";
-import {
-  facultyCategoryPathNames,
-  getFacultyCategoryFromPathName,
-} from "@/lib/facultyCategories";
-import { facultyCategoryLogo } from "@/lib/facultyCategoryLogo";
-import { getIslandSettingByEnName } from "@/lib/islandSettings";
+"use client";
+
+import { Loading } from "@/components/Loading";
+import { getFacultyCategoryFromPathName } from "@/lib/facultyCategories";
+import Faculty from "@/types/Faculty";
 import { FacultyCategoryPathName } from "@/types/FacultyCategory";
-import FacultySearchParams from "@/types/FacultySearchParams";
-import { Metadata } from "next";
-import Image from "next/image";
-import { notFound } from "next/navigation";
+import FacultySearchParams, {
+  defaultFacultySearchParams,
+} from "@/types/FacultySearchParams";
+import { fetchFaculties } from "@/lib/fetchFaculties";
+import { Header } from "@/components/Header";
+import { useState } from "react";
+import { FacultySearchModal } from "./_components/FacultySearchModal";
+import { ObjectView } from "@/components/ObjectView";
 
 type Props = {
   params: { facultyCategoryPathName: FacultyCategoryPathName };
-  searchParams: FacultySearchParams;
 };
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  if (!facultyCategoryPathNames.includes(params.facultyCategoryPathName)) {
-    notFound();
-  }
-  const facultyCategoryName = getFacultyCategoryFromPathName(
-    params.facultyCategoryPathName,
-  ).name;
-  return {
-    title: `秘境${facultyCategoryName}探索ツール`,
-    description: `秘境${facultyCategoryName}を探索し、人口分布データをもとに秘境度を評価して地域別にランキングで出力します。`,
-  };
-}
+// TODO: メタデータを生成する
+// export async function generateMetadata({ params }: Props): Promise<Metadata> {
+//   if (!facultyCategoryPathNames.includes(params.facultyCategoryPathName)) {
+//     notFound();
+//   }
+//   const facultyCategoryName = getFacultyCategoryFromPathName(
+//     params.facultyCategoryPathName
+//   ).name;
+//   return {
+//     title: `秘境${facultyCategoryName}探索ツール`,
+//     description: `秘境${facultyCategoryName}を探索し、人口分布データをもとに秘境度を評価して地域別にランキングで出力します。`,
+//   };
+// }
 
-export default function Page({ params, searchParams }: Props) {
-  const facultyCategoryName = getFacultyCategoryFromPathName(
+export default function Page({ params }: Props) {
+  const facultyCategory = getFacultyCategoryFromPathName(
     params.facultyCategoryPathName,
-  ).name;
+  );
+
+  const [searchParams, setSearchParams] = useState<FacultySearchParams>(
+    defaultFacultySearchParams,
+  );
+  const [showModal, setShowModal] = useState(true);
+  const [faculties, setFaculties] = useState<Faculty[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const searchFaculties = (searchParams: FacultySearchParams) => {
+    setShowModal(false);
+    setIsLoading(true);
+    setSearchParams(searchParams);
+    fetchFaculties({
+      facultyCategoryPathName: params.facultyCategoryPathName,
+      params: searchParams,
+    })
+      .then((result) => {
+        setFaculties(result.faculties);
+        setCurrentPage(1);
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
 
   return (
     <>
-      <h1 className="mb-4 text-center text-3xl font-bold">
-        秘境{facultyCategoryName}探索ツール
-      </h1>
-      <Image
-        className="m-auto"
-        src={facultyCategoryLogo(facultyCategoryName)}
-        alt={facultyCategoryName}
-        height={200}
-        priority
-      />
-      <p className="my-4 text-center leading-relaxed">
-        秘境{facultyCategoryName}を探索し、人口分布データを
-        <br className="sm:hidden" />
-        もとに秘境度を
-        <br className="hidden sm:block" />
-        評価して地域別に
-        <br className="sm:hidden" />
-        ランキングで出力します。
-      </p>
-      <FacultySearchForm
-        facultyCategoryPathName={params.facultyCategoryPathName}
-        inputArea={
-          searchParams.area ? getAreaByEnName(searchParams.area) : undefined
-        }
-        inputIslandSetting={
-          searchParams.islandSetting
-            ? getIslandSettingByEnName(searchParams.islandSetting)
-            : undefined
-        }
-        inputKeywords={searchParams.keywords}
-      />
-      <div className="h-5" />
-      {searchParams.area && (
-        <FacultyList
-          facultyCategoryPathName={params.facultyCategoryPathName}
-          searchParams={searchParams}
-        />
+      {isLoading && (
+        <div className="fixed z-50 flex h-screen w-screen items-center justify-center bg-white/50">
+          <Loading />
+        </div>
       )}
+      <FacultySearchModal
+        facultyCategory={facultyCategory}
+        searchParams={searchParams}
+        isOpen={showModal}
+        onSearch={searchFaculties}
+        onClose={() => {
+          setShowModal(false);
+        }}
+      />
+      <div className="flex h-screen w-screen flex-col">
+        <Header onClickSearch={() => setShowModal(true)} />
+        <div className="grow overflow-y-auto">
+          <ObjectView
+            objects={faculties}
+            currentPage={currentPage}
+            onPageChange={setCurrentPage}
+          />
+        </div>
+      </div>
     </>
   );
 }

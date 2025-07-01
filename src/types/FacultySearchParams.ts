@@ -5,7 +5,12 @@ type FacultySearchParams = {
   area: AreaEnName | "";
   islandSetting: IslandSettingEnName | "";
   keywords: string;
-  page: string;
+};
+
+export const defaultFacultySearchParams: FacultySearchParams = {
+  area: "",
+  islandSetting: "exclude_islands",
+  keywords: "",
 };
 
 export default FacultySearchParams;
