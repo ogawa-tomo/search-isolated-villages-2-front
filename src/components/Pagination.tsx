@@ -82,6 +82,7 @@ const PageLink = (props: PageLinkProps) => {
           "grid size-full place-items-center",
           disabled && "cursor-default text-gray-400",
         )}
+        disabled={disabled}
       >
         {children}
       </button>
