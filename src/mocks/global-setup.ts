@@ -1,4 +1,3 @@
-import { mockPostOfficeFortune } from "./mockPostOfficeFortune";
 import { mockPostOffices } from "./mockPostOffices";
 import { mockVillages } from "./mockVillages";
 
