@@ -115,8 +115,8 @@ export const BaseMap = ({ objects, selectedObject }: Props) => {
       <Map
         ref={mapRef}
         initialViewState={{
-          longitude: 135,
-          latitude: 35,
+          longitude: 139.752778,
+          latitude: 35.6825,
           zoom: 8,
         }}
         mapStyle={mapStyle}
