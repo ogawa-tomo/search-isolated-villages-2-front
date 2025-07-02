@@ -1,4 +1,4 @@
-import Map, { MapRef } from "react-map-gl/maplibre";
+import Map, { AttributionControl, MapRef } from "react-map-gl/maplibre";
 import "maplibre-gl/dist/maplibre-gl.css";
 import maplibregl from "maplibre-gl";
 import Village from "@/types/Village";
@@ -120,7 +120,10 @@ export const BaseMap = ({ objects, selectedObject }: Props) => {
           zoom: 8,
         }}
         mapStyle={mapStyle}
-      />
+        attributionControl={false}
+      >
+        <AttributionControl position="top-left" customAttribution="MapLibre" />
+      </Map>
     </>
   );
 };
