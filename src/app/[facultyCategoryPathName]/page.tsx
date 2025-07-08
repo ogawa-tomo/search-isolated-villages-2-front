@@ -11,7 +11,7 @@ import { fetchFaculties } from "@/lib/fetchFaculties";
 import { Header } from "@/components/Header";
 import { useState } from "react";
 import { FacultySearchModal } from "./_components/FacultySearchModal";
-import { ObjectView } from "@/components/ObjectView";
+import { PointView } from "@/components/PointView";
 
 type Props = {
   params: { facultyCategoryPathName: FacultyCategoryPathName };
@@ -83,8 +83,8 @@ export default function Page({ params }: Props) {
       <div className="flex h-screen w-screen flex-col">
         <Header onClickSearch={() => setShowModal(true)} />
         <div className="grow overflow-y-auto">
-          <ObjectView
-            objects={faculties}
+          <PointView
+            points={faculties}
             currentPage={currentPage}
             onPageChange={setCurrentPage}
           />

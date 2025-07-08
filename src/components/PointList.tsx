@@ -2,48 +2,48 @@ import Village from "@/types/Village";
 import Faculty from "@/types/Faculty";
 import clsx from "clsx";
 
-const objectKey = (object: Village | Faculty) => {
+const pointKey = (point: Village | Faculty) => {
   return (
-    object.pref +
-    object.city +
-    object.district +
-    object.urban_point +
-    object.google_map_url
+    point.pref +
+    point.city +
+    point.district +
+    point.urban_point +
+    point.google_map_url
   );
 };
 
 type Props = {
-  objects: Village[] | Faculty[];
-  selectedObject: Village | Faculty | undefined;
+  points: Village[] | Faculty[];
+  selectedPoint: Village | Faculty | undefined;
   rankStart: number;
-  onClickObject?: (object: Village | Faculty) => void;
+  onClickPoint?: (point: Village | Faculty) => void;
 };
 
-export const ObjectList = ({
-  objects,
+export const PointList = ({
+  points,
   rankStart,
-  selectedObject,
-  onClickObject,
+  selectedPoint,
+  onClickPoint,
 }: Props) => {
   return (
     <>
       <table className="flex w-80 border-collapse flex-col items-center">
         <tbody className="flex w-full flex-col items-center">
-          {objects.map((object, index) => (
+          {points.map((point, index) => (
             <tr
-              key={objectKey(object)}
+              key={pointKey(point)}
               className={clsx(
                 "flex w-full cursor-pointer items-center border border-slate-400",
-                selectedObject === object && "bg-slate-200",
+                selectedPoint === point && "bg-slate-200",
               )}
-              onClick={() => onClickObject?.(object)}
+              onClick={() => onClickPoint?.(point)}
             >
               <td className="w-1/6 text-center">
                 {rankStart + index}
                 <span className="text-xs">位</span>
               </td>
               <td className="w-5/6 p-2">
-                <ObjectCard object={object} />
+                <PointCard point={point} />
               </td>
             </tr>
           ))}
@@ -53,36 +53,36 @@ export const ObjectList = ({
   );
 };
 
-const ObjectCard = ({ object }: { object: Village | Faculty }) => {
-  switch (object.type) {
+const PointCard = ({ point }: { point: Village | Faculty }) => {
+  switch (point.type) {
     case "village":
       return (
         <div className="flex flex-col gap-2">
           <div className="text-xl font-bold">
-            {object.pref} {object.city} {object.district}
+            {point.pref} {point.city} {point.district}
           </div>
           <div className="text-sm">
-            <span>人口: {object.population}人</span>
+            <span>人口: {point.population}人</span>
             <div className="inline-block w-4" />
-            <span>都会度: {object.urban_point}</span>
+            <span>都会度: {point.urban_point}</span>
           </div>
         </div>
       );
     case "faculty":
       return (
         <div className="flex flex-col gap-2">
-          <div className="text-xl font-bold">{object.name}</div>
+          <div className="text-xl font-bold">{point.name}</div>
           <div className="text-sm">
             <span>
-              {object.pref} {object.city} {object.district}
+              {point.pref} {point.city} {point.district}
             </span>
           </div>
           <div className="text-sm">
-            <span>都会度: {object.urban_point}</span>
+            <span>都会度: {point.urban_point}</span>
           </div>
         </div>
       );
   }
 };
 
-export default ObjectList;
+export default PointList;
