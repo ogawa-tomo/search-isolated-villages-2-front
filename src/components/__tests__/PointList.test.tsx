@@ -1,22 +1,22 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { getVillages } from "@/fixtures/villages";
-import ObjectList from "@/components/ObjectList";
+import PointList from "@/components/PointList";
 import userEvent from "@testing-library/user-event";
 import { getPostOffices } from "@/fixtures/post_offices";
 
-describe("ObjectList", () => {
+describe("PointList", () => {
   it("shows villages", async () => {
-    const onClickObject = jest.fn();
+    const onClickPoint = jest.fn();
 
     const villages = getVillages(20);
 
     render(
-      <ObjectList
-        objects={villages}
-        selectedObject={undefined}
+      <PointList
+        points={villages}
+        selectedPoint={undefined}
         rankStart={1}
-        onClickObject={onClickObject}
+        onClickPoint={onClickPoint}
       />,
     );
 
@@ -31,20 +31,20 @@ describe("ObjectList", () => {
 
     const firstVillageElement = screen.getByText("北海道 稚内市 地区1");
     await userEvent.click(firstVillageElement);
-    expect(onClickObject).toHaveBeenCalledWith(villages[0]);
+    expect(onClickPoint).toHaveBeenCalledWith(villages[0]);
   });
 
   it("shows faculties", async () => {
-    const onClickObject = jest.fn();
+    const onClickPoint = jest.fn();
 
     const postOffices = getPostOffices(20);
 
     render(
-      <ObjectList
-        objects={postOffices}
-        selectedObject={undefined}
+      <PointList
+        points={postOffices}
+        selectedPoint={undefined}
         rankStart={1}
-        onClickObject={onClickObject}
+        onClickPoint={onClickPoint}
       />,
     );
 
@@ -58,6 +58,6 @@ describe("ObjectList", () => {
     const firstPostOfficeElement = screen.getByText("稚内郵便局1");
 
     await userEvent.click(firstPostOfficeElement);
-    expect(onClickObject).toHaveBeenCalledWith(postOffices[0]);
+    expect(onClickPoint).toHaveBeenCalledWith(postOffices[0]);
   });
 });

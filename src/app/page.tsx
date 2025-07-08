@@ -9,7 +9,7 @@ import VillageSearchParams, {
 import Village from "@/types/Village";
 import { fetchVillages } from "@/lib/fetchVillages";
 import { Loading } from "@/components/Loading";
-import { ObjectView } from "@/components/ObjectView";
+import { PointView } from "@/components/PointView";
 
 export default function Page() {
   const [searchParams, setSearchParams] = useState<VillageSearchParams>(
@@ -55,8 +55,8 @@ export default function Page() {
       <div className="flex h-screen w-screen flex-col">
         <Header onClickSearch={() => setShowModal(true)} />
         <div className="grow overflow-y-auto">
-          <ObjectView
-            objects={villages}
+          <PointView
+            points={villages}
             currentPage={currentPage}
             onPageChange={setCurrentPage}
           />

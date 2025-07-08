@@ -6,37 +6,37 @@ import { useEffect, useRef } from "react";
 import Faculty from "@/types/Faculty";
 import { mapStyle } from "@/lib/mapStyle";
 
-const googleMapLink = (object: Village | Faculty) => {
-  return `https://www.google.com/maps/@?api=1&map_action=map&center=${object.latitude}%2C${object.longitude}&zoom=15&basemap=satellite`;
+const googleMapLink = (point: Village | Faculty) => {
+  return `https://www.google.com/maps/@?api=1&map_action=map&center=${point.latitude}%2C${point.longitude}&zoom=15&basemap=satellite`;
 };
 
-const markerContent = (object: Village | Faculty) => {
-  switch (object.type) {
+const markerContent = (point: Village | Faculty) => {
+  switch (point.type) {
     case "village":
       return `
-        <p class="text-lg font-bold">${object.pref} ${object.city} ${object.district}</p>
-        <p>人口：${object.population}人</p>
-        <a href="${googleMapLink(object)}" target="_blank" class="text-blue-500">Google Map</a>
+        <p class="text-lg font-bold">${point.pref} ${point.city} ${point.district}</p>
+        <p>人口：${point.population}人</p>
+        <a href="${googleMapLink(point)}" target="_blank" class="text-blue-500">Google Map</a>
       `;
     case "faculty":
       return `
-        <p class="text-lg font-bold">${object.name}</p>
-        <p>${object.pref} ${object.city} ${object.district}</p>
-        <a href="${googleMapLink(object)}" target="_blank" class="text-blue-500">Google Map</a>
+        <p class="text-lg font-bold">${point.name}</p>
+        <p>${point.pref} ${point.city} ${point.district}</p>
+        <a href="${googleMapLink(point)}" target="_blank" class="text-blue-500">Google Map</a>
       `;
   }
 };
 
-const objectMarker = ({
-  object,
+const pointMarker = ({
+  point,
   map,
 }: {
-  object: Village | Faculty;
+  point: Village | Faculty;
   map: maplibregl.Map;
 }) => {
-  const popup = new maplibregl.Popup().setHTML(markerContent(object));
+  const popup = new maplibregl.Popup().setHTML(markerContent(point));
   const marker = new maplibregl.Marker()
-    .setLngLat([object.longitude, object.latitude])
+    .setLngLat([point.longitude, point.latitude])
     .addTo(map)
     .setPopup(popup);
   marker.getElement().style.cursor = "pointer";
@@ -44,55 +44,55 @@ const objectMarker = ({
 };
 
 type Props = {
-  objects: Village[] | Faculty[];
-  selectedObject: Village | Faculty | undefined;
+  points: Village[] | Faculty[];
+  selectedPoint: Village | Faculty | undefined;
 };
 
-export const BaseMap = ({ objects, selectedObject }: Props) => {
+export const BaseMap = ({ points, selectedPoint }: Props) => {
   const mapRef = useRef<MapRef>(null);
   const map = mapRef.current?.getMap();
   const markersRef = useRef<maplibregl.Marker[]>([]);
   const streetViewPluginRef = useRef<any>(null);
 
   useEffect(() => {
-    if (!map || objects.length === 0) return;
+    if (!map || points.length === 0) return;
 
     let totalLat = 0;
     let totalLng = 0;
-    objects.forEach((object) => {
-      totalLat += object.latitude;
-      totalLng += object.longitude;
+    points.forEach((point) => {
+      totalLat += point.latitude;
+      totalLng += point.longitude;
     });
 
-    map.panTo([totalLng / objects.length, totalLat / objects.length]);
-  }, [map, objects]);
+    map.panTo([totalLng / points.length, totalLat / points.length]);
+  }, [map, points]);
 
   useEffect(() => {
     if (!map) return;
 
     markersRef.current.forEach((marker) => marker.remove());
     const newMarkers: maplibregl.Marker[] = [];
-    objects.forEach((object) => {
-      newMarkers.push(objectMarker({ object, map }));
+    points.forEach((point) => {
+      newMarkers.push(pointMarker({ point, map }));
     });
     markersRef.current = newMarkers;
-  }, [map, objects]);
+  }, [map, points]);
 
   useEffect(() => {
-    if (!selectedObject || !map) return;
+    if (!selectedPoint || !map) return;
 
-    map.panTo([selectedObject.longitude, selectedObject.latitude]);
+    map.panTo([selectedPoint.longitude, selectedPoint.latitude]);
     markersRef.current.forEach((marker) => {
       if (
-        marker.getLngLat().lng === selectedObject.longitude &&
-        marker.getLngLat().lat === selectedObject.latitude
+        marker.getLngLat().lng === selectedPoint.longitude &&
+        marker.getLngLat().lat === selectedPoint.latitude
       ) {
         if (!marker.getPopup().isOpen()) marker.togglePopup();
       } else {
         if (marker.getPopup().isOpen()) marker.togglePopup();
       }
     });
-  }, [map, selectedObject]);
+  }, [map, selectedPoint]);
 
   useEffect(() => {
     if (!map) return;
