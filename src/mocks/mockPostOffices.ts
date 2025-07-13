@@ -11,17 +11,13 @@ if (!wiremockEndpoint) {
 }
 const mock = new WireMock(wiremockEndpoint);
 
-export const mockPostOffices = async () => {
-  await mockHokkaido();
-  await mockAomori();
-};
+const paramsForHokkaido = new URLSearchParams({
+  area: "hokkaido",
+  islandSetting: "exclude_islands",
+  keywords: "",
+});
 
-const mockHokkaido = async () => {
-  const paramsForHokkaido1 = new URLSearchParams({
-    area: "hokkaido",
-    islandSetting: "exclude_islands",
-    keywords: "",
-  });
+export const mockHokkaido = async () => {
   const postOfficesForHokkaido: Faculty[] = [];
   for (let i = 1; i <= 40; i++) {
     postOfficesForHokkaido.push({
@@ -39,7 +35,7 @@ const mockHokkaido = async () => {
   }
   const requestForHokkaido: IWireMockRequest = {
     method: "GET",
-    endpoint: `/api/post_office/result?${paramsForHokkaido1.toString()}`,
+    endpoint: `/api/post_office/result?${paramsForHokkaido.toString()}`,
   };
   const mockedResponseForHokkaido: IWireMockResponse = {
     status: 200,
@@ -50,7 +46,7 @@ const mockHokkaido = async () => {
   await mock.register(requestForHokkaido, mockedResponseForHokkaido);
 };
 
-const mockAomori = async () => {
+export const mockAomori = async () => {
   const postOfficesForAomori: Faculty[] = [];
   for (let i = 1; i <= 20; i++) {
     postOfficesForAomori.push({
@@ -82,4 +78,29 @@ const mockAomori = async () => {
     },
   };
   await mock.register(requestForAomori, mockedResponseForAomori);
+};
+
+export const mockHokkaidoError = async () => {
+  const requestForHokkaido: IWireMockRequest = {
+    method: "GET",
+    endpoint: `/api/post_office/result?${paramsForHokkaido.toString()}`,
+  };
+  const mockedResponseForHokkaido: IWireMockResponse = {
+    status: 500,
+  };
+  await mock.register(requestForHokkaido, mockedResponseForHokkaido);
+};
+
+export const mockHokkaidoEmpty = async () => {
+  const requestForHokkaido: IWireMockRequest = {
+    method: "GET",
+    endpoint: `/api/post_office/result?${paramsForHokkaido.toString()}`,
+  };
+  const mockedResponseForHokkaidoEmpty: IWireMockResponse = {
+    status: 200,
+    body: {
+      faculties: [],
+    },
+  };
+  await mock.register(requestForHokkaido, mockedResponseForHokkaidoEmpty);
 };

@@ -1,6 +1,13 @@
 import { test, expect } from "@playwright/test";
+import {
+  mockHokkaido,
+  mockAomori,
+  mockHokkaidoError,
+  mockHokkaidoEmpty,
+} from "@/mocks/mockPostOffices";
 
 test("デフォルトの郵便局検索", async ({ page }) => {
+  await mockHokkaido();
   await page.goto("/post_office");
   await expect(
     page.getByRole("heading", { name: "秘境郵便局探索ツール" }),
@@ -29,6 +36,7 @@ test("デフォルトの郵便局検索", async ({ page }) => {
 });
 
 test("パラメータを指定した郵便局検索", async ({ page }) => {
+  await mockAomori();
   await page.goto("/post_office");
   await expect(
     page.getByRole("heading", { name: "秘境郵便局探索ツール" }),
@@ -54,4 +62,38 @@ test("パラメータを指定した郵便局検索", async ({ page }) => {
     ).toBeVisible();
   }
   await expect(page.getByText("佐井郵便局21")).not.toBeVisible();
+});
+
+test("郵便局の取得に失敗した場合", async ({ page }) => {
+  await mockHokkaidoError();
+  await page.goto("/post_office");
+
+  await page.getByText("地域を選択").click();
+  const option = await page.waitForSelector(':text("北海道")');
+  await option.scrollIntoViewIfNeeded();
+  await option.click();
+  await page.getByRole("button", { name: "探索" }).click();
+
+  await expect(page.getByText("郵便局の取得に失敗しました。")).toBeVisible();
+
+  await page.getByRole("button", { name: "閉じる" }).click();
+  await expect(page.getByRole("button", { name: "探索" })).toBeEnabled();
+});
+
+test("条件に合う郵便局が見つからなかった場合", async ({ page }) => {
+  await mockHokkaidoEmpty();
+  await page.goto("/post_office");
+
+  await page.getByText("地域を選択").click();
+  const option = await page.waitForSelector(':text("北海道")');
+  await option.scrollIntoViewIfNeeded();
+  await option.click();
+  await page.getByRole("button", { name: "探索" }).click();
+
+  await expect(
+    page.getByText("条件に合う郵便局が見つかりませんでした。"),
+  ).toBeVisible();
+
+  await page.getByRole("button", { name: "閉じる" }).click();
+  await expect(page.getByRole("button", { name: "探索" })).toBeEnabled();
 });
