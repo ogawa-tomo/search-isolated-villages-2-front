@@ -11,19 +11,15 @@ if (!wiremockEndpoint) {
 }
 const mock = new WireMock(wiremockEndpoint);
 
-export const mockVillages = async () => {
-  await mockHokkaido();
-  await mockAomori();
-};
+const paramsForHokkaido1 = new URLSearchParams({
+  area: "hokkaido",
+  populationLowerLimit: "1",
+  populationUpperLimit: "10000",
+  islandSetting: "exclude_islands",
+  keywords: "",
+});
 
-const mockHokkaido = async () => {
-  const paramsForHokkaido1 = new URLSearchParams({
-    area: "hokkaido",
-    populationLowerLimit: "1",
-    populationUpperLimit: "10000",
-    islandSetting: "exclude_islands",
-    keywords: "",
-  });
+export const mockHokkaido = async () => {
   const villagesForHokkaido: Village[] = [];
   for (let i = 1; i <= 40; i++) {
     villagesForHokkaido.push({
@@ -52,7 +48,7 @@ const mockHokkaido = async () => {
   await mock.register(requestForHokkaido, mockedResponseForHokkaido1);
 };
 
-const mockAomori = async () => {
+export const mockAomori = async () => {
   const villagesForAomori: Village[] = [];
   for (let i = 1; i <= 20; i++) {
     villagesForAomori.push({
@@ -86,4 +82,29 @@ const mockAomori = async () => {
     },
   };
   await mock.register(requestForAomori, mockedResponseForAomori);
+};
+
+export const mockHokkaidoError = async () => {
+  const requestForHokkaido: IWireMockRequest = {
+    method: "GET",
+    endpoint: `/api/result?${paramsForHokkaido1.toString()}`,
+  };
+  const mockedResponseForHokkaido1: IWireMockResponse = {
+    status: 500,
+  };
+  await mock.register(requestForHokkaido, mockedResponseForHokkaido1);
+};
+
+export const mockHokkaidoEmpty = async () => {
+  const requestForHokkaido: IWireMockRequest = {
+    method: "GET",
+    endpoint: `/api/result?${paramsForHokkaido1.toString()}`,
+  };
+  const mockedResponseForHokkaidoEmpty: IWireMockResponse = {
+    status: 200,
+    body: {
+      villages: [],
+    },
+  };
+  await mock.register(requestForHokkaido, mockedResponseForHokkaidoEmpty);
 };
