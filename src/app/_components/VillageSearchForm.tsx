@@ -153,11 +153,27 @@ const DetailedConditionsModalContent = ({
     setKeywords(defaultValues.keywords);
   };
 
+  const [
+    populationLowerLimitErrorMessage,
+    setPopulationLowerLimitErrorMessage,
+  ] = useState<string>("");
+  const [
+    populationUpperLimitErrorMessage,
+    setPopulationUpperLimitErrorMessage,
+  ] = useState<string>("");
+
+  const valid =
+    Number(populationLowerLimit) <= Number(populationUpperLimit) &&
+    Number(populationLowerLimit) >= 1 &&
+    Number(populationUpperLimit) <= 10000;
+
   return (
     <>
       <div className="my-4 border-b-2 pb-2 text-2xl font-bold">詳細条件</div>
       <fieldset className="my-4 leading-loose">
-        <legend className="font-bold">人口</legend>
+        <legend>
+          <span className="font-bold">人口</span>
+        </legend>
         <div>
           <label>
             最小：
@@ -167,11 +183,32 @@ const DetailedConditionsModalContent = ({
               max="10000"
               className="input input-bordered input-sm w-24 rounded-md invalid:input-error"
               value={populationLowerLimit}
-              onChange={(e) => setPopulationLowerLimit(e.target.value)}
+              onChange={(e) => {
+                const value = e.target.value;
+                setPopulationLowerLimit(value);
+                if (value === "") {
+                  setPopulationLowerLimitErrorMessage("");
+                } else if (Number(value) < 1) {
+                  setPopulationLowerLimitErrorMessage("最小値が1人未満です");
+                } else if (Number(value) > 10000) {
+                  setPopulationLowerLimitErrorMessage(
+                    "最小値が10000人を超えています",
+                  );
+                } else if (Number(value) > Number(populationUpperLimit)) {
+                  setPopulationLowerLimitErrorMessage(
+                    "最小値が最大値より大きいです",
+                  );
+                } else {
+                  setPopulationLowerLimitErrorMessage("");
+                }
+              }}
               ref={inputRef}
             />
           </label>
           人
+          <span className="text-sm text-red-500">
+            &nbsp;{populationLowerLimitErrorMessage}
+          </span>
         </div>
         <div>
           <label>
@@ -182,11 +219,33 @@ const DetailedConditionsModalContent = ({
               max="10000"
               className="input input-bordered input-sm w-24 rounded-md invalid:input-error"
               value={populationUpperLimit}
-              onChange={(e) => setPopulationUpperLimit(e.target.value)}
+              onChange={(e) => {
+                const value = e.target.value;
+                setPopulationUpperLimit(value);
+                if (value === "") {
+                  setPopulationUpperLimitErrorMessage("");
+                } else if (Number(value) < 1) {
+                  setPopulationUpperLimitErrorMessage("最大値が1人未満です");
+                } else if (Number(value) > 10000) {
+                  setPopulationUpperLimitErrorMessage(
+                    "最大値が10000人を超えています",
+                  );
+                } else if (Number(value) < Number(populationLowerLimit)) {
+                  setPopulationUpperLimitErrorMessage(
+                    "最大値が最小値より小さいです",
+                  );
+                } else {
+                  setPopulationUpperLimitErrorMessage("");
+                }
+              }}
             />
           </label>
           人
+          <span className="text-sm text-red-500">
+            &nbsp;{populationUpperLimitErrorMessage}
+          </span>
         </div>
+        <p className="text-sm">※人口は1人〜10000人の範囲で入力してください</p>
       </fieldset>
       <div className="border border-dashed" />
       <div className="my-4">
@@ -215,7 +274,10 @@ const DetailedConditionsModalContent = ({
       <div className="flex justify-between">
         <div className="modal-action">
           <form method="dialog">
-            <button className="h-10 w-32 rounded bg-primary-color text-white">
+            <button
+              className="btn btn-primary h-10 w-32 rounded text-white"
+              disabled={!valid}
+            >
               決定
             </button>
           </form>
