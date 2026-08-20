@@ -75,6 +75,22 @@ NEXT_PUBLIC_VILLAGE_API_URL=http://172.29.128.1:5000
 
 ```
 
+### 集落・施設データの同期
+
+バックエンドリポジトリ（[search-isolated-villages-2](https://github.com/ogawa-tomo/search-isolated-villages-2)）でCSVを再生成した際は、`src/data`配下のJSONを更新する。
+
+`.env.local`にバックエンドリポジトリの`input_data`ディレクトリを指定する。
+
+```
+BACKEND_INPUT_DATA_DIR=/path/to/search-isolated-villages-2/input_data
+```
+
+以下のコマンドで同期する。
+
+```
+$ npm run sync-data
+```
+
 ## コンポーネントテスト
 
 ```

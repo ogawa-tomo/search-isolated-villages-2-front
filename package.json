@@ -10,7 +10,8 @@
     "test": "jest",
     "format": "prettier --write .",
     "prepare": "husky",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "sync-data": "tsx scripts/sync-data.ts"
   },
   "lint-staged": {
     "*.{ts,tsx}": "prettier --write"
@@ -26,6 +27,7 @@
     "@types/react-katex": "^3.0.4",
     "@types/react-modal": "^3.16.3",
     "autoprefixer": "^10.4.15",
+    "csv-parse": "^7.0.2",
     "daisyui": "^3.7.7",
     "eslint": "^8.57.1",
     "eslint-config-next": "^14.2.5",
@@ -41,6 +43,7 @@
     "react-select-event": "^5.5.1",
     "tailwindcss": "^3.3.3",
     "ts-jest": "^29.1.1",
+    "tsx": "^4.23.12",
     "typescript": "^5.1.6"
   },
   "dependencies": {
