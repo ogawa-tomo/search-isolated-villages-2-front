@@ -19,5 +19,5 @@ const customJestConfig = {
 module.exports = async () => ({
   ...(await createJestConfig(customJestConfig)()),
   transformIgnorePatterns: [`node_modules/(?!(${esmPackages.join("|")})/)`],
-  testMatch: ["**/__tests__/**/*.test.tsx"],
+  testMatch: ["**/__tests__/**/*.test.{ts,tsx}"],
 });
