@@ -3,6 +3,7 @@ import { Noto_Sans_JP } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 
 export const metadata = {
+  metadataBase: new URL("https://search-isolated-villages.vercel.app"),
   title: "秘境集落探索ツール",
   description:
     "秘境集落を探索し、人口分布データをもとに秘境度を評価して地域別にランキングで出力します。",
