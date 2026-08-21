@@ -11,7 +11,6 @@ Next.jsで構築された秘境集落探索ツールのフロントエンドで�
 ### セットアップと開発
 - `npm install` - 依存関係をインストール
 - `npm run dev` - 開発サーバーを http://localhost:3000 で起動
-- `npm run dev:test` - テストモードで開発サーバーを起動
 - `npm run dev:https` - HTTPSで開発サーバーを起動
 
 ### ビルドと本番環境
@@ -28,10 +27,7 @@ Next.jsで構築された秘境集落探索ツールのフロントエンドで�
 - `npm run test` - Jestでユニット/コンポーネントテストを実行（`**/__tests__/**/*.test.tsx`にマッチ）
 - `npx playwright test` - PlaywrightでE2Eテストを実行（`**/*.spec.ts`にマッチ）
 
-E2Eテストを実行するには：
-1. テスト環境を開始: `npm run dev:test`
-2. モックバックエンドを開始: `docker-compose up -d` (WireMockサーバー)
-3. テストを実行: `npx playwright test`
+`npx playwright test`実行時、Playwrightが自動で本番ビルド（`npm run build && npm run start`）を立ち上げてテストするため、事前準備は不要。
 
 ## アーキテクチャ概要
 
@@ -40,14 +36,14 @@ E2Eテストを実行するには：
 - **状態管理**: ローカル状態にReact hooks、グローバル状態管理ライブラリは不使用
 - **スタイリング**: daisyUIコンポーネント付きのTailwind CSS
 - **マップ**: カスタムマーカーとポップアップ付きのMapLibre GL JS
-- **API統合**: バックエンド通信にサーバーアクションを使用
+- **データ・検索処理**: 外部バックエンドを持たず、リポジトリにコミットされたJSONデータをサーバーアクションが直接読み込んでフィルタ処理する
 
 ### 主要ディレクトリ
 - `src/app/` - Next.js App Routerのページとレイアウト
 - `src/components/` - 再利用可能なUIコンポーネント
-- `src/lib/` - ユーティリティ関数とAPI呼び出し
+- `src/lib/` - ユーティリティ関数、フィルタロジック（`src/lib/filters/`）、サーバーアクション（`fetchVillages`など）
 - `src/types/` - TypeScript型定義
-- `src/mocks/` - テストモックとフィクスチャ
+- `src/data/` - 検索対象の集落・施設データ（JSON、コミット済み）。`scripts/sync-data.ts`で元となるバックエンドリポジトリのCSVから生成する
 
 ### データフロー
 1. ユーザーがモーダル（`VillageSearchModal`または`FacultySearchModal`）で検索
@@ -62,20 +58,18 @@ E2Eテストを実行するには：
 - 両方のポイント型は共通の地理的フィールドを共有し、型固有のプロパティで拡張
 
 ### 外部依存関係
-- **バックエンドAPI**: 別途バックエンドサーバーが必要（セットアップはREADMEを参照）
 - **Google Maps API**: ストリートビュー統合に必要
 - **MapTiler API**: マップタイルに必要
-- **WireMock**: E2Eテストのモックに使用
 
 ### 環境設定
 `.env.local`に必要な環境変数：
 ```
-NEXT_PUBLIC_VILLAGE_API_URL=http://localhost:5000
 NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=your_google_maps_api_key
 NEXT_PUBLIC_MAP_TILER_API_KEY=your_map_tiler_api_key
 ```
 
+集落・施設データを同期する場合（`npm run sync-data`）は、加えてバックエンドリポジトリの`input_data`ディレクトリを指定する`BACKEND_INPUT_DATA_DIR`が必要。
+
 ### テスト戦略
-- **Jest**: `__tests__/`ディレクトリ内のコンポーネントとユーティリティ関数のテスト
-- **Playwright**: WireMockを使用したバックエンドモックによるE2Eテスト
-- **テスト環境**: `NODE_ENV=test`による独立したテストモード
+- **Jest**: `__tests__/`ディレクトリ内のコンポーネントとユーティリティ関数のテスト。取得失敗・該当なしなど、実データに依存させたくないケースはここでサーバーアクションを`jest.mock`してテストする
+- **Playwright**: コミット済みの実データに対して、代表的なハッピーパス（検索→結果表示→ページネーション）のみを検証するE2Eテスト

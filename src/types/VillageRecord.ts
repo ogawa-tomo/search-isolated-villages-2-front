@@ -1,15 +1,15 @@
 import { PrefectureJpName } from "./Area";
 
-type Village = {
-  type: "village";
+type VillageRecord = {
   pref: PrefectureJpName;
   city: string;
   district: string;
-  population: number;
   latitude: number;
   longitude: number;
-  urban_point: number;
-  google_map_url: string;
+  population: number;
+  size: number;
+  urbanPoint: number;
+  isIsland: boolean;
 };
 
-export default Village;
+export default VillageRecord;

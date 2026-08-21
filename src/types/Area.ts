@@ -14,6 +14,10 @@ export type PrefectureJpName = (typeof prefectureJpNames)[number];
 
 export type Region = (typeof regions)[number];
 
+const regionJpNames = regions.map((region) => region.jpName);
+
+export type RegionJpName = (typeof regionJpNames)[number];
+
 export type Area = (typeof areas)[number];
 
 const areaJpNames = areas.map((area) => area.jpName);
