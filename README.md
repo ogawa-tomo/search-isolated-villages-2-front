@@ -4,7 +4,7 @@
 
 ## 概要
 
-[秘境集落探索ツール](https://search-isolated-villages.com/)のフロントエンドです。
+[秘境集落探索ツール](https://search-isolated-villages.vercel.app/)のフロントエンドです。
 
 秘境集落や秘境施設を人口分布データに基づいた指標により地域ごとにランキングで出力し、それぞれの集落・施設を地図上で閲覧することができます。
 
