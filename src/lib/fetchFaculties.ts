@@ -1,13 +1,16 @@
 "use server";
 
+import { assertAreaEnName } from "@/lib/areas";
+import { facultyDataByPathName } from "@/lib/facultyData";
+import { filterFaculties } from "@/lib/filters/filterFaculties";
+import { assertIslandSettingEnName } from "@/lib/islandSettings";
+import { toFaculty } from "@/lib/toFaculty";
 import Faculty from "@/types/Faculty";
 import { FacultyCategoryPathName } from "@/types/FacultyCategory";
 import type FacultySearchParams from "@/types/FacultySearchParams";
 
 type Response = {
   faculties: Faculty[];
-  pages: number;
-  per_page: number;
 };
 
 export const fetchFaculties = async ({
@@ -17,12 +20,19 @@ export const fetchFaculties = async ({
   facultyCategoryPathName: FacultyCategoryPathName;
   params: FacultySearchParams;
 }): Promise<Response> => {
-  const query = new URLSearchParams(params);
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_VILLAGE_API_URL}/api/${
-      facultyCategoryPathName
-    }/result?${query.toString()}`,
+  assertAreaEnName(params.area);
+  assertIslandSettingEnName(params.islandSetting);
+
+  const filteredFaculties = filterFaculties(
+    facultyDataByPathName[facultyCategoryPathName],
+    {
+      area: params.area,
+      islandSetting: params.islandSetting,
+      keywords: params.keywords,
+    },
   );
-  if (!response.ok) throw response;
-  return response.json();
+
+  return {
+    faculties: filteredFaculties.map(toFaculty),
+  };
 };

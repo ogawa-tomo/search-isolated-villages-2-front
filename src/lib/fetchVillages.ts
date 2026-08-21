@@ -1,7 +1,15 @@
 "use server";
 
+import villagesData from "@/data/villages.json";
+import { assertAreaEnName } from "@/lib/areas";
+import { filterVillages } from "@/lib/filters/filterVillages";
+import { assertIslandSettingEnName } from "@/lib/islandSettings";
+import { toVillage } from "@/lib/toVillage";
 import Village from "@/types/Village";
 import type VillageSearchParams from "@/types/VillageSearchParams";
+import VillageRecord from "@/types/VillageRecord";
+
+const villages = villagesData as VillageRecord[];
 
 export type FetchVillagesResponse = {
   villages: Village[];
@@ -10,10 +18,18 @@ export type FetchVillagesResponse = {
 export const fetchVillages = async (
   params: VillageSearchParams,
 ): Promise<FetchVillagesResponse> => {
-  const query = new URLSearchParams(params);
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_VILLAGE_API_URL}/api/result?${query.toString()}`,
-  );
-  if (!response.ok) throw response;
-  return response.json();
+  assertAreaEnName(params.area);
+  assertIslandSettingEnName(params.islandSetting);
+
+  const filteredVillages = filterVillages(villages, {
+    area: params.area,
+    islandSetting: params.islandSetting,
+    keywords: params.keywords,
+    populationLowerLimit: Number(params.populationLowerLimit),
+    populationUpperLimit: Number(params.populationUpperLimit),
+  });
+
+  return {
+    villages: filteredVillages.map(toVillage),
+  };
 };

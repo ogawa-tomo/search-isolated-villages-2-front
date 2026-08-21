@@ -13,7 +13,6 @@ export const getVillages = (number: number): Village[] => {
       population: 20,
       urban_point: 100,
       google_map_url: "https://hogehoge.com",
-      mesh_map_path: "/hogehoge",
     };
     villages.push(village);
   }
@@ -30,5 +29,4 @@ export const village: Village = {
   population: 20,
   urban_point: 100,
   google_map_url: "https://hogehoge.com",
-  mesh_map_path: "/hogehoge",
 };

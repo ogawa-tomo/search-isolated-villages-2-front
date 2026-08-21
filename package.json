@@ -1,7 +1,6 @@
 {
   "scripts": {
     "dev": "next dev",
-    "dev:test": "NODE_ENV=test next dev",
     "dev:https": "next dev --experimental-https",
     "build": "next build",
     "start": "next start",
@@ -68,7 +67,6 @@
     "react-modal-sheet": "^4.4.0",
     "react-responsive": "^10.0.1",
     "react-select": "^5.8.0",
-    "swr": "^2.2.5",
-    "wiremock-captain": "^3.2.0"
+    "swr": "^2.2.5"
   }
 }

@@ -13,7 +13,6 @@ export const getPostOffices = (number: number): Faculty[] => {
       district: `地区${i}`,
       urban_point: 100,
       google_map_url: "https://hogehoge.com",
-      mesh_map_path: "/hogehoge",
     };
     post_offices.push(post_office);
   }
@@ -30,5 +29,4 @@ export const postOffice: Faculty = {
   district: "稚内地区",
   urban_point: 100,
   google_map_url: "https://hogehoge.com",
-  mesh_map_path: "/hogehoge",
 };
