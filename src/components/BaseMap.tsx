@@ -6,23 +6,19 @@ import { useEffect, useRef } from "react";
 import Faculty from "@/types/Faculty";
 import { mapStyle } from "@/lib/mapStyle";
 
-const googleMapLink = (point: Village | Faculty) => {
-  return `https://www.google.com/maps/@?api=1&map_action=map&center=${point.latitude}%2C${point.longitude}&zoom=15&basemap=satellite`;
-};
-
 const markerContent = (point: Village | Faculty) => {
   switch (point.type) {
     case "village":
       return `
         <p class="text-lg font-bold">${point.pref} ${point.city} ${point.district}</p>
         <p>人口：${point.population}人</p>
-        <a href="${googleMapLink(point)}" target="_blank" class="text-blue-500">Google Map</a>
+        <a href="${point.google_map_url}" target="_blank" class="text-blue-500">Google Map</a>
       `;
     case "faculty":
       return `
         <p class="text-lg font-bold">${point.name}</p>
         <p>${point.pref} ${point.city} ${point.district}</p>
-        <a href="${googleMapLink(point)}" target="_blank" class="text-blue-500">Google Map</a>
+        <a href="${point.google_map_url}" target="_blank" class="text-blue-500">Google Map</a>
       `;
   }
 };
