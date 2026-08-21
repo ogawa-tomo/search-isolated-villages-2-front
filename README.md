@@ -4,11 +4,11 @@
 
 ## 概要
 
-[秘境集落探索ツール](https://search-isolated-villages.vercel.app/)のフロントエンドです。
+[秘境集落探索ツール](https://search-isolated-villages.vercel.app/)のソースコードです。
 
 秘境集落や秘境施設を人口分布データに基づいた指標により地域ごとにランキングで出力し、それぞれの集落・施設を地図上で閲覧することができます。
 
-[旧サービス](https://search-isolated-villages-2.herokuapp.com/)を以前より公開していましたが、そのフロントエンドを置き換えるプロジェクトです。旧サービスは常時稼働のバックエンドサーバとして運用していましたが、現在は廃止し、検索対象データをこのリポジトリにJSONとしてコミットして持つ構成に変更しています（[search-isolated-villages-2](https://github.com/ogawa-tomo/search-isolated-villages-2)リポジトリは、そのJSONの元となるCSVを生成するバッチ処理としてのみ残しています）。
+[旧サービス](https://search-isolated-villages-2.herokuapp.com/)を以前より公開していましたが、そのフロントエンドを置き換えるプロジェクトとして作成しました。旧サービスは常時稼働のバックエンドサーバとして運用していましたが、現在は廃止し、検索対象データをこのリポジトリにJSONとしてコミットして持つ構成に変更しています（[search-isolated-villages-2](https://github.com/ogawa-tomo/search-isolated-villages-2)リポジトリは、そのJSONの元となるCSVを生成するバッチ処理としてのみ残しています）。
 
 ## 主な技術スタック
 
@@ -46,16 +46,16 @@ NEXT_PUBLIC_MAP_TILER_API_KEY=your_map_tiler_api_key
 セットアップ
 
 ```
-$ npm install
+npm install
 ```
 
 フロントエンドサーバを立ち上げる
 
 ```
-$ npm run dev
+npm run dev
 ```
 
-http://localhost:3000 にアクセス
+<http://localhost:3000> にアクセス
 
 ### 集落・施設データの同期
 
@@ -70,19 +70,19 @@ BACKEND_INPUT_DATA_DIR=/path/to/search-isolated-villages-2/input_data
 以下のコマンドで同期する。
 
 ```
-$ npm run sync-data
+npm run sync-data
 ```
 
 ## コンポーネントテスト
 
 ```
-$ npm run test
+npm run test
 ```
 
 ## E2E テスト
 
 ```
-$ npx playwright test
+npx playwright test
 ```
 
 本番ビルド（`npm run build && npm run start`）を自動で立ち上げてテストするため、事前準備は不要。
