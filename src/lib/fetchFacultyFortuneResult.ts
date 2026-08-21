@@ -1,17 +1,22 @@
 "use server";
 
-import { FacultyCategoryPathName } from "@/types/FacultyCategory";
+import { facultyDataByPathName } from "@/lib/facultyData";
+import { isFortuneFaculty } from "@/lib/filters/isFortuneFaculty";
+import { toFaculty } from "@/lib/toFaculty";
 import Faculty from "@/types/Faculty";
+import { FacultyCategoryPathName } from "@/types/FacultyCategory";
 
 export const fetchFacultyFortuneResult = async (
   facultyCategoryPathName: FacultyCategoryPathName,
 ): Promise<Faculty> => {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_VILLAGE_API_URL}/api/fortune/${facultyCategoryPathName}/result`,
-    {
-      cache: "no-store",
-    },
-  );
-  if (!response.ok) throw response;
-  return response.json();
+  const fortuneFaculties =
+    facultyDataByPathName[facultyCategoryPathName].filter(isFortuneFaculty);
+  const faculty =
+    fortuneFaculties[Math.floor(Math.random() * fortuneFaculties.length)];
+
+  if (faculty === undefined) {
+    throw new Error("占い対象の施設が見つかりませんでした");
+  }
+
+  return toFaculty(faculty);
 };
