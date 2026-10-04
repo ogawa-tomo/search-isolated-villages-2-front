@@ -1,5 +1,6 @@
 import Image from "next/image";
 import localImage from "@/public/shiiba.png";
+import tokai_hikyo from "@/public/tokai_hikyo.png";
 import { BlockMath, InlineMath } from "react-katex";
 import "katex/dist/katex.min.css";
 import { TextLink } from "@/components/TextLink";
@@ -32,13 +33,6 @@ const Content = () => {
       <H2>概要</H2>
       <P>
         秘境集落もしくは秘境施設を探索し、人口分布データをもとに秘境度を評価して地域別にランキングで出力します。
-      </P>
-      <P>
-        詳しい紹介は下記のnote記事を参照。
-        <br />
-        <TextLink href="https" external>
-          秘境集落探索ツールを作ったので紹介する
-        </TextLink>
       </P>
 
       <H2>探索方法</H2>
@@ -92,6 +86,9 @@ const Content = () => {
       </div>
       <P>
         つまり、より近くにより多くの人口があれば都会であり、その逆であれば秘境である。
+      </P>
+      <P>
+        <Image src={tokai_hikyo} alt="village" />
       </P>
       <P>
         <Annotation>
@@ -228,33 +225,11 @@ const Content = () => {
           産総研地質調査総合センター　地熱情報データベース
         </TextLink>
       </P>
-      <P>
-        <TextLink
-          href="http://umap.openstreetmap.fr/ja/map/r774_368811"
-          external
-        >
-          R774@まとめ屋さんの訪問先まとめマップ
-        </TextLink>
-        <br />
-        774@まとめ屋さん：
-        <TextLink href="https://twitter.com/kendou774" external>
-          @kendou774
-        </TextLink>
-        <br />
-        （作者：
-        <TextLink
-          href="http://umap.openstreetmap.fr/ja/user/muramototomoya/"
-          external
-        >
-          muramototomoya
-        </TextLink>
-        さん）
-      </P>
 
       <H2>ソースコード</H2>
       <UL>
         <li>
-          フロントエンド：
+          アプリケーション：
           <TextLink
             href="https://github.com/ogawa-tomo/search-isolated-villages-2-front"
             external
@@ -263,7 +238,7 @@ const Content = () => {
           </TextLink>
         </li>
         <li>
-          バックエンド：
+          データ生成：
           <TextLink
             href="https://github.com/ogawa-tomo/search-isolated-villages-2"
             external
